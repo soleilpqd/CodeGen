@@ -8,66 +8,79 @@
 //  Color name matching based on http://chir.ag/projects/name-that-color
 
 import Foundation
+import AppKit
 
 struct XCColorComponents {
 
-    var colorSpace: String?
-
-    var red: Float
-    var green: Float
-    var blue: Float
-    var alpha: Float
-
-    var hue: Float = 0
-    var saturation: Float = 0
-    var lightness: Float = 0
-
-    init(red: Float, green: Float, blue: Float, alpha: Float = 1.0) {
-        self.red = red
-        self.green = green
-        self.blue = blue
-        self.alpha = alpha
-        makeHSL()
+    enum ColorSpace: String {
+        case srgb
+        case displayP3 = "display-p3"
+        case extendedSRGB = "extended-srgb"
+        case extendedLinearSRGB = "extended-linear-srgb"
+        case grayGamma22 = "gray-gamma-22"
+        case extendedGray = "extended-gray"
     }
 
-    init(red: UInt8, green: UInt8, blue: UInt8) {
-        self.red = Float(red) / 255
-        self.green = Float(green) / 255
-        self.blue = Float(blue) / 255
-        self.alpha = 1.0
-        makeHSL()
+    private(set) var colorSpace: ColorSpace
+    private(set) var color: NSColor
+
+    init?(space: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) {
+        if let clSpace = ColorSpace(rawValue: space) {
+            colorSpace = clSpace
+            switch clSpace {
+            case .srgb, .extendedSRGB, .extendedLinearSRGB:
+                color = NSColor(srgbRed: red, green: green, blue: blue, alpha: alpha)
+            case .displayP3:
+                color = NSColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)
+            case .grayGamma22:
+                color = NSColor(genericGamma22White: white, alpha: alpha)
+            case .extendedGray:
+                color = NSColor(calibratedWhite: white, alpha: alpha)
+            }
+        } else {
+            return nil
+        }
+    }
+
+    init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        colorSpace = .srgb
+        color = NSColor(srgbRed: red, green: green, blue: blue, alpha: 1.0)
     }
 
     static func ==(left: XCColorComponents, right: XCColorComponents) -> Bool {
-        return left.red == right.red && left.green == right.green && left.blue == right.blue
-    }
-
-    mutating func makeHSL() {
-        let minVal = min(red, min(green, blue))
-        let maxVal = max(red, max(green, blue))
-        let delta = Float(maxVal) - Float(minVal)
-        let l = (Float(maxVal) + Float(minVal)) / 2.0
-        var s: Float = 0
-        if l > 0 && l < 1 {
-            s = delta / (l < 0.5 ? (2 * l) : (2 - 2 * l))
-        }
-        var h: Float = 0
-        if delta > 0 {
-            if maxVal == red && maxVal != green { h += (Float(green) - Float(blue)) / delta }
-            if maxVal == green && maxVal != blue { h += (2 + (Float(blue) - Float(red)) / delta) }
-            if maxVal == blue && maxVal != red { h += (4 + (Float(red) - Float(green)) / delta) }
-            h /= 6;
-        }
-        hue = h
-        saturation = s
-        lightness = l
+        return left.color.isEqual(right)
     }
 
     var description: String {
-        let r = UInt8(red * 255)
-        let g = UInt8(green * 255)
-        let b = UInt8(blue * 255)
-        return String(format: "#%02X%02X%02X", r, g, b)
+        let a = UInt8(color.alphaComponent * 100)
+        switch colorSpace {
+        case .extendedGray, .grayGamma22:
+            let w = UInt8(color.whiteComponent * 255)
+            return String(format: "#%02X %d%%", w, a )
+        default:
+            let r = UInt8(color.redComponent * 255)
+            let g = UInt8(color.greenComponent * 255)
+            let b = UInt8(color.blueComponent * 255)
+            return String(format: "#%02X%02X%02X %d%%", r, g, b, a )
+        }
+    }
+
+    func toRGBAColor() -> NSColor {
+        switch colorSpace {
+        case .grayGamma22, .extendedGray:
+            return color.usingColorSpaceName(.calibratedRGB)!
+        default:
+            return color
+        }
+    }
+
+    func getComponents() -> (CGFloat, CGFloat, CGFloat, CGFloat, CGFloat) {
+        switch colorSpace {
+        case .grayGamma22, .extendedGray:
+            return (0, 0, 0, color.whiteComponent, color.alphaComponent)
+        default:
+            return (color.redComponent, color.greenComponent, color.blueComponent, 0, color.alphaComponent)
+        }
     }
 
 }
@@ -103,17 +116,19 @@ class XCColor {
 
     class func findColorNameMatch(_ color: XCColorComponents) -> (String, XCColorComponents)? {
         var cl: String?
-        var ndf1: Float = 0
-        var ndf2: Float = 0
-        var ndf: Float = 0;
-        var df: Float = -1
+        var ndf1: CGFloat = 0
+        var ndf2: CGFloat = 0
+        var ndf: CGFloat = 0;
+        var df: CGFloat = -1
 
         for (name, value) in XCColor.colorNames {
             if color == value {
                 return (name, value)
             }
-            ndf1 = powf(Float(color.red) - Float(value.red), 2) + powf(Float(color.green) - Float(value.green), 2) + powf(Float(color.blue) - Float(value.blue), 2)
-            ndf2 = powf(Float(color.hue) - Float(value.hue), 2) + powf(Float(color.saturation) - Float(value.saturation), 2) + powf(Float(color.lightness) - Float(value.lightness), 2)
+            let clr = color.toRGBAColor()
+            let vlr = value.toRGBAColor()
+            ndf1 = pow(clr.redComponent - vlr.redComponent, 2) + pow(clr.greenComponent - vlr.greenComponent, 2) + pow(clr.blueComponent - vlr.blueComponent, 2)
+            ndf2 = pow(clr.hueComponent - vlr.hueComponent, 2) + pow(clr.saturationComponent - vlr.saturationComponent, 2) + pow(clr.brightnessComponent - vlr.brightnessComponent, 2)
             ndf = ndf1 + ndf2 * 2
             if df < 0 || df > ndf {
                 df = ndf
@@ -126,18 +141,18 @@ class XCColor {
         return nil
     }
 
-    private class func colorValue(from value: String) -> Float {
+    private class func colorValue(from value: String) -> CGFloat {
         if value.hasPrefix("0x") {
             let str = String(value[value.index(value.startIndex, offsetBy: 2)...])
             let iVal = UInt8(str, radix: 16) ?? 0
-            let fVal = Float(iVal) / 255.0
+            let fVal = CGFloat(iVal) / 255.0
             return fVal
         } else if value.contains(".") {
-            let fVal = Float(value) ?? 0
+            let fVal = CGFloat(Double(value) ?? 0)
             return fVal
         } else {
             let iVal = UInt8(value) ?? 0
-            let fVal = Float(iVal) / 255.0
+            let fVal = CGFloat(iVal) / 255.0
             return fVal
         }
     }
@@ -152,18 +167,29 @@ class XCColor {
             for dic in idioms {
                 guard let idiom = dic["idiom"] as? String else { continue }
                 if !validation.contains(idiom) { continue }
-                if let color = dic["color"] as? [String: Any],
-                    let components = color["components"] as? [String: String],
-                    let red = components["red"], let green = components["green"], let blue = components["blue"], let alpha = components["alpha"] {
-                    let redF = colorValue(from: red)
-                    let greenF = colorValue(from: green)
-                    let blueF = colorValue(from: blue)
-                    let alphaF = colorValue(from: alpha)
-                    var comp = XCColorComponents(red: redF, green: greenF, blue: blueF, alpha: alphaF)
-                    comp.colorSpace = color["color-space"] as? String
-                    result[idiom] = comp
-                    if let readable = findColorNameMatch(comp) {
-                        readableResult[idiom] = readable
+                if let color = dic["color"] as? [String: Any], let components = color["components"] as? [String: String],
+                    let space = color["color-space"] as? String {
+                    var redF: CGFloat = 0
+                    var greenF: CGFloat = 0
+                    var blueF: CGFloat = 0
+                    var alphaF: CGFloat = 0
+                    var whiteF: CGFloat = 0
+                    if let red = components["red"], let green = components["green"], let blue = components["blue"] {
+                        redF = colorValue(from: red)
+                        greenF = colorValue(from: green)
+                        blueF = colorValue(from: blue)
+                    }
+                    if let white = components["white"] {
+                        whiteF = colorValue(from: white)
+                    }
+                    if let alpha = components["alpha"] {
+                        alphaF = colorValue(from: alpha)
+                    }
+                    if let comp = XCColorComponents(space: space, red: redF, green: greenF, blue: blueF, white: whiteF, alpha: alphaF) {
+                        result[idiom] = comp
+                        if let readable = findColorNameMatch(comp) {
+                            readableResult[idiom] = readable
+                        }
                     }
                 }
             }
@@ -184,17 +210,9 @@ class XCColor {
             return ""
         }
         let indent1 = makeIndentation(level: indentLevel, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent2 = makeIndentation(level: indentLevel + 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        var result =  indent1 + "// \(componentName): \(component.colorSpace ?? "") \(component.description) \"\(readable)\"\n"
-        if component.colorSpace == "display-p3" {
-            result += indent1 + "if #available(iOS 10.0, *) {\n"
-            result += indent2 + "result = UIColor(displayP3Red: \(component.red), green: \(component.green), blue: \(component.blue), alpha: \(component.alpha))\n"
-            result += indent1 + "} else {\n"
-            result += indent2 + "result = UIColor(red: \(component.red), green: \(component.green), blue: \(component.blue), alpha: \(component.alpha))\n"
-            result += indent1 + "}\n"
-        } else {
-            result += indent1 + "result = UIColor(red: \(component.red), green: \(component.green), blue: \(component.blue), alpha: \(component.alpha))\n"
-        }
+        var result =  indent1 + "// \(componentName): \(component.colorSpace.rawValue) \(component.description) \"\(readable)\"\n"
+        let (r, g, b, w, a) = component.getComponents()
+        result += indent1 + "result = makeColor(name: \"\(self.name ?? "")\", colorSpace: \"\(component.colorSpace.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
         return result
     }
 
@@ -231,7 +249,7 @@ class XCColor {
             default:
                 continue
             }
-            content += genDescription(of: key, indentLevel: 5, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+            content += genDescription(of: key, indentLevel: 4, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         }
         content += indent3 + "default:\n"
         if components["universal"] != nil {
@@ -243,18 +261,21 @@ class XCColor {
         return genColor(content: content, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
     }
 
-    class func genSingleComponentCommonFunction(swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
+    class func generateCommonFunction(swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
         let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent3 = makeIndentation(level: 3, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         var content = swiftlingEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
-        content += indent1 + "private static func makeSingleTypeColor(name: String, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {"
+        content += indent1 + "private static func makeColor(name: String, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) -> UIColor {\n"
         content += indent2 + "var result: UIColor!\n"
         content += indent2 + "if #available(iOS 11.0, *) {\n"
         content += indent3 + "result = UIColor(named: name)\n"
         content += indent2 + "}\n"
-        content += indent2 + "if result == nil, #available(iOS 10.0, *), colorSpace == \"display-p3\" {\n"
+        content += indent2 + "if result == nil, #available(iOS 10.0, *), colorSpace == \"\(XCColorComponents.ColorSpace.displayP3.rawValue)\" {\n"
         content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
+        content += indent2 + "}\n"
+        content += indent2 + "if result == nil, colorSpace == \"\(XCColorComponents.ColorSpace.grayGamma22.rawValue)\" || colorSpace == \"\(XCColorComponents.ColorSpace.extendedGray.rawValue)\" {\n"
+        content += indent3 + "result = UIColor(white: white, alpha: alpha)\n"
         content += indent2 + "}\n"
         content += indent2 + "if result == nil {\n"
         content += indent3 + "result = UIColor(red: red, green: green, blue: blue, alpha: alpha)\n"
@@ -269,14 +290,15 @@ class XCColor {
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         var result = indent1 + "/// " + self.name + "\n"
         let (componentName, component) = self.components.first!
-        result += indent1 + "/// \(componentName): \(component.colorSpace ?? "") \(component.description)"
+        let (r, g, b, w, a) = component.getComponents()
+        result += indent1 + "/// \(componentName): \(component.colorSpace.rawValue) \(component.description)"
         if let (readable, _) = self.humanReadable[componentName] {
             result += " \"" + readable + "\"\n"
         } else {
             result += "\n"
         }
         result += indent1 + "static var \(prefix)\(self.name.replacingOccurrences(of: " ", with: "")): UIColor {\n"
-        result += indent2 + "return makeSingleTypeColor(name: \"\(self.name ?? "")\", colorSpace: \"\(component.colorSpace ?? "")\", red: \(component.red), green: \(component.green), blue: \(component.blue), alpha: \(component.alpha))\n"
+        result += indent2 + "return makeColor(name: \"\(self.name ?? "")\", colorSpace: \"\(component.colorSpace.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
         result += indent1 + "}\n"
         return result
     }

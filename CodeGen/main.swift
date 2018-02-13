@@ -13,7 +13,6 @@ func printError(_ error: String) {
     if let data = error.data(using: .utf8) {
         fileHandle.write(data)
     }
-    fileHandle.closeFile()
 }
 
 var projectDir = FileManager.default.currentDirectoryPath

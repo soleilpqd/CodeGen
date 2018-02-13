@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE82032EFEC00AE5D72 /* XCTask.swift */; };
+		2B72CCEC2032EFEC00AE5D72 /* XCClassFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE92032EFEC00AE5D72 /* XCClassFile.swift */; };
+		2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */; };
+		2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */; };
 		2B7795872031C226008E6A90 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795862031C226008E6A90 /* main.swift */; };
-		2B7795912031C347008E6A90 /* XCClassFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77958E2031C347008E6A90 /* XCClassFile.swift */; };
 		2B7795922031C347008E6A90 /* XCColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77958F2031C347008E6A90 /* XCColor.swift */; };
-		2B7795932031C347008E6A90 /* XCCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795902031C347008E6A90 /* XCCommon.swift */; };
 		2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
-		2B77959B2031CA9B008E6A90 /* XCTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77959A2031CA9B008E6A90 /* XCTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,13 +29,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B72CCE82032EFEC00AE5D72 /* XCTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTask.swift; sourceTree = "<group>"; };
+		2B72CCE92032EFEC00AE5D72 /* XCClassFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCClassFile.swift; sourceTree = "<group>"; };
+		2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCCommon.swift; sourceTree = "<group>"; };
+		2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskColor.swift; sourceTree = "<group>"; };
 		2B7795832031C226008E6A90 /* CodeGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7795862031C226008E6A90 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		2B77958E2031C347008E6A90 /* XCClassFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCClassFile.swift; sourceTree = "<group>"; };
 		2B77958F2031C347008E6A90 /* XCColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCColor.swift; sourceTree = "<group>"; };
-		2B7795902031C347008E6A90 /* XCCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCCommon.swift; sourceTree = "<group>"; };
 		2B7795972031C5F0008E6A90 /* XCColorNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorNames.swift; sourceTree = "<group>"; };
-		2B77959A2031CA9B008E6A90 /* XCTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,9 @@
 			children = (
 				2B77958D2031C347008E6A90 /* Colors */,
 				2B7795862031C226008E6A90 /* main.swift */,
+				2B72CCE92032EFEC00AE5D72 /* XCClassFile.swift */,
+				2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */,
+				2B72CCE82032EFEC00AE5D72 /* XCTask.swift */,
 			);
 			path = CodeGen;
 			sourceTree = "<group>";
@@ -76,11 +81,9 @@
 		2B77958D2031C347008E6A90 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				2B77958E2031C347008E6A90 /* XCClassFile.swift */,
-				2B77959A2031CA9B008E6A90 /* XCTask.swift */,
 				2B77958F2031C347008E6A90 /* XCColor.swift */,
-				2B7795902031C347008E6A90 /* XCCommon.swift */,
 				2B7795972031C5F0008E6A90 /* XCColorNames.swift */,
+				2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -145,11 +148,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B7795872031C226008E6A90 /* main.swift in Sources */,
-				2B7795932031C347008E6A90 /* XCCommon.swift in Sources */,
+				2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */,
 				2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */,
-				2B77959B2031CA9B008E6A90 /* XCTask.swift in Sources */,
+				2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */,
 				2B7795922031C347008E6A90 /* XCColor.swift in Sources */,
-				2B7795912031C347008E6A90 /* XCClassFile.swift in Sources */,
+				2B72CCEC2032EFEC00AE5D72 /* XCClassFile.swift in Sources */,
+				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
