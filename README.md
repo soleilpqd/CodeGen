@@ -6,3 +6,4 @@ Target:
 - Mac OS X 10.12.6
 - XCode 9
 - Swift 4
+- iOS 9 -> 11
