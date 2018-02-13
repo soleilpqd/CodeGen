@@ -29,7 +29,7 @@ class XCTaskColor: XCTask {
     private func makeColorList(project: XCClassFile, colors: [XCColor]) {
         guard var clrName = colorListName else { return }
         if clrName.count == 0 {
-            clrName = (project.projectFile as NSString).deletingPathExtension
+            clrName = ((project.projectFile as NSString).lastPathComponent as NSString).deletingPathExtension
         }
         var colorList: NSColorList?
         var nameAvailable = true
