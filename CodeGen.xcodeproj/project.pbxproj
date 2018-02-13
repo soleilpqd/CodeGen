@@ -33,6 +33,7 @@
 		2B72CCE92032EFEC00AE5D72 /* XCClassFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCClassFile.swift; sourceTree = "<group>"; };
 		2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCCommon.swift; sourceTree = "<group>"; };
 		2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskColor.swift; sourceTree = "<group>"; };
+		2B72CCF02032F0B600AE5D72 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2B7795832031C226008E6A90 /* CodeGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7795862031C226008E6A90 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B77958F2031C347008E6A90 /* XCColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCColor.swift; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 		2B77957A2031C226008E6A90 = {
 			isa = PBXGroup;
 			children = (
+				2B72CCF02032F0B600AE5D72 /* README.md */,
 				2B7795852031C226008E6A90 /* CodeGen */,
 				2B7795842031C226008E6A90 /* Products */,
 			);
