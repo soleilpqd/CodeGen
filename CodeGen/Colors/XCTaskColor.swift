@@ -8,29 +8,38 @@
 
 import Foundation
 import AppKit
+import RSUtils
 
 class XCTaskColor: XCTask {
+
+    private let kKeyInput = "input"
+    private let kKeyOutput = "output"
+    private let kKeyColorList = "list"
+    private let kKeyCheckSum = "checksum"
 
     let input: String
     let output: String
     let colorListName: String?
+    var checkSum: String?
 
     init?(_ info: NSDictionary) {
-        if let input = info["input"] as? String, let output = info["output"] as? String {
+        if let input = info[kKeyInput] as? String, let output = info[kKeyOutput] as? String {
             self.input = input
             self.output = output
-            colorListName = info["list"] as? String
+            colorListName = info[kKeyColorList] as? String
+            checkSum = info[kKeyCheckSum] as? String
             super.init(task: .color)
         } else {
             return nil
         }
     }
 
-    private func makeColorList(project: XCClassFile, colors: [XCColor]) {
+    private func makeColorList(project: XCProject, colors: [XCColor]) {
         guard var clrName = colorListName else { return }
         if clrName.count == 0 {
             clrName = ((project.projectFile as NSString).lastPathComponent as NSString).deletingPathExtension
         }
+        print("\tGenerate ColorList:", clrName)
         var colorList: NSColorList?
         var nameAvailable = true
         for clList in NSColorList.availableColorLists where clList.name?.rawValue == clrName {
@@ -74,8 +83,8 @@ class XCTaskColor: XCTask {
         }
     }
 
-    override func run(_ project: XCClassFile) -> Error? {
-        var content = "//  Add colorset into \"\(input)\" and Build project.\n\n"
+    override func run(_ project: XCProject) -> Error? {
+        var content = project.getHeader(output) + "//  Add colorset into \"\(input)\" and Build project.\n\n"
         content += "import UIKit\n\n"
         content += "extension UIColor {\n\n"
         let path = input.hasPrefix("/") ? input : (project.projectPath as NSString).appendingPathComponent(input)
@@ -85,13 +94,33 @@ class XCTaskColor: XCTask {
                                                   indentWidth: project.indentWidth,
                                                   useTab: project.useTab)
         for color in colors {
+            print("\tFound:", color.name ?? "")
             content += color.generateSwiftCode(prefix: project.prefix?.lowercased() ?? "", tabWidth: project.tabWidth,
                                                indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
         }
         content += "}\n"
+        let chkSum = (content as NSString).md5()
+        // TODO: checkSum of file, not saved checksum
+        if let oldChecksum = checkSum, oldChecksum == chkSum {
+            print("\tThere's no change! Abort writting!")
+            return nil
+        }
         let result = project.write(content: content, target: output)
         makeColorList(project: project, colors: colors)
         return result
+    }
+
+    override func toDic() -> [String : Any] {
+        var dic = super.toDic()
+        dic[kKeyInput] = input
+        dic[kKeyOutput] = output
+        if let list = colorListName {
+            dic[kKeyColorList] = list
+        }
+        if let sum = checkSum {
+            dic[kKeyCheckSum] = sum
+        }
+        return dic
     }
 
 }

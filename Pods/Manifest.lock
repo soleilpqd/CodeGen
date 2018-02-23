@@ -1,0 +1,16 @@
+PODS:
+  - RSUtils (0.2.4)
+
+DEPENDENCIES:
+  - RSUtils (from `Library/RSUtils`)
+
+EXTERNAL SOURCES:
+  RSUtils:
+    :path: Library/RSUtils
+
+SPEC CHECKSUMS:
+  RSUtils: d6aed5368929e2f8a825a31a40b46c0fd93393c6
+
+PODFILE CHECKSUM: fbdb9d0f2ba5aa6950a804da376839e3a57f949c
+
+COCOAPODS: 1.4.0

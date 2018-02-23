@@ -1,0 +1,20 @@
+{
+  "name": "RSUtils",
+  "version": "0.2.4",
+  "summary": "Some common functions",
+  "description": "Sum common function",
+  "homepage": "http://dev.runsystem.vn/commons-ios/rsutils",
+  "license": "Private",
+  "authors": {
+    "Phạm Quang Dương": "duongpq@runsystem.net"
+  },
+  "source": {
+    "git": "git@dev.runsystem.vn:commons-ios/rsutils.git",
+    "branch": "version/0.2.4"
+  },
+  "platforms": {
+    "osx": "10.9"
+  },
+  "requires_arc": true,
+  "source_files": "Classes/**/*"
+}

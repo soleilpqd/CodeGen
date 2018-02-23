@@ -10,6 +10,9 @@ import Foundation
 
 class XCTask {
 
+    private static let kKeyType = "type"
+    private static let kKeyEnable = "enable"
+
     enum TaskType: String {
         case color
     }
@@ -21,7 +24,10 @@ class XCTask {
     }
 
     class func task(_ info: NSDictionary) -> XCTask? {
-        if let t = info["type"] as? String, let tt = TaskType(rawValue: t) {
+        if let t = info[kKeyType] as? String, let tt = TaskType(rawValue: t) {
+            if let enable = info[kKeyEnable] as? NSNumber, !(enable.boolValue) {
+                return nil
+            }
             switch tt {
             case .color:
                 return XCTaskColor(info)
@@ -30,8 +36,12 @@ class XCTask {
         return nil
     }
 
-    func run(_ project: XCClassFile) -> Error? {
+    func run(_ project: XCProject) -> Error? {
         return nil
+    }
+
+    func toDic() -> [String: Any] {
+        return [XCTask.kKeyType: type.rawValue]
     }
 
 }

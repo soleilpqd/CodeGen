@@ -111,7 +111,9 @@ class XCColor {
                 }
             }
         }
-        return result
+        return result.sorted(by: { (left, right) -> Bool in
+            return left.name.compare(right.name) == .orderedAscending
+        })
     }
 
     class func findColorNameMatch(_ color: XCColorComponents) -> (String, XCColorComponents)? {

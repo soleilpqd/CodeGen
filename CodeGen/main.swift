@@ -15,15 +15,33 @@ func printError(_ error: String) {
     }
 }
 
-var projectDir = FileManager.default.currentDirectoryPath
-var tasks = [XCTask]()
+let env = XCEnvironment()
+
+private var projectFile: XCProject?
+private var tasks = [XCTask]()
+
+private var prPath = ""
 
 if CommandLine.arguments.count > 1 {
-    projectDir = CommandLine.arguments[1]
+    let path = CommandLine.arguments.last!
+    prPath = "CMD: " + path
+    if let fPath = XCProject.findProjectFile(from: path) {
+        projectFile = XCProject(rootPath: path, filePath: fPath)
+    }
+} else if let path = env.projectRootPath, let fPath = env.projectFile {
+    prPath = "ENV: " + path + " - " + fPath
+    projectFile = XCProject(rootPath: path, filePath: (fPath as NSString).appendingPathComponent("project.pbxproj"))
+} else {
+    let path = FileManager.default.currentDirectoryPath
+    prPath = "PWD: " + path
+    if let fPath = XCProject.findProjectFile(from: path) {
+        projectFile = XCProject(rootPath: path, filePath: fPath)
+    }
 }
 
-if let classFile = XCClassFile(project: projectDir) {
-    let configPath = (projectDir as NSString).appendingPathComponent("codegen.plist")
+if let classFile = projectFile {
+    let configPath = (classFile.projectPath as NSString).appendingPathComponent("codegen.plist")
+    print("Load configuration from:", configPath)
     if let configs = NSArray(contentsOfFile: configPath) {
         for item in configs {
             if let info = item as? NSDictionary, let task = XCTask.task(info) {
@@ -31,20 +49,27 @@ if let classFile = XCClassFile(project: projectDir) {
             }
         }
         if tasks.count == 0 {
-            printError("Can not load tasks from \"\(configPath)\"!\n")
-            exit(3)
+            print("\"\(configPath)\":0 warning: No enabled task!\n")
+            exit(0)
         }
         for item in tasks {
+            print("Perform task:", item.type.rawValue)
             if let err = item.run(classFile) as NSError? {
                 printError(err.localizedDescription)
                 exit(Int32(err.code))
             }
         }
+        let array = NSMutableArray()
+        for item in tasks {
+            let dic = item.toDic()
+            array.add(dic)
+        }
+        array.write(toFile: configPath, atomically: true)
     } else {
-        printError("Can not load configuration at \"\(configPath)\"!\n")
+        printError("Could not load configuration at \"\(configPath)\"!\n")
         exit(2)
     }
 } else {
-    printError("Can not load project at \"\(projectDir)\"!\n")
+    printError("Could not load project at \(prPath)!\n")
     exit(1)
 }
