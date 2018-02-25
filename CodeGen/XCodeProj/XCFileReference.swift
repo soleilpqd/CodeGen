@@ -35,6 +35,16 @@ class XCItem: XCObject {
         return nil
     }
 
+    func getFullPath() -> String? {
+        guard var result = path else { return nil }
+        var current = self.parent
+        while let cur = current, let p = cur.path {
+            result = "\(p)/\(result)"
+            current = cur.parent
+        }
+        return result
+    }
+
 }
 
 class XCGroup: XCItem {
@@ -65,6 +75,37 @@ class XCFileReference: XCItem {
     var includeInIndex: Int?
     var lastKnownFileType: String?
     var fileEncoding: Int?
+
+    enum FileType: String {
+        case cHeader = "sourcecode.c.h"
+        case objc = "sourcecode.c.objc"
+        case swift = "sourcecode.swift"
+        case storyboard = "file.storyboard"
+        case xib = "file.xib"
+        case file
+        case text
+        case gif = "image.gif"
+        case png = "image.png"
+        case assets = "folder.assetcatalog"
+        case xml = "text.plist.xml"
+        case json = "text.json"
+        case markdown = "net.daringfireball.markdown"
+        case coreDataModel = "wrapper.xcdatamodel"
+        case framwork = "wrapper.framework"
+        case xcconfig = "text.xcconfig"
+    }
+
+    var lastKnownFileTypeEnum: FileType? {
+        get {
+            if let type = lastKnownFileType {
+                return FileType(rawValue: type)
+            }
+            return nil
+        }
+        set (value) {
+            lastKnownFileType = value?.rawValue
+        }
+    }
 
     override init?(dic: [String : Any], allObjects: [String : Any]) {
         super.init(dic: dic, allObjects: allObjects)

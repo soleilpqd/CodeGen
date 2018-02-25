@@ -122,4 +122,78 @@ class XCProject {
         }
     }
 
+    private func findColorAssets(in assetFolder: XCAssetFoler, store: inout [XCAssetColor]) {
+        guard let childs = assetFolder.children else { return }
+        for item in childs {
+            if let d = item as? XCAssetFoler {
+                findColorAssets(in: d, store: &store)
+            } else if let c = item as? XCAssetColor {
+                store.append(c)
+            }
+        }
+    }
+
+    private func findAssets(in group: XCGroup, store: inout [XCAssets]) {
+        guard let childs = group.children else { return }
+        for item in childs {
+            if let g = item as? XCGroup {
+                findAssets(in: g, store: &store)
+            } else if let f = item as? XCFileReference, f.lastKnownFileTypeEnum == .assets, let path = f.getFullPath() {
+                let assets = XCAssets(path: (projectPath as NSString).appendingPathComponent(path))
+                store.append(assets)
+            }
+        }
+    }
+
+    private func findItem(in group: XCGroup, with path: String) -> XCItem? {
+        if (group.getFullPath() ?? "") == path { return group }
+        guard let childs = group.children else { return nil }
+        for item in childs {
+            if let g = item as? XCGroup {
+                if g.getFullPath() == path {
+                    return g
+                }
+                if let result = findItem(in: g, with: path) {
+                    return result
+                }
+            } else if let f = item as? XCFileReference, f.getFullPath() == path {
+                return f
+            }
+        }
+        return nil
+    }
+
+    private func getItem(with path: String) -> XCItem? {
+        var p = path
+        if p.hasPrefix(projectPath) {
+            p = String(p[p.index(p.startIndex, offsetBy: projectPath.count + 1)...])
+        }
+        if let main = xcProject.mainGroup {
+            return findItem(in: main, with: p)
+        }
+        return nil
+    }
+
+    func findAllColorAssets() -> [XCAssetColor] {
+        var allAssets = [XCAssets]()
+        var result = [XCAssetColor]()
+        if let main = xcProject.mainGroup {
+            findAssets(in: main, store: &allAssets)
+            for assets in allAssets {
+                findColorAssets(in: assets, store: &result)
+            }
+        }
+        return result
+    }
+
+    func findColorAssets(in assetsPath: String) -> [XCAssetColor]? {
+        if let item = getItem(with: assetsPath) as? XCFileReference, item.lastKnownFileTypeEnum == .assets {
+            let assets = XCAssets(path: (projectPath as NSString).appendingPathComponent(item.getFullPath()!))
+            var result = [XCAssetColor]()
+            findColorAssets(in: assets, store: &result)
+            return result
+        }
+        return nil
+    }
+
 }

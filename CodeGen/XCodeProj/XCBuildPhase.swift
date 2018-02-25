@@ -15,6 +15,20 @@ class XCBuildPhase: XCObject {
     var runOnlyForDeploymentPostprocessing: Int?
     weak var target: XCProjTarget?
 
+    enum PhaseType: String {
+        case compileSources = "PBXSourcesBuildPhase"
+        case linkFrameworks = "PBXFrameworksBuildPhase"
+        case copyResources = "PBXResourcesBuildPhase"
+        case runScript = "PBXShellScriptBuildPhase"
+    }
+
+    var type: PhaseType? {
+        if let t = isa {
+            return PhaseType(rawValue: t)
+        }
+        return nil
+    }
+
     init?(dic: [String : Any], allObjects: [String : Any], parent: XCProjTarget) {
         super.init(dic: dic, allObjects: allObjects)
         if let type = isa, type.hasPrefix("PBX") && type.hasSuffix("BuildPhase") {

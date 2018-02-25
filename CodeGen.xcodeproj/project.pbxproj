@@ -14,6 +14,8 @@
 		2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AF203ED722005197C7 /* XCProjFile.swift */; };
 		2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B0203ED722005197C7 /* XCProjTarget.swift */; };
 		2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */; };
+		2B5B02B820430E0E00A81392 /* XCProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE92032EFEC00AE5D72 /* XCProject.swift */; };
+		2B5B02B920430E2C00A81392 /* XCEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */; };
 		2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE82032EFEC00AE5D72 /* XCTask.swift */; };
 		2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE92032EFEC00AE5D72 /* XCProject.swift */; };
 		2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */; };
@@ -21,11 +23,32 @@
 		2B7795872031C226008E6A90 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795862031C226008E6A90 /* main.swift */; };
 		2B7795922031C347008E6A90 /* XCColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77958F2031C347008E6A90 /* XCColor.swift */; };
 		2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
+		2B86A3242042763B00332E53 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3232042763B00332E53 /* main.swift */; };
+		2B86A3282042764B00332E53 /* XCBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AA203ED722005197C7 /* XCBuildPhase.swift */; };
+		2B86A3292042764B00332E53 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AB203ED722005197C7 /* XCConfigurationList.swift */; };
+		2B86A32A2042764B00332E53 /* XCFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AC203ED722005197C7 /* XCFileReference.swift */; };
+		2B86A32B2042764B00332E53 /* XCObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AD203ED722005197C7 /* XCObject.swift */; };
+		2B86A32C2042764B00332E53 /* XCProjFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AF203ED722005197C7 /* XCProjFile.swift */; };
+		2B86A32D2042764B00332E53 /* XCProjTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B0203ED722005197C7 /* XCProjTarget.swift */; };
+		2B86A33120428A7B00332E53 /* XCAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A33020428A7B00332E53 /* XCAssets.swift */; };
+		2B86A33220428A7B00332E53 /* XCAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A33020428A7B00332E53 /* XCAssets.swift */; };
+		2B86A3342042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
+		2B86A3352042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
+		2B86A3362042A93A00332E53 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
 		4596F5064FB8DB366B36EFCE /* Pods_CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88450D0442DB60CF7C8515C5 /* Pods_CodeGen.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2B7795812031C226008E6A90 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		2B86A31F2042763B00332E53 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -54,6 +77,10 @@
 		2B7795862031C226008E6A90 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B77958F2031C347008E6A90 /* XCColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCColor.swift; sourceTree = "<group>"; };
 		2B7795972031C5F0008E6A90 /* XCColorNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorNames.swift; sourceTree = "<group>"; };
+		2B86A3212042763B00332E53 /* testXCProj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testXCProj; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B86A3232042763B00332E53 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		2B86A33020428A7B00332E53 /* XCAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssets.swift; sourceTree = "<group>"; };
+		2B86A3332042A87F00332E53 /* XCAssetColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssetColor.swift; sourceTree = "<group>"; };
 		49BCC864BFDC35AAF62A5515 /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
 		88450D0442DB60CF7C8515C5 /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA75F01F47F5BBBCA5477C75 /* Pods-CodeGen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +92,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4596F5064FB8DB366B36EFCE /* Pods_CodeGen.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B86A31E2042763B00332E53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +114,9 @@
 				2B2512AD203ED722005197C7 /* XCObject.swift */,
 				2B2512AF203ED722005197C7 /* XCProjFile.swift */,
 				2B2512B0203ED722005197C7 /* XCProjTarget.swift */,
+				2B86A33020428A7B00332E53 /* XCAssets.swift */,
+				2B86A3332042A87F00332E53 /* XCAssetColor.swift */,
+				2B7795972031C5F0008E6A90 /* XCColorNames.swift */,
 			);
 			path = XCodeProj;
 			sourceTree = "<group>";
@@ -90,6 +127,7 @@
 				2B72CCF02032F0B600AE5D72 /* README.md */,
 				2B2512AE203ED722005197C7 /* XCodeEnv_Sample.txt */,
 				2B7795852031C226008E6A90 /* CodeGen */,
+				2B86A3222042763B00332E53 /* testXCProj */,
 				2B7795842031C226008E6A90 /* Products */,
 				58D892AB579594246FF7C500 /* Pods */,
 				61A3099E47A395188CAFBB71 /* Frameworks */,
@@ -100,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				2B7795832031C226008E6A90 /* CodeGen */,
+				2B86A3212042763B00332E53 /* testXCProj */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,10 +161,17 @@
 			isa = PBXGroup;
 			children = (
 				2B77958F2031C347008E6A90 /* XCColor.swift */,
-				2B7795972031C5F0008E6A90 /* XCColorNames.swift */,
 				2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		2B86A3222042763B00332E53 /* testXCProj */ = {
+			isa = PBXGroup;
+			children = (
+				2B86A3232042763B00332E53 /* main.swift */,
+			);
+			path = testXCProj;
 			sourceTree = "<group>";
 		};
 		58D892AB579594246FF7C500 /* Pods */ = {
@@ -167,6 +213,23 @@
 			productReference = 2B7795832031C226008E6A90 /* CodeGen */;
 			productType = "com.apple.product-type.tool";
 		};
+		2B86A3202042763B00332E53 /* testXCProj */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B86A3252042763B00332E53 /* Build configuration list for PBXNativeTarget "testXCProj" */;
+			buildPhases = (
+				2B86A31D2042763B00332E53 /* Sources */,
+				2B86A31E2042763B00332E53 /* Frameworks */,
+				2B86A31F2042763B00332E53 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = testXCProj;
+			productName = testXCProj;
+			productReference = 2B86A3212042763B00332E53 /* testXCProj */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -174,12 +237,16 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = XC;
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "GMO-Z.com RunSystem";
 				TargetAttributes = {
 					2B7795822031C226008E6A90 = {
 						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					2B86A3202042763B00332E53 = {
+						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -197,6 +264,7 @@
 			projectRoot = "";
 			targets = (
 				2B7795822031C226008E6A90 /* CodeGen */,
+				2B86A3202042763B00332E53 /* testXCProj */,
 			);
 		};
 /* End PBXProject section */
@@ -214,7 +282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-frameworks.sh\"\n\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		862CC9695597F1C1429318FE /* [CP] Check Pods Manifest.lock */ = {
@@ -247,7 +315,9 @@
 				2B2512B1203ED722005197C7 /* XCBuildPhase.swift in Sources */,
 				2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */,
 				2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */,
+				2B86A33120428A7B00332E53 /* XCAssets.swift in Sources */,
 				2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */,
+				2B86A3342042A87F00332E53 /* XCAssetColor.swift in Sources */,
 				2B2512B4203ED722005197C7 /* XCObject.swift in Sources */,
 				2B2512B2203ED722005197C7 /* XCConfigurationList.swift in Sources */,
 				2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */,
@@ -256,6 +326,25 @@
 				2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */,
 				2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */,
 				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B86A31D2042763B00332E53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B86A3242042763B00332E53 /* main.swift in Sources */,
+				2B86A3352042A87F00332E53 /* XCAssetColor.swift in Sources */,
+				2B86A32B2042764B00332E53 /* XCObject.swift in Sources */,
+				2B86A3282042764B00332E53 /* XCBuildPhase.swift in Sources */,
+				2B86A32D2042764B00332E53 /* XCProjTarget.swift in Sources */,
+				2B86A32C2042764B00332E53 /* XCProjFile.swift in Sources */,
+				2B86A32A2042764B00332E53 /* XCFileReference.swift in Sources */,
+				2B86A3362042A93A00332E53 /* XCColorNames.swift in Sources */,
+				2B5B02B820430E0E00A81392 /* XCProject.swift in Sources */,
+				2B86A3292042764B00332E53 /* XCConfigurationList.swift in Sources */,
+				2B5B02B920430E2C00A81392 /* XCEnvironment.swift in Sources */,
+				2B86A33220428A7B00332E53 /* XCAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +462,7 @@
 			baseConfigurationReference = BA75F01F47F5BBBCA5477C75 /* Pods-CodeGen.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 4VHMY5A5VD;
+				DEVELOPMENT_TEAM = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -387,9 +476,33 @@
 			baseConfigurationReference = 49BCC864BFDC35AAF62A5515 /* Pods-CodeGen.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 4VHMY5A5VD;
+				DEVELOPMENT_TEAM = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		2B86A3262042763B00332E53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		2B86A3272042763B00332E53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -413,6 +526,15 @@
 			buildConfigurations = (
 				2B77958B2031C226008E6A90 /* Debug */,
 				2B77958C2031C226008E6A90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B86A3252042763B00332E53 /* Build configuration list for PBXNativeTarget "testXCProj" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B86A3262042763B00332E53 /* Debug */,
+				2B86A3272042763B00332E53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

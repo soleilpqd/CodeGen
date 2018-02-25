@@ -15,19 +15,16 @@ class XCTaskColor: XCTask {
     private let kKeyInput = "input"
     private let kKeyOutput = "output"
     private let kKeyColorList = "list"
-    private let kKeyCheckSum = "checksum"
 
     let input: String
     let output: String
     let colorListName: String?
-    var checkSum: String?
 
     init?(_ info: NSDictionary) {
         if let input = info[kKeyInput] as? String, let output = info[kKeyOutput] as? String {
             self.input = input
             self.output = output
             colorListName = info[kKeyColorList] as? String
-            checkSum = info[kKeyCheckSum] as? String
             super.init(task: .color)
         } else {
             return nil
@@ -99,11 +96,13 @@ class XCTaskColor: XCTask {
                                                indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
         }
         content += "}\n"
-        let chkSum = (content as NSString).md5()
-        // TODO: checkSum of file, not saved checksum
-        if let oldChecksum = checkSum, oldChecksum == chkSum {
-            print("\tThere's no change! Abort writting!")
-            return nil
+        let checkSum = (content as NSString).md5()
+        if let data = try? String(contentsOfFile: (project.projectPath as NSString).appendingPathComponent(output)) {
+            let oldChecksum = (data as NSString).md5()
+            if checkSum == oldChecksum {
+                print("\tThere's no change! Abort writting!")
+                return nil
+            }
         }
         let result = project.write(content: content, target: output)
         makeColorList(project: project, colors: colors)
@@ -116,9 +115,6 @@ class XCTaskColor: XCTask {
         dic[kKeyOutput] = output
         if let list = colorListName {
             dic[kKeyColorList] = list
-        }
-        if let sum = checkSum {
-            dic[kKeyCheckSum] = sum
         }
         return dic
     }

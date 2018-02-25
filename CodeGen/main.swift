@@ -59,12 +59,13 @@ if let classFile = projectFile {
                 exit(Int32(err.code))
             }
         }
-        let array = NSMutableArray()
-        for item in tasks {
-            let dic = item.toDic()
-            array.add(dic)
-        }
-        array.write(toFile: configPath, atomically: true)
+        // TODO: which task should save data into codegen.plist
+//        let array = NSMutableArray()
+//        for item in tasks {
+//            let dic = item.toDic()
+//            array.add(dic)
+//        }
+//        array.write(toFile: configPath, atomically: true)
     } else {
         printError("Could not load configuration at \"\(configPath)\"!\n")
         exit(2)
