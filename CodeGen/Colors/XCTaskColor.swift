@@ -31,6 +31,17 @@ class XCTaskColor: XCTask {
         }
     }
 
+    private func makeColorListIfNeeded(project: XCProject, colors: [XCAssetColor]) {
+        guard var clrName = colorListName else { return }
+        if clrName.count == 0 {
+            clrName = ((((project.projectFile as NSString).deletingLastPathComponent) as NSString).lastPathComponent as NSString).deletingPathExtension
+        }
+        for clList in NSColorList.availableColorLists where clList.isEditable && (clList.name?.rawValue.hasPrefix(clrName) ?? false) {
+            return
+        }
+        makeColorList(project: project, colors: colors)
+    }
+
     private func makeColorList(project: XCProject, colors: [XCAssetColor]) {
         guard var clrName = colorListName else { return }
         if clrName.count == 0 {
@@ -255,6 +266,7 @@ class XCTaskColor: XCTask {
             let oldChecksum = (data as NSString).md5()
             if checkSum == oldChecksum {
                 print("\tThere's no change! Abort writting!")
+                makeColorListIfNeeded(project: project, colors: allColors)
                 return nil
             }
         }
