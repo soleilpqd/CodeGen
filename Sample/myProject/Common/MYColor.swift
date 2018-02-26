@@ -65,9 +65,15 @@ extension UIColor {
     }
 
     /// Carnation
-    /// universal: srgb #F14848 100% "Coral Red"
+    /// universal: srgb #F04747 100% "Coral Red"
     static var myCarnation: UIColor {
-        return makeColor(name: "Carnation", colorSpace: "srgb", red: 0.949, green: 0.286, blue: 0.286, white: 0.0, alpha: 1.0)
+        return makeColor(name: "Carnation", colorSpace: "srgb", red: 0.945, green: 0.282, blue: 0.282, white: 0.0, alpha: 1.0)
+    }
+
+    /// Carnation2
+    /// universal: srgb #F04747 100% "Coral Red"
+    static var myCarnation2: UIColor {
+        return makeColor(name: "Carnation2", colorSpace: "srgb", red: 0.941176470588235, green: 0.27843137254902, blue: 0.27843137254902, white: 0.0, alpha: 1.0)
     }
 
     /// Gallery

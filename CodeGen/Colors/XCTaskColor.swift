@@ -229,6 +229,21 @@ class XCTaskColor: XCTask {
         return ""
     }
 
+    private func compareColors(_ left: NSColor, _ right: NSColor) -> Bool {
+        let cmpComponent: (CGFloat, CGFloat) -> Bool = {(l, r) in
+            return Int(l * 255) == Int(r * 255)
+        }
+
+        if left.colorSpaceName != right.colorSpaceName { return false }
+        if left.numberOfComponents != right.numberOfComponents { return false }
+        if left.numberOfComponents == 4 {
+            return cmpComponent(left.alphaComponent, right.alphaComponent) && cmpComponent(left.redComponent, right.redComponent)
+                && cmpComponent(left.greenComponent, right.greenComponent) && cmpComponent(left.blueComponent, right.blueComponent)
+        } else {
+            return cmpComponent(left.alphaComponent, right.alphaComponent) && cmpComponent(left.whiteComponent, right.whiteComponent)
+        }
+    }
+
     override func run(_ project: XCProject) -> Error? {
         if let chk = project.checkPathInBuildSource(path: output) {
             if !chk {
@@ -251,6 +266,50 @@ class XCTaskColor: XCTask {
         allColors = allColors.sorted(by: { (left, right) -> Bool in
             return left.name.compare(right.name) == .orderedAscending
         })
+
+        var tmpColors = allColors
+        var groupedColor = [NSMutableArray]()
+        while tmpColors.count > 0 {
+            let color = tmpColors.removeLast()
+            if groupedColor.count == 0 {
+                groupedColor.append(NSMutableArray(array: [color]))
+            } else {
+                var found = false
+                for group in groupedColor {
+                    if let cl1 = group.firstObject as? XCAssetColor, let component1 = cl1.colors, let component = color.colors, component.count == component1.count {
+                        var equalCount = 0
+                        for cmp1 in component1 {
+                            for cmp in component where cmp.idiom == cmp1.idiom {
+                                if let nsCl1 = cmp1.color, let nsCl = cmp.color, compareColors(nsCl1, nsCl) {
+                                    equalCount += 1
+                                    break
+                                }
+                            }
+                        }
+                        if equalCount == component1.count {
+                            found = true
+                            group.add(color)
+                            break
+                        }
+                    }
+                }
+                if !found {
+                    groupedColor.append([color])
+                }
+            }
+        }
+        for group in groupedColor {
+            if group.count > 1 {
+                var name = ""
+                for asset in group {
+                    if let color = asset as? XCAssetColor {
+                        name += color.name + ", "
+                    }
+                }
+                print("warning: \(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)]) have same color value.")
+            }
+        }
+
         content += generateCommonFunction(swiftlingEnable: project.swiftlintEnable,
                                           tabWidth: project.tabWidth,
                                           indentWidth: project.indentWidth,
