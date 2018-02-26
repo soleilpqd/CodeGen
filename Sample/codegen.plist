@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>type</key>
+		<string>color</string>
+		<key>input</key>
+		<string>myProject/Resources/Colors.xcassets</string>
+		<key>output</key>
+		<string>myProject/Common/MYColor.swift</string>
+		<key>list</key>
+		<string></string>
+	</dict>
+</array>
+</plist>

@@ -196,4 +196,31 @@ class XCProject {
         return nil
     }
 
+    private func findItemInBuildSource(item: XCItem, target: XCProjTarget) -> Bool {
+        if let phases = target.buildPhases {
+            for phase in phases where phase.type == .compileSources && (phase.files?.contains(where: { (entry) -> Bool in
+                return entry === item
+            }) ?? false) {
+                return true
+            }
+        }
+        return false
+    }
+
+    func checkPathInBuildSource(path: String) -> Bool? {
+        if let item = getItem(with: path), let targets = xcProject.targets {
+            if let targetName = env.targetName {
+                for target in targets where target.name == targetName && findItemInBuildSource(item: item, target: target) {
+                    return true
+                }
+            } else {
+                for target in targets where findItemInBuildSource(item: item, target: target) {
+                    return true
+                }
+            }
+            return false
+        }
+        return nil
+    }
+
 }

@@ -21,7 +21,6 @@
 		2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */; };
 		2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */; };
 		2B7795872031C226008E6A90 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795862031C226008E6A90 /* main.swift */; };
-		2B7795922031C347008E6A90 /* XCColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77958F2031C347008E6A90 /* XCColor.swift */; };
 		2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
 		2B86A3242042763B00332E53 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3232042763B00332E53 /* main.swift */; };
 		2B86A3282042764B00332E53 /* XCBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AA203ED722005197C7 /* XCBuildPhase.swift */; };
@@ -75,7 +74,6 @@
 		2B72CCF02032F0B600AE5D72 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2B7795832031C226008E6A90 /* CodeGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7795862031C226008E6A90 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		2B77958F2031C347008E6A90 /* XCColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCColor.swift; sourceTree = "<group>"; };
 		2B7795972031C5F0008E6A90 /* XCColorNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorNames.swift; sourceTree = "<group>"; };
 		2B86A3212042763B00332E53 /* testXCProj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testXCProj; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B86A3232042763B00332E53 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 		2B77958D2031C347008E6A90 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				2B77958F2031C347008E6A90 /* XCColor.swift */,
 				2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */,
 			);
 			path = Colors;
@@ -321,7 +318,6 @@
 				2B2512B4203ED722005197C7 /* XCObject.swift in Sources */,
 				2B2512B2203ED722005197C7 /* XCConfigurationList.swift in Sources */,
 				2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */,
-				2B7795922031C347008E6A90 /* XCColor.swift in Sources */,
 				2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */,
 				2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */,
 				2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */,

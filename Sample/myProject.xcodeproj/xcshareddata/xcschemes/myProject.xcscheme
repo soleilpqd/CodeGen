@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2B7795822031C226008E6A90"
-               BuildableName = "CodeGen"
-               BlueprintName = "CodeGen"
-               ReferencedContainer = "container:CodeGen.xcodeproj">
+               BlueprintIdentifier = "2BA5FEE52043B70E00AA42E5"
+               BuildableName = "myProject.app"
+               BlueprintName = "myProject"
+               ReferencedContainer = "container:myProject.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,10 +33,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2B7795822031C226008E6A90"
-            BuildableName = "CodeGen"
-            BlueprintName = "CodeGen"
-            ReferencedContainer = "container:CodeGen.xcodeproj">
+            BlueprintIdentifier = "2BA5FEE52043B70E00AA42E5"
+            BuildableName = "myProject.app"
+            BlueprintName = "myProject"
+            ReferencedContainer = "container:myProject.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -57,39 +57,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2B7795822031C226008E6A90"
-            BuildableName = "CodeGen"
-            BlueprintName = "CodeGen"
-            ReferencedContainer = "container:CodeGen.xcodeproj">
+            BlueprintIdentifier = "2BA5FEE52043B70E00AA42E5"
+            BuildableName = "myProject.app"
+            BlueprintName = "myProject"
+            ReferencedContainer = "container:myProject.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "SOURCE_ROOT"
-            value = "$SOURCE_ROOT/Sample"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "IPHONEOS_DEPLOYMENT_TARGET"
-            value = "9.0"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "PROJECT_FILE_PATH"
-            value = "$SOURCE_ROOT/Sample/myProject.xcodeproj"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "TARGET_NAME"
-            value = "myProject"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "PRODUCT_SETTINGS_PATH"
-            value = "$SOURCE_ROOT/Sample/myProject/Info.plist"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -103,10 +76,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2B7795822031C226008E6A90"
-            BuildableName = "CodeGen"
-            BlueprintName = "CodeGen"
-            ReferencedContainer = "container:CodeGen.xcodeproj">
+            BlueprintIdentifier = "2BA5FEE52043B70E00AA42E5"
+            BuildableName = "myProject.app"
+            BlueprintName = "myProject"
+            ReferencedContainer = "container:myProject.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

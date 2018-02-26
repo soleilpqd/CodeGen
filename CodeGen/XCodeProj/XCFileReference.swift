@@ -10,10 +10,22 @@ import Foundation
 
 class XCItem: XCObject {
 
+    enum SourceTree: String {
+        case group = "<group>"
+        case root = "SOURCE_ROOT"
+    }
+
     var path: String?
     var sourceTree: String?
     weak var parent: XCItem?
     var id: String?
+
+    var sourceTreeEnum: SourceTree? {
+        if let sTree = sourceTree {
+            return SourceTree(rawValue: sTree)
+        }
+        return nil
+    }
 
     override init?(dic: [String : Any], allObjects: [String : Any]) {
         super.init(dic: dic, allObjects: allObjects)
@@ -36,11 +48,12 @@ class XCItem: XCObject {
     }
 
     func getFullPath() -> String? {
-        guard var result = path else { return nil }
-        var current = self.parent
-        while let cur = current, let p = cur.path {
-            result = "\(p)/\(result)"
-            current = cur.parent
+        guard let result = path else { return nil }
+        if sourceTreeEnum == .root {
+            return result
+        }
+        if let p = self.parent, let path = p.getFullPath() {
+            return (path as NSString).appendingPathComponent(result)
         }
         return result
     }

@@ -23,7 +23,6 @@ struct XCEnvironment {
     let productName: String?
     let moduleName: String?
 
-
     init() {
         let env = ProcessInfo.processInfo.environment
         deployVersion = env["IPHONEOS_DEPLOYMENT_TARGET"]

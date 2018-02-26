@@ -12,6 +12,10 @@ import AppKit
 var allFileType = [String]()
 let env = XCEnvironment()
 
+private let kPrjRootPath = env.projectRootPath!
+private let kProjFile = (env.projectFile! as NSString).appendingPathComponent("project.pbxproj")
+private let kColorAssetsPath = (kPrjRootPath as NSString).appendingPathComponent("myProject/Resources/Colors.xcassets")
+
 private func printPrefix(_ level: UInt) -> String {
     var prefix = ""
     for _ in 0..<level {
@@ -41,7 +45,7 @@ private func printItem(item: XCItem, level: UInt) {
 }
 
 private func testProjectFile() {
-    if let project = XCProjFile.project(from: "/Users/soleilpqd/Documents/Sample/MyProject.xcodeproj/project.pbxproj") {
+    if let project = XCProjFile.project(from: kProjFile) {
         if let main = project.mainGroup {
             printItem(item: main, level: 0)
             print("KNOWN FILE TYPE", allFileType)
@@ -95,14 +99,13 @@ private func printAsset(asset: XCAsset, level: UInt) {
 }
 
 private func testAssets() {
-    let assets = XCAssets(path: "/Users/soleilpqd/Documents/Sample/MyProject/Colors.xcassets")
+    let assets = XCAssets(path: kColorAssetsPath)
     printAsset(asset: assets, level: 0)
 }
 
 private func testFindColors() {
-    if let project = XCProject(rootPath: "/Users/soleilpqd/Documents/Sample",
-                               filePath: "/Users/soleilpqd/Documents/Sample/MyProject.xcodeproj/project.pbxproj") {
-        if let colors = project.findColorAssets(in: "/Users/soleilpqd/Documents/Sample/MyProject/Colors.xcassets") {
+    if let project = XCProject(rootPath: kPrjRootPath, filePath: kProjFile) {
+        if let colors = project.findColorAssets(in: kColorAssetsPath) {
             for color in colors {
                 print(color.name, "-", color.colors?.first?.humanReadable ?? "")
             }
@@ -110,7 +113,7 @@ private func testFindColors() {
     }
 }
 
-//testProjectFile()
+testProjectFile()
 //testAssets()
-testFindColors()
+//testFindColors()
 
