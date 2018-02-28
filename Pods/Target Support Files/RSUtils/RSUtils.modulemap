@@ -1,6 +1,0 @@
-framework module RSUtils {
-  umbrella header "RSUtils-umbrella.h"
-
-  export *
-  module * { export * }
-}

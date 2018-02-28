@@ -8,7 +8,6 @@
 
 import Foundation
 import AppKit
-import RSUtils
 
 class XCTaskColor: XCTask {
 
@@ -310,6 +309,8 @@ class XCTaskColor: XCTask {
             }
         }
 
+        // TODO: Check unused color
+
         content += generateCommonFunction(swiftlingEnable: project.swiftlintEnable,
                                           tabWidth: project.tabWidth,
                                           indentWidth: project.indentWidth,
@@ -320,10 +321,8 @@ class XCTaskColor: XCTask {
                                          indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
         }
         content += "}\n"
-        let checkSum = (content as NSString).md5()
         if let data = try? String(contentsOfFile: (project.projectPath as NSString).appendingPathComponent(output)) {
-            let oldChecksum = (data as NSString).md5()
-            if checkSum == oldChecksum {
+            if content == data {
                 print("\tThere's no change! Abort writting!")
                 makeColorListIfNeeded(project: project, colors: allColors)
                 return nil
