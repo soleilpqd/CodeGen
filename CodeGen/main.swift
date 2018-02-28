@@ -8,6 +8,8 @@
 
 import Foundation
 
+// TODO: string resource (message)
+
 func printError(_ error: String) {
     let fileHandle = FileHandle.standardError
     if let data = error.data(using: .utf8) {

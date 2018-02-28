@@ -11,6 +11,10 @@
 		<string>myProject/Common/MYColor.swift</string>
 		<key>list</key>
 		<string></string>
+		<key>check_use</key>
+		<true/>
+		<key>check_same</key>
+		<true/>
 	</dict>
 </array>
 </plist>

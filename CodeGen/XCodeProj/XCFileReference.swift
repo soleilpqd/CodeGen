@@ -15,6 +15,7 @@ class XCItem: XCObject {
         case root = "SOURCE_ROOT"
     }
 
+    var name: String? // VariantGroup + FileRefernce child of VariantGroup
     var path: String?
     var sourceTree: String?
     weak var parent: XCItem?
@@ -29,33 +30,48 @@ class XCItem: XCObject {
 
     override init?(dic: [String : Any], allObjects: [String : Any]) {
         super.init(dic: dic, allObjects: allObjects)
+        name = getString(dic: dic, key: "name")
         path = getString(dic: dic, key: "path")
         sourceTree = getString(dic: dic, key: "sourceTree")
     }
 
-    class func item(from dic: [String : Any], allObjects: [String : Any]) -> XCItem? {
+    class func item(from dic: [String : Any], allObjects: [String : Any], itemId: String, parentItem: XCItem?) -> XCItem? {
         if let type = getString(dic: dic, key: "isa"), let typeEnum = XCISA(rawValue: type) {
+            var result: XCItem?
             switch typeEnum {
-            case .group:
-                return XCGroup(dic: dic, allObjects: allObjects)
+            case .group, .variantGroup:
+                result = XCGroup(dic: dic, allObjects: allObjects)
             case .fileRef:
-                return XCFileReference(dic: dic, allObjects: allObjects)
+                result = XCFileReference(dic: dic, allObjects: allObjects)
             default:
                 break
             }
+            if let res = result {
+                res.id = itemId
+                res.parent = parentItem
+            }
+            return result
         }
         return nil
     }
 
     func getFullPath() -> String? {
-        guard let result = path else { return nil }
-        if sourceTreeEnum == .root {
-            return result
-        }
+        var parentPath: String?
         if let p = self.parent, let path = p.getFullPath() {
-            return (path as NSString).appendingPathComponent(result)
+            parentPath = path
         }
-        return result
+        if let result = path {
+            if sourceTreeEnum == .root {
+                return result
+            } else if let pPath = parentPath {
+                return (pPath as NSString).appendingPathComponent(result)
+            } else {
+                return result
+            }
+        } else if self.isaEnum == .variantGroup {
+            return parentPath
+        }
+        return nil
     }
 
 }
@@ -66,13 +82,12 @@ class XCGroup: XCItem {
 
     override init?(dic: [String : Any], allObjects: [String : Any]) {
         super.init(dic: dic, allObjects: allObjects)
-        if isaEnum != .group { return nil }
+        if isaEnum != .group && isaEnum != .variantGroup { return nil }
         if let childIds = dic["children"] as? [String] {
             var result = [XCItem]()
             for id in childIds {
-                if let itemDic = getDic(dic: allObjects, key: id), let item = XCItem.item(from: itemDic, allObjects: allObjects) {
-                    item.parent = self
-                    item.id = id
+                if let itemDic = getDic(dic: allObjects, key: id),
+                    let item = XCItem.item(from: itemDic, allObjects: allObjects, itemId: id, parentItem: self) {
                     result.append(item)
                 }
             }

@@ -70,7 +70,20 @@ private func testProjectFile() {
                                 if let files = phase.files {
                                     for f in files {
                                         if let fRef = f as? XCFileReference {
-                                            print("\t\t\(fRef.path ?? "") (\(fRef.lastKnownFileType ?? "")) \(fRef.getFullPath() ?? "")")
+                                            print("\t\t\(fRef.path ?? "") (\(fRef.lastKnownFileType ?? "<type>")) \(fRef.getFullPath() ?? "<nil>")")
+                                        } else if let g = f as? XCGroup {
+                                            print("\t\t\(g.name ?? "<name>") \(g.isa ?? "<isa>")")
+                                            if let children = g.children {
+                                                for child in children {
+                                                    if let file = child as? XCFileReference {
+                                                        print("\t\t\t\(file.name ?? "<name>") \(file.lastKnownFileType ?? "<type>") \(file.getFullPath() ?? "<nil>")")
+                                                    } else {
+                                                        print("\t\t\t\(f.isa ?? "<isa>")")
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            print("\t\t\(f.isa ?? "<isa>")")
                                         }
                                     }
                                 }
@@ -103,6 +116,13 @@ private func testAssets() {
     printAsset(asset: assets, level: 0)
 }
 
+private func testGetSwiftFiles() {
+    if let project = XCProject(rootPath: kPrjRootPath, filePath: kProjFile) {
+//        print(project.getSwiftFiles())
+        print(project.getCopyResourcesFiles(types: [.storyboard, .xib]))
+    }
+}
+
 private func testFindColors() {
     if let project = XCProject(rootPath: kPrjRootPath, filePath: kProjFile) {
         if let colors = project.findColorAssets(in: kColorAssetsPath) {
@@ -113,7 +133,9 @@ private func testFindColors() {
     }
 }
 
+print(Locale.current.languageCode ?? "")
+
 testProjectFile()
 //testAssets()
 //testFindColors()
-
+testGetSwiftFiles()

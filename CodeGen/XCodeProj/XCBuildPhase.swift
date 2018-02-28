@@ -43,7 +43,7 @@ class XCBuildPhase: XCObject {
                         if let mainGroup = parent.project?.mainGroup, let item = findItem(group: mainGroup, key: fileRef) {
                             result.append(item)
                         } else if let itemDic = getDic(dic: allObjects, key: fileRef),
-                            let item = XCItem.item(from: itemDic, allObjects: allObjects) {
+                            let item = XCItem.item(from: itemDic, allObjects: allObjects, itemId: id, parentItem: nil) {
                             result.append(item)
                         }
                     }

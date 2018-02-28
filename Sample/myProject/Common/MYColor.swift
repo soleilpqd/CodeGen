@@ -31,7 +31,7 @@ extension UIColor {
     /// Arapawa
     /// universal: srgb #08086A 100% "Arapawa"
     static var myArapawa: UIColor {
-        return makeColor(name: "Arapawa", colorSpace: "srgb", red: 0.035, green: 0.035, blue: 0.416, white: 0.0, alpha: 1.0)
+        return makeColor(name: "Arapawa", colorSpace: "srgb", red: 0.0313725490196078, green: 0.0313725490196078, blue: 0.415686274509804, white: 0.0, alpha: 1.0)
     }
 
     /// Arapawa Light

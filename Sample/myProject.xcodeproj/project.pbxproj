@@ -23,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B5B61672046A3EA009BEC01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		2BA5FEE62043B70E00AA42E5 /* myProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BA5FEE92043B70E00AA42E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BA5FEEE2043B70E00AA42E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2BA5FEEE2043B70E00AA42E5 /* Base */,
+				2B5B61672046A3EA009BEC01 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

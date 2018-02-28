@@ -6,8 +6,10 @@
 //  Copyright © 2018 GMO-Z.com RunSystem. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class MYObject {
-    
+
+    var color: UIColor = .myArapawaLight
+
 }

@@ -223,4 +223,81 @@ class XCProject {
         return nil
     }
 
+    private func getSwiftFiles(target: XCProjTarget, store: inout [String]) {
+        guard let phases = target.buildPhases else { return }
+        for phase in phases where phase.type == .compileSources {
+            guard let items = phase.files else { continue }
+            for item in items {
+                if let file = item as? XCFileReference, file.lastKnownFileTypeEnum == .swift, let path = file.getFullPath() {
+                    store.append((projectPath as NSString).appendingPathComponent(path))
+                }
+            }
+        }
+    }
+
+    func getSwiftFiles() -> [String] {
+        var result = [String]()
+        if let targets = xcProject.targets {
+            if let targetName = env.targetName {
+                for target in targets where target.name == targetName {
+                    getSwiftFiles(target: target, store: &result)
+                }
+            } else {
+                for target in targets {
+                    getSwiftFiles(target: target, store: &result)
+                }
+            }
+        }
+        return result
+    }
+
+    private func getCopyResourcesFiles(item: XCItem, types: [XCFileReference.FileType],
+                                       target: XCProjTarget, store: inout [XCFileReference.FileType: [String]]) -> Bool {
+        if let file = item as? XCFileReference, let type = file.lastKnownFileTypeEnum,
+            types.contains(type), let path = file.getFullPath() {
+            var files: [String]
+            if let fs = store[type] {
+                files = fs
+            } else {
+                files = [String]()
+            }
+            files.append((projectPath as NSString).appendingPathComponent(path))
+            store[type] = files
+            return true
+        }
+        return false
+    }
+
+    private func getCopyResourcesFiles(types: [XCFileReference.FileType], target: XCProjTarget,
+                                       store: inout [XCFileReference.FileType: [String]]) {
+        guard let phases = target.buildPhases else { return }
+        for phase in phases where phase.type == .copyResources {
+            guard let items = phase.files else { continue }
+            for item in items {
+                if !getCopyResourcesFiles(item: item, types: types, target: target, store: &store),
+                    let group = item as? XCGroup, group.isaEnum == .variantGroup, let gItems = group.children {
+                    for gItem in gItems {
+                        _ = getCopyResourcesFiles(item: gItem, types: types, target: target, store: &store)
+                    }
+                }
+            }
+        }
+    }
+
+    func getCopyResourcesFiles(types: [XCFileReference.FileType]) -> [XCFileReference.FileType: [String]] {
+        var result = [XCFileReference.FileType: [String]]()
+        if let targets = xcProject.targets {
+            if let targetName = env.targetName {
+                for target in targets where target.name == targetName {
+                    getCopyResourcesFiles(types: types, target: target, store: &result)
+                }
+            } else {
+                for target in targets {
+                    getCopyResourcesFiles(types: types, target: target, store: &result)
+                }
+            }
+        }
+        return result
+    }
+
 }

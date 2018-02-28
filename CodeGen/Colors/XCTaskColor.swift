@@ -14,39 +14,35 @@ class XCTaskColor: XCTask {
     private let kKeyInput = "input"
     private let kKeyOutput = "output"
     private let kKeyColorList = "list"
+    private let kKeyCheckUse = "check_use"
+    private let kKeyCheckSame = "check_same"
 
     let input: String?
     let output: String
     let colorListName: String?
+    let isCheckUse: Bool
+    let isCheckSame: Bool
+
+    var fullOutputPath = ""
 
     init?(_ info: NSDictionary) {
         if let output = info[kKeyOutput] as? String {
             self.input = info[kKeyInput] as? String
             self.output = output
             colorListName = info[kKeyColorList] as? String
+            isCheckUse = (info[kKeyCheckUse] as? NSNumber)?.boolValue ?? false
+            isCheckSame = (info[kKeyCheckSame] as? NSNumber)?.boolValue ?? false
             super.init(task: .color)
         } else {
             return nil
         }
     }
 
-    private func makeColorListIfNeeded(project: XCProject, colors: [XCAssetColor]) {
-        guard var clrName = colorListName else { return }
+    private func findColorList(_ project: XCProject) -> (String?, NSColorList?) {
+        guard var clrName = colorListName else { return (nil, nil) }
         if clrName.count == 0 {
             clrName = ((((project.projectFile as NSString).deletingLastPathComponent) as NSString).lastPathComponent as NSString).deletingPathExtension
         }
-        for clList in NSColorList.availableColorLists where clList.isEditable && (clList.name?.rawValue.hasPrefix(clrName) ?? false) {
-            return
-        }
-        makeColorList(project: project, colors: colors)
-    }
-
-    private func makeColorList(project: XCProject, colors: [XCAssetColor]) {
-        guard var clrName = colorListName else { return }
-        if clrName.count == 0 {
-            clrName = ((((project.projectFile as NSString).deletingLastPathComponent) as NSString).lastPathComponent as NSString).deletingPathExtension
-        }
-        print("\tGenerate ColorList:", clrName)
         var colorList: NSColorList?
         var nameAvailable = true
         for clList in NSColorList.availableColorLists where clList.name?.rawValue == clrName {
@@ -55,46 +51,111 @@ class XCTaskColor: XCTask {
                 colorList = clList
             }
         }
-        if colorList == nil {
-            if !nameAvailable {
-                var tmpName = clrName
-                var index = 1
-                while !nameAvailable {
-                    tmpName = clrName + "\(index)"
-                    nameAvailable = true
-                    for clList in NSColorList.availableColorLists where clList.name?.rawValue == tmpName {
-                        nameAvailable = false
-                    }
-                    index += 1
+        if colorList == nil && !nameAvailable {
+            var tmpName = clrName
+            var index = 1
+            while !nameAvailable {
+                tmpName = clrName + "\(index)"
+                nameAvailable = true
+                for clList in NSColorList.availableColorLists where clList.name?.rawValue == tmpName {
+                    nameAvailable = false
                 }
-                clrName = tmpName
+                index += 1
             }
-            colorList = NSColorList(name: .init(rawValue: clrName))
+            clrName = tmpName
         }
-        if let list = colorList {
-            let keys = list.allKeys
-            for key in keys {
-                list.removeColor(withKey: key)
+        return (clrName, colorList)
+    }
+
+    /// return: true if changed
+    private func checkKeyOfColorList(key: NSColor.Name, list: NSColorList, color: XCAssetColor.Color) -> Bool {
+        if let colorInList = list.color(withKey: key) {
+            if let nsColor = color.colorForColorList, compareColors(nsColor, colorInList) {
+                return false
             }
+        }
+        return true
+    }
+
+    private func makeColorList(project: XCProject, colors: [XCAssetColor]) {
+        let (name, list) = findColorList(project)
+        guard let clrName = name else { return }
+        var colorList: NSColorList
+        if let clList = list {
+            colorList = clList
+            if colors.count == 0 {
+                clList.removeFile()
+                print("\tClean ColorList \"\(clrName)\"")
+                return
+            }
+            var isChanged = false
+            var allKeys = [NSColor.Name]()
             for color in colors {
                 if let components = color.colors {
                     if components.count == 1 {
-                        if let cl1 = components.first, let cl = cl1.color {
-                            list.setColor(cl, forKey: .init(rawValue: color.name))
+                        if let cl1 = components.first {
+                            let key = NSColor.Name(rawValue: color.name)
+                            if checkKeyOfColorList(key: key, list: clList, color: cl1) {
+                                isChanged = true
+                                break
+                            } else {
+                                allKeys.append(key)
+                            }
                         }
                     } else {
                         var index = 0
                         for cl1 in components {
-                            if let cl = cl1.color {
-                                list.setColor(cl, forKey: .init(rawValue: color.name + " " + (cl1.idiom ?? "\(index)")))
+                            let key = NSColor.Name(rawValue: color.name + " " + (cl1.idiom ?? "\(index)"))
+                            if checkKeyOfColorList(key: key, list: clList, color: cl1) {
+                                isChanged = true
+                                break
+                            } else {
+                                allKeys.append(key)
                             }
                             index += 1
+                        }
+                        if isChanged {
+                            break
                         }
                     }
                 }
             }
-            _ = list.write(toFile: nil)
+            if !isChanged {
+                for key in clList.allKeys where !allKeys.contains(key) {
+                    isChanged = true
+                    break
+                }
+            }
+            if !isChanged {
+                print("\tColorList \"\(clrName)\" has no change!")
+                return
+            }
+        } else {
+            colorList = NSColorList(name: .init(rawValue: clrName))
         }
+        print("\tGenerate ColorList:", clrName)
+        let keys = colorList.allKeys
+        for key in keys {
+            colorList.removeColor(withKey: key)
+        }
+        for color in colors {
+            if let components = color.colors {
+                if components.count == 1 {
+                    if let cl1 = components.first, let cl = cl1.colorForColorList {
+                        colorList.setColor(cl, forKey: .init(rawValue: color.name))
+                    }
+                } else {
+                    var index = 0
+                    for cl1 in components {
+                        if let cl = cl1.colorForColorList {
+                            colorList.setColor(cl, forKey: .init(rawValue: color.name + " " + (cl1.idiom ?? "\(index)")))
+                        }
+                        index += 1
+                    }
+                }
+            }
+        }
+        _ = colorList.write(toFile: nil)
     }
 
     private func generateCommonFunction(swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
@@ -243,29 +304,18 @@ class XCTaskColor: XCTask {
         }
     }
 
-    override func run(_ project: XCProject) -> Error? {
+    private func checkOutputFile(_ project: XCProject) {
         if let chk = project.checkPathInBuildSource(path: output) {
             if !chk {
-                print((project.projectPath as NSString).appendingPathComponent(output) + ": warning: Output color file is not included in build target.")
+                print(fullOutputPath + ": warning: Output color file is not included in build target.")
             }
         } else {
-            print((project.projectPath as NSString).appendingPathComponent(output) + ": warning: Output color file is not included in project.")
+            print(fullOutputPath + ": warning: Output color file is not included in project.")
         }
+    }
 
-        var content = project.getHeader(output) + "//  Add colorset into \"\(input ?? "Assets.xcassets")\" and Build project.\n\n"
-        content += "import UIKit\n\n"
-        content += "extension UIColor {\n\n"
-
-        var allColors: [XCAssetColor]
-        if let ipt = input {
-            allColors = project.findColorAssets(in: ipt) ?? []
-        } else {
-            allColors = project.findAllColorAssets()
-        }
-        allColors = allColors.sorted(by: { (left, right) -> Bool in
-            return left.name.compare(right.name) == .orderedAscending
-        })
-
+    private func checkSameValueColors(_ allColors: [XCAssetColor]) {
+        if !isCheckSame { return }
         var tmpColors = allColors
         var groupedColor = [NSMutableArray]()
         while tmpColors.count > 0 {
@@ -297,19 +347,95 @@ class XCTaskColor: XCTask {
                 }
             }
         }
-        for group in groupedColor {
-            if group.count > 1 {
-                var name = ""
-                for asset in group {
-                    if let color = asset as? XCAssetColor {
-                        name += color.name + ", "
-                    }
+        for group in groupedColor where group.count > 1 {
+            var name = ""
+            for asset in group {
+                if let color = asset as? XCAssetColor {
+                    name += color.name + ", "
                 }
-                print("warning: \(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)]) have same color value.")
+            }
+            print("warning: \(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)]) have same color value.")
+        }
+    }
+
+    private func checkUsage(pattern: String, content: String, color: XCAssetColor, store: inout [XCAssetColor]) {
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+            let matches = regex.matches(in: content, options: [], range: NSRange(location: 0, length: content.count))
+            if matches.count > 0 {
+                if let index = store.index(where: { (tmpColor) -> Bool in
+                    return tmpColor === color
+                }) {
+                    store.remove(at: index)
+                }
             }
         }
+    }
 
-        // TODO: Check unused color
+    private func checkUsage(project: XCProject, allColors: [XCAssetColor]) {
+        if !isCheckUse { return }
+        var sources = [XCFileReference.FileType.swift: project.getSwiftFiles()]
+        let version = env.deployVersion ?? ""
+        if version.hasPrefix("11.") {
+            let result = project.getCopyResourcesFiles(types: [.storyboard, .xib])
+            for (key, value) in result {
+                sources[key] = value
+            }
+        }
+        var tmpColors = allColors
+        let prefix = project.prefix?.lowercased() ?? ""
+        for (key, value) in sources {
+            for path in value {
+                guard let content = try? String(contentsOfFile: path) else { continue }
+                switch key {
+                case .swift:
+                    for color in allColors where tmpColors.contains(where: { (tmpColor) -> Bool in
+                        return color === tmpColor
+                    }) {
+                        let pattern = "\\.\(prefix + (color.name.replacingOccurrences(of: " ", with: "")))(.|\\n|\\)|\\]|\\})?"
+                        checkUsage(pattern: pattern, content: content, color: color, store: &tmpColors)
+                    }
+                case .storyboard, .xib:
+                    for color in allColors where !tmpColors.contains(where: { (tmpColor) -> Bool in
+                        return color === tmpColor
+                    }) {
+                        // <color key="backgroundColor" name="Arapawa Light"/>
+                        let pattern = "<color .+name=\"\(color.name)\"/>"
+                        checkUsage(pattern: pattern, content: content, color: color, store: &tmpColors)
+                    }
+                default:
+                    break
+                }
+                if tmpColors.count == 0 { return }
+            }
+        }
+        if tmpColors.count > 1 {
+            var list = ""
+            for color in tmpColors {
+                list += "\"\(color.name ?? "")\", "
+            }
+            print("warning: It seem that colors \(list[list.startIndex..<list.index(list.endIndex, offsetBy: -2)]) are not used.")
+        } else if let color = tmpColors.first {
+            print("warning: It seem that color \"\(color.name ?? "")\" is not used.")
+        }
+    }
+
+    override func run(_ project: XCProject) -> Error? {
+        fullOutputPath = (project.projectPath as NSString).appendingPathComponent(output)
+        checkOutputFile(project)
+
+        var content = project.getHeader(output) + "//  Add colorset into \"\(input ?? "Assets.xcassets")\" and Build project.\n\n"
+        content += "import UIKit\n\n"
+        content += "extension UIColor {\n\n"
+
+        var allColors: [XCAssetColor]
+        if let ipt = input {
+            allColors = project.findColorAssets(in: ipt) ?? []
+        } else {
+            allColors = project.findAllColorAssets()
+        }
+        allColors = allColors.sorted(by: { (left, right) -> Bool in
+            return left.name.compare(right.name) == .orderedAscending
+        })
 
         content += generateCommonFunction(swiftlingEnable: project.swiftlintEnable,
                                           tabWidth: project.tabWidth,
@@ -321,25 +447,33 @@ class XCTaskColor: XCTask {
                                          indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
         }
         content += "}\n"
+
+        checkSameValueColors(allColors)
+        checkUsage(project: project, allColors: allColors)
+
+        var result: Error?
         if let data = try? String(contentsOfFile: (project.projectPath as NSString).appendingPathComponent(output)) {
-            if content == data {
-                print("\tThere's no change! Abort writting!")
-                makeColorListIfNeeded(project: project, colors: allColors)
-                return nil
+            if content != data {
+                result = project.write(content: content, target: output)
+            } else {
+                print("\tThere's no change in output file! Abort writting!")
             }
         }
-        let result = project.write(content: content, target: output)
         makeColorList(project: project, colors: allColors)
         return result
     }
 
     override func toDic() -> [String : Any] {
         var dic = super.toDic()
-        dic[kKeyInput] = input
+        if let inp = input {
+            dic[kKeyInput] = input
+        }
         dic[kKeyOutput] = output
         if let list = colorListName {
             dic[kKeyColorList] = list
         }
+        dic[kKeyCheckUse] = NSNumber(value: isCheckUse)
+        dic[kKeyCheckSame] = NSNumber(value: isCheckSame)
         return dic
     }
 

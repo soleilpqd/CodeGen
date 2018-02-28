@@ -32,6 +32,7 @@ class XCAssetColor: XCAsset {
         var humanReadable: String?
 
         private(set) var color: NSColor?
+        private(set) var colorForColorList: NSColor?
 
         var colorSpaceEnum: ColorSpace? {
             if let space = colorSpace {
@@ -88,19 +89,23 @@ class XCAssetColor: XCAsset {
                     if let redF = colorValue(from: red), let greenF = colorValue(from: green),
                         let blueF = colorValue(from: blue), let alphaF = colorValue(from: alpha) {
                         color = NSColor(srgbRed: redF, green: greenF, blue: blueF, alpha: alphaF)
+                        colorForColorList = color!.usingColorSpaceName(.deviceRGB)
                     }
                 case .displayP3:
                     if let redF = colorValue(from: red), let greenF = colorValue(from: green),
                         let blueF = colorValue(from: blue), let alphaF = colorValue(from: alpha) {
                         color = NSColor(displayP3Red: redF, green: greenF, blue: blueF, alpha: alphaF)
+                        colorForColorList = color!.usingColorSpaceName(.deviceRGB)
                     }
                 case .grayGamma22:
                     if let whiteF = colorValue(from: white), let alphaF = colorValue(from: alpha) {
                         color = NSColor(genericGamma22White: whiteF, alpha: alphaF)
+                        colorForColorList = color!.usingColorSpaceName(.deviceWhite)
                     }
                 case .extendedGray:
                     if let whiteF = colorValue(from: white), let alphaF = colorValue(from: alpha) {
                         color = NSColor(calibratedWhite: whiteF, alpha: alphaF)
+                        colorForColorList = color!.usingColorSpaceName(.deviceWhite)
                     }
                 }
                 if let cl = color {

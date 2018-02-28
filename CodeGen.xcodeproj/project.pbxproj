@@ -404,8 +404,9 @@
 		2B77958B2031C226008E6A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 4VHMY5A5VD;
+				DEVELOPMENT_TEAM = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -417,8 +418,9 @@
 		2B77958C2031C226008E6A90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 4VHMY5A5VD;
+				DEVELOPMENT_TEAM = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -39,6 +39,7 @@ enum XCISA: String {
     case shellScriptBuildPhase  = "PBXShellScriptBuildPhase"
     case group                  = "PBXGroup"
     case buildFile              = "PBXBuildFile"
+    case variantGroup           = "PBXVariantGroup"
 
 }
 
