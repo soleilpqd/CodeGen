@@ -8,21 +8,29 @@
 
 import Foundation
 
-// TODO: string resource (message)
-
-func printError(_ error: String) {
-    let fileHandle = FileHandle.standardError
-    if let data = error.data(using: .utf8) {
-        fileHandle.write(data)
-    }
-}
-
 let env = XCEnvironment()
 
 private var projectFile: XCProject?
 private var tasks = [XCTask]()
 
 private var prPath = ""
+
+private let operationQueue = OperationQueue()
+private var opCount = 0
+private var errors = [Error]()
+
+private func increaseOpCount(_ error: Error?) {
+    opCount += 1
+    if let err = error {
+        errors.append(err)
+    }
+    if opCount == tasks.count, errors.count > 0 {
+        for err in errors {
+            printError((err as NSError).localizedDescription)
+        }
+        exit(1)
+    }
+}
 
 if CommandLine.arguments.count > 1 {
     let path = CommandLine.arguments.last!
@@ -43,7 +51,7 @@ if CommandLine.arguments.count > 1 {
 
 if let classFile = projectFile {
     let configPath = (classFile.projectPath as NSString).appendingPathComponent("codegen.plist")
-    print("Load configuration from:", configPath)
+    print(String.loadConfig(configPath))
     if let configs = NSArray(contentsOfFile: configPath) {
         for item in configs {
             if let info = item as? NSDictionary, let task = XCTask.task(info) {
@@ -51,28 +59,31 @@ if let classFile = projectFile {
             }
         }
         if tasks.count == 0 {
-            print("\"\(configPath)\":0 warning: No enabled task!\n")
-            exit(0)
+            print(String.configNoTask(configPath))
+            exit(.exitCodeNormal)
         }
         for item in tasks {
-            print("Perform task:", item.type.rawValue)
-            if let err = item.run(classFile) as NSError? {
-                printError(err.localizedDescription)
-                exit(Int32(err.code))
+            operationQueue.addOperation {
+                let err = item.run(classFile)
+                // TODO: which task should save data into codegen.plist
+                //        let array = NSMutableArray()
+                //        for item in tasks {
+                //            let dic = item.toDic()
+                //            array.add(dic)
+                //        }
+                //        array.write(toFile: configPath, atomically: true)
+                increaseOpCount(err)
             }
         }
-        // TODO: which task should save data into codegen.plist
-//        let array = NSMutableArray()
-//        for item in tasks {
-//            let dic = item.toDic()
-//            array.add(dic)
-//        }
-//        array.write(toFile: configPath, atomically: true)
+        while opCount < tasks.count {
+            sleep(0)
+        }
+        flushLog()
     } else {
         printError("Could not load configuration at \"\(configPath)\"!\n")
-        exit(2)
+        exit(.exitCodeNotLoadConfig)
     }
 } else {
     printError("Could not load project at \(prPath)!\n")
-    exit(1)
+    exit(.exitCodeNotLoadProject)
 }

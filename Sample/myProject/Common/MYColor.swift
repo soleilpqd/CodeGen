@@ -29,9 +29,24 @@ extension UIColor {
     }
 
     /// Arapawa
-    /// universal: srgb #08086A 100% "Arapawa"
     static var myArapawa: UIColor {
-        return makeColor(name: "Arapawa", colorSpace: "srgb", red: 0.0313725490196078, green: 0.0313725490196078, blue: 0.415686274509804, white: 0.0, alpha: 1.0)
+        var result: UIColor!
+        if #available(iOS 11.0, *) {
+            result = UIColor(named: "Arapawa")
+        }
+        if result == nil {
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                // iphone: display-p3 #0A3F17 100% "Dark Fern"
+                result = makeColor(name: "Arapawa", colorSpace: "display-p3", red: 0.04, green: 0.25, blue: 0.091, white: 0.0, alpha: 1.0)
+            case .pad:
+                // ipad: display-p3 #A4007B 100% "Flirt"
+                result = makeColor(name: "Arapawa", colorSpace: "display-p3", red: 0.646, green: 0.0, blue: 0.484, white: 0.0, alpha: 1.0)
+            default:
+                result = UIColor()
+            }
+        }
+        return result
     }
 
     /// Arapawa Light

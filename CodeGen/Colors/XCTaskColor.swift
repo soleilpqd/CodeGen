@@ -85,7 +85,7 @@ class XCTaskColor: XCTask {
             colorList = clList
             if colors.count == 0 {
                 clList.removeFile()
-                print("\tClean ColorList \"\(clrName)\"")
+                printLog(str: .cleanColorList(clrName), type: self.type)
                 return
             }
             var isChanged = false
@@ -127,13 +127,13 @@ class XCTaskColor: XCTask {
                 }
             }
             if !isChanged {
-                print("\tColorList \"\(clrName)\" has no change!")
+                printLog(str: .colorListNoChange(clrName), type: self.type)
                 return
             }
         } else {
             colorList = NSColorList(name: .init(rawValue: clrName))
         }
-        print("\tGenerate ColorList:", clrName)
+        printLog(str: .generateColorList(clrName), type: self.type)
         let keys = colorList.allKeys
         for key in keys {
             colorList.removeColor(withKey: key)
@@ -307,10 +307,10 @@ class XCTaskColor: XCTask {
     private func checkOutputFile(_ project: XCProject) {
         if let chk = project.checkPathInBuildSource(path: output) {
             if !chk {
-                print(fullOutputPath + ": warning: Output color file is not included in build target.")
+                printLog(str: .outputFileNotInTarget(fullOutputPath), type: self.type)
             }
         } else {
-            print(fullOutputPath + ": warning: Output color file is not included in project.")
+            printLog(str: .outputFileNotInProject(fullOutputPath), type: self.type)
         }
     }
 
@@ -354,7 +354,7 @@ class XCTaskColor: XCTask {
                     name += color.name + ", "
                 }
             }
-            print("warning: \(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)]) have same color value.")
+            printLog(str: .sameValue(String(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)])), type: self.type)
         }
     }
 
@@ -398,8 +398,7 @@ class XCTaskColor: XCTask {
                     for color in allColors where !tmpColors.contains(where: { (tmpColor) -> Bool in
                         return color === tmpColor
                     }) {
-                        // <color key="backgroundColor" name="Arapawa Light"/>
-                        let pattern = "<color .+name=\"\(color.name)\"/>"
+                        let pattern = "<namedColor .+name=\"\(color.name)\"/>"
                         checkUsage(pattern: pattern, content: content, color: color, store: &tmpColors)
                     }
                 default:
@@ -408,14 +407,12 @@ class XCTaskColor: XCTask {
                 if tmpColors.count == 0 { return }
             }
         }
-        if tmpColors.count > 1 {
+        if tmpColors.count > 0 {
             var list = ""
             for color in tmpColors {
                 list += "\"\(color.name ?? "")\", "
             }
-            print("warning: It seem that colors \(list[list.startIndex..<list.index(list.endIndex, offsetBy: -2)]) are not used.")
-        } else if let color = tmpColors.first {
-            print("warning: It seem that color \"\(color.name ?? "")\" is not used.")
+            printLog(str: .notUsed(String(list[list.startIndex..<list.index(list.endIndex, offsetBy: -2)])), type: self.type)
         }
     }
 
@@ -442,7 +439,7 @@ class XCTaskColor: XCTask {
                                           indentWidth: project.indentWidth,
                                           useTab: project.useTab)
         for color in allColors {
-            print("\tFound:", color.name ?? "")
+            printLog(str: .found(color.name ?? ""), type: self.type)
             content += generateSwiftCode(color: color, prefix: project.prefix?.lowercased() ?? "", tabWidth: project.tabWidth,
                                          indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
         }
@@ -456,7 +453,7 @@ class XCTaskColor: XCTask {
             if content != data {
                 result = project.write(content: content, target: output)
             } else {
-                print("\tThere's no change in output file! Abort writting!")
+                printLog(str: .outputNotChange(), type: self.type)
             }
         }
         makeColorList(project: project, colors: allColors)
@@ -466,7 +463,7 @@ class XCTaskColor: XCTask {
     override func toDic() -> [String : Any] {
         var dic = super.toDic()
         if let inp = input {
-            dic[kKeyInput] = input
+            dic[kKeyInput] = inp
         }
         dic[kKeyOutput] = output
         if let list = colorListName {

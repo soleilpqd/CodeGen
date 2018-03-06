@@ -34,6 +34,10 @@
 		2B86A3342042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3352042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3362042A93A00332E53 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
+		2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA46CF4204E8B3C009AAB8F /* XCText.swift */; };
+		2BD4A88A204D6AC800EA12EB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A889204D6AC800EA12EB /* main.swift */; };
+		2BD4A890204D6B2800EA12EB /* XCStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */; };
+		2BD4A891204D6B2800EA12EB /* XCStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +51,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		2B86A31F2042763B00332E53 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		2BD4A885204D6AC800EA12EB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -78,6 +91,10 @@
 		2B86A3232042763B00332E53 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B86A33020428A7B00332E53 /* XCAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssets.swift; sourceTree = "<group>"; };
 		2B86A3332042A87F00332E53 /* XCAssetColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssetColor.swift; sourceTree = "<group>"; };
+		2BA46CF4204E8B3C009AAB8F /* XCText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCText.swift; sourceTree = "<group>"; };
+		2BD4A887204D6AC800EA12EB /* textXib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = textXib; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BD4A889204D6AC800EA12EB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStoryboard.swift; sourceTree = "<group>"; };
 		88450D0442DB60CF7C8515C5 /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -90,6 +107,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2B86A31E2042763B00332E53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BD4A884204D6AC800EA12EB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,6 +146,7 @@
 				2B2512AE203ED722005197C7 /* XCodeEnv_Sample.txt */,
 				2B7795852031C226008E6A90 /* CodeGen */,
 				2B86A3222042763B00332E53 /* testXCProj */,
+				2BD4A888204D6AC800EA12EB /* textXib */,
 				2B7795842031C226008E6A90 /* Products */,
 				61A3099E47A395188CAFBB71 /* Frameworks */,
 			);
@@ -132,6 +157,7 @@
 			children = (
 				2B7795832031C226008E6A90 /* CodeGen */,
 				2B86A3212042763B00332E53 /* testXCProj */,
+				2BD4A887204D6AC800EA12EB /* textXib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,9 +165,11 @@
 		2B7795852031C226008E6A90 /* CodeGen */ = {
 			isa = PBXGroup;
 			children = (
+				2BD4A88E204D6B1100EA12EB /* Xib */,
 				2B2512A9203ED722005197C7 /* XCodeProj */,
 				2B77958D2031C347008E6A90 /* Colors */,
 				2B7795862031C226008E6A90 /* main.swift */,
+				2BA46CF4204E8B3C009AAB8F /* XCText.swift */,
 				2B72CCE92032EFEC00AE5D72 /* XCProject.swift */,
 				2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */,
 				2B72CCE82032EFEC00AE5D72 /* XCTask.swift */,
@@ -164,6 +192,22 @@
 				2B86A3232042763B00332E53 /* main.swift */,
 			);
 			path = testXCProj;
+			sourceTree = "<group>";
+		};
+		2BD4A888204D6AC800EA12EB /* textXib */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4A889204D6AC800EA12EB /* main.swift */,
+			);
+			path = textXib;
+			sourceTree = "<group>";
+		};
+		2BD4A88E204D6B1100EA12EB /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */,
+			);
+			path = Xib;
 			sourceTree = "<group>";
 		};
 		61A3099E47A395188CAFBB71 /* Frameworks */ = {
@@ -211,6 +255,23 @@
 			productReference = 2B86A3212042763B00332E53 /* testXCProj */;
 			productType = "com.apple.product-type.tool";
 		};
+		2BD4A886204D6AC800EA12EB /* textXib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BD4A88D204D6AC800EA12EB /* Build configuration list for PBXNativeTarget "textXib" */;
+			buildPhases = (
+				2BD4A883204D6AC800EA12EB /* Sources */,
+				2BD4A884204D6AC800EA12EB /* Frameworks */,
+				2BD4A885204D6AC800EA12EB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = textXib;
+			productName = textXib;
+			productReference = 2BD4A887204D6AC800EA12EB /* textXib */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,7 +279,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = XC;
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "GMO-Z.com RunSystem";
 				TargetAttributes = {
@@ -229,6 +290,10 @@
 					2B86A3202042763B00332E53 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Manual;
+					};
+					2BD4A886204D6AC800EA12EB = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -246,6 +311,7 @@
 			targets = (
 				2B7795822031C226008E6A90 /* CodeGen */,
 				2B86A3202042763B00332E53 /* testXCProj */,
+				2BD4A886204D6AC800EA12EB /* textXib */,
 			);
 		};
 /* End PBXProject section */
@@ -256,8 +322,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2512B3203ED722005197C7 /* XCFileReference.swift in Sources */,
+				2BD4A890204D6B2800EA12EB /* XCStoryboard.swift in Sources */,
 				2B7795872031C226008E6A90 /* main.swift in Sources */,
 				2B2512B1203ED722005197C7 /* XCBuildPhase.swift in Sources */,
+				2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */,
 				2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */,
 				2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */,
 				2B86A33120428A7B00332E53 /* XCAssets.swift in Sources */,
@@ -289,6 +357,15 @@
 				2B86A3292042764B00332E53 /* XCConfigurationList.swift in Sources */,
 				2B5B02B920430E2C00A81392 /* XCEnvironment.swift in Sources */,
 				2B86A33220428A7B00332E53 /* XCAssets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BD4A883204D6AC800EA12EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BD4A88A204D6AC800EA12EB /* main.swift in Sources */,
+				2BD4A891204D6B2800EA12EB /* XCStoryboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +530,26 @@
 			};
 			name = Release;
 		};
+		2BD4A88B204D6AC800EA12EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4VHMY5A5VD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		2BD4A88C204D6AC800EA12EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4VHMY5A5VD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -479,6 +576,15 @@
 			buildConfigurations = (
 				2B86A3262042763B00332E53 /* Debug */,
 				2B86A3272042763B00332E53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BD4A88D204D6AC800EA12EB /* Build configuration list for PBXNativeTarget "textXib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BD4A88B204D6AC800EA12EB /* Debug */,
+				2BD4A88C204D6AC800EA12EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
