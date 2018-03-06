@@ -164,34 +164,31 @@ class XCTaskColor: XCTask {
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent3 = makeIndentation(level: 3, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         var content = swiftlingEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
-        content += indent1 + "private static func makeColor(name: String, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) -> UIColor {\n"
+        content += indent1 + "private static func makeColor(name: String, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat, colorNameAvailable: Bool) -> UIColor {\n"
+        content += indent2 + "var result: UIColor!\n"
         if version.hasPrefix("11.") {
-            if swiftlingEnable {
-                content += indent2 + "// swiftlint:disable:next force_cast"
-            }
-            content += indent2 + "return UIColor(named: name)!\n"
+            content += indent2 + "if colorNameAvailable {\n"
         } else {
-            content += indent2 + "var result: UIColor!\n"
-            content += indent2 + "if #available(iOS 11.0, *) {\n"
-            content += indent3 + "result = UIColor(named: name)\n"
-            content += indent2 + "}\n"
-            if version.hasPrefix("10.") {
-                content += indent2 + "if result == nil, colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
-                content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
-                content += indent2 + "}\n"
-            } else {
-                content += indent2 + "if result == nil, #available(iOS 10.0, *), colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
-                content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
-                content += indent2 + "}\n"
-            }
-            content += indent2 + "if result == nil, colorSpace == \"\(XCAssetColor.Color.ColorSpace.grayGamma22.rawValue)\" || colorSpace == \"\(XCAssetColor.Color.ColorSpace.extendedGray.rawValue)\" {\n"
-            content += indent3 + "result = UIColor(white: white, alpha: alpha)\n"
-            content += indent2 + "}\n"
-            content += indent2 + "if result == nil {\n"
-            content += indent3 + "result = UIColor(red: red, green: green, blue: blue, alpha: alpha)\n"
-            content += indent2 + "}\n"
-            content += indent2 + "return result\n"
+            content += indent2 + "if #available(iOS 11.0, *), colorNameAvailable {\n"
         }
+        content += indent3 + "result = UIColor(named: name)\n"
+        content += indent2 + "}\n"
+        if version.hasPrefix("10.") {
+            content += indent2 + "if result == nil, colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
+            content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
+            content += indent2 + "}\n"
+        } else {
+            content += indent2 + "if result == nil, #available(iOS 10.0, *), colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
+            content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
+            content += indent2 + "}\n"
+        }
+        content += indent2 + "if result == nil, colorSpace == \"\(XCAssetColor.Color.ColorSpace.grayGamma22.rawValue)\" || colorSpace == \"\(XCAssetColor.Color.ColorSpace.extendedGray.rawValue)\" {\n"
+        content += indent3 + "result = UIColor(white: white, alpha: alpha)\n"
+        content += indent2 + "}\n"
+        content += indent2 + "if result == nil {\n"
+        content += indent3 + "result = UIColor(red: red, green: green, blue: blue, alpha: alpha)\n"
+        content += indent2 + "}\n"
+        content += indent2 + "return result\n"
         content += indent1 + "}\n\n"
         return content
     }
@@ -200,6 +197,10 @@ class XCTaskColor: XCTask {
         let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let name = color.name ?? ""
+        var colorNameAvailable = false
+        if let fileRef = color.getFileRef(), project?.checkItemInCopyResource(fileRef) ?? false {
+            colorNameAvailable = true
+        }
         var result = indent1 + "/// " + name + "\n"
         let cl1 = color.colors!.first!
         let (r, g, b, w, a) = cl1.getComponents()
@@ -212,7 +213,7 @@ class XCTaskColor: XCTask {
             result += "\n"
         }
         result += indent1 + "static var \(prefix)\(name.replacingOccurrences(of: " ", with: "")): UIColor {\n"
-        result += indent2 + "return makeColor(name: \"\(name)\", colorSpace: \"\(spaceColor)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
+        result += indent2 + "return makeColor(name: \"\(name)\", colorSpace: \"\(spaceColor)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a), colorNameAvailable: \(colorNameAvailable ? "true" : "false"))\n"
         result += indent1 + "}\n"
         return result
     }
@@ -222,9 +223,13 @@ class XCTaskColor: XCTask {
             return ""
         }
         let indent1 = makeIndentation(level: indentLevel, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+        var colorNameAvailable = false
+        if let fileRef = color.getFileRef(), project?.checkItemInCopyResource(fileRef) ?? false {
+            colorNameAvailable = true
+        }
         var result =  indent1 + "// \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(readable)\"\n"
         let (r, g, b, w, a) = component.getComponents()
-        result += indent1 + "result = makeColor(name: \"\(color.name ?? "")\", colorSpace: \"\(component.colorSpace ?? XCAssetColor.Color.ColorSpace.srgb.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
+        result += indent1 + "result = makeColor(name: \"\(color.name ?? "")\", colorSpace: \"\(component.colorSpace ?? XCAssetColor.Color.ColorSpace.srgb.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a), colorNameAvailable: \(colorNameAvailable ? "true" : "false"))\n"
         return result
     }
 
@@ -417,6 +422,7 @@ class XCTaskColor: XCTask {
     }
 
     override func run(_ project: XCProject) -> Error? {
+        _ = super.run(project)
         fullOutputPath = (project.projectPath as NSString).appendingPathComponent(output)
         checkOutputFile(project)
 
@@ -424,15 +430,20 @@ class XCTaskColor: XCTask {
         content += "import UIKit\n\n"
         content += "extension UIColor {\n\n"
 
-        var allColors: [XCAssetColor]
+        var allColors = [XCAssetColor]()
+        var allAssets = [XCAssets]()
         if let ipt = input {
-            allColors = project.findColorAssets(in: ipt) ?? []
+            if let res = project.findColorAssets(in: ipt) {
+                allColors = res.0
+                allAssets = [res.1]
+            }
         } else {
-            allColors = project.findAllColorAssets()
+            (allColors, allAssets) = project.findAllColorAssets()
         }
         allColors = allColors.sorted(by: { (left, right) -> Bool in
             return left.name.compare(right.name) == .orderedAscending
         })
+        _ = allAssets // this array is used to keep assets object un-deallocated
 
         content += generateCommonFunction(swiftlingEnable: project.swiftlintEnable,
                                           tabWidth: project.tabWidth,

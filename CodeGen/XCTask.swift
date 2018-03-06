@@ -12,6 +12,7 @@ class XCTask {
 
     private static let kKeyType = "type"
     private static let kKeyEnable = "enable"
+    private(set) weak var project: XCProject?
 
     enum TaskType: String {
         case color
@@ -37,6 +38,7 @@ class XCTask {
     }
 
     func run(_ project: XCProject) -> Error? {
+        self.project = project
         return nil
     }
 

@@ -38,6 +38,19 @@ class XCAsset {
 
     var name: String!
 
+    func getFileRef() -> XCFileReference? {
+        var current: XCAsset? = self
+        while true {
+            if let cur = current as? XCAssets {
+                return cur.fileRef
+            } else if current == nil {
+                return nil
+            }
+            let parent = current!.parent
+            current = parent
+        }
+    }
+
 }
 
 class XCAssetFoler: XCAsset {
@@ -67,18 +80,20 @@ class XCAssetFoler: XCAsset {
                     case .folder:
                         result.append(XCAssetFoler(path: p, parentAssets: self))
                     case .colorset:
-                        if let json = XCAssetFoler.loadJson(contentPath), let clSet = XCAssetColor(json) {
+                        if let json = XCAssetFoler.loadJson(contentPath), let clSet = XCAssetColor(info: json, folder: self) {
                             clSet.name = n
                             result.append(clSet)
                         }
                     case .imageset:
                         if let json = XCAssetFoler.loadJson(contentPath), let imgSet = XCAssetImage(json) {
+                            imgSet.parent = self
                             imgSet.name = n
                             result.append(imgSet)
                         }
                     case .appiconset:
                         if let json = XCAssetFoler.loadJson(contentPath), let imgSet = XCAssetAppIcon(json) {
                             imgSet.name = n
+                            imgSet.parent = self
                             result.append(imgSet)
                         }
                     }
@@ -142,7 +157,10 @@ class XCAssetAppIcon: XCAssetImage {
 
 class XCAssets: XCAssetFoler {
 
-    init(path: String) {
+    weak var fileRef: XCFileReference?
+
+    init(fileReference: XCFileReference, path: String) {
+        fileRef = fileReference
         super.init(path: path, parentAssets: nil)
     }
 

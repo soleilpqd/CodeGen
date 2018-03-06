@@ -139,7 +139,7 @@ class XCProject {
             if let g = item as? XCGroup {
                 findAssets(in: g, store: &store)
             } else if let f = item as? XCFileReference, f.lastKnownFileTypeEnum == .assets, let path = f.getFullPath() {
-                let assets = XCAssets(path: (projectPath as NSString).appendingPathComponent(path))
+                let assets = XCAssets(fileReference: f, path: (projectPath as NSString).appendingPathComponent(path))
                 store.append(assets)
             }
         }
@@ -174,7 +174,8 @@ class XCProject {
         return nil
     }
 
-    func findAllColorAssets() -> [XCAssetColor] {
+    // TODO: change to return [XCAssets, [XCAssetColor]]
+    func findAllColorAssets() -> ([XCAssetColor], [XCAssets]) {
         var allAssets = [XCAssets]()
         var result = [XCAssetColor]()
         if let main = xcProject.mainGroup {
@@ -183,15 +184,15 @@ class XCProject {
                 findColorAssets(in: assets, store: &result)
             }
         }
-        return result
+        return (result, allAssets)
     }
 
-    func findColorAssets(in assetsPath: String) -> [XCAssetColor]? {
+    func findColorAssets(in assetsPath: String) -> ([XCAssetColor], XCAssets)? {
         if let item = getItem(with: assetsPath) as? XCFileReference, item.lastKnownFileTypeEnum == .assets {
-            let assets = XCAssets(path: (projectPath as NSString).appendingPathComponent(item.getFullPath()!))
+            let assets = XCAssets(fileReference: item, path: (projectPath as NSString).appendingPathComponent(item.getFullPath()!))
             var result = [XCAssetColor]()
             findColorAssets(in: assets, store: &result)
-            return result
+            return (result, assets)
         }
         return nil
     }
@@ -298,6 +299,34 @@ class XCProject {
             }
         }
         return result
+    }
+
+    private func checkItemInCopyResources(item: XCFileReference, target: XCProjTarget) -> Bool {
+        guard let phases = target.buildPhases else { return false }
+        for phase in phases where phase.type == .copyResources {
+            guard let items = phase.files else { continue }
+            if items.contains(where: { (fItem) -> Bool in
+                return fItem === item
+            }) {
+                return true
+            }
+        }
+        return false
+    }
+
+    func checkItemInCopyResource(_ item: XCFileReference) -> Bool {
+        if let targets = xcProject.targets {
+            if let targetName = env.targetName {
+                for target in targets where target.name == targetName && checkItemInCopyResources(item: item, target: target) {
+                    return true
+                }
+            } else {
+                for target in targets where checkItemInCopyResources(item: item, target: target) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
 }

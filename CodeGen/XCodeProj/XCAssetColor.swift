@@ -151,8 +151,9 @@ class XCAssetColor: XCAsset {
 
     var colors: [Color]?
 
-    init?(_ info: [String: Any]) {
+    init?(info: [String: Any], folder: XCAssetFoler) {
         if let clrs = info["colors"] as? [[String: Any]] {
+            super.init()
             var result = [Color]()
             for clInfo in clrs {
                 if let color = Color(clInfo) {
@@ -161,6 +162,7 @@ class XCAssetColor: XCAsset {
             }
             if result.count == 0 { return nil }
             colors = result
+            parent = folder
         } else {
             return nil
         }
