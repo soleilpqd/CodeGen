@@ -78,7 +78,9 @@ if let classFile = projectFile {
         while opCount < tasks.count {
             sleep(0)
         }
-        flushLog()
+        for item in tasks {
+            item.flushLogs()
+        }
     } else {
         printError("Could not load configuration at \"\(configPath)\"!\n")
         exit(.exitCodeNotLoadConfig)

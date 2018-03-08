@@ -14,6 +14,8 @@ class XCTask {
     private static let kKeyEnable = "enable"
     private(set) weak var project: XCProject?
 
+    private var logs = [String]()
+
     enum TaskType: String {
         case color
     }
@@ -44,6 +46,20 @@ class XCTask {
 
     func toDic() -> [String: Any] {
         return [XCTask.kKeyType: type.rawValue]
+    }
+
+    func printLog(_ str: String) {
+        logs.append(str)
+    }
+
+    func flushLogs() {
+        if !Thread.isMainThread {
+            fatalError("flushLogs() function should be executed on main thread!") // Just to show logs in order
+        }
+        print(String.performTask(self.type))
+        for s in logs {
+            print(s)
+        }
     }
 
 }

@@ -131,6 +131,9 @@ class XCProject {
                 store.append(c)
             }
         }
+        store.sort { (left, right) -> Bool in
+            return left.name.compare(right.name) == .orderedAscending
+        }
     }
 
     private func findAssets(in group: XCGroup, store: inout [XCAssets]) {
@@ -174,25 +177,26 @@ class XCProject {
         return nil
     }
 
-    // TODO: change to return [XCAssets, [XCAssetColor]]
-    func findAllColorAssets() -> ([XCAssetColor], [XCAssets]) {
-        var allAssets = [XCAssets]()
-        var result = [XCAssetColor]()
+    func findAllColorAssets() -> [(XCAssets, [XCAssetColor])] {
+        var result = [(XCAssets, [XCAssetColor])]()
         if let main = xcProject.mainGroup {
+            var allAssets = [XCAssets]()
             findAssets(in: main, store: &allAssets)
             for assets in allAssets {
-                findColorAssets(in: assets, store: &result)
+                var colors = [XCAssetColor]()
+                findColorAssets(in: assets, store: &colors)
+                result.append((assets, colors))
             }
         }
-        return (result, allAssets)
+        return result
     }
 
-    func findColorAssets(in assetsPath: String) -> ([XCAssetColor], XCAssets)? {
+    func findColorAssets(in assetsPath: String) -> (XCAssets, [XCAssetColor])? {
         if let item = getItem(with: assetsPath) as? XCFileReference, item.lastKnownFileTypeEnum == .assets {
             let assets = XCAssets(fileReference: item, path: (projectPath as NSString).appendingPathComponent(item.getFullPath()!))
             var result = [XCAssetColor]()
             findColorAssets(in: assets, store: &result)
-            return (result, assets)
+            return (assets, result)
         }
         return nil
     }

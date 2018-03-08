@@ -38,19 +38,6 @@ class XCAsset {
 
     var name: String!
 
-    func getFileRef() -> XCFileReference? {
-        var current: XCAsset? = self
-        while true {
-            if let cur = current as? XCAssets {
-                return cur.fileRef
-            } else if current == nil {
-                return nil
-            }
-            let parent = current!.parent
-            current = parent
-        }
-    }
-
 }
 
 class XCAssetFoler: XCAsset {

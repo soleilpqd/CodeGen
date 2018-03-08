@@ -8,7 +8,6 @@
 
 import Foundation
 
-var log = [XCTask.TaskType: [String]]()
 private let local = Locale.current.languageCode ?? ""
 
 extension Int32 {
@@ -143,20 +142,5 @@ func printError(_ error: String) {
     let fileHandle = FileHandle.standardError
     if let data = error.data(using: .utf8) {
         fileHandle.write(data)
-    }
-}
-
-func printLog(str: String, type: XCTask.TaskType) {
-    var array = log[type] ?? [String]()
-    array.append(str)
-    log[type] = array
-}
-
-func flushLog() {
-    for (type, logs) in log {
-        print(String.performTask(type))
-        for s in logs {
-            print(s)
-        }
     }
 }

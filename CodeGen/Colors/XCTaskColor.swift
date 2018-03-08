@@ -87,7 +87,7 @@ class XCTaskColor: XCTask {
             colorList = clList
             if colors.count == 0 {
                 clList.removeFile()
-                printLog(str: .cleanColorList(clrName), type: self.type)
+                printLog(.cleanColorList(clrName))
                 return
             }
             var isChanged = false
@@ -129,13 +129,13 @@ class XCTaskColor: XCTask {
                 }
             }
             if !isChanged {
-                printLog(str: .colorListNoChange(clrName), type: self.type)
+                printLog(.colorListNoChange(clrName))
                 return
             }
         } else {
             colorList = NSColorList(name: .init(rawValue: clrName))
         }
-        printLog(str: .generateColorList(clrName), type: self.type)
+        printLog(.generateColorList(clrName))
         let keys = colorList.allKeys
         for key in keys {
             colorList.removeColor(withKey: key)
@@ -234,14 +234,10 @@ class XCTaskColor: XCTask {
         return content
     }
 
-    private func generateSwiftCodeSingleComponent(color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+    private func generateSwiftCodeSingleComponent(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let name = color.name ?? ""
-        var colorNameAvailable = false
-        if let fileRef = color.getFileRef(), project?.checkItemInCopyResource(fileRef) ?? false {
-            colorNameAvailable = true
-        }
         var result = indent1 + "/// " + name + "\n"
         let cl1 = color.colors!.first!
         let (r, g, b, w, a) = cl1.getComponents()
@@ -268,15 +264,10 @@ class XCTaskColor: XCTask {
 
     // MARK: Multiple components color
 
-    private func generateSwiftCodeMultiComponents(color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+    private func generateSwiftCodeMultiComponents(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let name = color.name ?? ""
         let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        var colorNameAvailable = false
-        if let fileRef = color.getFileRef(), project?.checkItemInCopyResource(fileRef) ?? false {
-            colorNameAvailable = true
-        }
-
         var result = indent1 + "/// " + name + "\n"
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
@@ -320,12 +311,12 @@ class XCTaskColor: XCTask {
         return result
     }
 
-    private func generateSwiftCode(color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+    private func generateSwiftCode(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         if let components = color.colors {
             if components.count > 1 {
-                return generateSwiftCodeMultiComponents(color: color, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+                return generateSwiftCodeMultiComponents(colorNameAvailable: colorNameAvailable, color: color, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
             } else if components.count > 0 {
-                return generateSwiftCodeSingleComponent(color: color, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+                return generateSwiftCodeSingleComponent(colorNameAvailable: colorNameAvailable, color: color, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
             }
         }
         return ""
@@ -351,10 +342,10 @@ class XCTaskColor: XCTask {
     private func checkOutputFile(_ project: XCProject) {
         if let chk = project.checkPathInBuildSource(path: output) {
             if !chk {
-                printLog(str: .outputFileNotInTarget(fullOutputPath), type: self.type)
+                printLog(.outputFileNotInTarget(fullOutputPath))
             }
         } else {
-            printLog(str: .outputFileNotInProject(fullOutputPath), type: self.type)
+            printLog(.outputFileNotInProject(fullOutputPath))
         }
     }
 
@@ -398,7 +389,7 @@ class XCTaskColor: XCTask {
                     name += color.name + ", "
                 }
             }
-            printLog(str: .sameValue(String(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)])), type: self.type)
+            printLog(.sameValue(String(name[name.startIndex..<name.index(name.endIndex, offsetBy: -2)])))
         }
     }
 
@@ -455,7 +446,7 @@ class XCTaskColor: XCTask {
             for color in tmpColors {
                 list += "\"\(color.name ?? "")\", "
             }
-            printLog(str: .notUsed(String(list[list.startIndex..<list.index(list.endIndex, offsetBy: -2)])), type: self.type)
+            printLog(.notUsed(String(list[list.startIndex..<list.index(list.endIndex, offsetBy: -2)])))
         }
     }
 
@@ -471,54 +462,55 @@ class XCTaskColor: XCTask {
         content += "import UIKit\n\n"
         content += "extension UIColor {\n\n"
 
-        var allColors = [XCAssetColor]()
-        var allAssets = [XCAssets]()
+        var assetsColors = [(XCAssets, [XCAssetColor])]()
         if let ipt = input {
             if let res = project.findColorAssets(in: ipt) {
-                allColors = res.0
-                allAssets = [res.1]
+                assetsColors.append(res)
             }
         } else {
-            (allColors, allAssets) = project.findAllColorAssets()
+            assetsColors = project.findAllColorAssets()
         }
-        allColors = allColors.sorted(by: { (left, right) -> Bool in
-            return left.name.compare(right.name) == .orderedAscending
-        })
-        _ = allAssets // this array is used to keep assets object un-deallocated
 
         var commonSingleColor = false
         var commonMultiColor = false
-        for color in allColors where (color.colors?.count ?? 0) > 1 {
-            if isSDK11Only {
-                var colorNameAvailable = false
-                if let fileRef = color.getFileRef(), project.checkItemInCopyResource(fileRef) {
-                    colorNameAvailable = true
-                }
-                if !colorNameAvailable {
+        for (assets, allColors) in assetsColors {
+            var multiColor = false
+            for color in allColors where (color.colors?.count ?? 0) > 1 {
+                multiColor = true
+                break
+            }
+            if multiColor {
+                if isSDK11Only {
+                    var colorNameAvailable = false
+                    if let fileRef = assets.fileRef, project.checkItemInCopyResource(fileRef) {
+                        colorNameAvailable = true
+                    }
+                    if !colorNameAvailable {
+                        commonMultiColor = true
+                        break
+                    }
+                } else {
                     commonMultiColor = true
                     break
                 }
-            } else {
-                commonMultiColor = true
-                break
             }
         }
+
         if commonMultiColor {
             commonSingleColor = true
         } else {
-            for color in allColors {
-                if isSDK11Only {
+            if !isSDK11Only {
+                commonSingleColor = true
+            } else {
+                for (assets, _) in assetsColors {
                     var colorNameAvailable = false
-                    if let fileRef = color.getFileRef(), project.checkItemInCopyResource(fileRef) {
+                    if let fileRef = assets.fileRef, project.checkItemInCopyResource(fileRef) {
                         colorNameAvailable = true
                     }
                     if !colorNameAvailable {
                         commonSingleColor = true
                         break
                     }
-                } else {
-                    commonSingleColor = true
-                    break
                 }
             }
         }
@@ -529,10 +521,19 @@ class XCTaskColor: XCTask {
                                               useTab: project.useTab)
         }
 
-        for color in allColors {
-            printLog(str: .found(color.name ?? ""), type: self.type)
-            content += generateSwiftCode(color: color, prefix: project.prefix?.lowercased() ?? "", tabWidth: project.tabWidth,
-                                         indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
+        var allColors = [XCAssetColor]()
+        for (assets, colors) in assetsColors {
+            allColors.append(contentsOf: colors)
+            var colorNameAvailable = false
+            if let fileRef = assets.fileRef, project.checkItemInCopyResource(fileRef) {
+                colorNameAvailable = true
+            }
+            for color in colors {
+                printLog(.found(color.name ?? ""))
+                content += generateSwiftCode(colorNameAvailable: colorNameAvailable,
+                                             color: color, prefix: project.prefix?.lowercased() ?? "", tabWidth: project.tabWidth,
+                                             indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
+            }
         }
         content += "}\n"
 
@@ -544,7 +545,7 @@ class XCTaskColor: XCTask {
             if content != data {
                 result = project.write(content: content, target: output)
             } else {
-                printLog(str: .outputNotChange(), type: self.type)
+                printLog(.outputNotChange())
             }
         }
         makeColorList(project: project, colors: allColors)
