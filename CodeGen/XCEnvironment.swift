@@ -10,6 +10,10 @@ import Foundation
 
 struct XCEnvironment {
 
+    enum CompareType {
+        case same, newer, sameOrNewer, older, sameOrOlder
+    }
+
     let deployVersion: String?
     let targetName: String?
     let infoPlistPath: String?
@@ -35,6 +39,23 @@ struct XCEnvironment {
         bundleId = env["PRODUCT_BUNDLE_IDENTIFIER"]
         productName = env["PRODUCT_NAME"]
         moduleName = env["PRODUCT_MODULE_NAME"]
+    }
+
+    func compareVersion(version: String, type: CompareType = .sameOrNewer) -> Bool {
+        let curVersion = deployVersion ?? "9.0"
+        let resut = curVersion.compare(version, options: .numeric)
+        switch type {
+        case .same:
+            return resut == .orderedSame
+        case .newer:
+            return resut == .orderedDescending
+        case .older:
+            return resut == .orderedAscending
+        case .sameOrNewer:
+            return resut != .orderedAscending
+        case .sameOrOlder:
+            return resut != .orderedDescending
+        }
     }
 
 }

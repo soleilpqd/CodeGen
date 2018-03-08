@@ -5,26 +5,14 @@
   },
   "colors" : [
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "color" : {
-        "color-space" : "display-p3",
+        "color-space" : "srgb",
         "components" : {
-          "red" : "0.040",
+          "red" : "1.000",
           "alpha" : "1.000",
-          "blue" : "0.091",
-          "green" : "0.250"
-        }
-      }
-    },
-    {
-      "idiom" : "ipad",
-      "color" : {
-        "color-space" : "display-p3",
-        "components" : {
-          "red" : "0.646",
-          "alpha" : "1.000",
-          "blue" : "0.484",
-          "green" : "0.000"
+          "blue" : "1.000",
+          "green" : "1.000"
         }
       }
     }

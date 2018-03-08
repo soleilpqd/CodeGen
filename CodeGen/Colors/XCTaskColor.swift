@@ -38,6 +38,8 @@ class XCTaskColor: XCTask {
         }
     }
 
+    // MARK: - ColorList (Color catalog)
+
     private func findColorList(_ project: XCProject) -> (String?, NSColorList?) {
         guard var clrName = colorListName else { return (nil, nil) }
         if clrName.count == 0 {
@@ -158,38 +160,77 @@ class XCTaskColor: XCTask {
         _ = colorList.write(toFile: nil)
     }
 
-    private func generateCommonFunction(swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
-        let version = env.deployVersion ?? ""
+    // MARK: - Generate Swift code
+
+    // MARK: Single component color
+
+    private func generateCommonFunction(commonMulti: Bool, swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
         let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         let indent3 = makeIndentation(level: 3, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        var content = swiftlingEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
-        content += indent1 + "private static func makeColor(name: String, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat, colorNameAvailable: Bool) -> UIColor {\n"
-        content += indent2 + "var result: UIColor!\n"
-        if version.hasPrefix("11.") {
-            content += indent2 + "if colorNameAvailable {\n"
+        let indent4 = makeIndentation(level: 4, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+
+        var content = ""
+
+        // Common function for single component color
+        content = swiftlingEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
+        content += indent1 + "private static func makeColor(name: String?, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) -> UIColor {\n"
+        if env.compareVersion(version: "11.0") {
+            content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
         } else {
-            content += indent2 + "if #available(iOS 11.0, *), colorNameAvailable {\n"
+            content += indent2 + "if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {\n"
         }
-        content += indent3 + "result = UIColor(named: name)\n"
+        content += indent3 + "return color\n"
         content += indent2 + "}\n"
-        if version.hasPrefix("10.") {
-            content += indent2 + "if result == nil, colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
-            content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
+        if env.compareVersion(version: "10.0") {
+            content += indent2 + "if colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
+            content += indent3 + "return UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
             content += indent2 + "}\n"
         } else {
-            content += indent2 + "if result == nil, #available(iOS 10.0, *), colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
-            content += indent3 + "result = UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
+            content += indent2 + "if #available(iOS 10.0, *), colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
+            content += indent3 + "return UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
             content += indent2 + "}\n"
         }
-        content += indent2 + "if result == nil, colorSpace == \"\(XCAssetColor.Color.ColorSpace.grayGamma22.rawValue)\" || colorSpace == \"\(XCAssetColor.Color.ColorSpace.extendedGray.rawValue)\" {\n"
-        content += indent3 + "result = UIColor(white: white, alpha: alpha)\n"
+        content += indent2 + "if colorSpace == \"\(XCAssetColor.Color.ColorSpace.grayGamma22.rawValue)\" || colorSpace == \"\(XCAssetColor.Color.ColorSpace.extendedGray.rawValue)\" {\n"
+        content += indent3 + "return UIColor(white: white, alpha: alpha)\n"
         content += indent2 + "}\n"
-        content += indent2 + "if result == nil {\n"
-        content += indent3 + "result = UIColor(red: red, green: green, blue: blue, alpha: alpha)\n"
-        content += indent2 + "}\n"
-        content += indent2 + "return result\n"
+        content += indent2 + "return UIColor(red: red, green: green, blue: blue, alpha: alpha)\n"
         content += indent1 + "}\n\n"
+
+        // Common function for multiple components color
+        if commonMulti {
+            if swiftlingEnable {
+                content += indent1 + "// swiftlint:disable:next large_tuple\n"
+            }
+            content += indent1 + "private static func makeColor(name: String?, map: [String: (colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat)]) -> UIColor {\n"
+            if env.compareVersion(version: "11.0") {
+                content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
+            } else {
+                content += indent2 + "if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {\n"
+            }
+            content += indent3 + "return color\n"
+            content += indent2 + "}\n"
+            content += indent2 + "switch UIDevice.current.userInterfaceIdiom {\n"
+            content += indent2 + "case .phone:\n"
+            content += indent3 + "if let data = map[\"phone\"] {\n"
+            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent3 + "}\n"
+            content += indent2 + "case .pad:\n"
+            content += indent3 + "if let data = map[\"pad\"] {\n"
+            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent3 + "}\n"
+            content += indent2 + "case .tv:\n"
+            content += indent3 + "if let data = map[\"tv\"] {\n"
+            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent3 + "}\n"
+            content += indent2 + "default:\n"
+            content += indent3 + "if let data = map[\"default\"] {\n"
+            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent3 + "}\n"
+            content += indent2 + "}\n"
+            content += indent2 + "return UIColor()\n"
+            content += indent1 + "}\n\n"
+        }
         return content
     }
 
@@ -206,81 +247,77 @@ class XCTaskColor: XCTask {
         let (r, g, b, w, a) = cl1.getComponents()
         let componentName = cl1.idiom ?? ""
         let spaceColor = cl1.colorSpace ?? ""
-        result += indent1 + "/// \(componentName): \(spaceColor) \(cl1.description)"
+        result += indent1 + "/// - \(componentName): \(spaceColor) \(cl1.description)"
         if let readable = cl1.humanReadable {
             result += " \"" + readable + "\"\n"
         } else {
             result += "\n"
         }
         result += indent1 + "static var \(prefix)\(name.replacingOccurrences(of: " ", with: "")): UIColor {\n"
-        result += indent2 + "return makeColor(name: \"\(name)\", colorSpace: \"\(spaceColor)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a), colorNameAvailable: \(colorNameAvailable ? "true" : "false"))\n"
+        if env.compareVersion(version: "11.0") && colorNameAvailable {
+            if project?.swiftlintEnable ?? false {
+                result += indent2 + "// swiftlint:disable:next force_cast"
+            }
+            result += indent2 + "return UIColor(named: \"\(name)\")!\n"
+        } else {
+            result += indent2 + "return makeColor(name: \(colorNameAvailable ? "\"\(name)\"" : "nil"), colorSpace: \"\(spaceColor)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
+        }
         result += indent1 + "}\n"
         return result
     }
 
-    private func genDescription(of color: XCAssetColor, component: XCAssetColor.Color, indentLevel: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
-        guard let readable = component.humanReadable else {
-            return ""
-        }
-        let indent1 = makeIndentation(level: indentLevel, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+    // MARK: Multiple components color
+
+    private func generateSwiftCodeMultiComponents(color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+        let name = color.name ?? ""
+        let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+        let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         var colorNameAvailable = false
         if let fileRef = color.getFileRef(), project?.checkItemInCopyResource(fileRef) ?? false {
             colorNameAvailable = true
         }
-        var result =  indent1 + "// \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(readable)\"\n"
-        let (r, g, b, w, a) = component.getComponents()
-        result += indent1 + "result = makeColor(name: \"\(color.name ?? "")\", colorSpace: \"\(component.colorSpace ?? XCAssetColor.Color.ColorSpace.srgb.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a), colorNameAvailable: \(colorNameAvailable ? "true" : "false"))\n"
-        return result
-    }
 
-    private func genColor(color: XCAssetColor, content: String, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
-        let name = color.name ?? ""
-        let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent3 = makeIndentation(level: 3, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         var result = indent1 + "/// " + name + "\n"
+        for component in color.colors! {
+            result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
+        }
         result += indent1 + "static var \(prefix)\(name.replacingOccurrences(of: " ", with: "")): UIColor {\n"
-        result += indent2 + "var result: UIColor!\n"
-        result += indent2 + "if #available(iOS 11.0, *) {\n"
-        result += indent3 + "result = UIColor(named: \"\(name)\")\n"
-        result += indent2 + "}\n"
-        result += indent2 + "if result == nil {\n"
-        result += content
-        result += indent2 + "}\n"
-        result += indent2 + "return result\n"
+        if env.compareVersion(version: "11.0") && colorNameAvailable {
+            if project?.swiftlintEnable ?? false {
+                result += indent2 + "// swiftlint:disable:next force_cast"
+            }
+            result += indent2 + "return UIColor(named: \"\(name)\")!\n"
+        } else {
+            var content = "return makeColor(name: \(colorNameAvailable ? "\"\(name)\"" : "nil"), map: ["
+            var head = indent2
+            for _ in 0..<content.count {
+                head += " "
+            }
+            content = indent2 + content
+
+            for component in color.colors! {
+                guard let key = XCIdiom.new(component.idiom) else { continue }
+                var keyName = ""
+                switch key {
+                case .iphone:
+                    keyName = "phone"
+                case .ipad:
+                    keyName = "pad"
+                case .tv:
+                    keyName = "tv"
+                case .universal:
+                    keyName = "default"
+                default:
+                    continue
+                }
+                let (r, g, b, w, a) = component.getComponents()
+                content += "\"\(keyName)\": (colorSpace: \"\(component.colorSpace ?? XCAssetColor.Color.ColorSpace.srgb.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a)),\n" + head
+            }
+            result += String(content[content.startIndex..<content.index(content.endIndex, offsetBy: -(head.count + 2))]) + "])\n"
+        }
+
         result += indent1 + "}\n"
         return result
-    }
-
-    private func generateSwiftCodeMultiComponents(color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
-        let indent3 = makeIndentation(level: 3, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent4 = makeIndentation(level: 4, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        var content = indent3 + "switch UIDevice.current.userInterfaceIdiom {\n"
-        var universalComponent: XCAssetColor.Color?
-        for component in color.colors! {
-            guard let key = XCIdiom.new(component.idiom) else { continue }
-            switch key {
-            case .iphone:
-                content += indent3 + "case .phone:\n"
-            case .ipad:
-                content += indent3 + "case .pad:\n"
-            case .tv:
-                content += indent3 + "case .tv:\n"
-            case .universal:
-                universalComponent = component
-            default:
-                continue
-            }
-            content += genDescription(of: color, component: component, indentLevel: 4, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        }
-        content += indent3 + "default:\n"
-        if let universal = universalComponent {
-            content += genDescription(of: color, component: universal, indentLevel: 4, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        } else {
-            content += indent4 + "result = UIColor()\n"
-        }
-        content += indent3 + "}\n"
-        return genColor(color: color, content: content, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
     }
 
     private func generateSwiftCode(color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
@@ -293,6 +330,8 @@ class XCTaskColor: XCTask {
         }
         return ""
     }
+
+    // MARK: - Validation
 
     private func compareColors(_ left: NSColor, _ right: NSColor) -> Bool {
         let cmpComponent: (CGFloat, CGFloat) -> Bool = {(l, r) in
@@ -379,8 +418,7 @@ class XCTaskColor: XCTask {
     private func checkUsage(project: XCProject, allColors: [XCAssetColor]) {
         if !isCheckUse { return }
         var sources = [XCFileReference.FileType.swift: project.getSwiftFiles()]
-        let version = env.deployVersion ?? ""
-        if version.hasPrefix("11.") {
+        if env.compareVersion(version: "11.0") {
             let result = project.getCopyResourcesFiles(types: [.storyboard, .xib])
             for (key, value) in result {
                 sources[key] = value
@@ -421,8 +459,11 @@ class XCTaskColor: XCTask {
         }
     }
 
+    // MARK: - Task
+
     override func run(_ project: XCProject) -> Error? {
         _ = super.run(project)
+        let isSDK11Only = env.compareVersion(version: "11.0")
         fullOutputPath = (project.projectPath as NSString).appendingPathComponent(output)
         checkOutputFile(project)
 
@@ -445,10 +486,49 @@ class XCTaskColor: XCTask {
         })
         _ = allAssets // this array is used to keep assets object un-deallocated
 
-        content += generateCommonFunction(swiftlingEnable: project.swiftlintEnable,
-                                          tabWidth: project.tabWidth,
-                                          indentWidth: project.indentWidth,
-                                          useTab: project.useTab)
+        var commonSingleColor = false
+        var commonMultiColor = false
+        for color in allColors where (color.colors?.count ?? 0) > 1 {
+            if isSDK11Only {
+                var colorNameAvailable = false
+                if let fileRef = color.getFileRef(), project.checkItemInCopyResource(fileRef) {
+                    colorNameAvailable = true
+                }
+                if !colorNameAvailable {
+                    commonMultiColor = true
+                    break
+                }
+            } else {
+                commonMultiColor = true
+                break
+            }
+        }
+        if commonMultiColor {
+            commonSingleColor = true
+        } else {
+            for color in allColors {
+                if isSDK11Only {
+                    var colorNameAvailable = false
+                    if let fileRef = color.getFileRef(), project.checkItemInCopyResource(fileRef) {
+                        colorNameAvailable = true
+                    }
+                    if !colorNameAvailable {
+                        commonSingleColor = true
+                        break
+                    }
+                } else {
+                    commonSingleColor = true
+                    break
+                }
+            }
+        }
+        if commonSingleColor {
+            content += generateCommonFunction(commonMulti: commonMultiColor, swiftlingEnable: project.swiftlintEnable,
+                                              tabWidth: project.tabWidth,
+                                              indentWidth: project.indentWidth,
+                                              useTab: project.useTab)
+        }
+
         for color in allColors {
             printLog(str: .found(color.name ?? ""), type: self.type)
             content += generateSwiftCode(color: color, prefix: project.prefix?.lowercased() ?? "", tabWidth: project.tabWidth,
@@ -471,7 +551,7 @@ class XCTaskColor: XCTask {
         return result
     }
 
-    override func toDic() -> [String : Any] {
+    override func toDic() -> [String: Any] {
         var dic = super.toDic()
         if let inp = input {
             dic[kKeyInput] = inp
