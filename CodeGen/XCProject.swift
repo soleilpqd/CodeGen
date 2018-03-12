@@ -259,7 +259,7 @@ class XCProject {
     private func getCopyResourcesFiles(item: XCItem, types: [XCFileReference.FileType],
                                        target: XCProjTarget, store: inout [XCFileReference.FileType: [String]]) -> Bool {
         if let file = item as? XCFileReference, let type = file.lastKnownFileTypeEnum,
-            types.contains(type), let path = file.getFullPath() {
+            types.count > 0 ? types.contains(type) : true, let path = file.getFullPath() {
             var files: [String]
             if let fs = store[type] {
                 files = fs

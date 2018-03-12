@@ -165,10 +165,10 @@ class XCTaskColor: XCTask {
     // MARK: Single component color
 
     private func generateCommonFunction(commonMulti: Bool, swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
-        let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent3 = makeIndentation(level: 3, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent4 = makeIndentation(level: 4, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+        let indent1 = indent(1)
+        let indent2 = indent(2)
+        let indent3 = indent(3)
+        let indent4 = indent(4)
 
         var content = ""
 
@@ -235,8 +235,8 @@ class XCTaskColor: XCTask {
     }
 
     private func generateSwiftCodeSingleComponent(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
-        let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+        let indent1 = indent(1)
+        let indent2 = indent(2)
         let name = color.name ?? ""
         var result = indent1 + "/// " + name + "\n"
         let cl1 = color.colors!.first!
@@ -266,8 +266,8 @@ class XCTaskColor: XCTask {
 
     private func generateSwiftCodeMultiComponents(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let name = color.name ?? ""
-        let indent1 = makeIndentation(level: 1, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
-        let indent2 = makeIndentation(level: 2, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+        let indent1 = indent(1)
+        let indent2 = indent(2)
         var result = indent1 + "/// " + name + "\n"
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
@@ -541,12 +541,14 @@ class XCTaskColor: XCTask {
         checkUsage(project: project, allColors: allColors)
 
         var result: Error?
-        if let data = try? String(contentsOfFile: (project.projectPath as NSString).appendingPathComponent(output)) {
+        if let data = try? String(contentsOfFile: fullOutputPath) {
             if content != data {
                 result = project.write(content: content, target: output)
             } else {
                 printLog(.outputNotChange())
             }
+        } else {
+            result = project.write(content: content, target: output)
         }
         makeColorList(project: project, colors: allColors)
         return result

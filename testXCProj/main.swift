@@ -97,6 +97,23 @@ private func testProjectFile() {
     }
 }
 
+private func testResources() {
+    if let project = XCProjFile.project(from: kProjFile), let targets = project.targets, targets.count > 0 {
+        for target in targets {
+            print(target.name ?? "<target>")
+            if let phases = target.buildPhases {
+                for phase in phases {
+                    if phase.type == XCBuildPhase.PhaseType.copyResources, let files = phase.files {
+                        for item in files {
+                            print("\t", item.name ?? "<name>", item.path ?? "<path>", (item as? XCFileReference)?.lastKnownFileType ?? "<type>")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 private func printAsset(asset: XCAsset, level: UInt) {
     let prefix = printPrefix(level)
     if let color = asset as? XCAssetColor {
@@ -112,8 +129,8 @@ private func printAsset(asset: XCAsset, level: UInt) {
 }
 
 private func testAssets() {
-    let assets = XCAssets(path: kColorAssetsPath)
-    printAsset(asset: assets, level: 0)
+//    let assets = XCAssets(fileReference: <#T##XCFileReference#>, path: <#T##String#>)
+//    printAsset(asset: assets, level: 0)
 }
 
 private func testGetSwiftFiles() {
@@ -125,9 +142,11 @@ private func testGetSwiftFiles() {
 
 private func testFindColors() {
     if let project = XCProject(rootPath: kPrjRootPath, filePath: kProjFile) {
-        if let colors = project.findColorAssets(in: kColorAssetsPath) {
+        if let result = project.findColorAssets(in: kColorAssetsPath) {
+            let (assets, colors) = result
+            print(assets.name)
             for color in colors {
-                print(color.name, "-", color.colors?.first?.humanReadable ?? "")
+                print("\t", color.name, "-", color.colors?.first?.humanReadable ?? "")
             }
         }
     }
@@ -135,7 +154,9 @@ private func testFindColors() {
 
 print(Locale.current.languageCode ?? "")
 
-testProjectFile()
+//testProjectFile()
 //testAssets()
 //testFindColors()
-testGetSwiftFiles()
+//testGetSwiftFiles()
+testResources()
+

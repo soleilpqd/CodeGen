@@ -16,5 +16,22 @@
 		<key>check_same</key>
 		<true/>
 	</dict>
+	<dict>
+		<key>type</key>
+		<string>resource</string>
+		<key>no_sub_dir</key>
+		<false/>
+		<key>output</key>
+		<string>myProject/Common/MYResources.swift</string>
+		<key>exts</key>
+		<array>
+			<string>txt</string>
+			<string>json</string>
+			<string>db</string>
+			<string>sqlite</string>
+			<string>plist</string>
+			<string>xml</string>
+		</array>
+	</dict>
 </array>
 </plist>

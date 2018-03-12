@@ -114,6 +114,7 @@ class XCFileReference: XCItem {
         case text
         case gif = "image.gif"
         case png = "image.png"
+        case folder = "folder"
         case assets = "folder.assetcatalog"
         case xml = "text.plist.xml"
         case json = "text.json"
