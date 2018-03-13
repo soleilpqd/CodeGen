@@ -13,7 +13,7 @@ enum XCStringsParserError: Error {
     case failed(row: UInt, column: UInt)
 }
 
-func parseStringsFile(file: String) throws -> [String: [String]] {
+func parseStringsFile(file: String) throws -> [String: [(String, UInt)]] {
     guard let content = try? String(contentsOfFile: file) else {
         throw XCStringsParserError.notLoad
     }
@@ -31,7 +31,7 @@ func parseStringsFile(file: String) throws -> [String: [String]] {
     var context: XCStringsContext = .none
     var line: UInt = 1
     var col: UInt = 1
-    var result = [String: [String]]()
+    var result = [String: [(String, UInt)]]()
     var preChar: Character?
     var curKey: String?
     var curValue: String?
@@ -102,13 +102,13 @@ func parseStringsFile(file: String) throws -> [String: [String]] {
             case ";":
                 context = .none
                 if let key = curKey?.replacingOccurrences(of: "\n", with: "\\n"), let val = curValue?.replacingOccurrences(of: "\n", with: "\\n") {
-                    var values: [String]
+                    var values: [(String, UInt)]
                     if let arr = result[key] {
                         values = arr
                     } else {
-                        values = [String]()
+                        values = [(String, UInt)]()
                     }
-                    values.append(val)
+                    values.append((val, line))
                     result[key] = values
                 } else {
                     throw XCStringsParserError.failed(row: line, column: col)
