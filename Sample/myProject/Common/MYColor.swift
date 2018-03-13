@@ -50,7 +50,7 @@ extension UIColor {
 
     /// BlackAlpha40
     /// - universal: srgb #000000 40% "Black"
-    static var myBlackAlpha40: UIColor {
+    static var myBlackalpha40: UIColor {
         return makeColor(name: nil, colorSpace: "srgb", red: 0.0, green: 0.0, blue: 0.0, white: 0.0, alpha: 0.404)
     }
 

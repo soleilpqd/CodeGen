@@ -12,8 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(myResources.Data.Subdata.DataJson.path)
-        print(myResources.Data.DataJson.url)
+        print(MYResources.Data.Subdata.DataJson.path)
+        print(MYResources.Data.DataJson.url)
     }
 
 }

@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  myProject
+
+  Created by DươngPQ on 13/03/2018.
+  Copyright © 2018 GMO-Z.com RunSystem. All rights reserved.
+*/
+
+"normal text" = "Normal text";
+// Comment
+"attr_bold_text" = "<b>Bold text</b>\"";
+"normal text" = "Normal text 1";
+

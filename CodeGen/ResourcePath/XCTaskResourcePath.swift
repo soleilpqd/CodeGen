@@ -41,14 +41,6 @@ class XCTaskResourcePath: XCTask {
         return dic
     }
 
-    private func makeVarName(_ input: String) -> String {
-        var result = input.replacingOccurrences(of: ".", with: " ")
-        result = result.replacingOccurrences(of: "/", with: "_")
-        result = result.capitalized
-        result = result.replacingOccurrences(of: " ", with: "")
-        return result
-    }
-
     private func makeTypeName(_ name: String) -> String {
         var type = (name as NSString).pathExtension
         if type == "" {
@@ -79,18 +71,18 @@ class XCTaskResourcePath: XCTask {
         subDir.sort()
         let refPath = (originFolder as NSString).lastPathComponent + inFolder.replacingOccurrences(of: originFolder, with: "")
         if !isNoSubDir {
-            content += "\n" + indent(level + 1) + "struct \(makeVarName((inFolder as NSString).lastPathComponent)) {\n"
+            content += "\n" + indent(level + 1) + "struct \(makeKeyword((inFolder as NSString).lastPathComponent)) {\n"
         }
         for item in items {
             printLog(.found("\(refPath)/\(item)"))
             let type = makeTypeName(item)
             if isNoSubDir {
-                let varName = makeVarName("\(refPath)/\(item)")
+                let varName = makeKeyword("\(refPath)/\(item)")
                 content += "\n" + indent(1) + "static var \(varName): Resource {\n"
                 content += indent(2) + "return Resource(inputName: \"\((item as NSString).deletingPathExtension)\", inputType: \(type), inputFolder: \"\(refPath)\")\n"
                 content += indent(1) + "}\n"
             } else {
-                let varName = makeVarName(item)
+                let varName = makeKeyword(item)
                 content += "\n" + indent(level + 2) + "static var \(varName): Resource {\n"
                 content += indent(level + 3) + "return Resource(inputName: \"\((item as NSString).deletingPathExtension)\", inputType: \(type), inputFolder: \"\(refPath)\")\n"
                 content += indent(level + 2) + "}\n"
@@ -125,7 +117,7 @@ class XCTaskResourcePath: XCTask {
         if project.swiftlintEnable {
             content += "// swiftlint:disable force_cast identifier_name\n\n"
         }
-        content += "struct \(project.prefix?.lowercased() ?? "")Resources {\n\n"
+        content += "struct \(project.prefix ?? "")Resources {\n\n"
         content += indent1 + "struct Resource {\n\n"
         content += indent2 + "let name: String\n"
         content += indent2 + "let type: String?\n"
@@ -165,15 +157,24 @@ class XCTaskResourcePath: XCTask {
         folders.sort()
         for f in files {
             let name = (f as NSString).lastPathComponent
-            printLog(.found(name))
-            let varName = makeVarName(name)
+            if FileManager.default.fileExists(atPath: f) {
+                printLog(.found(name))
+            } else {
+                printLog(.errorNotExist(f))
+                continue
+            }
+            let varName = makeKeyword(name)
             content += "\n" + indent1 + "static var \(varName): Resource {\n"
             let type = makeTypeName(name)
             content += indent2 + "return Resource(inputName: \"\((name as NSString).deletingPathExtension)\", inputType: \(type))\n"
             content += indent1 + "}\n"
         }
         for d in folders {
-            findResource(inFolder: d, originFolder: d, level: 0, content: &content)
+            if FileManager.default.fileExists(atPath: d) {
+                findResource(inFolder: d, originFolder: d, level: 0, content: &content)
+            } else {
+                printLog(.errorNotExist(d))
+            }
         }
         content += "\n}\n"
 

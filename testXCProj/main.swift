@@ -152,11 +152,23 @@ private func testFindColors() {
     }
 }
 
+private func testStringResources() {
+     if let project = XCProject(rootPath: kPrjRootPath, filePath: kProjFile) {
+        var languages = [String]()
+        var errors = [String: Error]()
+        let result = project.buildStrings(languages: &languages, errors: &errors)
+        print("Strings:", (result as NSDictionary).description)
+        print("Languages:", languages)
+        print("Errors:", errors)
+    }
+}
+
 print(Locale.current.languageCode ?? "")
 
 //testProjectFile()
 //testAssets()
 //testFindColors()
 //testGetSwiftFiles()
-testResources()
+//testResources()
+testStringResources()
 

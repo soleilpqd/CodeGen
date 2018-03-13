@@ -38,3 +38,13 @@ func getIndent(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> Str
     indents[level] = result
     return result
 }
+
+func makeKeyword(_ input: String) -> String{
+    var result = input
+    let specialChars = "'\"`~!@#$%^&*()_+-=[]\\{}|;:,./<>?\t\n"
+    for c in specialChars {
+        result = result.replacingOccurrences(of: String(c), with: " ")
+    }
+    result = result.capitalized
+    return result.replacingOccurrences(of: " ", with: "")
+}

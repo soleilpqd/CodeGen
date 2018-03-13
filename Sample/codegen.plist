@@ -33,5 +33,51 @@
 			<string>xml</string>
 		</array>
 	</dict>
+	<dict>
+		<key>type</key>
+		<string>string</string>
+		<key>input</key>
+		<string></string>
+		<key>output</key>
+		<string></string>
+		<key>output_type</key>
+		<string>string</string>
+		<key>attr_prefix</key>
+		<string>attr_</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>string</string>
+		<key>input</key>
+		<string></string>
+		<key>output</key>
+		<string></string>
+		<key>output_type</key>
+		<string>url</string>
+		<key>bases</key>
+		<dict>
+			<key>main_</key>
+			<string>https://www.google.com/</string>
+		</dict>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>string</string>
+		<key>input</key>
+		<string></string>
+		<key>output</key>
+		<string></string>
+		<key>output_type</key>
+		<string>enum</string>
+		<key>names</key>
+		<dict>
+			<key>AlertTitle</key>
+			<string>ALERT_TITLE_</string>
+			<key>AlertButton</key>
+			<string>ALERT_BUTTON_</string>
+			<key>AlertMessage</key>
+			<string>ALERT_MESG_</string>
+		</dict>
+	</dict>
 </array>
 </plist>

@@ -249,7 +249,7 @@ class XCTaskColor: XCTask {
         } else {
             result += "\n"
         }
-        result += indent1 + "static var \(prefix)\(name.replacingOccurrences(of: " ", with: "")): UIColor {\n"
+        result += indent1 + "static var \(prefix)\(makeKeyword(name)): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -272,7 +272,7 @@ class XCTaskColor: XCTask {
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
         }
-        result += indent1 + "static var \(prefix)\(name.replacingOccurrences(of: " ", with: "")): UIColor {\n"
+        result += indent1 + "static var \(prefix)\(makeKeyword(name)): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -425,7 +425,7 @@ class XCTaskColor: XCTask {
                     for color in allColors where tmpColors.contains(where: { (tmpColor) -> Bool in
                         return color === tmpColor
                     }) {
-                        let pattern = "\\.\(prefix + (color.name.replacingOccurrences(of: " ", with: "")))(.|\\n|\\)|\\]|\\})?"
+                        let pattern = "\\.\(prefix + (makeKeyword(color.name)))(.|\\n|\\)|\\]|\\})?"
                         checkUsage(pattern: pattern, content: content, color: color, store: &tmpColors)
                     }
                 case .storyboard, .xib:
@@ -451,6 +451,7 @@ class XCTaskColor: XCTask {
     }
 
     // MARK: - Task
+    // TODO: diffent color name but same keyword name?
 
     override func run(_ project: XCProject) -> Error? {
         _ = super.run(project)

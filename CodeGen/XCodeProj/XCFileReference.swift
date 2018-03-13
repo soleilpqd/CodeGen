@@ -122,6 +122,7 @@ class XCFileReference: XCItem {
         case coreDataModel = "wrapper.xcdatamodel"
         case framwork = "wrapper.framework"
         case xcconfig = "text.xcconfig"
+        case strings = "text.plist.strings"
     }
 
     var lastKnownFileTypeEnum: FileType? {

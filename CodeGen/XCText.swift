@@ -46,6 +46,15 @@ extension String {
         }
     }
 
+    static func errorNotExist(_ string: String) -> String {
+        switch local {
+        case "vi":
+            return "\(string): error: Không tồn tại!"
+        default:
+            return "\(string): error: Not exist!"
+        }
+    }
+
     static func loadConfig(_ str: String) -> String {
         switch local {
         case "vi":

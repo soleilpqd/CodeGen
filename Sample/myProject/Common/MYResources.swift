@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct myResources {
+struct MYResources {
 
     struct Resource {
 
