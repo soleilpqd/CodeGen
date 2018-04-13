@@ -157,7 +157,19 @@ private func testStringResources() {
         var languages = [String]()
         var errors = [String: Error]()
         let result = project.buildStrings(languages: &languages, errors: &errors)
-        print("Strings:", (result as NSDictionary).description)
+        print("Strings:")
+        for table in result {
+            print("TABLE:", table.name)
+            for item in table.items {
+                print("\tKEY:", "'\(item.key ?? "<key>")'", "'\(item.filePath ?? "<path>")'")
+                for (lang, values) in item.values {
+                    print("\t\tLANG:", "'\(lang)'")
+                    for value in values {
+                        print("\t\t\t\(value.line)::'\(value.content)'")
+                    }
+                }
+            }
+        }
         print("Languages:", languages)
         print("Errors:", errors)
     }

@@ -36,6 +36,10 @@
 		2B86A3352042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3362042A93A00332E53 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
 		2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA46CF4204E8B3C009AAB8F /* XCText.swift */; };
+		2BAEFFA62080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
+		2BAEFFA72080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
+		2BAEFFA82080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
+		2BAEFFA92080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
 		2BC2C48B2057C99A00AC4B2A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2C48A2057C99A00AC4B2A /* main.swift */; };
 		2BC2C4912057C9FB00AC4B2A /* XCStringsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2C4902057C9FB00AC4B2A /* XCStringsParser.swift */; };
 		2BC2C4922057C9FB00AC4B2A /* XCStringsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2C4902057C9FB00AC4B2A /* XCStringsParser.swift */; };
@@ -111,6 +115,7 @@
 		2B86A33020428A7B00332E53 /* XCAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssets.swift; sourceTree = "<group>"; };
 		2B86A3332042A87F00332E53 /* XCAssetColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssetColor.swift; sourceTree = "<group>"; };
 		2BA46CF4204E8B3C009AAB8F /* XCText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCText.swift; sourceTree = "<group>"; };
+		2BAEFFA52080CF3F00A886DF /* XCStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStrings.swift; sourceTree = "<group>"; };
 		2BC2C4882057C99A00AC4B2A /* testStringsParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testStringsParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC2C48A2057C99A00AC4B2A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2BC2C4902057C9FB00AC4B2A /* XCStringsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStringsParser.swift; sourceTree = "<group>"; };
@@ -251,6 +256,7 @@
 			children = (
 				2BC2C4902057C9FB00AC4B2A /* XCStringsParser.swift */,
 				2BC2C4962057F61300AC4B2A /* XCProject+Strings.swift */,
+				2BAEFFA52080CF3F00A886DF /* XCStrings.swift */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				2B2512B2203ED722005197C7 /* XCConfigurationList.swift in Sources */,
 				2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */,
 				2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */,
+				2BAEFFA62080CF3F00A886DF /* XCStrings.swift in Sources */,
 				2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */,
 				2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */,
 				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
@@ -447,6 +454,7 @@
 				2B86A3292042764B00332E53 /* XCConfigurationList.swift in Sources */,
 				2B5B02B920430E2C00A81392 /* XCEnvironment.swift in Sources */,
 				2B86A33220428A7B00332E53 /* XCAssets.swift in Sources */,
+				2BAEFFA72080CF3F00A886DF /* XCStrings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BAEFFA92080CF3F00A886DF /* XCStrings.swift in Sources */,
 				2BC2C4922057C9FB00AC4B2A /* XCStringsParser.swift in Sources */,
 				2BC2C48B2057C99A00AC4B2A /* main.swift in Sources */,
 			);
@@ -463,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BAEFFA82080CF3F00A886DF /* XCStrings.swift in Sources */,
 				2BD4A88A204D6AC800EA12EB /* main.swift in Sources */,
 				2BD4A891204D6B2800EA12EB /* XCStoryboard.swift in Sources */,
 			);

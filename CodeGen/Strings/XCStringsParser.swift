@@ -13,6 +13,7 @@ enum XCStringsParserError: Error {
     case failed(row: UInt, column: UInt)
 }
 
+/// return: [key: [(value: line)]] (key may be duplicated so it has more than 1 value)
 func parseStringsFile(file: String) throws -> [String: [(String, UInt)]] {
     guard let content = try? String(contentsOfFile: file) else {
         throw XCStringsParserError.notLoad
