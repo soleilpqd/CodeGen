@@ -234,9 +234,10 @@ class XCTaskColor: XCTask {
         return content
     }
 
-    private func generateSwiftCodeSingleComponent(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
-        let indent1 = indent(1)
-        let indent2 = indent(2)
+    private func generateSwiftCodeSingleComponent(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
+                                                  prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+        let indent1 = indent(level + 1)
+        let indent2 = indent(level + 2)
         let name = color.name ?? ""
         var result = indent1 + "/// " + name + "\n"
         let cl1 = color.colors!.first!
@@ -264,10 +265,11 @@ class XCTaskColor: XCTask {
 
     // MARK: Multiple components color
 
-    private func generateSwiftCodeMultiComponents(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+    private func generateSwiftCodeMultiComponents(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
+                                                  prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let name = color.name ?? ""
-        let indent1 = indent(1)
-        let indent2 = indent(2)
+        let indent1 = indent(level + 1)
+        let indent2 = indent(level + 2)
         var result = indent1 + "/// " + name + "\n"
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
@@ -311,15 +313,73 @@ class XCTaskColor: XCTask {
         return result
     }
 
-    private func generateSwiftCode(colorNameAvailable: Bool, color: XCAssetColor, prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+    private func generateSwiftCode(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
+                                   prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         if let components = color.colors {
             if components.count > 1 {
-                return generateSwiftCodeMultiComponents(colorNameAvailable: colorNameAvailable, color: color, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+                return generateSwiftCodeMultiComponents(colorNameAvailable: colorNameAvailable, color: color,
+                                                        level: level, prefix: prefix, tabWidth: tabWidth,
+                                                        indentWidth: indentWidth, useTab: useTab)
             } else if components.count > 0 {
-                return generateSwiftCodeSingleComponent(colorNameAvailable: colorNameAvailable, color: color, prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+                return generateSwiftCodeSingleComponent(colorNameAvailable: colorNameAvailable, color: color,
+                                                        level: level, prefix: prefix, tabWidth: tabWidth,
+                                                        indentWidth: indentWidth, useTab: useTab)
             }
         }
         return ""
+    }
+
+    private func generateSwiftCode(folder: XCAssetFoler, level: Int, colorNameAvailable: Bool,
+                                   prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+        guard let children = folder.children else {
+            return ""
+        }
+        var result = ""
+        var colors = [XCAssetColor]()
+        var folders = [XCAssetFoler]()
+
+        for item in children {
+            if let color = item as? XCAssetColor {
+                colors.append(color)
+            } else if let subFolder = item as? XCAssetFoler {
+                folders.append(subFolder)
+            }
+        }
+        colors.sort { (left, right) -> Bool in
+            return left.name.compare(right.name) == .orderedAscending
+        }
+        folders.sort { (left, right) -> Bool in
+            return left.name.compare(right.name) == .orderedAscending
+        }
+
+        let indent1 = indent(level + 1)
+        result += indent1 + "struct \(prefix)\(makeKeyword(folder.name)) {\n\n"
+
+        for color in colors {
+            printLog(.found(color.name ?? ""))
+            result += generateSwiftCode(colorNameAvailable: colorNameAvailable, color: color,
+                                        level: level + 1, prefix: prefix, tabWidth: tabWidth,
+                                        indentWidth: indentWidth, useTab: useTab) + "\n"
+
+        }
+
+        for fdl in folders {
+            result += generateSwiftCode(folder: fdl, level: level + 1, colorNameAvailable: colorNameAvailable,
+                                        prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+        }
+
+        result += indent1 + "}\n\n"
+        return result
+    }
+
+    private func generateSwiftCode(assets: XCAssets, project: XCProject, prefix: String, tabWidth: Int,
+                                   indentWidth: Int, useTab: Bool) -> String {
+        var colorNameAvailable = false
+        if let fileRef = assets.fileRef, project.checkItemInCopyResource(fileRef) {
+            colorNameAvailable = true
+        }
+        return generateSwiftCode(folder: assets, level: 0, colorNameAvailable: colorNameAvailable,
+                                 prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
     }
 
     // MARK: - Validation
@@ -360,7 +420,8 @@ class XCTaskColor: XCTask {
             } else {
                 var found = false
                 for group in groupedColor {
-                    if let cl1 = group.firstObject as? XCAssetColor, let component1 = cl1.colors, let component = color.colors, component.count == component1.count {
+                    if let cl1 = group.firstObject as? XCAssetColor, let component1 = cl1.colors,
+                        let component = color.colors, component.count == component1.count {
                         var equalCount = 0
                         for cmp1 in component1 {
                             for cmp in component where cmp.idiom == cmp1.idiom {
@@ -525,16 +586,11 @@ class XCTaskColor: XCTask {
         var allColors = [XCAssetColor]()
         for (assets, colors) in assetsColors {
             allColors.append(contentsOf: colors)
-            var colorNameAvailable = false
-            if let fileRef = assets.fileRef, project.checkItemInCopyResource(fileRef) {
-                colorNameAvailable = true
-            }
-            for color in colors {
-                printLog(.found(color.name ?? ""))
-                content += generateSwiftCode(colorNameAvailable: colorNameAvailable,
-                                             color: color, prefix: project.prefix?.lowercased() ?? "", tabWidth: project.tabWidth,
-                                             indentWidth: project.indentWidth, useTab: project.useTab) + "\n"
-            }
+            content += generateSwiftCode(assets: assets, project: project,
+                                         prefix: project.prefix?.lowercased() ?? "",
+                                         tabWidth: project.tabWidth,
+                                         indentWidth: project.indentWidth,
+                                         useTab: project.useTab)
         }
         content += "}\n"
 

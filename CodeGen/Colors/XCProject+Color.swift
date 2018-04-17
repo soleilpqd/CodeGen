@@ -31,9 +31,6 @@ extension XCProject {
                 store.append(c)
             }
         }
-        store.sort { (left, right) -> Bool in
-            return left.name.compare(right.name) == .orderedAscending
-        }
     }
 
     func findAllColorAssets() -> [(XCAssets, [XCAssetColor])] {

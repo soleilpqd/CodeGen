@@ -10,6 +10,6 @@ import UIKit
 
 class MYObject {
 
-    var color: UIColor = .myArapawaLight
+    var color: UIColor = UIColor.myColors.myLogin.myRegist.myJade
 
 }
