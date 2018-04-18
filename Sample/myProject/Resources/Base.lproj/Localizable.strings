@@ -9,4 +9,7 @@
 "normal text" = "Normal text";
 // Comment
 "attr_bold_text" = "<b>Bold text</b>\"";
-"normal text" = "Normal text 1";
+"normal text" = "Normal
+ text 1";
+"param text" = "Param: %@";
+"attr_param_text" = "<b>%@</b>\"";

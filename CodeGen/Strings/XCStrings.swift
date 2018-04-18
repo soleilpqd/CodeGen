@@ -15,7 +15,7 @@ class XCStringValue {
 
 }
 
-class XCStringItem {
+class XCStringItem: NSObject {
 
     static let kLanguageNone = ""
     static let kLanguageBase = "Base"
@@ -24,6 +24,10 @@ class XCStringItem {
     var values = [String: [XCStringValue]]()
     var filePath: String?
     weak var table: XCStringTable?
+
+    override var description: String {
+        return "XCStringItem: \(key ?? "")"
+    }
 
 }
 

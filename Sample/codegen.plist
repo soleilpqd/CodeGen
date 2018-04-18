@@ -37,9 +37,9 @@
 		<key>type</key>
 		<string>string</string>
 		<key>input</key>
-		<string></string>
+		<string>Localizable.strings</string>
 		<key>output</key>
-		<string></string>
+		<string>myProject/Common/MYText.swift</string>
 		<key>output_type</key>
 		<string>string</string>
 		<key>attr_prefix</key>
@@ -49,9 +49,9 @@
 		<key>type</key>
 		<string>string</string>
 		<key>input</key>
-		<string></string>
+		<string>URLs.strings</string>
 		<key>output</key>
-		<string></string>
+		<string>myProject/Common/MYUrl.swift</string>
 		<key>output_type</key>
 		<string>url</string>
 		<key>bases</key>
@@ -64,9 +64,9 @@
 		<key>type</key>
 		<string>string</string>
 		<key>input</key>
-		<string></string>
+		<string>Messages.strings</string>
 		<key>output</key>
-		<string></string>
+		<string>myProject/Common/MYMessages.swift</string>
 		<key>output_type</key>
 		<string>enum</string>
 		<key>names</key>
@@ -78,6 +78,12 @@
 			<key>AlertMessage</key>
 			<string>ALERT_MESG_</string>
 		</dict>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>string</string>
+		<key>output_type</key>
+		<string>check</string>
 	</dict>
 </array>
 </plist>

@@ -10,6 +10,6 @@ import UIKit
 
 class MYObject {
 
-    var color: UIColor = UIColor.myColors.Login.Regist.Gallery
+    var color: UIColor = UIColor.MYColors.Login.Regist.gallery
 
 }

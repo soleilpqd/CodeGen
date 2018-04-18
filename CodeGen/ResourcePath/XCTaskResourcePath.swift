@@ -13,7 +13,6 @@ class XCTaskResourcePath: XCTask {
     private let isNoSubDir: Bool
     private let output: String
     private let extensions: [String]
-    private var fullOutputPath: String = ""
 
     init?(_ info: NSDictionary) {
         if let exts = info["exts"] as? [String], exts.count > 0,
@@ -96,26 +95,15 @@ class XCTaskResourcePath: XCTask {
         }
     }
 
-    private func checkOutputFile(_ project: XCProject) {
-        if let chk = project.checkPathInBuildSource(path: output) {
-            if !chk {
-                printLog(.outputFileNotInTarget(fullOutputPath))
-            }
-        } else {
-            printLog(.outputFileNotInProject(fullOutputPath))
-        }
-    }
-
     override func run(_ project: XCProject) -> Error? {
         _ = super.run(project)
-        fullOutputPath = (project.projectPath as NSString).appendingPathComponent(output)
-        checkOutputFile(project)
+        let fullOutputPath = checkOutputFile(project: project, output: output)
         let indent1 = indent(1)
         let indent2 = indent(2)
         let indent3 = indent(3)
         var content = project.getHeader(output) + "\nimport Foundation\n\n"
         if project.swiftlintEnable {
-            content += "// swiftlint:disable force_cast identifier_name\n\n"
+            content += "// swiftlint:disable force_cast identifier_name nesting\n\n"
         }
         content += "struct \(project.prefix ?? "")Resources {\n\n"
         content += indent1 + "struct Resource {\n\n"
@@ -178,17 +166,7 @@ class XCTaskResourcePath: XCTask {
         }
         content += "\n}\n"
 
-        var result: Error?
-        if let data = try? String(contentsOfFile: fullOutputPath) {
-            if content != data {
-                result = project.write(content: content, target: output)
-            } else {
-                printLog(.outputNotChange())
-            }
-        } else {
-            result = project.write(content: content, target: output)
-        }
-        return result
+        return writeOutput(project: project, content: content, fullPath: fullOutputPath)
     }
     
 }

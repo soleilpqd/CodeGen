@@ -164,7 +164,7 @@ class XCTaskColor: XCTask {
 
     // MARK: Single component color
 
-    private func generateCommonFunction(commonMulti: Bool, swiftlingEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
+    private func generateCommonFunction(commonMulti: Bool, swiftlintEnable: Bool, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String  {
         let indent1 = indent(1)
         let indent2 = indent(2)
         let indent3 = indent(3)
@@ -173,7 +173,7 @@ class XCTaskColor: XCTask {
         var content = ""
 
         // Common function for single component color
-        content = swiftlingEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
+        content = swiftlintEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
         content += indent1 + "private static func makeColor(name: String?, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) -> UIColor {\n"
         if env.compareVersion(version: "11.0") {
             content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
@@ -199,7 +199,7 @@ class XCTaskColor: XCTask {
 
         // Common function for multiple components color
         if commonMulti {
-            if swiftlingEnable {
+            if swiftlintEnable {
                 content += indent1 + "// swiftlint:disable:next large_tuple\n"
             }
             content += indent1 + "private static func makeColor(name: String?, map: [String: (colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat)]) -> UIColor {\n"
@@ -250,7 +250,7 @@ class XCTaskColor: XCTask {
         } else {
             result += "\n"
         }
-        result += indent1 + "static var \(makeKeyword(name)): UIColor {\n"
+        result += indent1 + "static var \(makeFuncVarName(name)): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -274,7 +274,7 @@ class XCTaskColor: XCTask {
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
         }
-        result += indent1 + "static var \(makeKeyword(name)): UIColor {\n"
+        result += indent1 + "static var \(makeFuncVarName(name)): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -477,7 +477,7 @@ class XCTaskColor: XCTask {
             }
         }
         var tmpColors = allColors
-        let prefix = project.prefix?.lowercased() ?? ""
+        let prefix = project.prefix ?? ""
         for (key, value) in sources {
             for path in value {
                 guard let content = try? String(contentsOfFile: path) else { continue }
@@ -522,6 +522,9 @@ class XCTaskColor: XCTask {
 
         var content = project.getHeader(output) + "//  Add colorset into \"\(input ?? "Assets.xcassets")\" and Build project.\n\n"
         content += "import UIKit\n\n"
+        if project.swiftlintEnable {
+            content += "// swiftlint:disable nesting line_length\n"
+        }
         content += "extension UIColor {\n\n"
 
         var assetsColors = [(XCAssets, [XCAssetColor])]()
@@ -577,7 +580,7 @@ class XCTaskColor: XCTask {
             }
         }
         if commonSingleColor {
-            content += generateCommonFunction(commonMulti: commonMultiColor, swiftlingEnable: project.swiftlintEnable,
+            content += generateCommonFunction(commonMulti: commonMultiColor, swiftlintEnable: project.swiftlintEnable,
                                               tabWidth: project.tabWidth,
                                               indentWidth: project.indentWidth,
                                               useTab: project.useTab)
@@ -587,7 +590,7 @@ class XCTaskColor: XCTask {
         for (assets, colors) in assetsColors {
             allColors.append(contentsOf: colors)
             content += generateSwiftCode(assets: assets, project: project,
-                                         prefix: project.prefix?.lowercased() ?? "",
+                                         prefix: project.prefix ?? "",
                                          tabWidth: project.tabWidth,
                                          indentWidth: project.indentWidth,
                                          useTab: project.useTab)
@@ -597,16 +600,7 @@ class XCTaskColor: XCTask {
         checkSameValueColors(allColors)
         checkUsage(project: project, allColors: allColors)
 
-        var result: Error?
-        if let data = try? String(contentsOfFile: fullOutputPath) {
-            if content != data {
-                result = project.write(content: content, target: output)
-            } else {
-                printLog(.outputNotChange())
-            }
-        } else {
-            result = project.write(content: content, target: output)
-        }
+        let result = writeOutput(project: project, content: content, fullPath: fullOutputPath)
         makeColorList(project: project, colors: allColors)
         return result
     }

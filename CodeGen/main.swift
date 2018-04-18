@@ -55,7 +55,14 @@ if let classFile = projectFile {
     if let configs = NSArray(contentsOfFile: configPath) {
         for item in configs {
             if let info = item as? NSDictionary, let task = XCTask.task(info) {
-                tasks.append(task)
+                var found = false
+                for item in tasks where item === task {
+                    found = true
+                    break
+                }
+                if !found {
+                    tasks.append(task)
+                }
             }
         }
         if tasks.count == 0 {

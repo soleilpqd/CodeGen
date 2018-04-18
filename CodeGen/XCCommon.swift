@@ -39,7 +39,7 @@ func getIndent(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> Str
     return result
 }
 
-func makeKeyword(_ input: String) -> String{
+func makeKeyword(_ input: String) -> String {
     var result = input
     let specialChars = "'\"`~!@#$%^&*()_+-=[]\\{}|;:,./<>?\t\n"
     for c in specialChars {
@@ -47,4 +47,12 @@ func makeKeyword(_ input: String) -> String{
     }
     result = result.capitalized
     return result.replacingOccurrences(of: " ", with: "")
+}
+
+func makeFuncVarName(_ input: String) -> String {
+    let result = makeKeyword(input)
+    if result.count > 1 {
+        return String(result[result.startIndex]).lowercased() + String(result[result.index(after: result.startIndex)...])
+    }
+    return result
 }

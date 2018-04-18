@@ -145,6 +145,24 @@ extension String {
         }
     }
 
+    static func stringFileNotLoaded(_ file: String) -> String {
+        switch local {
+        case "vi":
+            return "\(file): error: Không đọc được hoặc không tìm thấy."
+        default:
+            return "\(file): error: Loading failed (unreadable or not found)."
+        }
+    }
+
+    static func stringFileParsingFailed(file: String, row: UInt, column: UInt) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: Sai cú pháp."
+        default:
+            return "\(file):\(row):\(column): error: Parsing failed."
+        }
+    }
+
 }
 
 func printError(_ error: String) {

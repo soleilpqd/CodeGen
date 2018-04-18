@@ -19,6 +19,7 @@ class XCTask {
     enum TaskType: String {
         case color
         case resource
+        case string
     }
 
     let type: TaskType
@@ -41,6 +42,9 @@ class XCTask {
                 return XCTaskColor(info)
             case .resource:
                 return XCTaskResourcePath(info)
+            case .string:
+                XCTaskString.shared.appendSubTask(info)
+                return XCTaskString.shared
             }
         }
         return nil
@@ -67,6 +71,35 @@ class XCTask {
         for s in logs {
             print(s)
         }
+    }
+
+    func checkOutputFile(project: XCProject, output: String) -> String {
+        var result = output
+        if !result.hasPrefix("/") {
+            result = (project.projectPath as NSString).appendingPathComponent(output)
+        }
+        if let chk = project.checkPathInBuildSource(path: output) {
+            if !chk {
+                printLog(.outputFileNotInTarget(result))
+            }
+        } else {
+            printLog(.outputFileNotInProject(result))
+        }
+        return result
+    }
+
+    func writeOutput(project: XCProject, content: String, fullPath: String) -> Error? {
+        var result: Error?
+        if let data = try? String(contentsOfFile: fullPath) {
+            if content != data {
+                result = project.write(content: content, target: fullPath)
+            } else {
+                printLog(.outputNotChange())
+            }
+        } else {
+            result = project.write(content: content, target: fullPath)
+        }
+        return result
     }
 
 }

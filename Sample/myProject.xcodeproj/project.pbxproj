@@ -12,6 +12,9 @@
 		2B31C9A720566B4B001833CA /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A620566B4B001833CA /* data.json */; };
 		2B31C9A920566B64001833CA /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A820566B64001833CA /* Data */; };
 		2B31C9AE2056B2D6001833CA /* MYResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B31C9AD2056B2D6001833CA /* MYResources.swift */; };
+		2B84EB1920876301008B1E54 /* MYMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1820876301008B1E54 /* MYMessages.swift */; };
+		2B84EB1B2087631A008B1E54 /* MYUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1A2087631A008B1E54 /* MYUrl.swift */; };
+		2B84EB1D20876327008B1E54 /* MYText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1C20876327008B1E54 /* MYText.swift */; };
 		2BA5FEEA2043B70E00AA42E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FEE92043B70E00AA42E5 /* AppDelegate.swift */; };
 		2BA5FEEF2043B70E00AA42E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEED2043B70E00AA42E5 /* Main.storyboard */; };
 		2BA5FEF42043B70E00AA42E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEF22043B70E00AA42E5 /* LaunchScreen.storyboard */; };
@@ -38,6 +41,9 @@
 		2B31C9A820566B64001833CA /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
 		2B31C9AD2056B2D6001833CA /* MYResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYResources.swift; sourceTree = "<group>"; };
 		2B5B61672046A3EA009BEC01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		2B84EB1820876301008B1E54 /* MYMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYMessages.swift; sourceTree = "<group>"; };
+		2B84EB1A2087631A008B1E54 /* MYUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYUrl.swift; sourceTree = "<group>"; };
+		2B84EB1C20876327008B1E54 /* MYText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYText.swift; sourceTree = "<group>"; };
 		2BA5FEE62043B70E00AA42E5 /* myProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BA5FEE92043B70E00AA42E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BA5FEEE2043B70E00AA42E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -152,6 +158,9 @@
 				2BA5FF072043BA7A00AA42E5 /* MYCommon.swift */,
 				2BABC1922044296D00D4586B /* MYColor.swift */,
 				2B31C9AD2056B2D6001833CA /* MYResources.swift */,
+				2B84EB1820876301008B1E54 /* MYMessages.swift */,
+				2B84EB1A2087631A008B1E54 /* MYUrl.swift */,
+				2B84EB1C20876327008B1E54 /* MYText.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -239,6 +248,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BA5FF082043BA7A00AA42E5 /* MYCommon.swift in Sources */,
+				2B84EB1920876301008B1E54 /* MYMessages.swift in Sources */,
+				2B84EB1D20876327008B1E54 /* MYText.swift in Sources */,
 				2BA5FF042043B80D00AA42E5 /* ViewController.swift in Sources */,
 				2B31C9AE2056B2D6001833CA /* MYResources.swift in Sources */,
 				2BABC1902043C2B000D4586B /* MYObject3.swift in Sources */,
@@ -247,6 +258,7 @@
 				2BABC1932044299D00D4586B /* MYColor.swift in Sources */,
 				2BA5FF0C2043BAC600AA42E5 /* MYSecondViewController.swift in Sources */,
 				2BA5FEEA2043B70E00AA42E5 /* AppDelegate.swift in Sources */,
+				2B84EB1B2087631A008B1E54 /* MYUrl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
