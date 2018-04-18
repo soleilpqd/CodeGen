@@ -88,18 +88,19 @@ class XCTask {
         return result
     }
 
-    func writeOutput(project: XCProject, content: String, fullPath: String) -> Error? {
+    func writeOutput(project: XCProject, content: String, fullPath: String) -> (Error?, Bool) {
         var result: Error?
+        var isChanged = false
         if let data = try? String(contentsOfFile: fullPath) {
             if content != data {
                 result = project.write(content: content, target: fullPath)
-            } else {
-                printLog(.outputNotChange())
+                isChanged = true
             }
         } else {
+            isChanged = true
             result = project.write(content: content, target: fullPath)
         }
-        return result
+        return (result, isChanged)
     }
 
 }

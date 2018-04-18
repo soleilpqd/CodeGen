@@ -22,7 +22,7 @@ extension String {
 
         /// attr_param_text
         /// - Base: "<b>%@</b>\""
-        static func attrParamText(param1: Any) -> NSAttributedString? {
+        static func attrParamText(param1: Any) -> NSAttributedString {
             let pattern = NSLocalizedString("attr_param_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)")
             return makeAttributeString(htmlString)
@@ -30,7 +30,7 @@ extension String {
 
         /// attr_bold_text
         /// - Base: "<b>Bold text</b>\""
-        static var attrBoldText: NSAttributedString? {
+        static var attrBoldText: NSAttributedString {
             let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
             return makeAttributeString(htmlString)
         }
@@ -42,13 +42,14 @@ extension String {
             return String(format: pattern, "\(param1)")
         }
 
-        private static func makeAttributeString(_ htmlString: String) -> NSAttributedString? {
-            if let data = htmlString.data(using: .utf8) {
-                return try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,
-                                                                     .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],
-                                               documentAttributes: nil)
+        private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {
+            if let data = htmlString.data(using: .utf8),
+                let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,
+                                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],
+                                                     documentAttributes: nil) {
+                return result
             }
-            return nil
+            return NSAttributedString()
         }
 
     }

@@ -166,7 +166,11 @@ class XCTaskResourcePath: XCTask {
         }
         content += "\n}\n"
 
-        return writeOutput(project: project, content: content, fullPath: fullOutputPath)
+        let (error, change) = writeOutput(project: project, content: content, fullPath: fullOutputPath)
+        if !change {
+            printLog(.outputNotChange())
+        }
+        return error
     }
     
 }

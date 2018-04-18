@@ -16,8 +16,8 @@ class ViewController: UIViewController {
         print(MYResources.Data.DataJson.url)
         print(String.MYLocalizable.normalText)
         print(String.MYLocalizable.paramText(param1: "test"))
-        print(String.MYLocalizable.attrBoldText?.string ?? "<nil>")
-        print(String.MYLocalizable.attrParamText(param1: "test")?.string ?? "<nil>")
+        print(String.MYLocalizable.attrBoldText.string)
+        print(String.MYLocalizable.attrParamText(param1: "test").string)
     }
 
 }

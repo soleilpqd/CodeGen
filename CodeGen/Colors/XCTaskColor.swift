@@ -600,9 +600,12 @@ class XCTaskColor: XCTask {
         checkSameValueColors(allColors)
         checkUsage(project: project, allColors: allColors)
 
-        let result = writeOutput(project: project, content: content, fullPath: fullOutputPath)
+        let (error, change) = writeOutput(project: project, content: content, fullPath: fullOutputPath)
+        if !change {
+            printLog(.outputNotChange())
+        }
         makeColorList(project: project, colors: allColors)
-        return result
+        return error
     }
 
     override func toDic() -> [String: Any] {

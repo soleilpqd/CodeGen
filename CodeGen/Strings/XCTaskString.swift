@@ -30,6 +30,12 @@ class XCTaskString: XCTask {
         private(set) var output: String
         private(set) var type: OutputType
 
+        var logs = [String]()
+
+        func log(_ inpunt: String) {
+            logs.append(inpunt)
+        }
+
         init(inp: String, outp: String, oType: OutputType) {
             input = inp
             output = outp
@@ -47,10 +53,14 @@ class XCTaskString: XCTask {
         }
 
         func run(project: XCProject, tables: [XCStringTable]) -> Error? {
+            log(.performTask(.string) + "." + type.rawValue + ": " + input)
             let fullOutputPath = XCTaskString.shared.checkOutputFile(project: project, output: output)
             let content = makeContent(project: project, tables: tables)
-            let result = XCTaskString.shared.writeOutput(project: project, content: content, fullPath: fullOutputPath)
-            return result
+            let (error, change) = XCTaskString.shared.writeOutput(project: project, content: content, fullPath: fullOutputPath)
+            if !change {
+                log(.outputNotChange())
+            }
+            return error
         }
 
     }
@@ -125,13 +135,15 @@ class XCTaskString: XCTask {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             let indent4 = XCTaskString.shared.indent(4)
-            var result = indent2 + "private static func makeAttributeString(_ htmlString: String) -> NSAttributedString? {\n"
-            result += indent3 + "if let data = htmlString.data(using: .utf8) {\n"
-            result += indent4 + "return try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
-            result += indent4 + "                                                     .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
-            result += indent4 + "                               documentAttributes: nil)\n"
+            let indent5 = XCTaskString.shared.indent(4)
+            var result = indent2 + "private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {\n"
+            result += indent3 + "if let data = htmlString.data(using: .utf8),\n"
+            result += indent4 + "let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
+            result += indent4 + "                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
+            result += indent4 + "                                     documentAttributes: nil) {\n"
+            result += indent5 + "return result\n"
             result += indent3 + "}\n"
-            result += indent3 + "return nil\n"
+            result += indent3 + "return NSAttributedString()\n"
             result += indent2 + "}\n\n"
             return result
         }
@@ -140,7 +152,7 @@ class XCTaskString: XCTask {
             var result = ""
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
-            result += indent2 + "static var \(makeFuncVarName(itemKey)): NSAttributedString? {\n"
+            result += indent2 + "static var \(makeFuncVarName(itemKey)): NSAttributedString {\n"
             result += indent3 + "let htmlString = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             result += indent3 + "return makeAttributeString(htmlString)\n"
             result += indent2 + "}\n\n"
@@ -152,7 +164,7 @@ class XCTaskString: XCTask {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             var paramsList = makeFuncParamsList(paramsCount)
-            result += indent2 + "static func \(makeFuncVarName(itemKey))(\(paramsList)) -> NSAttributedString? {\n"
+            result += indent2 + "static func \(makeFuncVarName(itemKey))(\(paramsList)) -> NSAttributedString {\n"
             result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "let htmlString = String(format: pattern, \(paramsList))\n"
@@ -173,6 +185,7 @@ class XCTaskString: XCTask {
                     guard let itemKey = item.key else { continue }
                     var paramsCount: UInt = 0
 
+                    log("\t" + .found(itemKey))
                     let (comment, cnt) = makeComment(itemKey: itemKey, item: item)
                     result += comment
                     paramsCount = cnt
@@ -292,6 +305,11 @@ class XCTaskString: XCTask {
         }
         while count < subTasks.count {
             sleep(0)
+        }
+        for sTask in subTasks {
+            for log in sTask.logs {
+                printLog(log)
+            }
         }
         if isNeedValidate {
 
