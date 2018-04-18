@@ -131,12 +131,17 @@ class XCTaskString: XCTask {
             return result
         }
 
-        private func makeAttrStringCodeGen() -> String {
+        private func makeAttrStringCodeGen(_ isSwiftLintEnbale: Bool) -> String {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             let indent4 = XCTaskString.shared.indent(4)
             let indent5 = XCTaskString.shared.indent(4)
-            var result = indent2 + "private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {\n"
+
+            var result = ""
+            if isSwiftLintEnbale {
+                result = indent2 + "// swiftlint:disable line_length\n"
+            }
+            result += indent2 + "private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {\n"
             result += indent3 + "if let data = htmlString.data(using: .utf8),\n"
             result += indent4 + "let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
             result += indent4 + "                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
@@ -206,7 +211,7 @@ class XCTaskString: XCTask {
                     }
                 }
                 if isAttTextAvailabe {
-                    result += makeAttrStringCodeGen()
+                    result += makeAttrStringCodeGen(project.swiftlintEnable)
                 }
                 result += indent1 + "}\n\n"
             }
