@@ -235,7 +235,7 @@ class XCTaskColor: XCTask {
     }
 
     private func generateSwiftCodeSingleComponent(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
-                                                  prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+                                                  tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let indent1 = indent(level + 1)
         let indent2 = indent(level + 2)
         let name = color.name ?? ""
@@ -250,7 +250,7 @@ class XCTaskColor: XCTask {
         } else {
             result += "\n"
         }
-        result += indent1 + "static var \(prefix)\(makeKeyword(name)): UIColor {\n"
+        result += indent1 + "static var \(makeKeyword(name)): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -266,7 +266,7 @@ class XCTaskColor: XCTask {
     // MARK: Multiple components color
 
     private func generateSwiftCodeMultiComponents(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
-                                                  prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+                                                  tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let name = color.name ?? ""
         let indent1 = indent(level + 1)
         let indent2 = indent(level + 2)
@@ -274,7 +274,7 @@ class XCTaskColor: XCTask {
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
         }
-        result += indent1 + "static var \(prefix)\(makeKeyword(name)): UIColor {\n"
+        result += indent1 + "static var \(makeKeyword(name)): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -314,15 +314,15 @@ class XCTaskColor: XCTask {
     }
 
     private func generateSwiftCode(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
-                                   prefix: String, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+                                   tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         if let components = color.colors {
             if components.count > 1 {
                 return generateSwiftCodeMultiComponents(colorNameAvailable: colorNameAvailable, color: color,
-                                                        level: level, prefix: prefix, tabWidth: tabWidth,
+                                                        level: level, tabWidth: tabWidth,
                                                         indentWidth: indentWidth, useTab: useTab)
             } else if components.count > 0 {
                 return generateSwiftCodeSingleComponent(colorNameAvailable: colorNameAvailable, color: color,
-                                                        level: level, prefix: prefix, tabWidth: tabWidth,
+                                                        level: level, tabWidth: tabWidth,
                                                         indentWidth: indentWidth, useTab: useTab)
             }
         }
@@ -358,14 +358,14 @@ class XCTaskColor: XCTask {
         for color in colors {
             printLog(.found(color.name ?? ""))
             result += generateSwiftCode(colorNameAvailable: colorNameAvailable, color: color,
-                                        level: level + 1, prefix: prefix, tabWidth: tabWidth,
+                                        level: level + 1, tabWidth: tabWidth,
                                         indentWidth: indentWidth, useTab: useTab) + "\n"
 
         }
 
         for fdl in folders {
             result += generateSwiftCode(folder: fdl, level: level + 1, colorNameAvailable: colorNameAvailable,
-                                        prefix: prefix, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+                                        prefix: "", tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
         }
 
         result += indent1 + "}\n\n"
