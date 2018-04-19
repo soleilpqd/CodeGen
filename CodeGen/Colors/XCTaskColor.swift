@@ -23,6 +23,8 @@ class XCTaskColor: XCTask {
     let isCheckUse: Bool
     let isCheckSame: Bool
 
+    private let usageCheckCategory: String
+
     var fullOutputPath = ""
 
     init?(_ info: NSDictionary) {
@@ -32,6 +34,7 @@ class XCTaskColor: XCTask {
             colorListName = info[kKeyColorList] as? String
             isCheckUse = (info[kKeyCheckUse] as? NSNumber)?.boolValue ?? false
             isCheckSame = (info[kKeyCheckSame] as? NSNumber)?.boolValue ?? false
+            usageCheckCategory = TaskType.color.rawValue + ": " + output
             super.init(task: .color)
         } else {
             return nil
@@ -250,7 +253,11 @@ class XCTaskColor: XCTask {
         } else {
             result += "\n"
         }
-        result += indent1 + "static var \(makeFuncVarName(name)): UIColor {\n"
+        let varName = makeFuncVarName(name)
+        if isCheckUse {
+            addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
+        }
+        result += indent1 + "static var \(varName): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -274,7 +281,11 @@ class XCTaskColor: XCTask {
         for component in color.colors! {
             result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
         }
-        result += indent1 + "static var \(makeFuncVarName(name)): UIColor {\n"
+        let varName = makeFuncVarName(name)
+        if isCheckUse {
+            addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
+        }
+        result += indent1 + "static var \(varName): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
@@ -454,60 +465,32 @@ class XCTaskColor: XCTask {
         }
     }
 
-    private func checkUsage(pattern: String, content: String, color: XCAssetColor, store: inout [XCAssetColor]) {
-        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
-            let matches = regex.matches(in: content, options: [], range: NSRange(location: 0, length: content.count))
-            if matches.count > 0 {
-                if let index = store.index(where: { (tmpColor) -> Bool in
-                    return tmpColor === color
-                }) {
-                    store.remove(at: index)
-                }
-            }
-        }
-    }
-
     private func checkUsage(project: XCProject, allColors: [XCAssetColor]) {
-        if !isCheckUse { return }
-        var sources = [XCFileReference.FileType.swift: project.getSwiftFiles()]
-        if env.compareVersion(version: "11.0") {
-            let result = project.getCopyResourcesFiles(types: [.storyboard, .xib])
-            for (key, value) in result {
-                sources[key] = value
-            }
-        }
-        var tmpColors = allColors
-        let prefix = project.prefix ?? ""
+        if !isCheckUse || !env.compareVersion(version: "11.0") { return }
+        let sources = project.getCopyResourcesFiles(types: [.storyboard, .xib])
+        var tmpColors = [XCAssetColor]()
         for (key, value) in sources {
             for path in value {
                 guard let content = try? String(contentsOfFile: path) else { continue }
                 switch key {
-                case .swift:
-                    for color in allColors where tmpColors.contains(where: { (tmpColor) -> Bool in
-                        return color === tmpColor
-                    }) {
-                        let pattern = "\\.\(prefix + (makeKeyword(color.name)))(.|\\n|\\)|\\]|\\})?"
-                        checkUsage(pattern: pattern, content: content, color: color, store: &tmpColors)
-                    }
                 case .storyboard, .xib:
                     for color in allColors where !tmpColors.contains(where: { (tmpColor) -> Bool in
                         return color === tmpColor
                     }) {
                         let pattern = "<namedColor .+name=\"\(color.name)\"/>"
-                        checkUsage(pattern: pattern, content: content, color: color, store: &tmpColors)
+                        if checkUsageUsingRegex(pattern: pattern, content: content) {
+                            tmpColors.append(color)
+                        }
                     }
                 default:
                     break
                 }
-                if tmpColors.count == 0 { return }
             }
         }
         if tmpColors.count > 0 {
-            var list = ""
             for color in tmpColors {
-                list += "\"\(color.name ?? "")\", "
+                removeKeywordForCheckUsage(category: usageCheckCategory, keyword: makeFuncVarName(color.name))
             }
-            printLog(.notUsed(String(list[list.startIndex..<list.index(list.endIndex, offsetBy: -2)])))
         }
     }
 

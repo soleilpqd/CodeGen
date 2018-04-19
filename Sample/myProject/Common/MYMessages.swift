@@ -14,7 +14,6 @@ enum MYAlertButton {
     /**
      ALERT_BUTTON_OK
      - Base: "OK"
-     - en: "OK"
     */
     case okk
 
@@ -32,7 +31,6 @@ enum MYAlertTitle {
     /**
      ALERT_TITLE_title
      - Base: "title"
-     - en: "title"
     */
     case title
 
@@ -50,14 +48,12 @@ enum MYAlertMessage {
     /**
      ALERT_MESG_Network Error
      - Base: "Network error"
-     - en: "Network error"
     */
     case networkError
 
     /**
      ALERT_MESG_Your Name
      - Base: "Your name is \"%@\""
-     - en: "Your name is \"%@\""
     */
     case yourName(Any)
 

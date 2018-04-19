@@ -127,12 +127,12 @@ extension String {
         }
     }
 
-    static func notUsed(_ str: String) -> String {
+    static func notUsed(_ str: String, _ target: String) -> String {
         switch local {
         case "vi":
-            return "warning: Có vẻ như \(str) không được sử dụng đến."
+            return "warning: Có vẻ như \(str) trong \(target) không được sử dụng đến."
         default:
-            return "warning: It seem that \(str) is/are not used."
+            return "warning: It seem that \(str) in \(target) is/are not used."
         }
     }
 

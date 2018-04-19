@@ -68,7 +68,6 @@
 		2BC2C4212057917400AC4B2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2BC2C4232057918800AC4B2A /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Messages.strings; sourceTree = "<group>"; };
 		2BC2C4252057918E00AC4B2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Messages.strings; sourceTree = "<group>"; };
-		2BC2C4262057919200AC4B2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Messages.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,7 +297,6 @@
 			children = (
 				2BC2C4232057918800AC4B2A /* vi */,
 				2BC2C4252057918E00AC4B2A /* Base */,
-				2BC2C4262057919200AC4B2A /* en */,
 			);
 			name = Messages.strings;
 			sourceTree = "<group>";

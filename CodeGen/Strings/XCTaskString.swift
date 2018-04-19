@@ -29,6 +29,7 @@ class XCTaskString: XCTask {
         private(set) var input: String
         private(set) var output: String
         private(set) var type: OutputType
+        let usageCategory: String
 
         var logs = [String]()
 
@@ -40,6 +41,7 @@ class XCTaskString: XCTask {
             input = inp
             output = outp
             type = oType
+            usageCategory = TaskType.string.rawValue + "." + type.rawValue + ": " + output
         }
 
         func getInfo(from info: NSDictionary) {
@@ -113,7 +115,11 @@ class XCTaskString: XCTask {
             var result = ""
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
-            result += indent2 + "static var \(makeFuncVarName(itemKey)): String {\n"
+            let varName = makeFuncVarName(itemKey)
+            if XCTaskString.shared.isNeedValidate {
+                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            }
+            result += indent2 + "static var \(varName): String {\n"
             result += indent3 + "return NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             result += indent2 + "}\n\n"
             return result
@@ -124,7 +130,11 @@ class XCTaskString: XCTask {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             var paramsList = makeFuncParamsList(paramsCount)
-            result += indent2 + "static func \(makeFuncVarName(itemKey))(\(paramsList)) -> String {\n"
+            let varName = makeFuncVarName(itemKey)
+            if XCTaskString.shared.isNeedValidate {
+                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            }
+            result += indent2 + "static func \(varName)(\(paramsList)) -> String {\n"
             result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "return String(format: pattern, \(paramsList))\n"
@@ -158,7 +168,11 @@ class XCTaskString: XCTask {
             var result = ""
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
-            result += indent2 + "static var \(makeFuncVarName(itemKey)): NSAttributedString {\n"
+            let varName = makeFuncVarName(itemKey)
+            if XCTaskString.shared.isNeedValidate {
+                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            }
+            result += indent2 + "static var \(varName): NSAttributedString {\n"
             result += indent3 + "let htmlString = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             result += indent3 + "return makeAttributeString(htmlString)\n"
             result += indent2 + "}\n\n"
@@ -170,7 +184,11 @@ class XCTaskString: XCTask {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             var paramsList = makeFuncParamsList(paramsCount)
-            result += indent2 + "static func \(makeFuncVarName(itemKey))(\(paramsList)) -> NSAttributedString {\n"
+            let varName = makeFuncVarName(itemKey)
+            if XCTaskString.shared.isNeedValidate {
+                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            }
+            result += indent2 + "static func \(varName)(\(paramsList)) -> NSAttributedString {\n"
             result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "let htmlString = String(format: pattern, \(paramsList))\n"
@@ -238,7 +256,11 @@ class XCTaskString: XCTask {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             let indent4 = XCTaskString.shared.indent(4)
-            result += indent2 + "static var \(makeFuncVarName(itemKey)): URL {\n"
+            let varName = makeFuncVarName(itemKey)
+            if XCTaskString.shared.isNeedValidate {
+                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            }
+            result += indent2 + "static var \(varName): URL {\n"
             if let host = domain {
                 result += indent3 + "let urlStr = \"\(host)\" + NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             } else {
@@ -259,7 +281,11 @@ class XCTaskString: XCTask {
             let indent3 = XCTaskString.shared.indent(3)
             let indent4 = XCTaskString.shared.indent(4)
             var paramsList = makeFuncParamsList(paramsCount)
-            result += indent2 + "static func \(makeFuncVarName(itemKey))(\(paramsList)) -> URL {\n"
+            let varName = makeFuncVarName(itemKey)
+            if XCTaskString.shared.isNeedValidate {
+                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            }
+            result += indent2 + "static func \(varName)(\(paramsList)) -> URL {\n"
             if let host = domain {
                 result += indent3 + "let pattern = \"\(host)\" + NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             } else {
@@ -368,6 +394,9 @@ class XCTaskString: XCTask {
                     guard let itemKey = item.key else { continue }
                     let croppedKey = cropHead(input: itemKey, length: prefix.count)
                     let caseName = makeFuncVarName(croppedKey)
+                    if XCTaskString.shared.isNeedValidate {
+                        addKeywordForCheckUsage(category: usageCategory, keyword: caseName)
+                    }
                     var paramsCount: UInt = 0
                     log("\t" + .found(itemKey))
                     let (comment, cnt) = makeComment(itemKey: itemKey, item: item, indent: 1)
@@ -417,7 +446,12 @@ class XCTaskString: XCTask {
     }
 
     func appendSubTask(_ info: NSDictionary) {
-        if let inp = info["input"] as? String, let outp = info["output"] as? String, let typ = info["output_type"] as? String, let ttyp = SubTask.OutputType(rawValue: typ) {
+        guard let typ = info["output_type"] as? String, let ttyp = SubTask.OutputType(rawValue: typ) else { return }
+        if ttyp == .validation {
+            isNeedValidate = true
+            return
+        }
+        if let inp = info["input"] as? String, let outp = info["output"] as? String {
             var subTask: SubTask?
             switch ttyp {
             case .string:
@@ -426,8 +460,8 @@ class XCTaskString: XCTask {
                 subTask = UrlSubTask(inp: inp, outp: outp, oType: ttyp)
             case .enumeration:
                 subTask = EnumSubTask(inp: inp, outp: outp, oType: ttyp)
-            case .validation:
-                isNeedValidate = true
+            default:
+                break;
             }
             if let sTask = subTask {
                 sTask.getInfo(from: info)
@@ -476,7 +510,10 @@ class XCTaskString: XCTask {
             }
         }
         if isNeedValidate {
-
+            // TODO: same key in same file
+            // TODO: same value in same file
+            // TODO: same value in different files
+            // TOOD: equivalent parameters in different languages
         }
 
         return taskErrors.first

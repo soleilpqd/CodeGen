@@ -38,43 +38,43 @@ struct MYResources {
 
     }
 
-    static var DataJson: Resource {
+    static var dataJson: Resource {
         return Resource(inputName: "data", inputType: "json")
     }
 
-    static var ListPlist: Resource {
+    static var listPlist: Resource {
         return Resource(inputName: "list", inputType: "plist")
     }
 
-    static var TextTxt: Resource {
+    static var textTxt: Resource {
         return Resource(inputName: "text", inputType: "txt")
     }
 
     struct Data {
 
-        static var DataJson: Resource {
+        static var dataJson: Resource {
             return Resource(inputName: "data", inputType: "json", inputFolder: "Data")
         }
 
-        static var ListPlist: Resource {
+        static var listPlist: Resource {
             return Resource(inputName: "list", inputType: "plist", inputFolder: "Data")
         }
 
-        static var TextTxt: Resource {
+        static var textTxt: Resource {
             return Resource(inputName: "text", inputType: "txt", inputFolder: "Data")
         }
 
         struct Subdata {
 
-            static var DataJson: Resource {
+            static var dataJson: Resource {
                 return Resource(inputName: "DaTa", inputType: "json", inputFolder: "Data/SubData")
             }
 
-            static var ListPlist: Resource {
+            static var listPlist: Resource {
                 return Resource(inputName: "LIST", inputType: "plist", inputFolder: "Data/SubData")
             }
 
-            static var TextTxt: Resource {
+            static var textTxt: Resource {
                 return Resource(inputName: "text", inputType: "txt", inputFolder: "Data/SubData")
             }
 

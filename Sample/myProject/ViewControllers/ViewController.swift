@@ -12,8 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(MYResources.Data.Subdata.DataJson.path)
-        print(MYResources.Data.DataJson.url)
+        print(MYResources.Data.Subdata.dataJson.path)
+        print(MYResources.Data.dataJson.url)
         print(String.MYLocalizable.normalText)
         print(String.MYLocalizable.paramText("test"))
         print(String.MYLocalizable.attrBoldText.string)
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         print(MYAlertTitle.title.toString())
         print(MYAlertButton.okk.toString())
         print(MYAlertMessage.networkError.toString())
-        print(MYAlertMessage.yourName("TEST").toString())
+//        print(MYAlertMessage.yourName("TEST").toString())
     }
 
 }
