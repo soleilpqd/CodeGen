@@ -75,20 +75,21 @@ class XCTaskString: XCTask {
         }
 
         private func makeComment(itemKey: String, item: XCStringItem) -> (String, UInt) {
-            var result = ""
             let indent2 = XCTaskString.shared.indent(2)
+            var result = indent2 +  "/**\n"
             var paramsCount: UInt = 0
-            result += indent2 + "/// \(itemKey)\n"
+            result += indent2 + " \(itemKey)\n"
             for (language, contents) in item.values {
                 let content = contents.last?.content ?? ""
                 if language.count > 0 {
-                    result += indent2 + "/// - \(language): \"\(content)\"\n"
+                    result += indent2 + " - \(language): \"\(escapeStringForComment(content))\"\n"
                 } else {
-                    result += indent2 + "/// - \"\(content)\"\n"
+                    result += indent2 + " - \"\(escapeStringForComment(content))\"\n"
                 }
                 let cnt = XCTaskString.countParams(content)
                 if cnt > paramsCount { paramsCount = cnt }
             }
+            result += indent2 + "*/\n"
             return (result, paramsCount)
         }
 

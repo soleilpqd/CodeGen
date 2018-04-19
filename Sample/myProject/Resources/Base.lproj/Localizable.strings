@@ -13,3 +13,4 @@
  text 1";
 "param text" = "Param: %@";
 "attr_param_text" = "<b>%@</b>\"";
+"attr_2param_text" = "<b>%@</b><i>%@</i>";

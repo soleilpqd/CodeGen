@@ -56,3 +56,12 @@ func makeFuncVarName(_ input: String) -> String {
     }
     return result
 }
+
+func escapeStringForComment(_ input: String) -> String {
+    let escapeChars = ["&", "<", ">"]
+    var result = input
+    for char in escapeChars {
+        result = result.replacingOccurrences(of: char, with: "\\" + char)
+    }
+    return result
+}
