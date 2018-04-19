@@ -9,3 +9,66 @@
 
 import Foundation
 
+enum MYAlertButton {
+
+    /**
+     ALERT_BUTTON_OK
+     - Base: "OK"
+     - en: "OK"
+    */
+    case okk
+
+    func toString() -> String {
+        switch self {
+        case .okk:
+            return NSLocalizedString("ALERT_BUTTON_OK", tableName: "Messages", comment: "")
+        }
+    }
+
+}
+
+enum MYAlertTitle {
+
+    /**
+     ALERT_TITLE_title
+     - Base: "title"
+     - en: "title"
+    */
+    case title
+
+    func toString() -> String {
+        switch self {
+        default:
+            return NSLocalizedString("ALERT_TITLE_\(self)", tableName: "Messages", comment: "")
+        }
+    }
+
+}
+
+enum MYAlertMessage {
+
+    /**
+     ALERT_MESG_Network Error
+     - Base: "Network error"
+     - en: "Network error"
+    */
+    case networkError
+
+    /**
+     ALERT_MESG_Your Name
+     - Base: "Your name is \"%@\""
+     - en: "Your name is \"%@\""
+    */
+    case yourName(Any)
+
+    func toString() -> String {
+        switch self {
+        case .networkError:
+            return NSLocalizedString("ALERT_MESG_Network Error", tableName: "Messages", comment: "")
+        case .yourName(let param1):
+            let pattern = NSLocalizedString("ALERT_MESG_Your Name", tableName: "Messages", comment: "")
+            return String(format: pattern, "\(param1)")
+        }
+    }
+
+}

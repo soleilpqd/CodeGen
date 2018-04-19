@@ -5,3 +5,8 @@
   Created by DươngPQ on 13/03/2018.
   Copyright © 2018 GMO-Z.com RunSystem. All rights reserved.
 */
+
+"ALERT_TITLE_title"="title";
+"ALERT_BUTTON_OK" = "OK";
+"ALERT_MESG_Network Error" = "Network error";
+"ALERT_MESG_Your Name" = "Your name is \"%@\"";

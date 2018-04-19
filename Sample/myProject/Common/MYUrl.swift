@@ -43,7 +43,7 @@ extension URL {
          main_api_detail
          - "%@/detail"
         */
-        static func mainApiDetail(param1: Any) -> URL {
+        static func mainApiDetail(_ param1: Any) -> URL {
             let pattern = "https://www.google.com/" + NSLocalizedString("main_api_detail", tableName: "URLs", comment: "")
             let urlStr = String(format: pattern, "\(param1)")
             if let url = URL(string: urlStr) {

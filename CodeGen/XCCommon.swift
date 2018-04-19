@@ -46,6 +46,12 @@ func makeKeyword(_ input: String) -> String {
         result = result.replacingOccurrences(of: String(c), with: " ")
     }
     result = result.capitalized
+    if result.count < 3 {
+        let lastChar = String(result[result.index(before: result.endIndex)...])
+        while result.count < 3 {
+            result += lastChar
+        }
+    }
     return result.replacingOccurrences(of: " ", with: "")
 }
 
@@ -64,4 +70,14 @@ func escapeStringForComment(_ input: String) -> String {
         result = result.replacingOccurrences(of: char, with: "\\" + char)
     }
     return result
+}
+
+func cropTail(input: String, length: Int) -> String {
+    if input.count < length { return "" }
+    return String(input[..<input.index(input.endIndex, offsetBy: -length)])
+}
+
+func cropHead(input: String, length: Int) -> String {
+    if input.count < length { return "" }
+    return String(input[input.index(input.startIndex, offsetBy: length)...])
 }

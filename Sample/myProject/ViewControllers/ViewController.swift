@@ -15,12 +15,16 @@ class ViewController: UIViewController {
         print(MYResources.Data.Subdata.DataJson.path)
         print(MYResources.Data.DataJson.url)
         print(String.MYLocalizable.normalText)
-        print(String.MYLocalizable.paramText(param1: "test"))
+        print(String.MYLocalizable.paramText("test"))
         print(String.MYLocalizable.attrBoldText.string)
-        print(String.MYLocalizable.attrParamText(param1: "test").string)
+        print(String.MYLocalizable.attrParamText("test").string)
         print(URL.MYUrls.mainApiLogin)
-        print(URL.MYUrls.mainApiDetail(param1: "001"))
+        print(URL.MYUrls.mainApiDetail("001"))
         print(URL.MYUrls.privacy)
+        print(MYAlertTitle.title.toString())
+        print(MYAlertButton.okk.toString())
+        print(MYAlertMessage.networkError.toString())
+        print(MYAlertMessage.yourName("TEST").toString())
     }
 
 }

@@ -15,6 +15,7 @@
 		2B84EB1920876301008B1E54 /* MYMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1820876301008B1E54 /* MYMessages.swift */; };
 		2B84EB1B2087631A008B1E54 /* MYUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1A2087631A008B1E54 /* MYUrl.swift */; };
 		2B84EB1D20876327008B1E54 /* MYText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1C20876327008B1E54 /* MYText.swift */; };
+		2B979D992088CB7A00E05064 /* Messages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC2C4242057918800AC4B2A /* Messages.strings */; };
 		2BA5FEEA2043B70E00AA42E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FEE92043B70E00AA42E5 /* AppDelegate.swift */; };
 		2BA5FEEF2043B70E00AA42E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEED2043B70E00AA42E5 /* Main.storyboard */; };
 		2BA5FEF42043B70E00AA42E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEF22043B70E00AA42E5 /* LaunchScreen.storyboard */; };
@@ -30,7 +31,6 @@
 		2BABC1932044299D00D4586B /* MYColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BABC1922044296D00D4586B /* MYColor.swift */; };
 		2BC2C4192057913300AC4B2A /* URLs.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC2C4182057913300AC4B2A /* URLs.strings */; };
 		2BC2C41E2057916E00AC4B2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC2C4202057916E00AC4B2A /* Localizable.strings */; };
-		2BC2C4222057918800AC4B2A /* Messages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC2C4242057918800AC4B2A /* Messages.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -229,7 +229,7 @@
 				2BA5FF0A2043BAAF00AA42E5 /* penguin.png in Resources */,
 				2BA5FEF42043B70E00AA42E5 /* LaunchScreen.storyboard in Resources */,
 				2B31C9A720566B4B001833CA /* data.json in Resources */,
-				2BC2C4222057918800AC4B2A /* Messages.strings in Resources */,
+				2B979D992088CB7A00E05064 /* Messages.strings in Resources */,
 				2BA5FF0E2043BAD800AA42E5 /* MYSecondViewController.storyboard in Resources */,
 				2BC2C4192057913300AC4B2A /* URLs.strings in Resources */,
 				2BC2C41E2057916E00AC4B2A /* Localizable.strings in Resources */,

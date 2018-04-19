@@ -17,7 +17,7 @@ extension String {
          attr_2param_text
          - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
         */
-        static func attr2ParamText(param1: Any, param2: Any) -> NSAttributedString {
+        static func attr2ParamText(_ param1: Any, _ param2: Any) -> NSAttributedString {
             let pattern = NSLocalizedString("attr_2param_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)", "\(param2)")
             return makeAttributeString(htmlString)
@@ -36,7 +36,7 @@ extension String {
          attr_param_text
          - Base: "\<b\>%@\</b\>\""
         */
-        static func attrParamText(param1: Any) -> NSAttributedString {
+        static func attrParamText(_ param1: Any) -> NSAttributedString {
             let pattern = NSLocalizedString("attr_param_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)")
             return makeAttributeString(htmlString)
@@ -55,7 +55,7 @@ extension String {
          param text
          - Base: "Param: %@"
         */
-        static func paramText(param1: Any) -> String {
+        static func paramText(_ param1: Any) -> String {
             let pattern = NSLocalizedString("param text", tableName: "Localizable", comment: "")
             return String(format: pattern, "\(param1)")
         }
