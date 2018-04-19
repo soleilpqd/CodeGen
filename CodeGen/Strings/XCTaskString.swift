@@ -233,6 +233,13 @@ class XCTaskString: XCTask {
             }
         }
 
+        override func makeContent(project: XCProject, tables: [XCStringTable]) -> String {
+            var result = super.makeContent(project: project, tables: tables)
+
+
+            return result
+        }
+
     }
 
     private class EnumSubTask: SubTask {

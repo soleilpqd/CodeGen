@@ -14,21 +14,21 @@ extension String {
     struct MYLocalizable {
 
         /**
-         normal text
-         - vi: "Văn bản\n bềnh thường"
-         - Base: "Normal\n text 1"
-        */
-        static var normalText: String {
-            return NSLocalizedString("normal text", tableName: "Localizable", comment: "")
-        }
-
-        /**
          attr_2param_text
          - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
         */
         static func attr2ParamText(param1: Any, param2: Any) -> NSAttributedString {
             let pattern = NSLocalizedString("attr_2param_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)", "\(param2)")
+            return makeAttributeString(htmlString)
+        }
+
+        /**
+         attr_bold_text
+         - Base: "\<b\>Bold text\</b\>\""
+        */
+        static var attrBoldText: NSAttributedString {
+            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
             return makeAttributeString(htmlString)
         }
 
@@ -43,12 +43,12 @@ extension String {
         }
 
         /**
-         attr_bold_text
-         - Base: "\<b\>Bold text\</b\>\""
+         normal text
+         - vi: "Văn bản\n bềnh thường"
+         - Base: "Normal\n text 1"
         */
-        static var attrBoldText: NSAttributedString {
-            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
-            return makeAttributeString(htmlString)
+        static var normalText: String {
+            return NSLocalizedString("normal text", tableName: "Localizable", comment: "")
         }
 
         /**

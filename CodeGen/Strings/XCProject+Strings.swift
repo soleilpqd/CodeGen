@@ -99,6 +99,12 @@ extension XCProject {
                             } else if let items = allItems.first {
                                 table.items = items
                             }
+                            table.items.sort(by: { (left, right) -> Bool in
+                                if let leftKey = left.key, let rightKey = right.key {
+                                    return leftKey.compare(rightKey) == .orderedAscending
+                                }
+                                return false
+                            })
                             store.append(table)
                         }
                     }
