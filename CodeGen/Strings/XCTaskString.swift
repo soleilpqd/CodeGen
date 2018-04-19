@@ -90,12 +90,12 @@ class XCTaskString: XCTask {
         }
 
         func run(project: XCProject, tables: [XCStringTable]) -> Error? {
-            log(.performTask(.string) + "." + type.rawValue + ": " + input)
+            log("\t" + .performTask(.string) + "." + type.rawValue + ": " + input)
             let fullOutputPath = XCTaskString.shared.checkOutputFile(project: project, output: output)
             let content = makeContent(project: project, tables: tables)
             let (error, change) = XCTaskString.shared.writeOutput(project: project, content: content, fullPath: fullOutputPath)
             if !change {
-                log(.outputNotChange())
+                log("\t" + .outputNotChange())
             }
             return error
         }
