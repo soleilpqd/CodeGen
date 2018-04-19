@@ -18,6 +18,9 @@ class ViewController: UIViewController {
         print(String.MYLocalizable.paramText(param1: "test"))
         print(String.MYLocalizable.attrBoldText.string)
         print(String.MYLocalizable.attrParamText(param1: "test").string)
+        print(URL.MYUrls.mainApiLogin)
+        print(URL.MYUrls.mainApiDetail(param1: "001"))
+        print(URL.MYUrls.privacy)
     }
 
 }

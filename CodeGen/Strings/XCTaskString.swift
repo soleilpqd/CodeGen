@@ -52,6 +52,41 @@ class XCTaskString: XCTask {
             return content
         }
 
+        func makeComment(itemKey: String, item: XCStringItem) -> (String, UInt) {
+            let indent2 = XCTaskString.shared.indent(2)
+            var result = indent2 +  "/**\n"
+            var paramsCount: UInt = 0
+            result += indent2 + " \(itemKey)\n"
+            for (language, contents) in item.values {
+                let content = contents.last?.content ?? ""
+                if language.count > 0 {
+                    result += indent2 + " - \(language): \"\(escapeStringForComment(content))\"\n"
+                } else {
+                    result += indent2 + " - \"\(escapeStringForComment(content))\"\n"
+                }
+                let cnt = XCTaskString.countParams(content)
+                if cnt > paramsCount { paramsCount = cnt }
+            }
+            result += indent2 + "*/\n"
+            return (result, paramsCount)
+        }
+
+        func makeFuncParamsList(_ paramsCount: UInt) -> String {
+            var paramsList = ""
+            for paramIndex in 1 ... paramsCount {
+                paramsList += "param\(paramIndex): Any, "
+            }
+            return String(paramsList[..<paramsList.index(paramsList.endIndex, offsetBy: -2)])
+        }
+
+        func makePatternParamsList(_ paramsCount: UInt) -> String {
+            var paramsList = ""
+            for paramIndex in 1 ... paramsCount {
+                paramsList += "\"\\(param\(paramIndex))\", "
+            }
+            return String(paramsList[..<paramsList.index(paramsList.endIndex, offsetBy: -2)])
+        }
+
         func run(project: XCProject, tables: [XCStringTable]) -> Error? {
             log(.performTask(.string) + "." + type.rawValue + ": " + input)
             let fullOutputPath = XCTaskString.shared.checkOutputFile(project: project, output: output)
@@ -74,25 +109,6 @@ class XCTaskString: XCTask {
             attrStringPrefix = info["attr_prefix"] as? String
         }
 
-        private func makeComment(itemKey: String, item: XCStringItem) -> (String, UInt) {
-            let indent2 = XCTaskString.shared.indent(2)
-            var result = indent2 +  "/**\n"
-            var paramsCount: UInt = 0
-            result += indent2 + " \(itemKey)\n"
-            for (language, contents) in item.values {
-                let content = contents.last?.content ?? ""
-                if language.count > 0 {
-                    result += indent2 + " - \(language): \"\(escapeStringForComment(content))\"\n"
-                } else {
-                    result += indent2 + " - \"\(escapeStringForComment(content))\"\n"
-                }
-                let cnt = XCTaskString.countParams(content)
-                if cnt > paramsCount { paramsCount = cnt }
-            }
-            result += indent2 + "*/\n"
-            return (result, paramsCount)
-        }
-
         private func makeTextVar(itemKey: String, tableName: String) -> String {
             var result = ""
             let indent2 = XCTaskString.shared.indent(2)
@@ -101,22 +117,6 @@ class XCTaskString: XCTask {
             result += indent3 + "return NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             result += indent2 + "}\n\n"
             return result
-        }
-
-        private func makeFuncParamsList(_ paramsCount: UInt) -> String {
-            var paramsList = ""
-            for paramIndex in 1 ... paramsCount {
-                paramsList += "param\(paramIndex): Any, "
-            }
-            return String(paramsList[..<paramsList.index(paramsList.endIndex, offsetBy: -2)])
-        }
-
-        private func makePatternParamsList(_ paramsCount: UInt) -> String {
-            var paramsList = ""
-            for paramIndex in 1 ... paramsCount {
-                paramsList += "\"\\(param\(paramIndex))\", "
-            }
-            return String(paramsList[..<paramsList.index(paramsList.endIndex, offsetBy: -2)])
         }
 
         private func makeTextParamsFunc(paramsCount: UInt, itemKey: String, tableName: String) -> String {
@@ -233,10 +233,79 @@ class XCTaskString: XCTask {
             }
         }
 
+        private func makeUrlVar(itemKey: String, tableName: String, domain: String?) -> String {
+            var result = ""
+            let indent2 = XCTaskString.shared.indent(2)
+            let indent3 = XCTaskString.shared.indent(3)
+            let indent4 = XCTaskString.shared.indent(4)
+            result += indent2 + "static var \(makeFuncVarName(itemKey)): URL {\n"
+            if let host = domain {
+                result += indent3 + "let urlStr = \"\(host)\" + NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            } else {
+                result += indent3 + "let urlStr = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            }
+            result += indent3 + "if let url = URL(string: urlStr) {\n"
+            result += indent4 + "return url\n"
+            result += indent3 + "} else {\n"
+            result += indent4 + "fatalError(\"DEVELOP ERROR: Invalid URL '\\(urlStr)'\")\n"
+            result += indent3 + "}\n"
+            result += indent2 + "}\n\n"
+            return result
+        }
+
+        private func makeUrlParamsFunc(itemKey: String, tableName: String, paramsCount: UInt, domain: String?) -> String {
+            var result = ""
+            let indent2 = XCTaskString.shared.indent(2)
+            let indent3 = XCTaskString.shared.indent(3)
+            let indent4 = XCTaskString.shared.indent(4)
+            var paramsList = makeFuncParamsList(paramsCount)
+            result += indent2 + "static func \(makeFuncVarName(itemKey))(\(paramsList)) -> URL {\n"
+            if let host = domain {
+                result += indent3 + "let pattern = \"\(host)\" + NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            } else {
+                result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            }
+            paramsList = makePatternParamsList(paramsCount)
+            result += indent3 + "let urlStr = String(format: pattern, \(paramsList))\n"
+            result += indent3 + "if let url = URL(string: urlStr) {\n"
+            result += indent4 + "return url\n"
+            result += indent3 + "} else {\n"
+            result += indent4 + "fatalError(\"DEVELOP ERROR: Invalid URL '\\(urlStr)'\")\n"
+            result += indent3 + "}\n"
+            result += indent2 + "}\n\n"
+            return result
+        }
+
         override func makeContent(project: XCProject, tables: [XCStringTable]) -> String {
             var result = super.makeContent(project: project, tables: tables)
+            let indent1 = XCTaskString.shared.indent(1)
+            let tableName = (input as NSString).deletingPathExtension
+            result += "extension URL {\n\n"
+            for table in tables where table.name == input {
+                result += indent1 + "struct \(project.prefix ?? "")\(makeKeyword(tableName)) {\n\n"
+                for item in table.items {
+                    guard let itemKey = item.key else { continue }
+                    var paramsCount: UInt = 0
 
+                    var domain: String?
+                    for (key, value) in bases where itemKey.hasPrefix(key) {
+                        domain = value
+                        break
+                    }
 
+                    log("\t" + .found(itemKey))
+                    let (comment, cnt) = makeComment(itemKey: itemKey, item: item)
+                    result += comment
+                    paramsCount = cnt
+                    if paramsCount > 0 {
+                        result += makeUrlParamsFunc(itemKey: itemKey, tableName: tableName, paramsCount: paramsCount, domain: domain)
+                    } else {
+                        result += makeUrlVar(itemKey: itemKey, tableName: tableName, domain: domain)
+                    }
+                }
+                result += indent1 + "}\n\n"
+            }
+            result += "}\n"
             return result
         }
 

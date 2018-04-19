@@ -9,3 +9,50 @@
 
 import Foundation
 
+extension URL {
+
+    struct MYUrls {
+
+        /**
+         privacy
+         - "https://runsystem.net/privacy.html"
+        */
+        static var privacy: URL {
+            let urlStr = NSLocalizedString("privacy", tableName: "URLs", comment: "")
+            if let url = URL(string: urlStr) {
+                return url
+            } else {
+                fatalError("DEVELOP ERROR: Invalid URL '\(urlStr)'")
+            }
+        }
+
+        /**
+         main_api_login
+         - "login"
+        */
+        static var mainApiLogin: URL {
+            let urlStr = "https://www.google.com/" + NSLocalizedString("main_api_login", tableName: "URLs", comment: "")
+            if let url = URL(string: urlStr) {
+                return url
+            } else {
+                fatalError("DEVELOP ERROR: Invalid URL '\(urlStr)'")
+            }
+        }
+
+        /**
+         main_api_detail
+         - "%@/detail"
+        */
+        static func mainApiDetail(param1: Any) -> URL {
+            let pattern = "https://www.google.com/" + NSLocalizedString("main_api_detail", tableName: "URLs", comment: "")
+            let urlStr = String(format: pattern, "\(param1)")
+            if let url = URL(string: urlStr) {
+                return url
+            } else {
+                fatalError("DEVELOP ERROR: Invalid URL '\(urlStr)'")
+            }
+        }
+
+    }
+
+}

@@ -6,4 +6,6 @@
   Copyright © 2018 GMO-Z.com RunSystem. All rights reserved.
 */
 
+"privacy" = "https://runsystem.net/privacy.html";
 "main_api_login" = "login";
+"main_api_detail" = "%@/detail";
