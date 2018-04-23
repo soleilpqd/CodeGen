@@ -66,7 +66,7 @@ class XCTaskString: XCTask {
                 } else {
                     result += indent2 + " - \"\(escapeStringForComment(content))\"\n"
                 }
-                let cnt = XCTaskString.countParams(content)
+                let cnt = countParams(content)
                 if cnt > paramsCount { paramsCount = cnt }
             }
             result += indent2 + "*/\n"
@@ -470,6 +470,63 @@ class XCTaskString: XCTask {
         }
     }
 
+    private func buildValuesMapAndCheckKeys(table: XCStringTable, valuesMap: inout [String: [XCStringItem]]) {
+        for item in table.items {
+            var paramsCount = [UInt]()
+            for (language, values) in item.values {
+                for val in values {
+                    if values.count > 1 {
+                        printLog(.duplicatedStringKey(file: item.filePath ?? "", line: val.line, key: item.key ?? ""))
+                    }
+                    let key = "\(language)::\(val.content)"
+                    var array = valuesMap[key] ?? []
+                    array.append(item)
+                    valuesMap[key] = array
+                }
+                let pCount = XCTaskString.countParams(values.last?.content ?? "")
+                paramsCount.append(pCount)
+            }
+            var last: UInt?
+            var isEquivalent = true
+            for cnt in paramsCount {
+                if let lst = last {
+                    if lst != cnt {
+                        isEquivalent = false
+                        break
+                    }
+                } else {
+                    last = cnt
+                }
+            }
+            if !isEquivalent {
+                for (language, values) in item.values {
+                    if let val = values.last {
+                        printLog(.stringParamsCountNotEquivalent(file: item.filePath ?? "", line: val.line,
+                                                                 key: item.key ?? "", language: language,
+                                                                 count: XCTaskString.countParams(val.content),
+                                                                 value: val.content))
+                    }
+                }
+            }
+        }
+    }
+
+    private func checkValues(valuesMap: [String: [XCStringItem]]) {
+        for (key, array) in valuesMap where array.count > 1 {
+            let tmp = key.components(separatedBy: "::")
+            let language = tmp.first ?? ""
+            let value = tmp.last ?? ""
+            for item in array {
+                if let itemValues = item.values[language] {
+                    for val in itemValues where val.content == value {
+                        printLog(.duplicatedStringValue(file: item.filePath ?? "", line: val.line,
+                                                        key: item.key ?? "", value: value))
+                    }
+                }
+            }
+        }
+    }
+
     override func run(_ project: XCProject) -> Error? {
         _ = super.run(project)
 
@@ -510,10 +567,11 @@ class XCTaskString: XCTask {
             }
         }
         if isNeedValidate {
-            // TODO: same key in same file
-            // TODO: same value in same file
-            // TODO: same value in different files
-            // TOOD: equivalent parameters in different languages
+            var values = [String: [XCStringItem]]()
+            for table in strings {
+                buildValuesMapAndCheckKeys(table: table, valuesMap: &values)
+            }
+            checkValues(valuesMap: values)
         }
 
         return taskErrors.first

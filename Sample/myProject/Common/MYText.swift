@@ -15,6 +15,7 @@ extension String {
 
         /**
          attr_2param_text
+         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
          - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
         */
         static func attr2ParamText(_ param1: Any, _ param2: Any) -> NSAttributedString {
@@ -49,6 +50,14 @@ extension String {
         */
         static var normalText: String {
             return NSLocalizedString("normal text", tableName: "Localizable", comment: "")
+        }
+
+        /**
+         normal text 1
+         - Base: "Normal text"
+        */
+        static var normalText1: String {
+            return NSLocalizedString("normal text 1", tableName: "Localizable", comment: "")
         }
 
         /**

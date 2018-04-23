@@ -163,6 +163,33 @@ extension String {
         }
     }
 
+    static func duplicatedStringKey(file: String, line: UInt, key: String) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(line):0: error: '\(key)' lặp lại."
+        default:
+            return "\(file):\(line):0: error: '\(key)' repeats."
+        }
+    }
+
+    static func duplicatedStringValue(file: String, line: UInt, key: String, value: String) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(line):0: warning: Nội dung của '\(key)' lặp lại: '\(value)'."
+        default:
+            return "\(file):\(line):0: warning: Value of key '\(key)' repeats: '\(value)'."
+        }
+    }
+
+    static func stringParamsCountNotEquivalent(file: String, line: UInt, key: String, language: String, count: UInt, value: String) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(line):0: error: Số lượng tham số (\(count)) của từ khoá '\(key)' ('\(value)') trong ngôn ngữ '\(language)' không tương đương với các ngôn ngữ khác."
+        default:
+            return "\(file):\(line):0: error: Number of parameters (\(count)) of key '\(key)' ('\(value)') in language '\(language)' is not equivalent with one in other languages."
+        }
+    }
+
 }
 
 func printError(_ error: String) {

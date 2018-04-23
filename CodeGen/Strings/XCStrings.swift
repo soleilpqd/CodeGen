@@ -21,6 +21,7 @@ class XCStringItem: NSObject {
     static let kLanguageBase = "Base"
 
     var key: String?
+    // Language: Value
     var values = [String: [XCStringValue]]()
     var filePath: String?
     weak var table: XCStringTable?
