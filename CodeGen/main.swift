@@ -268,13 +268,6 @@ if let classFile = projectFile {
         for item in tasks {
             operationQueue.addOperation {
                 let err = item.run(classFile)
-                // TODO: which task should save data into codegen.plist
-                //        let array = NSMutableArray()
-                //        for item in tasks {
-                //            let dic = item.toDic()
-                //            array.add(dic)
-                //        }
-                //        array.write(toFile: configPath, atomically: true)
                 increaseOpCount(err)
             }
         }

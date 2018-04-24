@@ -591,18 +591,4 @@ class XCTaskColor: XCTask {
         return error
     }
 
-    override func toDic() -> [String: Any] {
-        var dic = super.toDic()
-        if let inp = input {
-            dic[kKeyInput] = inp
-        }
-        dic[kKeyOutput] = output
-        if let list = colorListName {
-            dic[kKeyColorList] = list
-        }
-        dic[kKeyCheckUse] = NSNumber(value: isCheckUse)
-        dic[kKeyCheckSame] = NSNumber(value: isCheckSame)
-        return dic
-    }
-
 }

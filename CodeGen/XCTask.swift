@@ -55,10 +55,6 @@ class XCTask {
         return nil
     }
 
-    func toDic() -> [String: Any] {
-        return [XCTask.kKeyType: type.rawValue]
-    }
-
     func printLog(_ str: String) {
         logs.append(str)
     }

@@ -32,16 +32,6 @@ class XCTaskResourcePath: XCTask {
         }
     }
 
-    override func toDic() -> [String : Any] {
-        var dic = super.toDic()
-        dic["exts"] = extensions
-        dic["output"] = output
-        if isNoSubDir {
-            dic["no_sub_dir"] = NSNumber(booleanLiteral: true)
-        }
-        return dic
-    }
-
     private func makeTypeName(_ name: String) -> String {
         var type = (name as NSString).pathExtension
         if type == "" {
