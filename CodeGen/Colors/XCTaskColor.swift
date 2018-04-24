@@ -255,7 +255,7 @@ class XCTaskColor: XCTask {
         }
         let varName = makeFuncVarName(name)
         if isCheckUse {
-            addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
+            XCValidator.shared.addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
         }
         result += indent1 + "static var \(varName): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
@@ -283,7 +283,7 @@ class XCTaskColor: XCTask {
         }
         let varName = makeFuncVarName(name)
         if isCheckUse {
-            addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
+            XCValidator.shared.addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
         }
         result += indent1 + "static var \(varName): UIColor {\n"
         if env.compareVersion(version: "11.0") && colorNameAvailable {
@@ -472,13 +472,14 @@ class XCTaskColor: XCTask {
         for (key, value) in sources {
             for path in value {
                 guard let content = try? String(contentsOfFile: path) else { continue }
+                let comments = XCValidator.commentedRanges(content)
                 switch key {
                 case .storyboard, .xib:
                     for color in allColors where !tmpColors.contains(where: { (tmpColor) -> Bool in
                         return color === tmpColor
                     }) {
                         let pattern = "<namedColor .+name=\"\(color.name)\"/>"
-                        if checkUsageUsingRegex(pattern: pattern, content: content) {
+                        if XCValidator.checkUsageUsingRegex(pattern: pattern, content: content, commentRanges: comments) {
                             tmpColors.append(color)
                         }
                     }
@@ -489,7 +490,7 @@ class XCTaskColor: XCTask {
         }
         if tmpColors.count > 0 {
             for color in tmpColors {
-                removeKeywordForCheckUsage(category: usageCheckCategory, keyword: makeFuncVarName(color.name))
+                XCValidator.shared.removeKeywordForCheckUsage(category: usageCheckCategory, keyword: makeFuncVarName(color.name))
             }
         }
     }

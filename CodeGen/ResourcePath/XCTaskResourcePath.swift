@@ -69,13 +69,13 @@ class XCTaskResourcePath: XCTask {
             let type = makeTypeName(item)
             if isNoSubDir {
                 let varName = makeFuncVarName("\(refPath)/\(item)")
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
                 content += "\n" + indent(1) + "static var \(varName): Resource {\n"
                 content += indent(2) + "return Resource(inputName: \"\((item as NSString).deletingPathExtension)\", inputType: \(type), inputFolder: \"\(refPath)\")\n"
                 content += indent(1) + "}\n"
             } else {
                 let varName = makeFuncVarName(item)
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
                 content += "\n" + indent(level + 2) + "static var \(varName): Resource {\n"
                 content += indent(level + 3) + "return Resource(inputName: \"\((item as NSString).deletingPathExtension)\", inputType: \(type), inputFolder: \"\(refPath)\")\n"
                 content += indent(level + 2) + "}\n"
@@ -146,7 +146,7 @@ class XCTaskResourcePath: XCTask {
                 continue
             }
             let varName = makeFuncVarName(name)
-            addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+            XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             content += "\n" + indent1 + "static var \(varName): Resource {\n"
             let type = makeTypeName(name)
             content += indent2 + "return Resource(inputName: \"\((name as NSString).deletingPathExtension)\", inputType: \(type))\n"

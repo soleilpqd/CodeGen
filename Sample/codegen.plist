@@ -85,5 +85,9 @@
 		<key>output_type</key>
 		<string>check</string>
 	</dict>
+	<dict>
+		<key>type</key>
+		<string>image_usage</string>
+	</dict>
 </array>
 </plist>

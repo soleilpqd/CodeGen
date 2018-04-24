@@ -117,7 +117,7 @@ class XCTaskString: XCTask {
             let indent3 = XCTaskString.shared.indent(3)
             let varName = makeFuncVarName(itemKey)
             if XCTaskString.shared.isNeedValidate {
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static var \(varName): String {\n"
             result += indent3 + "return NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
@@ -132,7 +132,7 @@ class XCTaskString: XCTask {
             var paramsList = makeFuncParamsList(paramsCount)
             let varName = makeFuncVarName(itemKey)
             if XCTaskString.shared.isNeedValidate {
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static func \(varName)(\(paramsList)) -> String {\n"
             result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
@@ -170,7 +170,7 @@ class XCTaskString: XCTask {
             let indent3 = XCTaskString.shared.indent(3)
             let varName = makeFuncVarName(itemKey)
             if XCTaskString.shared.isNeedValidate {
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static var \(varName): NSAttributedString {\n"
             result += indent3 + "let htmlString = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
@@ -186,7 +186,7 @@ class XCTaskString: XCTask {
             var paramsList = makeFuncParamsList(paramsCount)
             let varName = makeFuncVarName(itemKey)
             if XCTaskString.shared.isNeedValidate {
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static func \(varName)(\(paramsList)) -> NSAttributedString {\n"
             result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
@@ -258,7 +258,7 @@ class XCTaskString: XCTask {
             let indent4 = XCTaskString.shared.indent(4)
             let varName = makeFuncVarName(itemKey)
             if XCTaskString.shared.isNeedValidate {
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static var \(varName): URL {\n"
             if let host = domain {
@@ -283,7 +283,7 @@ class XCTaskString: XCTask {
             var paramsList = makeFuncParamsList(paramsCount)
             let varName = makeFuncVarName(itemKey)
             if XCTaskString.shared.isNeedValidate {
-                addKeywordForCheckUsage(category: usageCategory, keyword: varName)
+                XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static func \(varName)(\(paramsList)) -> URL {\n"
             if let host = domain {
@@ -395,7 +395,7 @@ class XCTaskString: XCTask {
                     let croppedKey = cropHead(input: itemKey, length: prefix.count)
                     let caseName = makeFuncVarName(croppedKey)
                     if XCTaskString.shared.isNeedValidate {
-                        addKeywordForCheckUsage(category: usageCategory, keyword: caseName)
+                        XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: caseName)
                     }
                     var paramsCount: UInt = 0
                     log("\t" + .found(itemKey))
