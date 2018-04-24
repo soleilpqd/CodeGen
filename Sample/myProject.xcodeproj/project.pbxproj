@@ -23,12 +23,13 @@
 		2BA5FF042043B80D00AA42E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF032043B80D00AA42E5 /* ViewController.swift */; };
 		2BA5FF062043BA5F00AA42E5 /* MYObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF052043BA5F00AA42E5 /* MYObject.swift */; };
 		2BA5FF082043BA7A00AA42E5 /* MYCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF072043BA7A00AA42E5 /* MYCommon.swift */; };
-		2BA5FF0A2043BAAF00AA42E5 /* penguin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FF092043BAAF00AA42E5 /* penguin.png */; };
 		2BA5FF0C2043BAC600AA42E5 /* MYSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF0B2043BAC600AA42E5 /* MYSecondViewController.swift */; };
 		2BA5FF0E2043BAD800AA42E5 /* MYSecondViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FF0D2043BAD800AA42E5 /* MYSecondViewController.storyboard */; };
 		2BA5FF102043C26600AA42E5 /* MYObject2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF0F2043C26600AA42E5 /* MYObject2.swift */; };
 		2BABC1902043C2B000D4586B /* MYObject3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BABC18F2043C2AF00D4586B /* MYObject3.swift */; };
 		2BABC1932044299D00D4586B /* MYColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BABC1922044296D00D4586B /* MYColor.swift */; };
+		2BBAA51F208F452A003B796A /* flat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BBAA51E208F452A003B796A /* flat.jpg */; };
+		2BBAA520208F5A19003B796A /* penguin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FF092043BAAF00AA42E5 /* penguin.png */; };
 		2BC2C4192057913300AC4B2A /* URLs.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC2C4182057913300AC4B2A /* URLs.strings */; };
 		2BC2C41E2057916E00AC4B2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC2C4202057916E00AC4B2A /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		2BABC18F2043C2AF00D4586B /* MYObject3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MYObject3.swift; path = myProject/ViewControllers/MYObject3.swift; sourceTree = SOURCE_ROOT; };
 		2BABC1912043F21A00D4586B /* codegen.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = codegen.plist; sourceTree = "<group>"; };
 		2BABC1922044296D00D4586B /* MYColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYColor.swift; sourceTree = "<group>"; };
+		2BBAA51E208F452A003B796A /* flat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flat.jpg; sourceTree = "<group>"; };
 		2BC2C4182057913300AC4B2A /* URLs.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = URLs.strings; sourceTree = "<group>"; };
 		2BC2C41C2057916200AC4B2A /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
 		2BC2C41D2057916200AC4B2A /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		2BA5FEFC2043B7D000AA42E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2BBAA51E208F452A003B796A /* flat.jpg */,
 				2B31C9A820566B64001833CA /* Data */,
 				2BA5FF092043BAAF00AA42E5 /* penguin.png */,
 				2BA5FEFD2043B7D000AA42E5 /* Assets.xcassets */,
@@ -225,13 +228,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B31C9A420566B2F001833CA /* text.txt in Resources */,
-				2BA5FF0A2043BAAF00AA42E5 /* penguin.png in Resources */,
 				2BA5FEF42043B70E00AA42E5 /* LaunchScreen.storyboard in Resources */,
+				2BBAA520208F5A19003B796A /* penguin.png in Resources */,
 				2B31C9A720566B4B001833CA /* data.json in Resources */,
 				2B979D992088CB7A00E05064 /* Messages.strings in Resources */,
 				2BA5FF0E2043BAD800AA42E5 /* MYSecondViewController.storyboard in Resources */,
 				2BC2C4192057913300AC4B2A /* URLs.strings in Resources */,
 				2BC2C41E2057916E00AC4B2A /* Localizable.strings in Resources */,
+				2BBAA51F208F452A003B796A /* flat.jpg in Resources */,
 				2BA5FF012043B7D000AA42E5 /* Assets.xcassets in Resources */,
 				2B31C9A220566B16001833CA /* list.plist in Resources */,
 				2BA5FEEF2043B70E00AA42E5 /* Main.storyboard in Resources */,

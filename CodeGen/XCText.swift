@@ -130,9 +130,9 @@ extension String {
     static func notUsed(_ str: String, _ target: String) -> String {
         switch local {
         case "vi":
-            return "warning: Có vẻ như \(str) trong \(target) không được sử dụng đến."
+            return "warning: Có vẻ như '\(str)' trong '\(target)' không được sử dụng đến."
         default:
-            return "warning: It seem that \(str) in \(target) is/are not used."
+            return "warning: It seem that '\(str)' in '\(target)' is/are not used."
         }
     }
 
@@ -166,27 +166,45 @@ extension String {
     static func duplicatedStringKey(file: String, line: UInt, key: String) -> String {
         switch local {
         case "vi":
-            return "\(file):\(line):0: error: '\(key)' lặp lại."
+            return "\(file):\(line):1: error: '\(key)' lặp lại."
         default:
-            return "\(file):\(line):0: error: '\(key)' repeats."
+            return "\(file):\(line):1: error: '\(key)' repeats."
         }
     }
 
     static func duplicatedStringValue(file: String, line: UInt, key: String, value: String) -> String {
         switch local {
         case "vi":
-            return "\(file):\(line):0: warning: Nội dung của '\(key)' lặp lại: '\(value)'."
+            return "\(file):\(line):1: warning: Nội dung của '\(key)' lặp lại: '\(value)'."
         default:
-            return "\(file):\(line):0: warning: Value of key '\(key)' repeats: '\(value)'."
+            return "\(file):\(line):1: warning: Value of key '\(key)' repeats: '\(value)'."
         }
     }
 
     static func stringParamsCountNotEquivalent(file: String, line: UInt, key: String, language: String, count: UInt, value: String) -> String {
         switch local {
         case "vi":
-            return "\(file):\(line):0: error: Số lượng tham số (\(count)) của từ khoá '\(key)' ('\(value)') trong ngôn ngữ '\(language)' không tương đương với các ngôn ngữ khác."
+            return "\(file):\(line):1: error: Số lượng tham số (\(count)) của từ khoá '\(key)' ('\(value)') trong ngôn ngữ '\(language)' không tương đương với các ngôn ngữ khác."
         default:
-            return "\(file):\(line):0: error: Number of parameters (\(count)) of key '\(key)' ('\(value)') in language '\(language)' is not equivalent with one in other languages."
+            return "\(file):\(line):1: error: Number of parameters (\(count)) of key '\(key)' ('\(value)') in language '\(language)' is not equivalent with one in other languages."
+        }
+    }
+
+    static func imageNotUsed(_ str: String) -> String {
+        switch local {
+        case "vi":
+            return "\(str): warning: Có vẻ như ảnh không được sử dụng đến."
+        default:
+            return "\(str) warning: It seem that the image is not used."
+        }
+    }
+
+    static func imageNotFound(str: String, file: String, row: Int, column: Int) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: Không tìm thấy '\(str)'."
+        default:
+            return "\(file):\(row):\(column): error: '\(str)' not found."
         }
     }
 

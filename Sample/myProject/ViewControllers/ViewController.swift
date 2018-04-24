@@ -25,6 +25,9 @@ class ViewController: UIViewController {
         print(MYAlertButton.okk.toString())
         print(MYAlertMessage.networkError.toString())
 //        print(MYAlertMessage.yourName("TEST").toString())
+        let img2 = #imageLiteral(resourceName: "penguin.png")
+        let img3 = UIImage(named: "penguin")
+//        print(img1.size, img2.size, img3?.size, img4?.size)
     }
 
 }
