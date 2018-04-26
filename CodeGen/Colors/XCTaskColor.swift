@@ -178,14 +178,16 @@ class XCTaskColor: XCTask {
         // Common function for single component color
         content = swiftlintEnable ? indent1 + "// swiftlint:disable:next function_parameter_count\n" : ""
         content += indent1 + "private static func makeColor(name: String?, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) -> UIColor {\n"
-        if env.compareVersion(version: "11.0") {
-            content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
-        } else {
-            content += indent2 + "if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {\n"
+        if env.compareSDKVerison(version: "11.0") {
+            if env.compareDeployVersion(version: "11.0") {
+                content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
+            } else {
+                content += indent2 + "if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {\n"
+            }
+            content += indent3 + "return color\n"
+            content += indent2 + "}\n"
         }
-        content += indent3 + "return color\n"
-        content += indent2 + "}\n"
-        if env.compareVersion(version: "10.0") {
+        if env.compareDeployVersion(version: "10.0") {
             content += indent2 + "if colorSpace == \"\(XCAssetColor.Color.ColorSpace.displayP3.rawValue)\" {\n"
             content += indent3 + "return UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)\n"
             content += indent2 + "}\n"
@@ -206,13 +208,15 @@ class XCTaskColor: XCTask {
                 content += indent1 + "// swiftlint:disable:next large_tuple\n"
             }
             content += indent1 + "private static func makeColor(name: String?, map: [String: (colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat)]) -> UIColor {\n"
-            if env.compareVersion(version: "11.0") {
-                content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
-            } else {
-                content += indent2 + "if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {\n"
+            if env.compareSDKVerison(version: "11.0") {
+                if env.compareDeployVersion(version: "11.0") {
+                    content += indent2 + "if let clName = name, let color = UIColor(named: clName) {\n"
+                } else {
+                    content += indent2 + "if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {\n"
+                }
+                content += indent3 + "return color\n"
+                content += indent2 + "}\n"
             }
-            content += indent3 + "return color\n"
-            content += indent2 + "}\n"
             content += indent2 + "switch UIDevice.current.userInterfaceIdiom {\n"
             content += indent2 + "case .phone:\n"
             content += indent3 + "if let data = map[\"phone\"] {\n"
@@ -258,7 +262,7 @@ class XCTaskColor: XCTask {
             XCValidator.shared.addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
         }
         result += indent1 + "static var \(varName): UIColor {\n"
-        if env.compareVersion(version: "11.0") && colorNameAvailable {
+        if env.compareDeployVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
             }
@@ -286,7 +290,7 @@ class XCTaskColor: XCTask {
             XCValidator.shared.addKeywordForCheckUsage(category: usageCheckCategory, keyword: varName)
         }
         result += indent1 + "static var \(varName): UIColor {\n"
-        if env.compareVersion(version: "11.0") && colorNameAvailable {
+        if env.compareDeployVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
                 result += indent2 + "// swiftlint:disable:next force_cast"
             }
@@ -466,7 +470,7 @@ class XCTaskColor: XCTask {
     }
 
     private func checkUsage(project: XCProject, allColors: [XCAssetColor]) {
-        if !isCheckUse || !env.compareVersion(version: "11.0") { return }
+        if !isCheckUse || !env.compareDeployVersion(version: "11.0") { return }
         let sources = project.getCopyResourcesFiles(types: [.storyboard, .xib])
         var tmpColors = [XCAssetColor]()
         for (key, value) in sources {
@@ -500,7 +504,7 @@ class XCTaskColor: XCTask {
 
     override func run(_ project: XCProject) -> Error? {
         _ = super.run(project)
-        let isSDK11Only = env.compareVersion(version: "11.0")
+        let isSDK11Only = env.compareDeployVersion(version: "11.0")
         fullOutputPath = (project.projectPath as NSString).appendingPathComponent(output)
         checkOutputFile(project)
 
