@@ -104,6 +104,7 @@ class XCTaskString: XCTask {
 
     private class StringSubTask: SubTask {
 
+        var isAttStringMakerAvailable = false
         private var attrStringPrefix: String?
 
         override func getInfo(from info: NSDictionary) {
@@ -143,30 +144,29 @@ class XCTaskString: XCTask {
         }
 
         private func makeAttrStringCodeGen(_ isSwiftLintEnbale: Bool) -> String {
+            let indent1 = XCTaskString.shared.indent(1)
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
-            let indent4 = XCTaskString.shared.indent(4)
-            let indent5 = XCTaskString.shared.indent(4)
 
             var result = ""
             if isSwiftLintEnbale {
-                result = indent2 + "// swiftlint:disable line_length\n"
+                result = indent1 + "// swiftlint:disable line_length\n"
             }
-            result += indent2 + "private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {\n"
-            result += indent3 + "if let data = htmlString.data(using: .utf8),\n"
+            result += indent1 + "static func makeAttributeString(htmlString: String) -> NSAttributedString {\n"
+            result += indent2 + "if let data = htmlString.data(using: .utf8),\n"
             if env.compareSwfitVersion(version: "4.0") {
-                result += indent4 + "let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
-                result += indent4 + "                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
-                result += indent4 + "                                     documentAttributes: nil) {\n"
+                result += indent3 + "let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
+                result += indent3 + "                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
+                result += indent3 + "                                     documentAttributes: nil) {\n"
             } else {
-                result += indent4 + "let result = try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,\n"
-                result += indent4 + "                                                           NSCharacterEncodingDocumentAttribute: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
-                result += indent4 + "                                     documentAttributes: nil) {\n"
+                result += indent3 + "let result = try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,\n"
+                result += indent3 + "                                                           NSCharacterEncodingDocumentAttribute: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
+                result += indent3 + "                                     documentAttributes: nil) {\n"
             }
-            result += indent5 + "return result\n"
-            result += indent3 + "}\n"
-            result += indent3 + "return NSAttributedString(string: htmlString)\n"
-            result += indent2 + "}\n\n"
+            result += indent3 + "return result\n"
+            result += indent2 + "}\n"
+            result += indent2 + "return NSAttributedString(string: htmlString)\n"
+            result += indent1 + "}\n\n"
             return result
         }
 
@@ -180,7 +180,7 @@ class XCTaskString: XCTask {
             }
             result += indent2 + "static var \(varName): NSAttributedString {\n"
             result += indent3 + "let htmlString = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
-            result += indent3 + "return makeAttributeString(htmlString)\n"
+            result += indent3 + "return NSAttributedString.makeAttributeString(htmlString: htmlString)\n"
             result += indent2 + "}\n\n"
             return result
         }
@@ -198,7 +198,7 @@ class XCTaskString: XCTask {
             result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "let htmlString = String(format: pattern, \(paramsList))\n"
-            result += indent3 + "return makeAttributeString(htmlString)\n"
+            result += indent3 + "return NSAttributedString.makeAttributeString(htmlString: htmlString)\n"
             result += indent2 + "}\n\n"
             return result
         }
@@ -208,8 +208,8 @@ class XCTaskString: XCTask {
             let indent1 = XCTaskString.shared.indent(1)
             let tableName = (input as NSString).deletingPathExtension
             result += "extension String {\n\n"
+            var attributedStrings = [(String, String, UInt)]()
             for table in tables where table.name == input {
-                var isAttTextAvailabe = false
                 result += indent1 + "struct \(project.prefix ?? "")\(makeKeyword(tableName)) {\n\n"
                 for item in table.items {
                     guard let itemKey = item.key else { continue }
@@ -217,17 +217,12 @@ class XCTaskString: XCTask {
 
                     log("\t" + .found(itemKey))
                     let (comment, cnt) = makeComment(itemKey: itemKey, item: item)
-                    result += comment
                     paramsCount = cnt
 
                     if let attrPrefix = attrStringPrefix, itemKey.hasPrefix(attrPrefix) {
-                        isAttTextAvailabe = true
-                        if paramsCount > 0 {
-                            result += makeAttrTextParamsFunc(paramsCount: paramsCount, itemKey: itemKey, tableName: tableName)
-                        } else {
-                            result += makeAttrTextVar(itemKey: itemKey, tableName: tableName)
-                        }
+                        attributedStrings.append((itemKey, comment, paramsCount))
                     } else {
+                        result += comment
                         if paramsCount > 0 {
                             result += makeTextParamsFunc(paramsCount: paramsCount, itemKey: itemKey, tableName: tableName)
                         } else {
@@ -235,13 +230,40 @@ class XCTaskString: XCTask {
                         }
                     }
                 }
-                if isAttTextAvailabe {
+                result += indent1 + "}\n\n"
+            }
+            result += "}\n\n"
+            if attributedStrings.count > 0 {
+                result += "extension NSAttributedString {\n\n"
+                if isAttStringMakerAvailable {
                     result += makeAttrStringCodeGen(project.swiftlintEnable)
+                }
+                result += indent1 + "struct \(project.prefix ?? "")\(makeKeyword(tableName)) {\n\n"
+                for (item, comment, pcount) in attributedStrings {
+                    result += comment
+                    if pcount > 0 {
+                        result += makeAttrTextParamsFunc(paramsCount: pcount, itemKey: item, tableName: tableName)
+                    } else {
+                        result += makeAttrTextVar(itemKey: item, tableName: tableName)
+                    }
                 }
                 result += indent1 + "}\n\n"
             }
             result += "}\n"
             return result
+        }
+
+        func checkAttributedStringAvailable(tables: [XCStringTable]) -> Bool {
+            guard let attrPrefix = attrStringPrefix else { return false }
+            for table in tables where table.name == input {
+                for item in table.items {
+                    guard let itemKey = item.key else { continue }
+                    if itemKey.hasPrefix(attrPrefix) {
+                        return true
+                    }
+                }
+            }
+            return false
         }
 
     }
@@ -552,6 +574,13 @@ class XCTaskString: XCTask {
                 }
             }
             return errors.values.first
+        }
+
+        for sTask in subTasks {
+            if let txtTask = sTask as? StringSubTask, txtTask.checkAttributedStringAvailable(tables: strings) {
+                txtTask.isAttStringMakerAvailable = true
+                break
+            }
         }
 
         var count = 0

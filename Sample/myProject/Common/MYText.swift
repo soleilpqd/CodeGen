@@ -14,36 +14,6 @@ extension String {
     struct MYLocalizable {
 
         /**
-         attr_2param_text
-         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
-         - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
-        */
-        static func attr2ParamText(_ param1: Any, _ param2: Any) -> NSAttributedString {
-            let pattern = NSLocalizedString("attr_2param_text", tableName: "Localizable", comment: "")
-            let htmlString = String(format: pattern, "\(param1)", "\(param2)")
-            return makeAttributeString(htmlString)
-        }
-
-        /**
-         attr_bold_text
-         - Base: "\<b\>Bold text\</b\>\""
-        */
-        static var attrBoldText: NSAttributedString {
-            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
-            return makeAttributeString(htmlString)
-        }
-
-        /**
-         attr_param_text
-         - Base: "\<b\>%@\</b\>\""
-        */
-        static func attrParamText(_ param1: Any) -> NSAttributedString {
-            let pattern = NSLocalizedString("attr_param_text", tableName: "Localizable", comment: "")
-            let htmlString = String(format: pattern, "\(param1)")
-            return makeAttributeString(htmlString)
-        }
-
-        /**
          normal text
          - vi: "Văn bản\n bềnh thường"
          - Base: "Normal\n text 1"
@@ -69,14 +39,52 @@ extension String {
             return String(format: pattern, "\(param1)")
         }
 
-        private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {
-            if let data = htmlString.data(using: .utf8),
-                let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,
-                                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],
-                                                     documentAttributes: nil) {
-                return result
-            }
-            return NSAttributedString(string: htmlString)
+    }
+
+}
+
+extension NSAttributedString {
+
+    static func makeAttributeString(htmlString: String) -> NSAttributedString {
+        if let data = htmlString.data(using: .utf8),
+            let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,
+                                                                       .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],
+                                                 documentAttributes: nil) {
+            return result
+        }
+        return NSAttributedString(string: htmlString)
+    }
+
+    struct MYLocalizable {
+
+        /**
+         attr_2param_text
+         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
+         - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
+        */
+        static func attr2ParamText(_ param1: Any, _ param2: Any) -> NSAttributedString {
+            let pattern = NSLocalizedString("attr_2param_text", tableName: "Localizable", comment: "")
+            let htmlString = String(format: pattern, "\(param1)", "\(param2)")
+            return NSAttributedString.makeAttributeString(htmlString: htmlString)
+        }
+
+        /**
+         attr_bold_text
+         - Base: "\<b\>Bold text\</b\>\""
+        */
+        static var attrBoldText: NSAttributedString {
+            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
+            return NSAttributedString.makeAttributeString(htmlString: htmlString)
+        }
+
+        /**
+         attr_param_text
+         - Base: "\<b\>%@\</b\>\""
+        */
+        static func attrParamText(_ param1: Any) -> NSAttributedString {
+            let pattern = NSLocalizedString("attr_param_text", tableName: "Localizable", comment: "")
+            let htmlString = String(format: pattern, "\(param1)")
+            return NSAttributedString.makeAttributeString(htmlString: htmlString)
         }
 
     }
