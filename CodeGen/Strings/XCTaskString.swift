@@ -154,12 +154,18 @@ class XCTaskString: XCTask {
             }
             result += indent2 + "private static func makeAttributeString(_ htmlString: String) -> NSAttributedString {\n"
             result += indent3 + "if let data = htmlString.data(using: .utf8),\n"
-            result += indent4 + "let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
-            result += indent4 + "                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
-            result += indent4 + "                                     documentAttributes: nil) {\n"
+            if env.compareSwfitVersion(version: "4.0") {
+                result += indent4 + "let result = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html,\n"
+                result += indent4 + "                                                           .characterEncoding: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
+                result += indent4 + "                                     documentAttributes: nil) {\n"
+            } else {
+                result += indent4 + "let result = try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,\n"
+                result += indent4 + "                                                           NSCharacterEncodingDocumentAttribute: NSNumber(value: String.Encoding.utf8.rawValue)],\n"
+                result += indent4 + "                                     documentAttributes: nil) {\n"
+            }
             result += indent5 + "return result\n"
             result += indent3 + "}\n"
-            result += indent3 + "return NSAttributedString()\n"
+            result += indent3 + "return NSAttributedString(string: htmlString)\n"
             result += indent2 + "}\n\n"
             return result
         }

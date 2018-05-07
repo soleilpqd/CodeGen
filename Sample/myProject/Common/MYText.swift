@@ -76,7 +76,7 @@ extension String {
                                                      documentAttributes: nil) {
                 return result
             }
-            return NSAttributedString()
+            return NSAttributedString(string: htmlString)
         }
 
     }

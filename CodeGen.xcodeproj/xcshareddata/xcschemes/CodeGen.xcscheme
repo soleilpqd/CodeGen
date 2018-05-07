@@ -70,6 +70,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "SWIFT_VERSION"
+            value = "4.0"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "IPHONEOS_DEPLOYMENT_TARGET"
             value = "9.0"
             isEnabled = "YES">

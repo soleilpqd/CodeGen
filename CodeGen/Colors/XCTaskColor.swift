@@ -220,19 +220,19 @@ class XCTaskColor: XCTask {
             content += indent2 + "switch UIDevice.current.userInterfaceIdiom {\n"
             content += indent2 + "case .phone:\n"
             content += indent3 + "if let data = map[\"phone\"] {\n"
-            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent4 + "return UIColor.makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
             content += indent3 + "}\n"
             content += indent2 + "case .pad:\n"
             content += indent3 + "if let data = map[\"pad\"] {\n"
-            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent4 + "return UIColor.makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
             content += indent3 + "}\n"
             content += indent2 + "case .tv:\n"
             content += indent3 + "if let data = map[\"tv\"] {\n"
-            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent4 + "return UIColor.makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
             content += indent3 + "}\n"
             content += indent2 + "default:\n"
             content += indent3 + "if let data = map[\"default\"] {\n"
-            content += indent4 + "return makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
+            content += indent4 + "return UIColor.makeColor(name: nil, colorSpace: data.colorSpace, red: data.red, green: data.green, blue: data.blue, white: data.white, alpha: data.alpha)\n"
             content += indent3 + "}\n"
             content += indent2 + "}\n"
             content += indent2 + "return UIColor()\n"
@@ -268,7 +268,7 @@ class XCTaskColor: XCTask {
             }
             result += indent2 + "return UIColor(named: \"\(name)\")!\n"
         } else {
-            result += indent2 + "return makeColor(name: \(colorNameAvailable ? "\"\(name)\"" : "nil"), colorSpace: \"\(spaceColor)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
+            result += indent2 + "return UIColor.makeColor(name: \(colorNameAvailable ? "\"\(name)\"" : "nil"), colorSpace: \"\(spaceColor)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a))\n"
         }
         result += indent1 + "}\n"
         return result
@@ -296,7 +296,7 @@ class XCTaskColor: XCTask {
             }
             result += indent2 + "return UIColor(named: \"\(name)\")!\n"
         } else {
-            var content = "return makeColor(name: \(colorNameAvailable ? "\"\(name)\"" : "nil"), map: ["
+            var content = "return UIColor.makeColor(name: \(colorNameAvailable ? "\"\(name)\"" : "nil"), map: ["
             var head = indent2
             for _ in 0..<content.count {
                 head += " "
