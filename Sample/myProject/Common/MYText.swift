@@ -58,22 +58,22 @@ extension NSAttributedString {
     struct MYLocalizable {
 
         /**
-         attr_2param_text
-         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
-         - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
+         attr_bold_text
+         - Base: "\<b\>Bold text\</b\>\""
         */
-        static func attr2ParamText(_ param1: Any, _ param2: Any) -> NSAttributedString {
-            let pattern = NSLocalizedString("attr_2param_text", tableName: "Localizable", comment: "")
-            let htmlString = String(format: pattern, "\(param1)", "\(param2)")
+        static var boldText: NSAttributedString {
+            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
             return NSAttributedString.makeAttributeString(htmlString: htmlString)
         }
 
         /**
-         attr_bold_text
-         - Base: "\<b\>Bold text\</b\>\""
+         attr_param2_text
+         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
+         - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
         */
-        static var attrBoldText: NSAttributedString {
-            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
+        static func param2Text(_ param1: Any, _ param2: Any) -> NSAttributedString {
+            let pattern = NSLocalizedString("attr_param2_text", tableName: "Localizable", comment: "")
+            let htmlString = String(format: pattern, "\(param1)", "\(param2)")
             return NSAttributedString.makeAttributeString(htmlString: htmlString)
         }
 
@@ -81,7 +81,7 @@ extension NSAttributedString {
          attr_param_text
          - Base: "\<b\>%@\</b\>\""
         */
-        static func attrParamText(_ param1: Any) -> NSAttributedString {
+        static func paramText(_ param1: Any) -> NSAttributedString {
             let pattern = NSLocalizedString("attr_param_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)")
             return NSAttributedString.makeAttributeString(htmlString: htmlString)

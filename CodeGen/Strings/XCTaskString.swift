@@ -174,7 +174,8 @@ class XCTaskString: XCTask {
             var result = ""
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
-            let varName = makeFuncVarName(itemKey)
+            var varName = String(itemKey[itemKey.index(itemKey.startIndex, offsetBy: attrStringPrefix?.count ?? 0)...])
+            varName = makeFuncVarName(varName)
             if XCTaskString.shared.isNeedValidate {
                 XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
@@ -190,7 +191,8 @@ class XCTaskString: XCTask {
             let indent2 = XCTaskString.shared.indent(2)
             let indent3 = XCTaskString.shared.indent(3)
             var paramsList = makeFuncParamsList(paramsCount)
-            let varName = makeFuncVarName(itemKey)
+            var varName = String(itemKey[itemKey.index(itemKey.startIndex, offsetBy: attrStringPrefix?.count ?? 0)...])
+            varName = makeFuncVarName(varName)
             if XCTaskString.shared.isNeedValidate {
                 XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
