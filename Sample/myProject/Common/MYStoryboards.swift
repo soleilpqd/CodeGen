@@ -96,7 +96,15 @@ enum MYStoryboard: String {
         fatalError("DEVELOP ERROR: Fail to load \"MYSecondViewController\" from storyboard \"MYSecondViewController\"")
     }
 
-    static func loadThirdViewController(_ fromViewController: UIViewController? = nil) -> MYThirdViewController {
+    static func loadThirdViewControllerTab2FromStoryboardMYSecondViewController(_ fromViewController: UIViewController? = nil) -> MYThirdViewController {
+        let storyboard = self.secondViewController.getStoryboard(originVC: fromViewController)
+        if let result = storyboard.instantiateViewController(withIdentifier: "Tab2") as? MYThirdViewController {
+            return result
+        }
+        fatalError("DEVELOP ERROR: Fail to load \"MYThirdViewController\" from storyboard \"MYSecondViewController\"")
+    }
+
+    static func loadThirdViewControllerView1FromStoryboardMYSecondViewController(_ fromViewController: UIViewController? = nil) -> MYThirdViewController {
         let storyboard = self.secondViewController.getStoryboard(originVC: fromViewController)
         if let result = storyboard.instantiateViewController(withIdentifier: "View1") as? MYThirdViewController {
             return result
@@ -176,14 +184,9 @@ enum MYStoryboard: String {
         fatalError("DEVELOP ERROR: Fail to load \"UITableViewController\" from storyboard \"MYSecondViewController\"")
     }
 
-    static func loadUIViewControllerTab1FromStoryboardMYSecondViewController(_ fromViewController: UIViewController? = nil) -> UIViewController {
+    static func loadUIViewController(_ fromViewController: UIViewController? = nil) -> UIViewController {
         let storyboard = self.secondViewController.getStoryboard(originVC: fromViewController)
         return storyboard.instantiateViewController(withIdentifier: "Tab1")
-    }
-
-    static func loadUIViewControllerTab2FromStoryboardMYSecondViewController(_ fromViewController: UIViewController? = nil) -> UIViewController {
-        let storyboard = self.secondViewController.getStoryboard(originVC: fromViewController)
-        return storyboard.instantiateViewController(withIdentifier: "Tab2")
     }
 
 }
@@ -202,8 +205,30 @@ extension MYThirdViewController {
 
     enum TableCellIdentifier: String {
 
+        /// MYCustomTableViewCell
         case cell = "Cell"
 
+    }
+
+    enum CollectionCellIdentifer: String {
+
+        /// MYCustomCollectionViewCell
+        case cell = "Cell"
+
+    }
+
+    func getTableCellViewCell(_ tableView: UITableView) -> MYCustomTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellIdentifier.cell.rawValue) as? MYCustomTableViewCell {
+            return cell
+        }
+        fatalError("DEVELOP ERROR: Fail to dequeue cell \"MYCustomTableViewCell\" with identifier \"Cell\"")
+    }
+
+    func getCollectionCellViewCell(collectionView: UICollectionView, indexPath: IndexPath) -> MYCustomCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellIdentifer.cell.rawValue, for: indexPath) as? MYCustomCollectionViewCell {
+            return cell
+        }
+        fatalError("DEVELOP ERROR: Fail to dequeue cell \"MYCustomCollectionViewCell\" with identifier \"Cell\" for IndexPath \(indexPath.section)-\(indexPath.row)")
     }
 
 }

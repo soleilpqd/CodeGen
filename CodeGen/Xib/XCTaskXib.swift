@@ -242,15 +242,28 @@ class XCTaskXib: XCTask {
         return result
     }
 
-    private func generateEnum(name: String, values: [String]) -> String {
+    private func generateEnum(name: String, values: Any) -> String {
         let indent1 = indent(1)
         let indent2 = indent(2)
-        let data = values.sorted()
+        var data: [(String, String?)] = []
+        if let array = values as? [String] {
+            let arr = array.sorted()
+            for s in arr {
+                data.append((s, nil))
+            }
+        } else if let array = values as? [(String, String?)] {
+            data = array.sorted(by: { (left, right) -> Bool in
+                return left.0.compare(right.0) == .orderedAscending
+            })
+        }
         var result = ""
         if data.count > 0 {
             result += indent1 + "enum \(name): String {\n\n"
-            for value in data {
+            for (value, customClass) in data {
                 let vName = makeFuncVarName(value)
+                if let cls = customClass {
+                    result += indent2 + "/// " + cls + "\n"
+                }
                 result += indent2 + "case " + vName
                 if vName != value {
                     result += " = \"\(value)\""
@@ -281,14 +294,19 @@ class XCTaskXib: XCTask {
             }
         }
         var result = ""
+        let indent1 = indent(1)
+        let indent2 = indent(2)
+        let indent3 = indent(3)
         var segues = [String: [String]]()
-        var tableCellIds = [String: [String]]()
-        var collectionCellIds = [String: [String]]()
+        var tableCellIds = [String: [(String, String?)]]()
+        var collectionCellIds = [String: [(String, String?)]]()
         var allKeys = [String]()
         for (_, objects) in resources {
             for vc in objects {
                 if let key = vc.customClass {
-                    allKeys.append(key)
+                    if !allKeys.contains(key) {
+                        allKeys.append(key)
+                    }
                     var seguesArray = segues[key] ?? []
                     seguesArray.append(contentsOf: vc.segues)
                     segues[key] = seguesArray
@@ -311,6 +329,31 @@ class XCTaskXib: XCTask {
                 result += generateEnum(name: "SegueIdentifier", values: seguesArray)
                 result += generateEnum(name: "TableCellIdentifier", values: tableCellsArray)
                 result += generateEnum(name: "CollectionCellIdentifer", values: collectionCellsArray)
+
+                if tableCellsArray.count > 0 {
+                    for (cellId, customClass) in tableCellsArray {
+                        guard let cls = customClass else { continue }
+                        result += indent1 + "func getTableCellView\(makeKeyword(cellId))(_ tableView: UITableView) -> \(cls) {\n"
+                        result += indent2 + "if let cell = tableView.dequeueReusableCell(withIdentifier: TableCellIdentifier.\(makeFuncVarName(cellId)).rawValue) as? \(cls) {\n"
+                        result += indent3 + "return cell\n"
+                        result += indent2 + "}\n"
+                        result += indent2 + "fatalError(\"DEVELOP ERROR: Fail to dequeue cell \\\"\(cls)\\\" with identifier \\\"\(cellId)\\\"\")\n"
+                        result += indent1 + "}\n\n"
+                    }
+                }
+
+                if collectionCellsArray.count > 0 {
+                    for (cellId, customClass) in collectionCellsArray {
+                        guard let cls = customClass else { continue }
+                        result += indent1 + "func getCollectionCellView\(makeKeyword(cellId))(collectionView: UICollectionView, indexPath: IndexPath) -> \(cls) {\n"
+                        result += indent2 + "if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCellIdentifer.\(makeFuncVarName(cellId)).rawValue, for: indexPath) as? \(cls) {\n"
+                        result += indent3 + "return cell\n"
+                        result += indent2 + "}\n"
+                        result += indent2 + "fatalError(\"DEVELOP ERROR: Fail to dequeue cell \\\"\(cls)\\\" with identifier \\\"\(cellId)\\\" for IndexPath \\(indexPath.section)-\\(indexPath.row)\")\n"
+                        result += indent1 + "}\n\n"
+                    }
+                }
+
                 result += "}\n\n"
             }
         }

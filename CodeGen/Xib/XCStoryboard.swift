@@ -28,8 +28,8 @@ class XCViewController: NSObject {
     private(set) var customModule: String?
     private(set) var customModuleProvider: String?
     fileprivate(set) var segues = [String]()
-    fileprivate(set) var tableCells = [String]()
-    fileprivate(set) var collectionCells = [String]()
+    fileprivate(set) var tableCells = [(String, String?)]()
+    fileprivate(set) var collectionCells = [(String, String?)]()
 
     var isInitial = false
 
@@ -197,9 +197,9 @@ class XCStoryboard: XCIBDocument {
             vc.segues.append(segue)
         } else if stackKey.count > 8, let scene = scenes?.last, let vc = scene.objects?.first as? XCViewController {
             if elementName == "tableViewCell", let identifier = attributeDict["reuseIdentifier"] {
-                vc.tableCells.append(identifier)
+                vc.tableCells.append((identifier, attributeDict["customClass"]))
             } else if elementName == "collectionViewCell", let identifier = attributeDict["reuseIdentifier"] {
-                vc.collectionCells.append(identifier)
+                vc.collectionCells.append((identifier, attributeDict["customClass"]))
             }
         }
     }
