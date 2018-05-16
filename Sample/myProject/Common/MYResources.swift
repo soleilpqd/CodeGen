@@ -64,7 +64,7 @@ struct MYResources {
             return Resource(inputName: "text", inputType: "txt", inputFolder: "Data")
         }
 
-        struct Subdata {
+        struct SubData {
 
             static var dataJson: Resource {
                 return Resource(inputName: "DaTa", inputType: "json", inputFolder: "Data/SubData")

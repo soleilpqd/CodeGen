@@ -8,241 +8,204 @@
 
 import Foundation
 
-class XCInterfaceObject {
+class XCViewController: NSObject {
 
-    var id: String?
-    var customClass: String?
+    enum ViewControllerType: String {
+        case placeholder = "viewControllerPlaceholder"
+        case viewController
+        case tabBarController
+        case navigationController
+        case tableViewController
+        case collectionViewController
+        case avPlayerViewController
+        case splitViewController
+    }
 
-}
+    let type: String
+    private(set) var id: String?
+    private(set) var storyboardIdentifier: String?
+    private(set) var customClass: String?
+    private(set) var customModule: String?
+    private(set) var customModuleProvider: String?
+    fileprivate(set) var segues = [String]()
+    fileprivate(set) var tableCells = [String]()
+    fileprivate(set) var collectionCells = [String]()
 
-class XCFont {
+    var isInitial = false
 
-    var key: String?
-    var type: String?
-    var name: String?
-    var family: String?
-    var pointSize: String?
+    weak var storyboard: XCStoryboard?
 
-}
+    init(vcType: String) {
+        type = vcType
+    }
 
-class XCColor {
+    func readAttributes(_ attributes: [String: String]) {
+        id = attributes["id"]
+        storyboardIdentifier = attributes["storyboardIdentifier"]
+        customClass = attributes["customClass"]
+        customModule = attributes["customModule"]
+        customModuleProvider = attributes["customModuleProvider"]
+    }
 
-    var key: String?
-    var name: String?
-    var catalog: String?
-
-    var red: String?
-    var green: String?
-    var blue: String?
-
-    var white: String?
-
-    var cyan: String?
-    var magenta: String?
-    var yellow: String?
-    var black: String?
-
-    var alpha: String?
-    var colorSpace: String?
-    var customColorSpace: String?
-
-}
-
-class XCNamedColor {
-
-    var name: String?
-    var color: XCColor?
+    override var description: String {
+        return super.description + (storyboardIdentifier ?? "")
+    }
 
 }
 
-class XCView: XCInterfaceObject {
+class XCIBDocument: NSObject, XMLParserDelegate {
 
-    var name = ""
-    var subviews: [XCView]?
-    var contentMode: String?
-    var attributes: [String: String]?
-    var font: XCFont?
-    var colors = [XCColor]()
+    let path: String
+    private(set) var stackKey = [String]()
 
-}
-
-class XCViewController: XCInterfaceObject {
-
-    var storyboardIdentifier: String?
-    var view: XCView?
-
-}
-
-class XCScene: XCInterfaceObject {
-
-    var comment: String?
-    var viewControlelr: XCViewController?
-
-}
-
-class XCStoryboard: NSObject, XMLParserDelegate {
-
-    var scenes: [XCScene]?
-
-    private var stack = [Any]()
-    private var stackKey = [String]()
-    private var commentBuffer: String?
-
+    private(set) var version: String?
+    private(set) var toolsVersion: String?
     private(set) var initialVC: String?
     private(set) var useSafeAreas = false
     private(set) var useAutolayout = false
     private(set) var useTraitCollections = false
-    private(set) var type = "com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB"
-    private(set) var resources = [Any]()
+    private(set) var type: String? //"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB"
+
+    private(set) var docName: String = ""
+    private(set) var enumName: String = ""
+
+    private var isValid = true
+
+    func generateNames(prefix: String?) {
+        docName = ((path as NSString).lastPathComponent as NSString).deletingPathExtension
+        var name = docName
+        if let prefix = prefix, prefix.count > 0, name.hasPrefix(prefix) {
+            name = String(name[name.index(name.startIndex, offsetBy: prefix.count)...])
+        }
+        if name.count > 1 {
+            name = String(name[name.startIndex]).lowercased() + String(name[name.index(after: name.startIndex)...])
+        }
+        enumName = name
+    }
 
     init?(_ path: String) {
+        self.path = path
         if let parser = XMLParser(contentsOf: URL(fileURLWithPath: path)) {
             super.init()
             parser.delegate = self
             if !parser.parse() { return nil }
+            if !isValid { return nil }
         } else {
             return nil
         }
     }
 
-    func parserDidStartDocument(_ parser: XMLParser) {
-//        print("START")
-    }
-
-    func parserDidEndDocument(_ parser: XMLParser) {
-//        print("END")
+    fileprivate func parseDocumentElement(attributes: [String: String]) {
+        type = attributes["type"]
+        version = attributes["version"]
+        toolsVersion = attributes["toolsVersion"]
+        initialVC = attributes["initialViewController"]
+        useSafeAreas = attributes["useSafeAreas"] == XCStoryboard.kYesValue
+        useAutolayout = attributes["useAutolayout"] == XCStoryboard.kYesValue
+        useTraitCollections = attributes["useTraitCollections"] == XCStoryboard.kYesValue
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-//        print("Start:", elementName, attributeDict)
-        let lastKey = stackKey.last ?? ""
         stackKey.append(elementName)
-        switch elementName {
-        case "document":
-            initialVC = attributeDict["initialViewController"]
-            useSafeAreas = attributeDict["useSafeAreas"] == "YES"
-            useAutolayout = attributeDict["useAutolayout"] == "YES"
-            useTraitCollections = attributeDict["useTraitCollections"] == "YES"
-            if let t = attributeDict["type"] {
-                type = t
-            }
-        case "scenes":
-            scenes = []
-        case "scene":
-            if lastKey == "scenes" {
-                let scene = XCScene()
-                stack.append(scene)
-                scenes?.append(scene)
-                scene.comment = commentBuffer
-                commentBuffer = nil
-                scene.id = attributeDict["sceneID"]
-            }
-        case "viewController":
-            if lastKey == "objects", let last = stack.last as? XCScene {
-                let vc = XCViewController()
-                vc.id = attributeDict["id"]
-                vc.storyboardIdentifier = attributeDict["storyboardIdentifier"]
-                vc.customClass = attributeDict["customClass"]
-                last.viewControlelr = vc
-                stack.append(vc)
-            }
-        case "view":
-            let v = XCView()
-            v.contentMode = attributeDict["contentMode"]
-            v.id = attributeDict["id"]
-            v.name = elementName
-            v.attributes = attributeDict;
-            v.subviews = []
-            if lastKey == "viewController", let lastObj = stack.last as? XCViewController {
-                lastObj.view = v
-            } else if lastKey == "subviews", let lastObj = stack.last as? XCView {
-                lastObj.subviews?.append(v)
-            }
-            stack.append(v)
-        case "fontDescription":
-            if let last = stack.last as? XCView {
-                let f = XCFont()
-                f.type = attributeDict["type"]
-                f.key = attributeDict["key"]
-                f.pointSize = attributeDict["pointSize"]
-                f.name = attributeDict["name"]
-                f.family = attributeDict["family"]
-                last.font = f
-            }
-        case "color":
-            let c = XCColor()
-            c.key = attributeDict["key"]
-            c.name = attributeDict["name"]
-            c.catalog = attributeDict["catalog"]
-            c.red = attributeDict["red"]
-            c.green = attributeDict["blue"]
-            c.blue = attributeDict["blue"]
-            c.white = attributeDict["white"]
-            c.cyan = attributeDict["cyan"]
-            c.magenta = attributeDict["magenta"]
-            c.yellow = attributeDict["yellow"]
-            c.black = attributeDict["black"]
-            c.alpha = attributeDict["alpha"]
-            c.colorSpace = attributeDict["colorSpace"]
-            c.customColorSpace = attributeDict["customColorSpace"]
-            if let last = stack.last as? XCView {
-                last.colors.append(c)
-            } else if let last = stack.last as? XCNamedColor {
-                last.color = c
-            }
-        case "namedColor":
-            if lastKey == "resources", stack.count == 0 {
-                let nC = XCNamedColor()
-                nC.name = attributeDict["name"]
-                resources.append(nC)
-                stack.append(nC)
-            }
-        default:
-            if lastKey == "subviews", let lastObj = stack.last as? XCView {
-                let v = XCView()
-                v.name = elementName
-                v.contentMode = attributeDict["contentMode"]
-                v.id = attributeDict["id"]
-                v.name = elementName
-                v.attributes = attributeDict;
-                v.subviews = []
-                lastObj.subviews?.append(v)
-                stack.append(v)
-            }
-            break
+        if elementName == "document" && stackKey.count == 1 {
+            parseDocumentElement(attributes: attributeDict)
         }
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-//        print("End:", elementName)
-        stackKey.removeLast()
-        switch elementName {
-        case "scene":
-            if let _ = stack.last as? XCScene {
-                _ = stack.removeLast()
+        if stackKey.last == elementName {
+            _ = stackKey.removeLast()
+        } else {
+            isValid = false
+        }
+    }
+
+}
+
+class XCXib: XCIBDocument {
+
+    private(set) var customClass: String?
+    private(set) var customModule: String?
+    private(set) var customModuleProvider: String?
+    private(set) var view: String?
+
+    private(set) var isViewController = false
+    private var viewId: String?
+
+    private func readAttributes(_ attributes: [String: String]) {
+        customClass = attributes["customClass"]
+        customModule = attributes["customModule"]
+        customModuleProvider = attributes["customModuleProvider"]
+    }
+
+    override func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        super.parser(parser, didStartElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName, attributes: attributeDict)
+        if stackKey.count == 3 && stackKey[1] == "objects" {
+            if elementName == "placeholder" && attributeDict["placeholderIdentifier"] == "IBFilesOwner" {
+                readAttributes(attributeDict)
+            } else if elementName != "placeholder", let identifier = attributeDict["id"] {
+                view = elementName
+                if let vId = viewId, vId == identifier {
+                    isViewController = true
+                } else if attributeDict["customClass"] != nil {
+                    readAttributes(attributeDict)
+                }
             }
-        case "viewController":
-            if let _ = stack.last as? XCViewController {
-                _ = stack.removeLast()
+        } else if elementName == "outlet" && stackKey.count == 5 && stackKey[3] == "connections" && stackKey[2] == "placeholder" && attributeDict["property"] == "view" {
+            viewId = attributeDict["destination"]
+        }
+    }
+
+
+}
+
+class XCStoryboard: XCIBDocument {
+
+    class StoryboardScene: NSObject {
+
+        fileprivate(set) var comment: String?
+        fileprivate(set) var objects: [Any]?
+
+    }
+
+    static let kYesValue = "YES"
+
+    private var commentBuffer: String?
+    private(set) var scenes: [StoryboardScene]?
+
+    override func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        super.parser(parser, didStartElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName, attributes: attributeDict)
+         if elementName == "scenes" && stackKey.count == 2 {
+            scenes = []
+        } else if elementName == "scene" && stackKey.count == 3, var sceneArray = scenes {
+            let scene = StoryboardScene()
+            scene.comment = commentBuffer
+            commentBuffer = nil
+            sceneArray.append(scene)
+            scenes = sceneArray
+        } else if elementName == "objects" && stackKey.count == 4 && stackKey[2] == "scene", let scene = scenes?.last {
+            scene.objects = []
+        } else if attributeDict["sceneMemberID"] == "viewController" && stackKey.count == 5 && stackKey[3] == "objects" && stackKey[2] == "scene",
+            let scene = scenes?.last, var storage = scene.objects {
+            let vc = XCViewController(vcType: elementName)
+            vc.readAttributes(attributeDict)
+            vc.isInitial = (vc.id == initialVC && initialVC != nil)
+            vc.storyboard = self
+            storage.append(vc)
+            scene.objects = storage
+        } else if elementName == "segue" && stackKey.count > 5, let scene = scenes?.last, let vc = scene.objects?.first as? XCViewController, let segue = attributeDict["identifier"] {
+            vc.segues.append(segue)
+        } else if stackKey.count > 8, let scene = scenes?.last, let vc = scene.objects?.first as? XCViewController {
+            if elementName == "tableViewCell", let identifier = attributeDict["reuseIdentifier"] {
+                vc.tableCells.append(identifier)
+            } else if elementName == "collectionViewCell", let identifier = attributeDict["reuseIdentifier"] {
+                vc.collectionCells.append(identifier)
             }
-        case "namedColor":
-            if let _ = stack.last as? XCNamedColor {
-                _ = stack.removeLast()
-            }
-        default:
-            if let last = stack.last as? XCView, last.name == elementName {
-                _ = stack.removeLast()
-            }
-            break;
         }
     }
 
     func parser(_ parser: XMLParser, foundComment comment: String) {
-        if let cmt = commentBuffer {
-            commentBuffer = cmt + "\n" + comment
-        } else {
-            commentBuffer = comment
-        }
+        commentBuffer = comment
     }
 
 }

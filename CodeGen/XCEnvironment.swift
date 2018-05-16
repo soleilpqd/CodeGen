@@ -28,6 +28,8 @@ struct XCEnvironment {
     let moduleName: String?
     let sdkVersion: String?
 
+    let infoDict: NSDictionary?
+
     init() {
         let env = ProcessInfo.processInfo.environment
         deployVersion = env["IPHONEOS_DEPLOYMENT_TARGET"]
@@ -41,6 +43,11 @@ struct XCEnvironment {
         productName = env["PRODUCT_NAME"]
         moduleName = env["PRODUCT_MODULE_NAME"]
         sdkVersion = env["SDK_VERSION"]
+        if let path = infoPlistPath {
+            infoDict = NSDictionary(contentsOfFile: path)
+        } else {
+            infoDict = nil
+        }
     }
 
     static func compareTwoVersions(version: String?, target: String, type: CompareType = .sameOrNewer) -> Bool {

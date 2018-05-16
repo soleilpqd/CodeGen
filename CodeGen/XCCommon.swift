@@ -45,7 +45,9 @@ func makeKeyword(_ input: String) -> String {
     for c in specialChars {
         result = result.replacingOccurrences(of: String(c), with: " ")
     }
-    result = result.capitalized
+    if result.contains(" ") {
+        result = result.capitalized
+    }
     if result.count < 3 {
         let lastChar = String(result[result.index(before: result.endIndex)...])
         while result.count < 3 {

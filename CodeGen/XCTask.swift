@@ -21,6 +21,7 @@ class XCTask {
         case resource
         case string
         case imageUsage = "image_usage"
+        case xib
     }
 
     let type: TaskType
@@ -48,6 +49,8 @@ class XCTask {
                 return XCTaskString.shared
             case .imageUsage:
                 XCValidator.shared.shouldCheckImageUsage = true
+            case .xib:
+                return XCTaskXib(info)
             }
         }
         return nil

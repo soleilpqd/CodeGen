@@ -15,11 +15,11 @@ enum MYAlertButton {
      ALERT_BUTTON_OK
      - Base: "OK"
     */
-    case okk
+    case oKK
 
     func toString() -> String {
         switch self {
-        case .okk:
+        case .oKK:
             return NSLocalizedString("ALERT_BUTTON_OK", tableName: "Messages", comment: "")
         }
     }

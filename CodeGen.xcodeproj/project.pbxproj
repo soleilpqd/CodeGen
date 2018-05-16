@@ -15,6 +15,7 @@
 		2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B0203ED722005197C7 /* XCProjTarget.swift */; };
 		2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */; };
 		2B31C9AC20568D70001833CA /* XCTaskResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */; };
+		2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */; };
 		2B5B02B820430E0E00A81392 /* XCProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE92032EFEC00AE5D72 /* XCProject.swift */; };
 		2B5B02B920430E2C00A81392 /* XCEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */; };
 		2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE82032EFEC00AE5D72 /* XCTask.swift */; };
@@ -104,6 +105,7 @@
 		2B2512B0203ED722005197C7 /* XCProjTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCProjTarget.swift; sourceTree = "<group>"; };
 		2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnvironment.swift; sourceTree = "<group>"; };
 		2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskResourcePath.swift; sourceTree = "<group>"; };
+		2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskXib.swift; sourceTree = "<group>"; };
 		2B72CCE82032EFEC00AE5D72 /* XCTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTask.swift; sourceTree = "<group>"; };
 		2B72CCE92032EFEC00AE5D72 /* XCProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCProject.swift; sourceTree = "<group>"; };
 		2B72CCEA2032EFEC00AE5D72 /* XCCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCCommon.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */,
+				2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */,
 			);
 			path = Xib;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */,
 				2B86A3342042A87F00332E53 /* XCAssetColor.swift in Sources */,
 				2B31C9AC20568D70001833CA /* XCTaskResourcePath.swift in Sources */,
+				2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */,
 				2B2512B4203ED722005197C7 /* XCObject.swift in Sources */,
 				2BC2C4972057F61300AC4B2A /* XCProject+Strings.swift in Sources */,
 				2BBAA524208F6005003B796A /* XCValidator.swift in Sources */,

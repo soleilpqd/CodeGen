@@ -11,3 +11,9 @@ import Foundation
 if let storyboard = XCStoryboard("/Users/soleilpqd/PROJECTS/COMMONS/CodeGen/Sample/myProject/ViewControllers/MYSecondViewController.storyboard") {
     print( storyboard );
 }
+if let xib = XCXib("/Users/soleilpqd/PROJECTS/COMMONS/CodeGen/Sample/myProject/ViewControllers/MYThirdViewController.xib") {
+    print(xib)
+}
+if let xib = XCXib("/Users/soleilpqd/PROJECTS/COMMONS/CodeGen/Sample/myProject/ViewControllers/MYCustomTableViewCell.xib") {
+    print(xib)
+}

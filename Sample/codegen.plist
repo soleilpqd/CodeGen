@@ -89,5 +89,11 @@
 		<key>type</key>
 		<string>image_usage</string>
 	</dict>
+	<dict>
+		<key>type</key>
+		<string>xib</string>
+		<key>output</key>
+		<string>myProject/Common/MYStoryboards.swift</string>
+	</dict>
 </array>
 </plist>

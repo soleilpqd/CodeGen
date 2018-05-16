@@ -49,7 +49,7 @@ extension UIColor {
 
         /// BlackAlpha40
         /// - universal: srgb #000000 40% "Black"
-        static var blackalpha40: UIColor {
+        static var blackAlpha40: UIColor {
             return UIColor.makeColor(name: nil, colorSpace: "srgb", red: 0.0, green: 0.0, blue: 0.0, white: 0.0, alpha: 0.404)
         }
 

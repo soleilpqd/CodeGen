@@ -12,6 +12,14 @@
 		2B31C9A720566B4B001833CA /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A620566B4B001833CA /* data.json */; };
 		2B31C9A920566B64001833CA /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A820566B64001833CA /* Data */; };
 		2B31C9AE2056B2D6001833CA /* MYResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B31C9AD2056B2D6001833CA /* MYResources.swift */; };
+		2B4E07ED20AAD3EF0026CCBF /* MYThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07EB20AAD3EF0026CCBF /* MYThirdViewController.swift */; };
+		2B4E07EE20AAD3EF0026CCBF /* MYThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4E07EC20AAD3EF0026CCBF /* MYThirdViewController.xib */; };
+		2B4E07F120AAD4030026CCBF /* MYCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07EF20AAD4030026CCBF /* MYCustomTableViewCell.swift */; };
+		2B4E07F220AAD4030026CCBF /* MYCustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4E07F020AAD4030026CCBF /* MYCustomTableViewCell.xib */; };
+		2B4E07F620AB070D0026CCBF /* MYStoryboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07F520AB070D0026CCBF /* MYStoryboards.swift */; };
+		2B4E07F920AB2B7C0026CCBF /* MYCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07F720AB2B7C0026CCBF /* MYCustomCollectionViewCell.swift */; };
+		2B4E07FA20AB2B7C0026CCBF /* MYCustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4E07F820AB2B7C0026CCBF /* MYCustomCollectionViewCell.xib */; };
+		2B52D63B20AC763C005E6C7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF032043B80D00AA42E5 /* ViewController.swift */; };
 		2B84EB1920876301008B1E54 /* MYMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1820876301008B1E54 /* MYMessages.swift */; };
 		2B84EB1B2087631A008B1E54 /* MYUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1A2087631A008B1E54 /* MYUrl.swift */; };
 		2B84EB1D20876327008B1E54 /* MYText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB1C20876327008B1E54 /* MYText.swift */; };
@@ -20,7 +28,6 @@
 		2BA5FEEF2043B70E00AA42E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEED2043B70E00AA42E5 /* Main.storyboard */; };
 		2BA5FEF42043B70E00AA42E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEF22043B70E00AA42E5 /* LaunchScreen.storyboard */; };
 		2BA5FF012043B7D000AA42E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BA5FEFD2043B7D000AA42E5 /* Assets.xcassets */; };
-		2BA5FF042043B80D00AA42E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF032043B80D00AA42E5 /* ViewController.swift */; };
 		2BA5FF062043BA5F00AA42E5 /* MYObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF052043BA5F00AA42E5 /* MYObject.swift */; };
 		2BA5FF082043BA7A00AA42E5 /* MYCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF072043BA7A00AA42E5 /* MYCommon.swift */; };
 		2BA5FF0C2043BAC600AA42E5 /* MYSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5FF0B2043BAC600AA42E5 /* MYSecondViewController.swift */; };
@@ -41,6 +48,13 @@
 		2B31C9A620566B4B001833CA /* data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		2B31C9A820566B64001833CA /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
 		2B31C9AD2056B2D6001833CA /* MYResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MYResources.swift; sourceTree = "<group>"; };
+		2B4E07EB20AAD3EF0026CCBF /* MYThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYThirdViewController.swift; sourceTree = "<group>"; };
+		2B4E07EC20AAD3EF0026CCBF /* MYThirdViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MYThirdViewController.xib; sourceTree = "<group>"; };
+		2B4E07EF20AAD4030026CCBF /* MYCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYCustomTableViewCell.swift; sourceTree = "<group>"; };
+		2B4E07F020AAD4030026CCBF /* MYCustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MYCustomTableViewCell.xib; sourceTree = "<group>"; };
+		2B4E07F520AB070D0026CCBF /* MYStoryboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYStoryboards.swift; sourceTree = "<group>"; };
+		2B4E07F720AB2B7C0026CCBF /* MYCustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYCustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B4E07F820AB2B7C0026CCBF /* MYCustomCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MYCustomCollectionViewCell.xib; sourceTree = "<group>"; };
 		2B5B61672046A3EA009BEC01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		2B84EB1820876301008B1E54 /* MYMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYMessages.swift; sourceTree = "<group>"; };
 		2B84EB1A2087631A008B1E54 /* MYUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYUrl.swift; sourceTree = "<group>"; };
@@ -150,6 +164,12 @@
 				2BA5FF032043B80D00AA42E5 /* ViewController.swift */,
 				2BA5FF0B2043BAC600AA42E5 /* MYSecondViewController.swift */,
 				2BA5FF0D2043BAD800AA42E5 /* MYSecondViewController.storyboard */,
+				2B4E07EB20AAD3EF0026CCBF /* MYThirdViewController.swift */,
+				2B4E07EC20AAD3EF0026CCBF /* MYThirdViewController.xib */,
+				2B4E07EF20AAD4030026CCBF /* MYCustomTableViewCell.swift */,
+				2B4E07F020AAD4030026CCBF /* MYCustomTableViewCell.xib */,
+				2B4E07F720AB2B7C0026CCBF /* MYCustomCollectionViewCell.swift */,
+				2B4E07F820AB2B7C0026CCBF /* MYCustomCollectionViewCell.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -163,6 +183,7 @@
 				2B84EB1820876301008B1E54 /* MYMessages.swift */,
 				2B84EB1A2087631A008B1E54 /* MYUrl.swift */,
 				2B84EB1C20876327008B1E54 /* MYText.swift */,
+				2B4E07F520AB070D0026CCBF /* MYStoryboards.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -234,7 +255,10 @@
 				2B979D992088CB7A00E05064 /* Messages.strings in Resources */,
 				2BA5FF0E2043BAD800AA42E5 /* MYSecondViewController.storyboard in Resources */,
 				2BC2C4192057913300AC4B2A /* URLs.strings in Resources */,
+				2B4E07FA20AB2B7C0026CCBF /* MYCustomCollectionViewCell.xib in Resources */,
 				2BC2C41E2057916E00AC4B2A /* Localizable.strings in Resources */,
+				2B4E07EE20AAD3EF0026CCBF /* MYThirdViewController.xib in Resources */,
+				2B4E07F220AAD4030026CCBF /* MYCustomTableViewCell.xib in Resources */,
 				2BBAA51F208F452A003B796A /* flat.jpg in Resources */,
 				2BA5FF012043B7D000AA42E5 /* Assets.xcassets in Resources */,
 				2B31C9A220566B16001833CA /* list.plist in Resources */,
@@ -253,14 +277,18 @@
 				2BA5FF082043BA7A00AA42E5 /* MYCommon.swift in Sources */,
 				2B84EB1920876301008B1E54 /* MYMessages.swift in Sources */,
 				2B84EB1D20876327008B1E54 /* MYText.swift in Sources */,
-				2BA5FF042043B80D00AA42E5 /* ViewController.swift in Sources */,
 				2B31C9AE2056B2D6001833CA /* MYResources.swift in Sources */,
 				2BABC1902043C2B000D4586B /* MYObject3.swift in Sources */,
+				2B4E07F920AB2B7C0026CCBF /* MYCustomCollectionViewCell.swift in Sources */,
 				2BA5FF062043BA5F00AA42E5 /* MYObject.swift in Sources */,
+				2B4E07ED20AAD3EF0026CCBF /* MYThirdViewController.swift in Sources */,
 				2BA5FF102043C26600AA42E5 /* MYObject2.swift in Sources */,
 				2BABC1932044299D00D4586B /* MYColor.swift in Sources */,
 				2BA5FF0C2043BAC600AA42E5 /* MYSecondViewController.swift in Sources */,
+				2B4E07F620AB070D0026CCBF /* MYStoryboards.swift in Sources */,
 				2BA5FEEA2043B70E00AA42E5 /* AppDelegate.swift in Sources */,
+				2B4E07F120AAD4030026CCBF /* MYCustomTableViewCell.swift in Sources */,
+				2B52D63B20AC763C005E6C7E /* ViewController.swift in Sources */,
 				2B84EB1B2087631A008B1E54 /* MYUrl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

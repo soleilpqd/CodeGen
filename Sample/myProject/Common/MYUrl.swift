@@ -11,7 +11,7 @@ import Foundation
 
 extension URL {
 
-    struct MYUrls {
+    struct MYURLs {
 
         /**
          privacy
