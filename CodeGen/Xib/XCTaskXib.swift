@@ -8,7 +8,6 @@
 
 import Foundation
 
-// TODO: validate IBOutlet
 class XCTaskXib: XCTask {
 
     private let output: String
