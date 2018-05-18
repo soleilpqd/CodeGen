@@ -208,6 +208,51 @@ extension String {
         }
     }
 
+    static func invalidOutlet(propName: String, file: String, row: UInt, column: UInt) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: IBOutlet '\(propName)' được kết nối không đúng."
+        default:
+            return "\(file):\(row):\(column): error: IBOutlet '\(propName)' destination is invalid."
+        }
+    }
+
+    static func invalidStoryboardItem(item: String, file: String, row: UInt, column: UInt) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: mục '\(item)' của storyboard được kết nối không đúng."
+        default:
+            return "\(file):\(row):\(column): error: item '\(item)' has invalid destination."
+        }
+    }
+
+    static func placeHolderVCDestinationStoryboardNotFound(destName: String, file: String, row: UInt, column: UInt) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: Không tìm thấy storyboard đích '\(destName)' của Storyboard Reference."
+        default:
+            return "\(file):\(row):\(column): error: Destination storyboard '\(destName)' of Storyboard Reference is not found."
+        }
+    }
+
+    static func placeHolderVCDestinationVCNotFound(destName: String, destStroyboard: String, file: String, row: UInt, column: UInt) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: Không tìm thấy View controller đích '\(destName)' trong storyboard '\(destStroyboard)' của Storyboard Reference."
+        default:
+            return "\(file):\(row):\(column): error: Destination view controller '\(destName)' of Storyboard Reference is not found in storyboard '\(destStroyboard)'."
+        }
+    }
+
+    static func placeHolderVCDestinationInitialVCNotFound(destName: String, file: String, row: UInt, column: UInt) -> String {
+        switch local {
+        case "vi":
+            return "\(file):\(row):\(column): error: Storyboard đích '\(destName)' của Storyboard Reference không có Initial View Controller."
+        default:
+            return "\(file):\(row):\(column): error: Destination storyboard '\(destName)' of Storyboard Reference does not have Initial View Controller."
+        }
+    }
+
 }
 
 func printError(_ error: String) {

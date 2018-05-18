@@ -10,8 +10,14 @@ import UIKit
 
 class MYSecondViewController: UIViewController {
 
+    @IBOutlet private weak var textField: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    @IBAction private func demoButton_onTap(_ sender: Any?) {
+        
     }
 
 }

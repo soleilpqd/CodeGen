@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: validate IBOutlet
 class XCTaskXib: XCTask {
 
     private let output: String
@@ -379,6 +380,96 @@ class XCTaskXib: XCTask {
         }
         return error
     }
+
+    private func findRow(xmlLine: String) -> UInt {
+        var row: UInt = 0
+        if let range = xmlLine.range(of: "<") {
+            row = UInt(xmlLine.distance(from: xmlLine.startIndex, to: range.lowerBound))
+        }
+        return row + 1
+    }
+
+    private func findLine(cache: inout [String: String], storyboard: XCStoryboard, vc: XCViewController, object: XCViewController.Object?) -> (UInt, UInt) {
+        let content: String
+        if let data = cache[storyboard.path] {
+            content = data
+        } else if let str = try? String(contentsOfFile: storyboard.path) {
+            content = str
+            cache[storyboard.path] = str
+        } else {
+            return (0, 0)
+        }
+        let lines = content.components(separatedBy: CharacterSet.newlines)
+        var isFoundVC = false
+        var lineIndex: UInt = 0
+        for line in lines {
+            let oneLine = line.trimmingCharacters(in: CharacterSet.whitespaces)
+            if !isFoundVC {
+                isFoundVC = vc.isMyXMLLine(oneLine)
+            } else if let obj = object {
+                if obj.isMyXMLLineId(oneLine) {
+                    return (lineIndex + 1, findRow(xmlLine: line))
+                }
+            } else {
+                return (lineIndex, findRow(xmlLine: line))
+            }
+            lineIndex += 1
+        }
+        return (0, 0)
+    }
+
+    private func validatePlaceHolderVC(vc: XCViewController, storyboards: [XCStoryboard], cache: inout [String: String]) {
+        if let originalStoryboard = vc.storyboard, let storyboardName = vc.attributes["storyboardName"] {
+            var destStoryboard: XCStoryboard?
+            for storyboard in storyboards where storyboard !== originalStoryboard && storyboard.docName == storyboardName {
+                destStoryboard = storyboard
+                break
+            }
+            if let dStoryboard = destStoryboard {
+                if let refVCIdentifier = vc.attributes["referencedIdentifier"] {
+                    if dStoryboard.findViewController(storyboardId: refVCIdentifier) == nil {
+                        let loc = findLine(cache: &cache, storyboard: originalStoryboard, vc: vc, object: nil)
+                        printLog(.placeHolderVCDestinationVCNotFound(destName: refVCIdentifier, destStroyboard: dStoryboard.docName, file: originalStoryboard.path, row: loc.1, column: loc.0))
+                    }
+                } else if dStoryboard.initialVC == nil {
+                    let loc = findLine(cache: &cache, storyboard: originalStoryboard, vc: vc, object: nil)
+                    printLog(.placeHolderVCDestinationInitialVCNotFound(destName: dStoryboard.docName, file: originalStoryboard.path, row: loc.1, column: loc.0))
+                }
+            } else {
+                let loc = findLine(cache: &cache, storyboard: originalStoryboard, vc: vc, object: nil)
+                printLog(.placeHolderVCDestinationStoryboardNotFound(destName: storyboardName, file: originalStoryboard.path, row: loc.1, column: loc.0))
+            }
+        }
+    }
+
+    private func validateStoryboards(_ storyboards: [XCStoryboard]) {
+        var cache = [String: String]()
+        for storyboard in storyboards {
+            if let scenes = storyboard.scenes {
+                for scene in scenes {
+                    if let objects = scene.objects {
+                        for obj in objects {
+                            if let vc = obj as? XCViewController {
+                                let invalidObjs = vc.validateDestinations()
+                                for invObj in invalidObjs {
+                                    let position = findLine(cache: &cache, storyboard: storyboard, vc: vc, object: invObj)
+                                    if invObj.name == "outlet" {
+                                        printLog(.invalidOutlet(propName: invObj.attributes["property"] ?? "", file: storyboard.path, row: position.1, column: position.0))
+                                    } else {
+                                        printLog(.invalidStoryboardItem(item: invObj.name, file: storyboard.path, row: position.1, column: position.0))
+                                    }
+                                }
+                                if vc.type == XCViewController.ViewControllerType.placeholder.rawValue {
+                                    validatePlaceHolderVC(vc: vc, storyboards: storyboards, cache: &cache)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private func append(object: XCViewController, for key: String, storage: inout [String: [XCViewController]]) {
         var array = storage[key] ?? []
         array.append(object)
@@ -437,9 +528,11 @@ class XCTaskXib: XCTask {
                 break
             }
         }
-        return generateContent(project: project, storyboards: storyboards, xibs: xibs,
-                               classesMap: viewClasses, launchScreenStoryboard: launchScreenStoryboard,
-                               isAvKitAvailable: isAvKit)
+        let result = generateContent(project: project, storyboards: storyboards, xibs: xibs,
+                                     classesMap: viewClasses, launchScreenStoryboard: launchScreenStoryboard,
+                                     isAvKitAvailable: isAvKit)
+        validateStoryboards(storyboards)
+        return result
     }
 
 }

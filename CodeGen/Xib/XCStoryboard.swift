@@ -10,6 +10,29 @@ import Foundation
 
 class XCViewController: NSObject {
 
+    class Object {
+
+        let name: String
+        let identifier: String
+        var attributes = [String: String]()
+
+        init(objName: String, objId: String) {
+            name = objName
+            identifier = objId
+        }
+
+        func isMyXMLLineId(_ xmlLine: String) -> Bool {
+            if xmlLine.hasPrefix("<\(name) ") {
+                for (key, value) in attributes where !xmlLine.contains("\(key)=\"\(value)\"") {
+                    return false
+                }
+                return true
+            }
+            return false
+        }
+
+    }
+
     enum ViewControllerType: String {
         case placeholder = "viewControllerPlaceholder"
         case viewController
@@ -27,9 +50,13 @@ class XCViewController: NSObject {
     private(set) var customClass: String?
     private(set) var customModule: String?
     private(set) var customModuleProvider: String?
+    fileprivate(set) var attributes = [String: String]()
     fileprivate(set) var segues = [String]()
     fileprivate(set) var tableCells = [(String, String?)]()
     fileprivate(set) var collectionCells = [(String, String?)]()
+
+    fileprivate(set) var idObjects = [Object]()
+    fileprivate(set) var destOpbjects = [Object]()
 
     var isInitial = false
 
@@ -45,10 +72,31 @@ class XCViewController: NSObject {
         customClass = attributes["customClass"]
         customModule = attributes["customModule"]
         customModuleProvider = attributes["customModuleProvider"]
+        self.attributes = attributes
     }
 
     override var description: String {
         return super.description + (storyboardIdentifier ?? "")
+    }
+
+    func contains(identifier: String) -> Bool {
+        if id == identifier { return true }
+        for obj in idObjects where obj.identifier == identifier {
+            return true
+        }
+        return false
+    }
+
+    func validateDestinations() -> [Object] {
+        var result = [Object]()
+        for obj in destOpbjects where obj.name != "segue" && !contains(identifier: obj.identifier) {
+            result.append(obj)
+        }
+        return result
+    }
+
+    func isMyXMLLine(_ xmlLine: String) -> Bool {
+        return xmlLine.hasPrefix("<\(self.type) ") && xmlLine.contains("id=\"\(self.id ?? "")\"")
     }
 
 }
@@ -60,7 +108,6 @@ class XCIBDocument: NSObject, XMLParserDelegate {
 
     private(set) var version: String?
     private(set) var toolsVersion: String?
-    private(set) var initialVC: String?
     private(set) var useSafeAreas = false
     private(set) var useAutolayout = false
     private(set) var useTraitCollections = false
@@ -99,7 +146,6 @@ class XCIBDocument: NSObject, XMLParserDelegate {
         type = attributes["type"]
         version = attributes["version"]
         toolsVersion = attributes["toolsVersion"]
-        initialVC = attributes["initialViewController"]
         useSafeAreas = attributes["useSafeAreas"] == XCStoryboard.kYesValue
         useAutolayout = attributes["useAutolayout"] == XCStoryboard.kYesValue
         useTraitCollections = attributes["useTraitCollections"] == XCStoryboard.kYesValue
@@ -170,8 +216,14 @@ class XCStoryboard: XCIBDocument {
 
     static let kYesValue = "YES"
 
+    private(set) var initialVC: String?
     private var commentBuffer: String?
     private(set) var scenes: [StoryboardScene]?
+
+    override func parseDocumentElement(attributes: [String : String]) {
+        super.parseDocumentElement(attributes: attributes)
+        initialVC = attributes["initialViewController"]
+    }
 
     override func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         super.parser(parser, didStartElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName, attributes: attributeDict)
@@ -202,10 +254,36 @@ class XCStoryboard: XCIBDocument {
                 vc.collectionCells.append((identifier, attributeDict["customClass"]))
             }
         }
+        if stackKey.count > 5, let scene = scenes?.last, let vc = scene.objects?.first as? XCViewController {
+            if let identifier = attributeDict["id"] {
+                let obj = XCViewController.Object(objName: elementName, objId: identifier)
+                obj.attributes = attributeDict
+                vc.idObjects.append(obj)
+            }
+            if let destination = attributeDict["destination"] {
+                let obj = XCViewController.Object(objName: elementName, objId: destination)
+                obj.attributes = attributeDict
+                vc.destOpbjects.append(obj)
+            }
+        }
     }
 
     func parser(_ parser: XMLParser, foundComment comment: String) {
         commentBuffer = comment
+    }
+
+    func findViewController(storyboardId: String) -> XCViewController? {
+        guard let scenes = scenes else { return nil }
+        for scene in scenes {
+            if let objects = scene.objects {
+                for obj in objects {
+                    if let vc = obj as? XCViewController, vc.storyboardIdentifier == storyboardId {
+                        return vc
+                    }
+                }
+            }
+        }
+        return nil
     }
 
 }

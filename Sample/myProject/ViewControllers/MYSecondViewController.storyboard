@@ -51,9 +51,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
+                                    <action selector="demoButton_onTap:" destination="oHh-wI-4ly" eventType="touchUpInside" id="KBl-s2-Ewg"/>
                                     <segue destination="F5L-AA-nHl" kind="show" identifier="DetailSegue" id="7pU-Pu-bgQ"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Test text field" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fUz-G2-d6o">
+                                <rect key="frame" x="139" y="389" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oHh-wI-4ly" id="AUD-ko-fVE"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.035074628889560699" green="0.0" blue="0.34060579538345337" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -72,6 +83,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="fUz-G2-d6o" id="EGl-Ca-8nw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tbE-3J-0tc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="948" y="1515"/>
         </scene>
-        <!--Main-->
+        <!--Main1-->
         <scene sceneID="w2y-Br-MbZ">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="Main" id="W14-0O-5AC" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="Main1" id="W14-0O-5AC" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moh-eo-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="730" y="2057"/>
@@ -199,6 +213,18 @@
                     <view key="view" contentMode="scaleToFill" id="iTQ-BP-dd3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Test text field" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hgo-gV-dbE">
+                                <rect key="frame" x="123" y="240" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oHh-wI-4ly" id="UFZ-bG-Ijl"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="7Bl-Tz-gaI"/>
                     </view>
