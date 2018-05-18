@@ -14,6 +14,7 @@ class XCViewController: NSObject {
 
         let name: String
         let identifier: String
+        var parentName: String?
         var attributes = [String: String]()
 
         init(objName: String, objId: String) {
@@ -258,11 +259,13 @@ class XCStoryboard: XCIBDocument {
             if let identifier = attributeDict["id"] {
                 let obj = XCViewController.Object(objName: elementName, objId: identifier)
                 obj.attributes = attributeDict
+                obj.parentName = stackKey[stackKey.count - 3]
                 vc.idObjects.append(obj)
             }
             if let destination = attributeDict["destination"] {
                 let obj = XCViewController.Object(objName: elementName, objId: destination)
                 obj.attributes = attributeDict
+                obj.parentName = stackKey[stackKey.count - 3]
                 vc.destOpbjects.append(obj)
             }
         }

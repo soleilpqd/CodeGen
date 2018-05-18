@@ -12,6 +12,9 @@ import UIKit
 extension UIColor {
 
     private static func makeColor(name: String?, colorSpace: String, red: CGFloat, green: CGFloat, blue: CGFloat, white: CGFloat, alpha: CGFloat) -> UIColor {
+        if #available(iOS 11.0, *), let clName = name, let color = UIColor(named: clName) {
+            return color
+        }
         if #available(iOS 10.0, *), colorSpace == "display-p3" {
             return UIColor(displayP3Red: red, green: green, blue: blue, alpha: alpha)
         }

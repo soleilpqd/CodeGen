@@ -106,6 +106,7 @@ class XCValidator {
 
     func checkUsageInSwiftFiles() {
         guard let project = projectFile else { return }
+        print(String.performTask(.validate))
         let sources = project.getSwiftFiles()
         for path in sources {
             guard let content = try? String(contentsOfFile: path) else { continue }

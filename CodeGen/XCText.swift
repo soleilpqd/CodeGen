@@ -31,9 +31,9 @@ extension String {
     static func performTask(_ task: XCTask.TaskType) -> String {
         switch local {
         case "vi":
-            return "Thực hiện: \(task.rawValue)"
+            return "• Thực hiện: \(task.rawValue)"
         default:
-            return "Perform task: \(task.rawValue)"
+            return "• Perform task: \(task.rawValue)"
         }
     }
 
@@ -49,9 +49,9 @@ extension String {
     static func errorNotExist(_ string: String) -> String {
         switch local {
         case "vi":
-            return "\(string): error: Không tồn tại!"
+            return "\(string):0:0: error: Không tồn tại!"
         default:
-            return "\(string): error: Not exist!"
+            return "\(string):0:0: error: Not exist!"
         }
     }
 
@@ -67,9 +67,9 @@ extension String {
     static func configNoTask(_ str: String) -> String {
         switch local {
         case "vi":
-            return "\(str):0 warning: Không có công việc cần thực hiện!"
+            return "\(str):0:0: warning: Không có công việc cần thực hiện!"
         default:
-            return "\(str):0 warning: No enabled task!"
+            return "\(str):0:0: warning: No enabled task!"
         }
     }
 
@@ -103,18 +103,18 @@ extension String {
     static func outputFileNotInTarget(_ str: String) -> String {
         switch local {
         case "vi":
-            return "\(str): warning: Tệp đầu ra không nằm trong Build Target."
+            return "\(str):0:0: warning: Tệp đầu ra không nằm trong Build Target."
         default:
-            return "\(str): warning: Output file is not included in build target."
+            return "\(str):0:0: warning: Output file is not included in build target."
         }
     }
 
     static func outputFileNotInProject(_ str: String) -> String {
         switch local {
         case "vi":
-            return "\(str): warning: Tệp đầu ra không nằm trong Project."
+            return "\(str):0:0: warning: Tệp đầu ra không nằm trong Project."
         default:
-            return "\(str): warning: Output color file is not included in project."
+            return "\(str):0:0: warning: Output color file is not included in project."
         }
     }
 
@@ -148,9 +148,9 @@ extension String {
     static func stringFileNotLoaded(_ file: String) -> String {
         switch local {
         case "vi":
-            return "\(file): error: Không đọc được hoặc không tìm thấy."
+            return "\(file):0:0: error: Không đọc được hoặc không tìm thấy."
         default:
-            return "\(file): error: Loading failed (unreadable or not found)."
+            return "\(file):0:0: error: Loading failed (unreadable or not found)."
         }
     }
 
@@ -193,9 +193,9 @@ extension String {
     static func imageNotUsed(_ str: String) -> String {
         switch local {
         case "vi":
-            return "\(str): warning: Có vẻ như ảnh không được sử dụng đến."
+            return "\(str):0:0: warning: Có vẻ như ảnh không được sử dụng đến."
         default:
-            return "\(str) warning: It seem that the image is not used."
+            return "\(str):0:0: warning: It seem that the image is not used."
         }
     }
 
@@ -208,21 +208,21 @@ extension String {
         }
     }
 
-    static func invalidOutlet(propName: String, file: String, row: UInt, column: UInt) -> String {
+    static func invalidOutlet(propName: String, vcName: String, file: String, row: UInt, column: UInt) -> String {
         switch local {
         case "vi":
-            return "\(file):\(row):\(column): error: IBOutlet '\(propName)' được kết nối không đúng."
+            return "\(file):\(row):\(column): error: Outlet '\(propName)' thuộc '\(vcName)' được kết nối không đúng."
         default:
-            return "\(file):\(row):\(column): error: IBOutlet '\(propName)' destination is invalid."
+            return "\(file):\(row):\(column): error: Outlet '\(propName)' of '\(vcName)' destination is invalid."
         }
     }
 
-    static func invalidStoryboardItem(item: String, file: String, row: UInt, column: UInt) -> String {
+    static func invalidStoryboardItem(item: String, vcName: String, file: String, row: UInt, column: UInt) -> String {
         switch local {
         case "vi":
-            return "\(file):\(row):\(column): error: mục '\(item)' của storyboard được kết nối không đúng."
+            return "\(file):\(row):\(column): error: mục '\(item)' thuộc '\(vcName)' của storyboard được kết nối không đúng."
         default:
-            return "\(file):\(row):\(column): error: item '\(item)' has invalid destination."
+            return "\(file):\(row):\(column): error: item '\(item)' of '\(vcName)' has invalid destination."
         }
     }
 
@@ -250,6 +250,15 @@ extension String {
             return "\(file):\(row):\(column): error: Storyboard đích '\(destName)' của Storyboard Reference không có Initial View Controller."
         default:
             return "\(file):\(row):\(column): error: Destination storyboard '\(destName)' of Storyboard Reference does not have Initial View Controller."
+        }
+    }
+
+    static func pathNotEquivalentTree(file: String) -> String {
+        switch local {
+        case "vi":
+            return "\(file):0:0: warning: \((file as NSString).lastPathComponent): Đường dẫn trên ổ cứng không tương ứng với cây thư mục của project."
+        default:
+            return "\(file):0:0: warning: \((file as NSString).lastPathComponent): File path on disk is not equivalent with project tree path."
         }
     }
 

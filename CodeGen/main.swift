@@ -70,6 +70,7 @@ if let classFile = projectFile {
             print(String.configNoTask(configPath))
             exit(.exitCodeNormal)
         }
+        tasks.append(XCTaskTreePath(task: .tree))
         for item in tasks {
             operationQueue.addOperation {
                 let err = item.run(classFile)

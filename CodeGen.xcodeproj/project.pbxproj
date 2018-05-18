@@ -54,6 +54,7 @@
 		2BD4A88A204D6AC800EA12EB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A889204D6AC800EA12EB /* main.swift */; };
 		2BD4A890204D6B2800EA12EB /* XCStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */; };
 		2BD4A891204D6B2800EA12EB /* XCStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */; };
+		2BE04C8920AF1EDB00BAB6DB /* XCTaskTreePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE04C8820AF1EDB00BAB6DB /* XCTaskTreePath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -130,6 +131,7 @@
 		2BD4A887204D6AC800EA12EB /* textXib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = textXib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BD4A889204D6AC800EA12EB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStoryboard.swift; sourceTree = "<group>"; };
+		2BE04C8820AF1EDB00BAB6DB /* XCTaskTreePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskTreePath.swift; sourceTree = "<group>"; };
 		88450D0442DB60CF7C8515C5 /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -254,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				2BBAA523208F6005003B796A /* XCValidator.swift */,
+				2BE04C8820AF1EDB00BAB6DB /* XCTaskTreePath.swift */,
 			);
 			path = Validator;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */,
 				2B2512B4203ED722005197C7 /* XCObject.swift in Sources */,
 				2BC2C4972057F61300AC4B2A /* XCProject+Strings.swift in Sources */,
+				2BE04C8920AF1EDB00BAB6DB /* XCTaskTreePath.swift in Sources */,
 				2BBAA524208F6005003B796A /* XCValidator.swift in Sources */,
 				2BC2C4952057EF4A00AC4B2A /* XCProject+Color.swift in Sources */,
 				2B2512B2203ED722005197C7 /* XCConfigurationList.swift in Sources */,

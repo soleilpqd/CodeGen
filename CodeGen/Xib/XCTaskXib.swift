@@ -452,10 +452,18 @@ class XCTaskXib: XCTask {
                                 let invalidObjs = vc.validateDestinations()
                                 for invObj in invalidObjs {
                                     let position = findLine(cache: &cache, storyboard: storyboard, vc: vc, object: invObj)
+                                    var vcName = vc.customClass ?? (scene.comment ?? vc.type)
+                                    if let objPName = invObj.parentName {
+                                        vcName += "'.'UI" + String(objPName[objPName.startIndex]).uppercased() + String(objPName[objPName.index(after: objPName.startIndex)...])
+                                    }
                                     if invObj.name == "outlet" {
-                                        printLog(.invalidOutlet(propName: invObj.attributes["property"] ?? "", file: storyboard.path, row: position.1, column: position.0))
+                                        printLog(.invalidOutlet(propName: invObj.attributes["property"] ?? "",
+                                                                vcName: vcName, file: storyboard.path,
+                                                                row: position.1, column: position.0))
                                     } else {
-                                        printLog(.invalidStoryboardItem(item: invObj.name, file: storyboard.path, row: position.1, column: position.0))
+                                        printLog(.invalidStoryboardItem(item: invObj.name, vcName: vcName,
+                                                                        file: storyboard.path,
+                                                                        row: position.1, column: position.0))
                                     }
                                 }
                                 if vc.type == XCViewController.ViewControllerType.placeholder.rawValue {
