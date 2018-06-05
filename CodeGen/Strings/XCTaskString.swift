@@ -234,7 +234,7 @@ class XCTaskString: XCTask {
                 }
                 result += indent1 + "}\n\n"
             }
-            result += "}\n\n"
+            result += "}\n"
             if attributedStrings.count > 0 {
                 result += "extension NSAttributedString {\n\n"
                 if isAttStringMakerAvailable {
@@ -249,9 +249,8 @@ class XCTaskString: XCTask {
                         result += makeAttrTextVar(itemKey: item, tableName: tableName)
                     }
                 }
-                result += indent1 + "}\n\n"
+                result += indent1 + "}\n"
             }
-            result += "}\n"
             return result
         }
 

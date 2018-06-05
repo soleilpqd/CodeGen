@@ -371,7 +371,7 @@ class XCTaskXib: XCTask {
         content += generateCommonFunc(xibEnum: xibs.count > 0 ? (project.prefix ?? "") + "Xib" : nil)
         content += generateEnums(project: project, storyboards: storyboards, xibs: xibs, launchScreenStoryboard: launchScreenStoryboard)
         content += generateViewControllers(project: project, resources: classesMap)
-        content += "}\n\n"
+        content += "}\n"
         content += generateConstants(project: project, storyboards: storyboards)
         let (error, change) = writeOutput(project: project, content: content, fullPath: fullOutputPath)
         if !change {
