@@ -237,6 +237,10 @@ class XCValidator {
                 print(String.notUsed(item.name, assets.name + ".xcassets"))
             }
         }
+        let tmp = notFoundImages
+        for item in tmp where item.contains("\\(") {
+            removeArrayItem(item, &notFoundImages)
+        }
         for item in notFoundImages {
             if let positions = imageNames[item] {
                 for (file, row, column) in positions {
