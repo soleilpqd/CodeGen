@@ -320,11 +320,13 @@ class XCTaskXib: XCTask {
             }
         }
         allKeys.sort()
+        var cnt = 0
         for key in allKeys {
             let seguesArray = segues[key] ?? []
             let tableCellsArray = tableCellIds[key] ?? []
             let collectionCellsArray = collectionCellIds[key] ?? []
             if seguesArray.count > 0 || tableCellsArray.count > 0 || collectionCellsArray.count > 0 {
+                cnt += 1
                 result += "extension \(key) {\n\n"
                 result += generateEnum(name: "SegueIdentifier", values: seguesArray)
                 result += generateEnum(name: "TableCellIdentifier", values: tableCellsArray)
@@ -356,6 +358,9 @@ class XCTaskXib: XCTask {
 
                 result += "}\n\n"
             }
+        }
+        if cnt > 0 {
+            result = "\n" + result[result.startIndex..<result.index(before: result.endIndex)]
         }
         return result
     }
