@@ -104,7 +104,7 @@ class XCTaskXib: XCTask {
             result += indent2 + "return UIStoryboard(name: self.rawValue, bundle: nil)\n"
             result += indent1 + "}\n\n"
             result += indent1 + "private func getStoryboard(originVC: UIViewController?) -> UIStoryboard {\n"
-            result += indent2 + "if let vc = originVC, let originStoryboard = vc.storyboard, originStoryboard.name == self.rawValue {\n"
+            result += indent2 + "if let oVC = originVC, let originStoryboard = oVC.storyboard, originStoryboard.name == self.rawValue {\n"
             result += indent3 + "return originStoryboard\n"
             result += indent2 + "}\n"
             result += indent2 + "return loadStoryboard()\n"
@@ -370,8 +370,10 @@ class XCTaskXib: XCTask {
         content += "\n"
         content += generateCommonFunc(xibEnum: xibs.count > 0 ? (project.prefix ?? "") + "Xib" : nil)
         content += generateEnums(project: project, storyboards: storyboards, xibs: xibs, launchScreenStoryboard: launchScreenStoryboard)
-        content += generateViewControllers(project: project, resources: classesMap)
-        content += "}\n"
+        if storyboards.count > 0 {
+            content += generateViewControllers(project: project, resources: classesMap)
+            content += "}\n"
+        }
         content += generateConstants(project: project, storyboards: storyboards)
         let (error, change) = writeOutput(project: project, content: content, fullPath: fullOutputPath)
         if !change {
