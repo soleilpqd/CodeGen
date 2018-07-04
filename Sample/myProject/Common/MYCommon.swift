@@ -10,6 +10,14 @@ import Foundation
 
 let kPrefix = "MY"
 
+func MYLocalized(_ key: String, tableName: String?, comment: String) -> String {
+    if let path = Bundle.main.path(forResource: "vi", ofType: "lproj"), let bundle = Bundle(path: path) {
+        return bundle.localizedString(forKey: key, value: "abc", table: tableName)
+//        return NSLocalizedString(key, tableName: tableName, bundle: bundle, value: "", comment: comment)
+    }
+    return NSLocalizedString(key, tableName: tableName, comment: comment)
+}
+
 //struct Test {
 //
 //    struct Value {

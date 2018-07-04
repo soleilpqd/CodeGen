@@ -29,6 +29,7 @@ class XCTaskString: XCTask {
         private(set) var input: String
         private(set) var output: String
         private(set) var type: OutputType
+        var localizeFunc = "NSLocalizedString"
         let usageCategory: String
 
         var logs = [String]()
@@ -121,7 +122,7 @@ class XCTaskString: XCTask {
                 XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static var \(varName): String {\n"
-            result += indent3 + "return NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            result += indent3 + "return \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             result += indent2 + "}\n\n"
             return result
         }
@@ -136,7 +137,7 @@ class XCTaskString: XCTask {
                 XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static func \(varName)(\(paramsList)) -> String {\n"
-            result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            result += indent3 + "let pattern = \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "return String(format: pattern, \(paramsList))\n"
             result += indent2 + "}\n\n"
@@ -180,7 +181,7 @@ class XCTaskString: XCTask {
                 XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static var \(varName): NSAttributedString {\n"
-            result += indent3 + "let htmlString = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            result += indent3 + "let htmlString = \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             result += indent3 + "return NSAttributedString.makeAttributeString(htmlString: htmlString)\n"
             result += indent2 + "}\n\n"
             return result
@@ -197,7 +198,7 @@ class XCTaskString: XCTask {
                 XCValidator.shared.addKeywordForCheckUsage(category: usageCategory, keyword: varName)
             }
             result += indent2 + "static func \(varName)(\(paramsList)) -> NSAttributedString {\n"
-            result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+            result += indent3 + "let pattern = \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "let htmlString = String(format: pattern, \(paramsList))\n"
             result += indent3 + "return NSAttributedString.makeAttributeString(htmlString: htmlString)\n"
@@ -249,7 +250,7 @@ class XCTaskString: XCTask {
                         result += makeAttrTextVar(itemKey: item, tableName: tableName)
                     }
                 }
-                result += indent1 + "}\n"
+                result += indent1 + "}\n\n}\n\n"
             }
             return result
         }
@@ -291,9 +292,9 @@ class XCTaskString: XCTask {
             }
             result += indent2 + "static var \(varName): URL {\n"
             if let host = domain {
-                result += indent3 + "let urlStr = \"\(host)\" + NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                result += indent3 + "let urlStr = \"\(host)\" + \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             } else {
-                result += indent3 + "let urlStr = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                result += indent3 + "let urlStr = \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             }
             result += indent3 + "if let url = URL(string: urlStr) {\n"
             result += indent4 + "return url\n"
@@ -316,9 +317,9 @@ class XCTaskString: XCTask {
             }
             result += indent2 + "static func \(varName)(\(paramsList)) -> URL {\n"
             if let host = domain {
-                result += indent3 + "let pattern = \"\(host)\" + NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                result += indent3 + "let pattern = \"\(host)\" + \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             } else {
-                result += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                result += indent3 + "let pattern = \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
             }
             paramsList = makePatternParamsList(paramsCount)
             result += indent3 + "let urlStr = String(format: pattern, \(paramsList))\n"
@@ -437,21 +438,21 @@ class XCTaskString: XCTask {
                         result += indent1 + "case \(caseName)(\(paramsList))\n"
                         specialCaseCount += 1
                         convertFunc += indent2 + "case .\(caseName)(\(makeCaseParams(paramsCount))):\n"
-                        convertFunc += indent3 + "let pattern = NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                        convertFunc += indent3 + "let pattern = \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
                         convertFunc += indent3 + "return String(format: pattern, \(makePatternParamsList(paramsCount)))\n"
                     } else {
                         result += indent1 + "case \(caseName)\n"
                         if croppedKey != caseName {
                             specialCaseCount += 1
                             convertFunc += indent2 + "case .\(caseName):\n"
-                            convertFunc += indent3 + "return NSLocalizedString(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                            convertFunc += indent3 + "return \(localizeFunc)(\"\(itemKey)\", tableName: \"\(tableName)\", comment: \"\")\n"
                         }
                     }
                     result += "\n"
                 }
                 if specialCaseCount < sItems.count {
                     convertFunc += indent2 + "default:\n"
-                    convertFunc += indent3 + "return NSLocalizedString(\"\(prefix)\\(self)\", tableName: \"\(tableName)\", comment: \"\")\n"
+                    convertFunc += indent3 + "return \(localizeFunc)(\"\(prefix)\\(self)\", tableName: \"\(tableName)\", comment: \"\")\n"
                 }
                 convertFunc += indent2 + "}\n"
                 convertFunc += indent1 + "}\n\n"
@@ -493,6 +494,9 @@ class XCTaskString: XCTask {
                 break;
             }
             if let sTask = subTask {
+                if let funcName = info["func"] as? String {
+                    sTask.localizeFunc = funcName
+                }
                 sTask.getInfo(from: info)
                 subTasks.append(sTask)
             }

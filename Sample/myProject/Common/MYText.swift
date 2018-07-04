@@ -19,7 +19,7 @@ extension String {
          - Base: "Normal\n text 1"
         */
         static var normalText: String {
-            return NSLocalizedString("normal text", tableName: "Localizable", comment: "")
+            return MYLocalized("normal text", tableName: "Localizable", comment: "")
         }
 
         /**
@@ -27,7 +27,7 @@ extension String {
          - Base: "Normal text"
         */
         static var normalText1: String {
-            return NSLocalizedString("normal text 1", tableName: "Localizable", comment: "")
+            return MYLocalized("normal text 1", tableName: "Localizable", comment: "")
         }
 
         /**
@@ -35,14 +35,13 @@ extension String {
          - Base: "Param: %@"
         */
         static func paramText(_ param1: Any) -> String {
-            let pattern = NSLocalizedString("param text", tableName: "Localizable", comment: "")
+            let pattern = MYLocalized("param text", tableName: "Localizable", comment: "")
             return String(format: pattern, "\(param1)")
         }
 
     }
 
 }
-
 extension NSAttributedString {
 
     static func makeAttributeString(htmlString: String) -> NSAttributedString {
@@ -62,7 +61,7 @@ extension NSAttributedString {
          - Base: "\<b\>Bold text\</b\>\""
         */
         static var boldText: NSAttributedString {
-            let htmlString = NSLocalizedString("attr_bold_text", tableName: "Localizable", comment: "")
+            let htmlString = MYLocalized("attr_bold_text", tableName: "Localizable", comment: "")
             return NSAttributedString.makeAttributeString(htmlString: htmlString)
         }
 
@@ -72,7 +71,7 @@ extension NSAttributedString {
          - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
         */
         static func param2Text(_ param1: Any, _ param2: Any) -> NSAttributedString {
-            let pattern = NSLocalizedString("attr_param2_text", tableName: "Localizable", comment: "")
+            let pattern = MYLocalized("attr_param2_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)", "\(param2)")
             return NSAttributedString.makeAttributeString(htmlString: htmlString)
         }
@@ -82,7 +81,7 @@ extension NSAttributedString {
          - Base: "\<b\>%@\</b\>\""
         */
         static func paramText(_ param1: Any) -> NSAttributedString {
-            let pattern = NSLocalizedString("attr_param_text", tableName: "Localizable", comment: "")
+            let pattern = MYLocalized("attr_param_text", tableName: "Localizable", comment: "")
             let htmlString = String(format: pattern, "\(param1)")
             return NSAttributedString.makeAttributeString(htmlString: htmlString)
         }
@@ -90,3 +89,4 @@ extension NSAttributedString {
     }
 
 }
+

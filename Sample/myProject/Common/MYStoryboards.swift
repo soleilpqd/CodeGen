@@ -82,7 +82,7 @@ enum MYStoryboard: String {
     }
 
     private func getStoryboard(originVC: UIViewController?) -> UIStoryboard {
-        if let vc = originVC, let originStoryboard = vc.storyboard, originStoryboard.name == self.rawValue {
+        if let oVC = originVC, let originStoryboard = oVC.storyboard, originStoryboard.name == self.rawValue {
             return originStoryboard
         }
         return loadStoryboard()
@@ -232,4 +232,3 @@ extension MYThirdViewController {
     }
 
 }
-
