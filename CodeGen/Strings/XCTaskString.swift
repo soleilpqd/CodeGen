@@ -52,6 +52,9 @@ class XCTaskString: XCTask {
         func makeContent(project: XCProject, tables: [XCStringTable]) -> String {
             var content = project.getHeader(output) + "//  Add text key & content into \(input) and Build project.\n\n"
             content += "import Foundation\n\n"
+            if project.swiftlintEnable {
+                content += "// swiftlint:disable identifier_name\n"
+            }
             return content
         }
 
@@ -417,7 +420,11 @@ class XCTaskString: XCTask {
             for (enumName, sItems) in items where sItems.count > 0 {
                 let prefix = names[enumName] ?? ""
                 result += "enum \(project.prefix ?? "")\(enumName) {\n\n"
-                var convertFunc = indent1 + "func toString() -> String {\n"
+                var convertFunc = ""
+                if project.swiftlintEnable {
+                    convertFunc += indent1 + "// swiftlint:disable:next function_body_length\n"
+                }
+                convertFunc += indent1 + "func toString() -> String {\n"
                 convertFunc += indent2 + "switch self {\n"
                 var specialCaseCount = 0
                 for item in sItems {
