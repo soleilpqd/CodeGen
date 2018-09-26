@@ -54,6 +54,7 @@
 		2BD4A88A204D6AC800EA12EB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A889204D6AC800EA12EB /* main.swift */; };
 		2BD4A890204D6B2800EA12EB /* XCStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */; };
 		2BD4A891204D6B2800EA12EB /* XCStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */; };
+		2BD66CA1215BD244008FB609 /* XCPropEnumTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD66CA0215BD244008FB609 /* XCPropEnumTask.swift */; };
 		2BE04C8920AF1EDB00BAB6DB /* XCTaskTreePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE04C8820AF1EDB00BAB6DB /* XCTaskTreePath.swift */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		2BD4A887204D6AC800EA12EB /* textXib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = textXib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BD4A889204D6AC800EA12EB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2BD4A88F204D6B2800EA12EB /* XCStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStoryboard.swift; sourceTree = "<group>"; };
+		2BD66CA0215BD244008FB609 /* XCPropEnumTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCPropEnumTask.swift; sourceTree = "<group>"; };
 		2BE04C8820AF1EDB00BAB6DB /* XCTaskTreePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskTreePath.swift; sourceTree = "<group>"; };
 		88450D0442DB60CF7C8515C5 /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -225,6 +227,7 @@
 				2B77958D2031C347008E6A90 /* Colors */,
 				2B31C9AA20568D56001833CA /* ResourcePath */,
 				2BC2C48F2057C9E900AC4B2A /* Strings */,
+				2BD66C9F215BD024008FB609 /* ClassPropertyEnum */,
 				2B7795862031C226008E6A90 /* main.swift */,
 				2BA46CF4204E8B3C009AAB8F /* XCText.swift */,
 				2B72CCE92032EFEC00AE5D72 /* XCProject.swift */,
@@ -295,6 +298,14 @@
 				2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */,
 			);
 			path = Xib;
+			sourceTree = "<group>";
+		};
+		2BD66C9F215BD024008FB609 /* ClassPropertyEnum */ = {
+			isa = PBXGroup;
+			children = (
+				2BD66CA0215BD244008FB609 /* XCPropEnumTask.swift */,
+			);
+			path = ClassPropertyEnum;
 			sourceTree = "<group>";
 		};
 		61A3099E47A395188CAFBB71 /* Frameworks */ = {
@@ -447,6 +458,7 @@
 				2BE04C8920AF1EDB00BAB6DB /* XCTaskTreePath.swift in Sources */,
 				2BBAA524208F6005003B796A /* XCValidator.swift in Sources */,
 				2BC2C4952057EF4A00AC4B2A /* XCProject+Color.swift in Sources */,
+				2BD66CA1215BD244008FB609 /* XCPropEnumTask.swift in Sources */,
 				2B2512B2203ED722005197C7 /* XCConfigurationList.swift in Sources */,
 				2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */,
 				2B84EB17208734F0008B1E54 /* XCTaskString.swift in Sources */,

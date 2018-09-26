@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         print(MYXib.customTableViewCell.loadView())
         print(MYStoryboard.loadSecondViewController())
         print(MYThirdViewController.TableCellIdentifier.cell.rawValue)
+        print(MYObject.PropertyName.color)
     }
 
 }

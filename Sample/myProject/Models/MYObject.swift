@@ -10,6 +10,13 @@ import UIKit
 
 class MYObject {
 
+    // == AUTOGEN
+    // THIS CODE SECTION IS GENERATED. DO NOT EDIT.
+    struct PropertyName {
+        static let color = "color"
+    }
+    // AUTOGEN ==
+
     var color: UIColor = UIColor.MYColors.Login.Regist.gallery
 
 }

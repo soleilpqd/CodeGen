@@ -24,6 +24,7 @@ class XCTask {
         case xib
         case tree
         case validate = "Validate Usage"
+        case propertyEnum = "property"
     }
 
     let type: TaskType
@@ -53,6 +54,8 @@ class XCTask {
                 XCValidator.shared.shouldCheckImageUsage = true
             case .xib:
                 return XCTaskXib(info)
+            case .propertyEnum:
+                return XCPropEnumTask(info)
             default:
                 break
             }

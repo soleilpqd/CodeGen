@@ -97,5 +97,13 @@
 		<key>output</key>
 		<string>myProject/Common/MYStoryboards.swift</string>
 	</dict>
+	<dict>
+		<key>type</key>
+		<string>property</string>
+		<key>files</key>
+		<array>
+			<string>myProject/Models/MyObject.swift</string>
+		</array>
+	</dict>
 </array>
 </plist>
