@@ -245,7 +245,7 @@ class XCTaskColor: XCTask {
                                                   tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
         let indent1 = indent(level + 1)
         let indent2 = indent(level + 2)
-        let name = color.name ?? ""
+        let name = color.name
         var result = indent1 + "/// " + name + "\n"
         let cl1 = color.colors!.first!
         let (r, g, b, w, a) = cl1.getComponents()
@@ -278,7 +278,7 @@ class XCTaskColor: XCTask {
 
     private func generateSwiftCodeMultiComponents(colorNameAvailable: Bool, color: XCAssetColor, level: Int,
                                                   tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
-        let name = color.name ?? ""
+        let name = color.name
         let indent1 = indent(level + 1)
         let indent2 = indent(level + 2)
         var result = indent1 + "/// " + name + "\n"
@@ -371,7 +371,7 @@ class XCTaskColor: XCTask {
         result += indent1 + "struct \(prefix)\(makeKeyword(folder.name)) {\n\n"
 
         for color in colors {
-            printLog(.found(color.name ?? ""))
+            printLog(.found(color.name))
             result += generateSwiftCode(colorNameAvailable: colorNameAvailable, color: color,
                                         level: level + 1, tabWidth: tabWidth,
                                         indentWidth: indentWidth, useTab: useTab) + "\n"

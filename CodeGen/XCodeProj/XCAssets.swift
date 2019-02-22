@@ -36,7 +36,7 @@ class XCAsset {
 
     weak var parent: XCAsset?
 
-    var name: String!
+    var name: String = ""
 
 }
 
