@@ -50,7 +50,7 @@ class XCTaskColor: XCTask {
         }
         var colorList: NSColorList?
         var nameAvailable = true
-        for clList in NSColorList.availableColorLists where clList.name?.rawValue == clrName {
+        for clList in NSColorList.availableColorLists where clList.name == clrName {
             nameAvailable = false
             if clList.isEditable {
                 colorList = clList
@@ -62,7 +62,7 @@ class XCTaskColor: XCTask {
             while !nameAvailable {
                 tmpName = clrName + "\(index)"
                 nameAvailable = true
-                for clList in NSColorList.availableColorLists where clList.name?.rawValue == tmpName {
+                for clList in NSColorList.availableColorLists where clList.name == tmpName {
                     nameAvailable = false
                 }
                 index += 1
@@ -99,7 +99,7 @@ class XCTaskColor: XCTask {
                 if let components = color.colors {
                     if components.count == 1 {
                         if let cl1 = components.first {
-                            let key = NSColor.Name(rawValue: color.name)
+                            let key = color.name
                             if checkKeyOfColorList(key: key, list: clList, color: cl1) {
                                 isChanged = true
                                 break
@@ -110,7 +110,7 @@ class XCTaskColor: XCTask {
                     } else {
                         var index = 0
                         for cl1 in components {
-                            let key = NSColor.Name(rawValue: color.name + " " + (cl1.idiom ?? "\(index)"))
+                            let key = color.name + " " + (cl1.idiom ?? "\(index)")
                             if checkKeyOfColorList(key: key, list: clList, color: cl1) {
                                 isChanged = true
                                 break
@@ -136,7 +136,7 @@ class XCTaskColor: XCTask {
                 return
             }
         } else {
-            colorList = NSColorList(name: .init(rawValue: clrName))
+            colorList = NSColorList(name: clrName)
         }
         printLog(.generateColorList(clrName))
         let keys = colorList.allKeys
@@ -147,13 +147,13 @@ class XCTaskColor: XCTask {
             if let components = color.colors {
                 if components.count == 1 {
                     if let cl1 = components.first, let cl = cl1.colorForColorList {
-                        colorList.setColor(cl, forKey: .init(rawValue: color.name))
+                        colorList.setColor(cl, forKey: color.name)
                     }
                 } else {
                     var index = 0
                     for cl1 in components {
                         if let cl = cl1.colorForColorList {
-                            colorList.setColor(cl, forKey: .init(rawValue: color.name + " " + (cl1.idiom ?? "\(index)")))
+                            colorList.setColor(cl, forKey: color.name + " " + (cl1.idiom ?? "\(index)"))
                         }
                         index += 1
                     }
