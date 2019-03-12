@@ -12,22 +12,12 @@ extension XCProject {
 
     private func addStringValues(from file: String, into table: XCStringTable, language: String) -> Error? {
         do {
-            let strings = try parseStringsFile(file: file)
-            for (key, values) in strings {
-                let item = XCStringItem()
-                item.key = key
+            let strings = try parseStringsFile(file: file, language: language)
+            for item in strings {
                 item.filePath = file
-                var result = [XCStringValue]()
-                for (value, line) in values {
-                    let sVal = XCStringValue()
-                    sVal.content = value
-                    sVal.line = line
-                    result.append(sVal)
-                }
-                if result.count > 0 { item.values[language] = result }
                 item.table = table
-                table.items.append(item)
             }
+            table.items.append(contentsOf: strings)
             return nil
         } catch (let e) {
             return e

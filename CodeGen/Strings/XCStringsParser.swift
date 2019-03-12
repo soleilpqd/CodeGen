@@ -14,7 +14,7 @@ enum XCStringsParserError: Error {
 }
 
 /// return: [key: [(value: line)]] (key may be duplicated so it has more than 1 value)
-func parseStringsFile(file: String) throws -> [String: [(String, UInt)]] {
+func parseStringsFile(file: String, language: String) throws -> [XCStringItem] {
     guard let content = try? String(contentsOfFile: file) else {
         throw XCStringsParserError.notLoad
     }
@@ -32,7 +32,7 @@ func parseStringsFile(file: String) throws -> [String: [(String, UInt)]] {
     var context: XCStringsContext = .none
     var line: UInt = 1
     var col: UInt = 1
-    var result = [String: [(String, UInt)]]()
+    var result = [XCStringItem]()
     var preChar: Character?
     var curKey: String?
     var curValue: String?
@@ -103,14 +103,22 @@ func parseStringsFile(file: String) throws -> [String: [(String, UInt)]] {
             case ";":
                 context = .none
                 if let key = curKey?.replacingOccurrences(of: "\n", with: "\\n"), let val = curValue?.replacingOccurrences(of: "\n", with: "\\n") {
-                    var values: [(String, UInt)]
-                    if let arr = result[key] {
-                        values = arr
-                    } else {
-                        values = [(String, UInt)]()
+                    var resItem: XCStringItem!
+                    for item in result where item.key == key {
+                        resItem = item
+                        break
                     }
-                    values.append((val, line))
-                    result[key] = values
+                    if resItem == nil {
+                        resItem = XCStringItem()
+                        resItem.key = key
+                        result.append(resItem)
+                    }
+                    var resLines = resItem.values[language] ?? []
+                    let resLine = XCStringValue()
+                    resLine.content = val
+                    resLine.line = line
+                    resLines.append(resLine)
+                    resItem.values[language] = resLines
                 } else {
                     throw XCStringsParserError.failed(row: line, column: col)
                 }

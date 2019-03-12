@@ -417,7 +417,10 @@ class XCTaskString: XCTask {
                 }
             }
 
-            for (enumName, sItems) in items where sItems.count > 0 {
+            let orderedEnumnames = items.keys.sorted()
+            for enumName in orderedEnumnames {
+                let sItems = items[enumName] ?? []
+                if sItems.count == 0 { continue }
                 let prefix = names[enumName] ?? ""
                 result += "enum \(project.prefix ?? "")\(enumName) {\n\n"
                 var convertFunc = ""
