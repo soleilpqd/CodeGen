@@ -87,6 +87,18 @@ class XCTaskXib: XCTask {
             result += indent2 + "}\n"
             result += indent2 + "return UIView()\n"
             result += indent1 + "}\n\n}\n\n"
+
+            for item in xibs where item.view == "tableViewCell" {
+                guard let cls = item.customClass else { continue }
+                result += "extension \(cls) {\n\n"
+                result += indent1 + "static func dequeueReuse(tableView: UITableView) -> \(cls) {\n"
+                result += indent2 + "if let cell = tableView.dequeReuseCell(xib: .\(item.enumName)) as? \(cls) {\n"
+                result += indent3 + "return cell\n"
+                result += indent2 + "}\n"
+                result += indent2 + "fatalError(\"DEVELOP ERROR: The registered cell type for identifier \\\"\\(\(project.prefix ?? "")Xib.\(item.enumName).rawValue)\\\" is not \\\"\(cls)\\\"!\")\n"
+                result += indent1 + "}\n\n"
+                result += "}\n\n"
+            }
         }
         if storyboards.count > 0 {
             result += "enum " + (project.prefix ?? "") + "Storyboard: String {\n\n"
