@@ -109,6 +109,9 @@ class XCProject {
         }
         result += "//\n"
         result += "//  THIS FILE IS AUTO-GENERATED. DO NOT EDIT!\n"
+        if swiftlintEnable {
+            result += "//  swiftlint:disable file_length\n"
+        }
         return result
     }
 
