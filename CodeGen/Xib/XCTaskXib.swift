@@ -567,6 +567,14 @@ class XCTaskXib: XCTask {
                 break
             }
         }
+
+        storyboards.sort { (left, right) -> Bool in
+            return left.enumName < right.enumName
+        }
+        xibs.sort { (left, right) -> Bool in
+            return left.enumName < right.enumName
+        }
+
         let result = generateContent(project: project, storyboards: storyboards, xibs: xibs,
                                      classesMap: viewClasses, launchScreenStoryboard: launchScreenStoryboard,
                                      isAvKitAvailable: isAvKit)

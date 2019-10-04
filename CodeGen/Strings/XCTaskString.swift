@@ -63,7 +63,9 @@ class XCTaskString: XCTask {
             var result = indent2 +  "/**\n"
             var paramsCount: UInt = 0
             result += indent2 + " \(itemKey)\n"
-            for (language, contents) in item.values {
+            let allLang = item.values.keys.sorted()
+            for language in allLang {
+                guard let contents = item.values[language] else { continue }
                 let content = contents.last?.content ?? ""
                 if language.count > 0 {
                     result += indent2 + " - \(language): \"\(escapeStringForComment(content))\"\n"
