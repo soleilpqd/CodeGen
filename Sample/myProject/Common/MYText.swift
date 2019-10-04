@@ -67,8 +67,8 @@ extension NSAttributedString {
 
         /**
          attr_param2_text
-         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
          - Base: "\<b\>%@\</b\>\<i\>%@\</i\>"
+         - vi: "\<b\>%@\</b\>\<i\>\</i\>"
         */
         static func param2Text(_ param1: Any, _ param2: Any) -> NSAttributedString {
             let pattern = MYLocalized("attr_param2_text", tableName: "Localizable", comment: "")

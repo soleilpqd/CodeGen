@@ -30,6 +30,16 @@ private func makeIndentation(level: Int, tabWidth: Int, indentWidth: Int, useTab
     return result
 }
 
+/**
+ Get indent spaces
+
+ - Parameter level: number of indent level
+ - Parameter tabWidth: size of Tab (how many Space equivalent 1 Tab) (get in XCProject)
+ - Parameter indentWidth: size of indent (how many Space for 1 indent) (get in XCProject)
+ - Parameter useTab: use Tab of Space only (get in XCProject)
+
+ - Returns: Indent text to use as prefix of line
+ */
 func getIndent(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
     if let result = indents[level] {
         return result
@@ -39,6 +49,7 @@ func getIndent(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> Str
     return result
 }
 
+/// Validate `input` to use as code keyword (remove special characters, check length)
 func makeKeyword(_ input: String) -> String {
     var result = input
     let specialChars = "'\"`~!@#$%^&*()_+-=[]\\{}|;:,./<>?\t\n"
@@ -57,6 +68,7 @@ func makeKeyword(_ input: String) -> String {
     return result.replacingOccurrences(of: " ", with: "")
 }
 
+/// Make keyword for `func`/`var`
 func makeFuncVarName(_ input: String) -> String {
     let result = makeKeyword(input)
     if result.count > 1 {

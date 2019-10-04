@@ -25,7 +25,7 @@ enum XCIdiom: String {
     }
 }
 
-class XCAsset {
+class XCAsset: CustomStringConvertible {
 
     enum AssetExtension: String {
         case folder = ""
@@ -37,6 +37,11 @@ class XCAsset {
     weak var parent: XCAsset?
 
     var name: String = ""
+
+    var description: String {
+        let res = type(of: self)
+        return "\(res) \"\(name)\""
+    }
 
 }
 

@@ -10,7 +10,7 @@ import Foundation
 
 let kStringParam = "%@"
 
-class XCTaskString: XCTask {
+final class XCTaskString: XCTask {
 
     class func countParams(_ input: String) -> UInt {
         let array = input.components(separatedBy: kStringParam)

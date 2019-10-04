@@ -8,7 +8,7 @@
 
 import Foundation
 
-class XCTaskTreePath: XCTask {
+final class XCTaskTreePath: XCTask {
 
     private func validateItem(project: XCProject, item: XCItem) {
         guard let name = item.name, let path = item.getFullPath() else { return }

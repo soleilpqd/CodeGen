@@ -8,7 +8,7 @@
 
 import Foundation
 
-class XCPropEnumTask: XCTask {
+final class XCPropEnumTask: XCTask {
 
     var placeHolderStart = "// == AUTOGEN\n"
     var placeHolderEnd = "// AUTOGEN ==\n"

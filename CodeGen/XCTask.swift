@@ -25,6 +25,7 @@ class XCTask {
         case tree
         case validate = "Validate Usage"
         case propertyEnum = "property"
+        case assets
     }
 
     let type: TaskType
@@ -56,6 +57,8 @@ class XCTask {
                 return XCTaskXib(info)
             case .propertyEnum:
                 return XCPropEnumTask(info)
+            case .assets:
+                return XCTaskAssets(info)
             default:
                 break
             }
@@ -68,6 +71,8 @@ class XCTask {
         return nil
     }
 
+    /// Logs is not printed in task thread.
+    /// Logs of all tasks must be stored in queue, and be printed when all tasks finish.
     func printLog(_ str: String) {
         logs.append(str)
     }
@@ -82,6 +87,14 @@ class XCTask {
         }
     }
 
+    /**
+     Check output file path: print warning if output path is not included in project.
+
+     - Parameter project: object represents the project
+     - Parameter output: path of output file (full or reference)
+
+     - Returns: full output path
+     */
     func checkOutputFile(project: XCProject, output: String) -> String {
         var result = output
         if !result.hasPrefix("/") {
@@ -97,6 +110,15 @@ class XCTask {
         return result
     }
 
+    /**
+     Check content to write with current content of target. If different, write new content to target file.
+
+     - Parameter project: object represents the project
+     - Parameter content: content to write
+     - Parameter fullPath: full path of target file
+
+     - Returns: writting error (in case of failure), content changed
+     */
     func writeOutput(project: XCProject, content: String, fullPath: String) -> (Error?, Bool) {
         var result: Error?
         var isChanged = false

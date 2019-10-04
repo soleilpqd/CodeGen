@@ -54,8 +54,8 @@ extension UICollectionView {
 enum MYXib: String {
 
     case customCollectionViewCell = "MYCustomCollectionViewCell"
-    case thirdViewController = "MYThirdViewController"
     case customTableViewCell = "MYCustomTableViewCell"
+    case thirdViewController = "MYThirdViewController"
 
     func loadNib() -> UINib {
         return UINib(nibName: self.rawValue, bundle: nil)
@@ -96,8 +96,8 @@ extension MYCustomTableViewCell {
 
 enum MYStoryboard: String {
 
-    case secondViewController = "MYSecondViewController"
     case main = "Main"
+    case secondViewController = "MYSecondViewController"
 
     func loadStoryboard() -> UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)

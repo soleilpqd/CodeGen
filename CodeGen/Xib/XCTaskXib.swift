@@ -8,7 +8,7 @@
 
 import Foundation
 
-class XCTaskXib: XCTask {
+final class XCTaskXib: XCTask {
 
     private let output: String
 

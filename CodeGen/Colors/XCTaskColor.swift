@@ -9,7 +9,7 @@
 import Foundation
 import AppKit
 
-class XCTaskColor: XCTask {
+final class XCTaskColor: XCTask {
 
     private let kKeyInput = "input"
     private let kKeyOutput = "output"

@@ -14,6 +14,7 @@
 		2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AF203ED722005197C7 /* XCProjFile.swift */; };
 		2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B0203ED722005197C7 /* XCProjTarget.swift */; };
 		2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */; };
+		2B2AE71A234754BD005CE528 /* XCTaskAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2AE719234754BD005CE528 /* XCTaskAssets.swift */; };
 		2B31C9AC20568D70001833CA /* XCTaskResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */; };
 		2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */; };
 		2B5B02B820430E0E00A81392 /* XCProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE92032EFEC00AE5D72 /* XCProject.swift */; };
@@ -106,6 +107,7 @@
 		2B2512AF203ED722005197C7 /* XCProjFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCProjFile.swift; sourceTree = "<group>"; };
 		2B2512B0203ED722005197C7 /* XCProjTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCProjTarget.swift; sourceTree = "<group>"; };
 		2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnvironment.swift; sourceTree = "<group>"; };
+		2B2AE719234754BD005CE528 /* XCTaskAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskAssets.swift; sourceTree = "<group>"; };
 		2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskResourcePath.swift; sourceTree = "<group>"; };
 		2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskXib.swift; sourceTree = "<group>"; };
 		2B72CCE82032EFEC00AE5D72 /* XCTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTask.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */,
+				2B2AE719234754BD005CE528 /* XCTaskAssets.swift */,
 			);
 			path = ResourcePath;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */,
 				2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */,
 				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
+				2B2AE71A234754BD005CE528 /* XCTaskAssets.swift in Sources */,
 				2BC2C4912057C9FB00AC4B2A /* XCStringsParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

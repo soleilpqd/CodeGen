@@ -8,7 +8,7 @@
 
 import Foundation
 
-class XCTaskResourcePath: XCTask {
+final class XCTaskResourcePath: XCTask {
 
     private let isNoSubDir: Bool
     private let output: String
