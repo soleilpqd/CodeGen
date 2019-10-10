@@ -57,6 +57,7 @@ final class XCTaskAssets: XCTask {
                 if let folder = item as? XCAssetFoler {
                     result += generateCode(asset: folder, level: level + 1, project: project)
                 } else if let image = item as? XCAssetImage, !(image is XCAssetAppIcon) {
+                    printLog(.foundIn(item: "\(image)", container: "\(asset)"))
                     images.append(image)
                 }
             }

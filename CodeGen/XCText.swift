@@ -46,6 +46,15 @@ extension String {
         }
     }
 
+    static func foundIn(item: String, container: String) -> String {
+        switch local {
+        case "vi":
+            return "\tTìm thấy `\(item)` trong `\(container)`"
+        default:
+            return "\tFound `\(item)` in `\(container)`"
+        }
+    }
+
     static func errorNotExist(_ string: String) -> String {
         switch local {
         case "vi":
