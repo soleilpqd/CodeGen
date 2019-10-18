@@ -52,9 +52,6 @@ final class XCTaskString: XCTask {
         func makeContent(project: XCProject, tables: [XCStringTable]) -> String {
             var content = project.getHeader(output) + "//  Add text key & content into \(input) and Build project.\n\n"
             content += "import Foundation\n\n"
-            if project.swiftlintEnable {
-                content += "// swiftlint:disable identifier_name\n"
-            }
             return content
         }
 
@@ -155,9 +152,6 @@ final class XCTaskString: XCTask {
             let indent3 = XCTaskString.shared.indent(3)
 
             var result = ""
-            if isSwiftLintEnbale {
-                result = indent1 + "// swiftlint:disable line_length\n"
-            }
             result += indent1 + "static func makeAttributeString(htmlString: String) -> NSAttributedString {\n"
             result += indent2 + "if let data = htmlString.data(using: .utf8),\n"
             if env.compareSwfitVersion(version: "4.0") {

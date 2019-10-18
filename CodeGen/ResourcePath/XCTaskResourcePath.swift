@@ -96,9 +96,6 @@ final class XCTaskResourcePath: XCTask {
         let indent2 = indent(2)
         let indent3 = indent(3)
         var content = project.getHeader(output) + "\nimport Foundation\n\n"
-        if project.swiftlintEnable {
-            content += "// swiftlint:disable force_cast identifier_name nesting\n\n"
-        }
         content += "struct \(project.prefix ?? "")Resources {\n\n"
         content += indent1 + "struct Resource {\n\n"
         content += indent2 + "let name: String\n"

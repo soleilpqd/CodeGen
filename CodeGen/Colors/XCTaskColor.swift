@@ -510,9 +510,6 @@ final class XCTaskColor: XCTask {
 
         var content = project.getHeader(output) + "//  Add colorset into \"\(input ?? "Assets.xcassets")\" and Build project.\n\n"
         content += "import UIKit\n\n"
-        if project.swiftlintEnable {
-            content += "// swiftlint:disable nesting line_length\n"
-        }
         content += "extension UIColor {\n\n"
 
         var assetsColors = [(XCAssets, [XCAssetColor])]()
