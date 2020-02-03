@@ -283,7 +283,11 @@ final class XCTaskColor: XCTask {
         let indent2 = indent(level + 2)
         var result = indent1 + "/// " + name + "\n"
         for component in color.colors! {
-            result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
+            if let appearance = component.appearances?["luminosity"] {
+                result += indent1 + "/// - \(component.idiom ?? "") (\(appearance)): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
+            } else {
+                result += indent1 + "/// - \(component.idiom ?? ""): \(component.colorSpace ?? "") \(component.description) \"\(component.humanReadable ?? "")\"\n"
+            }
         }
         let varName = makeFuncVarName(name)
         if isCheckUse {
@@ -303,7 +307,9 @@ final class XCTaskColor: XCTask {
             }
             content = indent2 + content
 
-            for component in color.colors! {
+            // filter colors by idiom & appearance => 1 color per idiom to generate code for iOS under 11.0
+            var colorComps = [String: XCAssetColor.Color]()
+            for component in color.colors ?? [] {
                 guard let key = XCIdiom.new(component.idiom) else { continue }
                 var keyName = ""
                 switch key {
@@ -318,9 +324,28 @@ final class XCTaskColor: XCTask {
                 default:
                     continue
                 }
+                if let oldComp = colorComps[keyName] {
+                    // pick color by appearance (priority: default, light, dark)
+                    if let compAppearnce = component.appearances?["luminosity"] {
+                        if let oldCompAppearance = oldComp.appearances?["luminosity"] {
+                            if compAppearnce == "light" && oldCompAppearance == "dark" {
+                                colorComps[keyName] = component
+                            }
+                        } // esle { leave object in colorComps }
+                    } else {
+                        colorComps[keyName] = component
+                    }
+                } else {
+                    colorComps[keyName] = component
+                }
+            }
+
+            for keyName in colorComps.keys.sorted() {
+                guard let component = colorComps[keyName] else { continue /* unreachable */ }
                 let (r, g, b, w, a) = component.getComponents()
                 content += "\"\(keyName)\": (colorSpace: \"\(component.colorSpace ?? XCAssetColor.Color.ColorSpace.srgb.rawValue)\", red: \(r), green: \(g), blue: \(b), white: \(w), alpha: \(a)),\n" + head
             }
+
             result += String(content[content.startIndex..<content.index(content.endIndex, offsetBy: -(head.count + 2))]) + "])\n"
         }
 
