@@ -10,17 +10,27 @@ import Foundation
 
 private var indents = [Int: String]()
 
-private func makeIndentation(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+struct XCIndentConfig {
+    let tabWidth: Int
+    let indentWidth: Int
+    let useTab: Bool
+
+    static var `default`: XCIndentConfig {
+        return XCIndentConfig(tabWidth: 4, indentWidth: 4, useTab: false)
+    }
+}
+
+private func makeIndentation(level: Int, config: XCIndentConfig) -> String {
     if level <= 0 { return "" }
     var result = ""
     for _ in 0..<level {
-        for _ in 0..<indentWidth {
+        for _ in 0..<config.indentWidth {
             result += " "
         }
     }
-    if useTab && tabWidth > 0 {
+    if config.useTab && config.tabWidth > 0 {
         var tabSpaces = ""
-        for _ in 0..<tabWidth {
+        for _ in 0..<config.tabWidth {
             tabSpaces += " "
         }
         while result.contains(tabSpaces) {
@@ -40,11 +50,11 @@ private func makeIndentation(level: Int, tabWidth: Int, indentWidth: Int, useTab
 
  - Returns: Indent text to use as prefix of line
  */
-func getIndent(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+func getIndent(level: Int, config: XCIndentConfig) -> String {
     if let result = indents[level] {
         return result
     }
-    let result = makeIndentation(level: level, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+    let result = makeIndentation(level: level, config: config)
     indents[level] = result
     return result
 }

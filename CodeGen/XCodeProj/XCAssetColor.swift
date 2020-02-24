@@ -23,6 +23,7 @@ class XCAssetColor: XCAsset {
         }
 
         var idiom: String?
+        var subtype: String?
         var colorSpace: String?
         var red: String?
         var green: String?
@@ -78,6 +79,7 @@ class XCAssetColor: XCAsset {
             if let colorInfo = info["color"] as? [String: Any],
                 let components = colorInfo["components"] as? [String: Any] {
                 idiom = info["idiom"] as? String
+                subtype = info["subtype"] as? String
                 colorSpace = colorInfo["color-space"] as? String
                 red = components["red"] as? String
                 green = components["green"] as? String

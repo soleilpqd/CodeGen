@@ -18,6 +18,7 @@ class XCTask {
 
     enum TaskType: String {
         case color
+        case color2
         case resource
         case string
         case imageUsage = "image_usage"
@@ -35,7 +36,7 @@ class XCTask {
     }
 
     func indent(_ level: Int) -> String {
-        return getIndent(level: level, tabWidth: project?.tabWidth ?? 4, indentWidth: project?.indentWidth ?? 4, useTab: project?.useTab ?? false)
+        return getIndent(level: level, config: project?.indentConfig ?? .default)
     }
 
     class func task(_ info: NSDictionary) -> XCTask? {
@@ -46,6 +47,8 @@ class XCTask {
             switch tt {
             case .color:
                 return XCTaskColor(info)
+            case .color2:
+                return XCTaskColor2(info)
             case .resource:
                 return XCTaskResourcePath(info)
             case .string:

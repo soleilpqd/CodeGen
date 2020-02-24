@@ -34,9 +34,9 @@ final class XCTaskAssets: XCTask {
     }
 
     private func generateCode(asset: XCAssetFoler, level: Int, project: XCProject) -> String {
-        let indent0 = getIndent(level: level, tabWidth: project.tabWidth, indentWidth: project.indentWidth, useTab: project.useTab)
-        let indent1 = getIndent(level: level + 1, tabWidth: project.tabWidth, indentWidth: project.indentWidth, useTab: project.useTab)
-        let indent2 = getIndent(level: level + 2, tabWidth: project.tabWidth, indentWidth: project.indentWidth, useTab: project.useTab)
+        let indent0 = indent(level)
+        let indent1 = indent(level + 1)
+        let indent2 = indent(level + 2)
         var prefix = ""
         var result = ""
         if level == 0 {

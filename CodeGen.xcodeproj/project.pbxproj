@@ -25,6 +25,9 @@
 		2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */; };
 		2B7795872031C226008E6A90 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795862031C226008E6A90 /* main.swift */; };
 		2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
+		2B81657F23FFF45C00B6DC49 /* XCTaskColor2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81657E23FFF45C00B6DC49 /* XCTaskColor2.swift */; };
+		2B81658123FFF6AB00B6DC49 /* XCColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81658023FFF6AB00B6DC49 /* XCColorList.swift */; };
+		2B81658323FFF90400B6DC49 /* XCTaskColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81658223FFF90400B6DC49 /* XCTaskColorUtils.swift */; };
 		2B84EB17208734F0008B1E54 /* XCTaskString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB16208734F0008B1E54 /* XCTaskString.swift */; };
 		2B86A3242042763B00332E53 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3232042763B00332E53 /* main.swift */; };
 		2B86A3282042764B00332E53 /* XCBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AA203ED722005197C7 /* XCBuildPhase.swift */; };
@@ -118,6 +121,9 @@
 		2B7795832031C226008E6A90 /* CodeGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7795862031C226008E6A90 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B7795972031C5F0008E6A90 /* XCColorNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorNames.swift; sourceTree = "<group>"; };
+		2B81657E23FFF45C00B6DC49 /* XCTaskColor2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskColor2.swift; sourceTree = "<group>"; };
+		2B81658023FFF6AB00B6DC49 /* XCColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorList.swift; sourceTree = "<group>"; };
+		2B81658223FFF90400B6DC49 /* XCTaskColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskColorUtils.swift; sourceTree = "<group>"; };
 		2B84EB16208734F0008B1E54 /* XCTaskString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskString.swift; sourceTree = "<group>"; };
 		2B86A3212042763B00332E53 /* testXCProj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testXCProj; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B86A3232042763B00332E53 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -245,6 +251,9 @@
 			isa = PBXGroup;
 			children = (
 				2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */,
+				2B81657E23FFF45C00B6DC49 /* XCTaskColor2.swift */,
+				2B81658023FFF6AB00B6DC49 /* XCColorList.swift */,
+				2B81658223FFF90400B6DC49 /* XCTaskColorUtils.swift */,
 				2BC2C4942057EF4A00AC4B2A /* XCProject+Color.swift */,
 			);
 			path = Colors;
@@ -458,6 +467,8 @@
 				2B31C9AC20568D70001833CA /* XCTaskResourcePath.swift in Sources */,
 				2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */,
 				2B2512B4203ED722005197C7 /* XCObject.swift in Sources */,
+				2B81657F23FFF45C00B6DC49 /* XCTaskColor2.swift in Sources */,
+				2B81658123FFF6AB00B6DC49 /* XCColorList.swift in Sources */,
 				2BC2C4972057F61300AC4B2A /* XCProject+Strings.swift in Sources */,
 				2BE04C8920AF1EDB00BAB6DB /* XCTaskTreePath.swift in Sources */,
 				2BBAA524208F6005003B796A /* XCValidator.swift in Sources */,
@@ -468,6 +479,7 @@
 				2B84EB17208734F0008B1E54 /* XCTaskString.swift in Sources */,
 				2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */,
 				2BAEFFA62080CF3F00A886DF /* XCStrings.swift in Sources */,
+				2B81658323FFF90400B6DC49 /* XCTaskColorUtils.swift in Sources */,
 				2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */,
 				2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */,
 				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
