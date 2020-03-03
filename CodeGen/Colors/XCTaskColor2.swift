@@ -286,7 +286,11 @@ struct \(prefix)Color {
         }
 
         let indent1 = indent(level)
-        result += indent1 + "struct \(prefix)\(makeKeyword(folder.name))Color {\n\n"
+        var strPref = prefix
+        if level > 0 {
+            strPref = ""
+        }
+        result += indent1 + "struct \(strPref)\(makeKeyword(folder.name))Color {\n\n"
 
         for color in colors {
             printLog(.found(color.name))
@@ -295,7 +299,7 @@ struct \(prefix)Color {
         }
 
         for fdl in folders {
-            result += generateSwiftCode(folder: fdl, level: level + 1, prefix: "")
+            result += generateSwiftCode(folder: fdl, level: level + 1, prefix: prefix)
         }
 
         result += indent1 + "}\n\n"
