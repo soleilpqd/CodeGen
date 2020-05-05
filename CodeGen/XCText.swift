@@ -220,18 +220,18 @@ extension String {
     static func invalidOutlet(propName: String, vcName: String, file: String, row: UInt, column: UInt) -> String {
         switch local {
         case "vi":
-            return "\(file):\(row):\(column): error: Outlet '\(propName)' thuộc '\(vcName)' được kết nối không đúng."
+            return "\(file):\(row):\(column): warning: Outlet '\(propName)' thuộc '\(vcName)' được kết nối không đúng."
         default:
-            return "\(file):\(row):\(column): error: Outlet '\(propName)' of '\(vcName)' destination is invalid."
+            return "\(file):\(row):\(column): warning: Outlet '\(propName)' of '\(vcName)' destination is invalid."
         }
     }
 
     static func invalidStoryboardItem(item: String, vcName: String, file: String, row: UInt, column: UInt) -> String {
         switch local {
         case "vi":
-            return "\(file):\(row):\(column): error: mục '\(item)' thuộc '\(vcName)' của storyboard được kết nối không đúng."
+            return "\(file):\(row):\(column): warning: mục '\(item)' thuộc '\(vcName)' của storyboard được kết nối không đúng."
         default:
-            return "\(file):\(row):\(column): error: item '\(item)' of '\(vcName)' has invalid destination."
+            return "\(file):\(row):\(column): warning: item '\(item)' of '\(vcName)' has invalid destination."
         }
     }
 

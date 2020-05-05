@@ -35,6 +35,7 @@ extension XCProject {
                             if let e = addStringValues(from: (projectPath as NSString).appendingPathComponent(path), into: table, language: XCStringItem.kLanguageNone) {
                                 errors[name] = e
                             }
+                            table.sortItems()
                             store.append(table)
                         } else if let g = item as? XCGroup, let name = g.name, (name as NSString).pathExtension == "strings", let childs = g.children {
                             let table = XCStringTable()
@@ -89,12 +90,7 @@ extension XCProject {
                             } else if let items = allItems.first {
                                 table.items = items
                             }
-                            table.items.sort(by: { (left, right) -> Bool in
-                                if let leftKey = left.key, let rightKey = right.key {
-                                    return leftKey.compare(rightKey) == .orderedAscending
-                                }
-                                return false
-                            })
+                            table.sortItems()
                             store.append(table)
                         }
                     }

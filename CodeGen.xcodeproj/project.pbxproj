@@ -41,6 +41,11 @@
 		2B86A3342042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3352042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3362042A93A00332E53 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
+		2B882C1824599422004ABE39 /* XCTaskStringSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1724599422004ABE39 /* XCTaskStringSubTask.swift */; };
+		2B882C1A245994AF004ABE39 /* XCStringSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C19245994AF004ABE39 /* XCStringSubTask.swift */; };
+		2B882C1C245994DE004ABE39 /* XCUrlSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1B245994DE004ABE39 /* XCUrlSubTask.swift */; };
+		2B882C1E24599512004ABE39 /* XCEnumSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1D24599512004ABE39 /* XCEnumSubTask.swift */; };
+		2B882C2024599767004ABE39 /* XCEnumStringSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1F24599767004ABE39 /* XCEnumStringSubTask.swift */; };
 		2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA46CF4204E8B3C009AAB8F /* XCText.swift */; };
 		2BAEFFA62080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
 		2BAEFFA72080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
@@ -129,6 +134,11 @@
 		2B86A3232042763B00332E53 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B86A33020428A7B00332E53 /* XCAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssets.swift; sourceTree = "<group>"; };
 		2B86A3332042A87F00332E53 /* XCAssetColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssetColor.swift; sourceTree = "<group>"; };
+		2B882C1724599422004ABE39 /* XCTaskStringSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskStringSubTask.swift; sourceTree = "<group>"; };
+		2B882C19245994AF004ABE39 /* XCStringSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStringSubTask.swift; sourceTree = "<group>"; };
+		2B882C1B245994DE004ABE39 /* XCUrlSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUrlSubTask.swift; sourceTree = "<group>"; };
+		2B882C1D24599512004ABE39 /* XCEnumSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnumSubTask.swift; sourceTree = "<group>"; };
+		2B882C1F24599767004ABE39 /* XCEnumStringSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnumStringSubTask.swift; sourceTree = "<group>"; };
 		2BA46CF4204E8B3C009AAB8F /* XCText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCText.swift; sourceTree = "<group>"; };
 		2BAEFFA52080CF3F00A886DF /* XCStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStrings.swift; sourceTree = "<group>"; };
 		2BBAA523208F6005003B796A /* XCValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCValidator.swift; sourceTree = "<group>"; };
@@ -291,6 +301,11 @@
 				2BC2C4962057F61300AC4B2A /* XCProject+Strings.swift */,
 				2BAEFFA52080CF3F00A886DF /* XCStrings.swift */,
 				2B84EB16208734F0008B1E54 /* XCTaskString.swift */,
+				2B882C1724599422004ABE39 /* XCTaskStringSubTask.swift */,
+				2B882C19245994AF004ABE39 /* XCStringSubTask.swift */,
+				2B882C1B245994DE004ABE39 /* XCUrlSubTask.swift */,
+				2B882C1D24599512004ABE39 /* XCEnumSubTask.swift */,
+				2B882C1F24599767004ABE39 /* XCEnumStringSubTask.swift */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -457,9 +472,13 @@
 				2B2512B3203ED722005197C7 /* XCFileReference.swift in Sources */,
 				2BD4A890204D6B2800EA12EB /* XCStoryboard.swift in Sources */,
 				2B7795872031C226008E6A90 /* main.swift in Sources */,
+				2B882C1A245994AF004ABE39 /* XCStringSubTask.swift in Sources */,
+				2B882C2024599767004ABE39 /* XCEnumStringSubTask.swift in Sources */,
+				2B882C1C245994DE004ABE39 /* XCUrlSubTask.swift in Sources */,
 				2B2512B1203ED722005197C7 /* XCBuildPhase.swift in Sources */,
 				2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */,
 				2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */,
+				2B882C1E24599512004ABE39 /* XCEnumSubTask.swift in Sources */,
 				2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */,
 				2B86A33120428A7B00332E53 /* XCAssets.swift in Sources */,
 				2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */,
@@ -485,6 +504,7 @@
 				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
 				2B2AE71A234754BD005CE528 /* XCTaskAssets.swift in Sources */,
 				2BC2C4912057C9FB00AC4B2A /* XCStringsParser.swift in Sources */,
+				2B882C1824599422004ABE39 /* XCTaskStringSubTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

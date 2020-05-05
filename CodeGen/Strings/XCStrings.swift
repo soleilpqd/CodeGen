@@ -37,4 +37,10 @@ class XCStringTable {
     var name = ""
     var items = [XCStringItem]()
 
+    func sortItems() {
+        items.sort { (left, right) -> Bool in
+            return (left.key ?? "") < (right.key ?? "")
+        }
+    }
+
 }
