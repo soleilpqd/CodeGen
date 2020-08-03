@@ -51,7 +51,10 @@ final class XCTaskAssets: XCTask {
             }
         }
         result += indent0 + "struct " + prefix + makeKeyword(asset.name) + " {\n\n"
-        if let children = asset.children {
+        let assetChildren = asset.children?.sorted(by: { (left, right) -> Bool in
+            return left.name < right.name
+        })
+        if let children = assetChildren {
             var images = [XCAssetImage]()
             for item in children {
                 if let folder = item as? XCAssetFoler {
@@ -79,6 +82,9 @@ final class XCTaskAssets: XCTask {
             validAssets.append(item)
         }
         guard validAssets.count > 0 else { return "" }
+        validAssets.sort { (left, right) -> Bool in
+            return left.name < right.name
+        }
         var result = ""
         for item in validAssets {
             result += generateCode(asset: item, level: 0, project: project)
