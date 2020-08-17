@@ -123,8 +123,9 @@ final class XCTaskAssets: XCTask {
                 let gImages = groupImagesForSuffix(images)
                 for (mainImg, listSuff) in gImages {
                     if listSuff.count > 0 {
+                        let pref = project.prefix ?? ""
                         result += indent1 + "static var " + makeFuncVarName(mainImg.name) + ": UIImage {\n"
-                        result += indent2 + "if let curr = \(prefix)AssetSuffix.current {\n"
+                        result += indent2 + "if let curr = \(pref)AssetSuffix.current {\n"
                         result += indent3 + "switch curr {\n"
                         for suff in listSuff {
                             result += indent3 + "case .\(makeFuncVarName(suff)):\n"
