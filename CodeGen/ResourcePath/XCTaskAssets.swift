@@ -165,10 +165,13 @@ final class XCTaskAssets: XCTask {
         guard let list = suffix?.sorted() else { return "" }
         let indent1 = indent(1)
         let prefix = project.prefix ?? ""
-        var result = "enum \(prefix)AssetSuffix {\n\n"
+        var result = "enum \(prefix)AssetSuffix: String {\n\n"
         for item in list {
             let name = makeFuncVarName(item)
             result += indent1 + "case " + name
+            if name != item {
+                result += " = \"\(item)\""
+            }
             result += "\n"
         }
         result += "\n" + indent1 + "static var current: \(prefix)AssetSuffix?\n\n"
