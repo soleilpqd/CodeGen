@@ -12,22 +12,12 @@ extension XCProject {
 
     private func addStringValues(from file: String, into table: XCStringTable, language: String) -> Error? {
         do {
-            let strings = try parseStringsFile(file: file)
-            for (key, values) in strings {
-                let item = XCStringItem()
-                item.key = key
+            let strings = try parseStringsFile(file: file, language: language)
+            for item in strings {
                 item.filePath = file
-                var result = [XCStringValue]()
-                for (value, line) in values {
-                    let sVal = XCStringValue()
-                    sVal.content = value
-                    sVal.line = line
-                    result.append(sVal)
-                }
-                if result.count > 0 { item.values[language] = result }
                 item.table = table
-                table.items.append(item)
             }
+            table.items.append(contentsOf: strings)
             return nil
         } catch (let e) {
             return e
@@ -45,6 +35,7 @@ extension XCProject {
                             if let e = addStringValues(from: (projectPath as NSString).appendingPathComponent(path), into: table, language: XCStringItem.kLanguageNone) {
                                 errors[name] = e
                             }
+                            table.sortItems()
                             store.append(table)
                         } else if let g = item as? XCGroup, let name = g.name, (name as NSString).pathExtension == "strings", let childs = g.children {
                             let table = XCStringTable()
@@ -99,12 +90,7 @@ extension XCProject {
                             } else if let items = allItems.first {
                                 table.items = items
                             }
-                            table.items.sort(by: { (left, right) -> Bool in
-                                if let leftKey = left.key, let rightKey = right.key {
-                                    return leftKey.compare(rightKey) == .orderedAscending
-                                }
-                                return false
-                            })
+                            table.sortItems()
                             store.append(table)
                         }
                     }

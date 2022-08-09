@@ -35,6 +35,12 @@
 	</dict>
 	<dict>
 		<key>type</key>
+		<string>assets</string>
+		<key>output</key>
+		<string>myProject/Common/MYAssets.swift</string>
+	</dict>
+	<dict>
+		<key>type</key>
 		<string>string</string>
 		<key>func</key>
 		<string>MYLocalized</string>

@@ -23,6 +23,7 @@ class XCAssetColor: XCAsset {
         }
 
         var idiom: String?
+        var subtype: String?
         var colorSpace: String?
         var red: String?
         var green: String?
@@ -30,6 +31,7 @@ class XCAssetColor: XCAsset {
         var white: String?
         var alpha: String?
         var humanReadable: String?
+        var appearances: [String: String]?
 
         private(set) var color: NSColor?
         private(set) var colorForColorList: NSColor?
@@ -77,6 +79,7 @@ class XCAssetColor: XCAsset {
             if let colorInfo = info["color"] as? [String: Any],
                 let components = colorInfo["components"] as? [String: Any] {
                 idiom = info["idiom"] as? String
+                subtype = info["subtype"] as? String
                 colorSpace = colorInfo["color-space"] as? String
                 red = components["red"] as? String
                 green = components["green"] as? String
@@ -112,6 +115,28 @@ class XCAssetColor: XCAsset {
                     humanReadable = cl.getName()
                 } else {
                     return nil
+                }
+                if let appearancesSource = info["appearances"] as? [[String: Any]] {
+                    var apprData = [String: String]()
+                    for item in appearancesSource {
+                        var apprName: String? = nil
+                        var apprValue: String? = nil
+                        for (key, value) in item {
+                            if let val = value as? String {
+                                if key == "appearance" {
+                                    apprName = val
+                                } else if key == "value" {
+                                    apprValue = val
+                                }
+                            }
+                        }
+                        if let name = apprName, let value = apprValue {
+                            apprData[name] = value
+                        }
+                    }
+                    if apprData.count > 0 {
+                        appearances = apprData
+                    }
                 }
             } else {
                 return nil

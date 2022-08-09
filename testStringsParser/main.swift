@@ -10,7 +10,7 @@ import Foundation
 let path = CommandLine.arguments[1]
 
 do {
-    let result = try parseStringsFile(file: path)
+    let result = try parseStringsFile(file: path, language: XCStringItem.kLanguageNone)
     print(result)
 } catch (let e) {
     print(e)

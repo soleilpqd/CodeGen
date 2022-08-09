@@ -64,6 +64,7 @@ class XCProject {
     let year: Int
     let projectPath: String
     let projectFile: String
+    let indentConfig: XCIndentConfig
 
     class func findProjectFile(from prjRootPath: String) -> String? {
         guard let allItems = try? FileManager.default.contentsOfDirectory(atPath: prjRootPath) else {
@@ -94,6 +95,7 @@ class XCProject {
             } else {
                 year = calender.component(.year, from: Date())
             }
+            indentConfig = XCIndentConfig(tabWidth: xcProject.tabWidth ?? 4, indentWidth: xcProject.indentWidth ?? 4, useTab: (xcProject.tabWidth ?? 0) != 0)
         } else {
             return nil
         }
@@ -109,6 +111,9 @@ class XCProject {
         }
         result += "//\n"
         result += "//  THIS FILE IS AUTO-GENERATED. DO NOT EDIT!\n"
+        if swiftlintEnable {
+            result += "//  swiftlint:disable all\n"
+        }
         return result
     }
 

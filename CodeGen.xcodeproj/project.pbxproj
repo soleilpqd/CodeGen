@@ -14,6 +14,7 @@
 		2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AF203ED722005197C7 /* XCProjFile.swift */; };
 		2B2512B6203ED722005197C7 /* XCProjTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B0203ED722005197C7 /* XCProjTarget.swift */; };
 		2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */; };
+		2B2AE71A234754BD005CE528 /* XCTaskAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2AE719234754BD005CE528 /* XCTaskAssets.swift */; };
 		2B31C9AC20568D70001833CA /* XCTaskResourcePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */; };
 		2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */; };
 		2B5B02B820430E0E00A81392 /* XCProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCE92032EFEC00AE5D72 /* XCProject.swift */; };
@@ -24,6 +25,9 @@
 		2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */; };
 		2B7795872031C226008E6A90 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795862031C226008E6A90 /* main.swift */; };
 		2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
+		2B81657F23FFF45C00B6DC49 /* XCTaskColor2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81657E23FFF45C00B6DC49 /* XCTaskColor2.swift */; };
+		2B81658123FFF6AB00B6DC49 /* XCColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81658023FFF6AB00B6DC49 /* XCColorList.swift */; };
+		2B81658323FFF90400B6DC49 /* XCTaskColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81658223FFF90400B6DC49 /* XCTaskColorUtils.swift */; };
 		2B84EB17208734F0008B1E54 /* XCTaskString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84EB16208734F0008B1E54 /* XCTaskString.swift */; };
 		2B86A3242042763B00332E53 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3232042763B00332E53 /* main.swift */; };
 		2B86A3282042764B00332E53 /* XCBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2512AA203ED722005197C7 /* XCBuildPhase.swift */; };
@@ -37,6 +41,11 @@
 		2B86A3342042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3352042A87F00332E53 /* XCAssetColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86A3332042A87F00332E53 /* XCAssetColor.swift */; };
 		2B86A3362042A93A00332E53 /* XCColorNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7795972031C5F0008E6A90 /* XCColorNames.swift */; };
+		2B882C1824599422004ABE39 /* XCTaskStringSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1724599422004ABE39 /* XCTaskStringSubTask.swift */; };
+		2B882C1A245994AF004ABE39 /* XCStringSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C19245994AF004ABE39 /* XCStringSubTask.swift */; };
+		2B882C1C245994DE004ABE39 /* XCUrlSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1B245994DE004ABE39 /* XCUrlSubTask.swift */; };
+		2B882C1E24599512004ABE39 /* XCEnumSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1D24599512004ABE39 /* XCEnumSubTask.swift */; };
+		2B882C2024599767004ABE39 /* XCEnumStringSubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B882C1F24599767004ABE39 /* XCEnumStringSubTask.swift */; };
 		2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA46CF4204E8B3C009AAB8F /* XCText.swift */; };
 		2BAEFFA62080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
 		2BAEFFA72080CF3F00A886DF /* XCStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAEFFA52080CF3F00A886DF /* XCStrings.swift */; };
@@ -106,6 +115,7 @@
 		2B2512AF203ED722005197C7 /* XCProjFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCProjFile.swift; sourceTree = "<group>"; };
 		2B2512B0203ED722005197C7 /* XCProjTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCProjTarget.swift; sourceTree = "<group>"; };
 		2B2512B7203EF1A2005197C7 /* XCEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnvironment.swift; sourceTree = "<group>"; };
+		2B2AE719234754BD005CE528 /* XCTaskAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskAssets.swift; sourceTree = "<group>"; };
 		2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskResourcePath.swift; sourceTree = "<group>"; };
 		2B4E07F320AB04DC0026CCBF /* XCTaskXib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskXib.swift; sourceTree = "<group>"; };
 		2B72CCE82032EFEC00AE5D72 /* XCTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTask.swift; sourceTree = "<group>"; };
@@ -116,11 +126,19 @@
 		2B7795832031C226008E6A90 /* CodeGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7795862031C226008E6A90 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B7795972031C5F0008E6A90 /* XCColorNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorNames.swift; sourceTree = "<group>"; };
+		2B81657E23FFF45C00B6DC49 /* XCTaskColor2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskColor2.swift; sourceTree = "<group>"; };
+		2B81658023FFF6AB00B6DC49 /* XCColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCColorList.swift; sourceTree = "<group>"; };
+		2B81658223FFF90400B6DC49 /* XCTaskColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskColorUtils.swift; sourceTree = "<group>"; };
 		2B84EB16208734F0008B1E54 /* XCTaskString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskString.swift; sourceTree = "<group>"; };
 		2B86A3212042763B00332E53 /* testXCProj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testXCProj; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B86A3232042763B00332E53 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2B86A33020428A7B00332E53 /* XCAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssets.swift; sourceTree = "<group>"; };
 		2B86A3332042A87F00332E53 /* XCAssetColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCAssetColor.swift; sourceTree = "<group>"; };
+		2B882C1724599422004ABE39 /* XCTaskStringSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTaskStringSubTask.swift; sourceTree = "<group>"; };
+		2B882C19245994AF004ABE39 /* XCStringSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStringSubTask.swift; sourceTree = "<group>"; };
+		2B882C1B245994DE004ABE39 /* XCUrlSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUrlSubTask.swift; sourceTree = "<group>"; };
+		2B882C1D24599512004ABE39 /* XCEnumSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnumSubTask.swift; sourceTree = "<group>"; };
+		2B882C1F24599767004ABE39 /* XCEnumStringSubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCEnumStringSubTask.swift; sourceTree = "<group>"; };
 		2BA46CF4204E8B3C009AAB8F /* XCText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCText.swift; sourceTree = "<group>"; };
 		2BAEFFA52080CF3F00A886DF /* XCStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCStrings.swift; sourceTree = "<group>"; };
 		2BBAA523208F6005003B796A /* XCValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCValidator.swift; sourceTree = "<group>"; };
@@ -189,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				2B31C9AB20568D70001833CA /* XCTaskResourcePath.swift */,
+				2B2AE719234754BD005CE528 /* XCTaskAssets.swift */,
 			);
 			path = ResourcePath;
 			sourceTree = "<group>";
@@ -242,6 +261,9 @@
 			isa = PBXGroup;
 			children = (
 				2B72CCEE2032F01400AE5D72 /* XCTaskColor.swift */,
+				2B81657E23FFF45C00B6DC49 /* XCTaskColor2.swift */,
+				2B81658023FFF6AB00B6DC49 /* XCColorList.swift */,
+				2B81658223FFF90400B6DC49 /* XCTaskColorUtils.swift */,
 				2BC2C4942057EF4A00AC4B2A /* XCProject+Color.swift */,
 			);
 			path = Colors;
@@ -279,6 +301,11 @@
 				2BC2C4962057F61300AC4B2A /* XCProject+Strings.swift */,
 				2BAEFFA52080CF3F00A886DF /* XCStrings.swift */,
 				2B84EB16208734F0008B1E54 /* XCTaskString.swift */,
+				2B882C1724599422004ABE39 /* XCTaskStringSubTask.swift */,
+				2B882C19245994AF004ABE39 /* XCStringSubTask.swift */,
+				2B882C1B245994DE004ABE39 /* XCUrlSubTask.swift */,
+				2B882C1D24599512004ABE39 /* XCEnumSubTask.swift */,
+				2B882C1F24599767004ABE39 /* XCEnumStringSubTask.swift */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -395,7 +422,7 @@
 			attributes = {
 				CLASSPREFIX = XC;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "GMO-Z.com RunSystem";
 				TargetAttributes = {
 					2B7795822031C226008E6A90 = {
@@ -422,6 +449,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 2B77957A2031C226008E6A90;
 			productRefGroup = 2B7795842031C226008E6A90 /* Products */;
@@ -444,9 +472,13 @@
 				2B2512B3203ED722005197C7 /* XCFileReference.swift in Sources */,
 				2BD4A890204D6B2800EA12EB /* XCStoryboard.swift in Sources */,
 				2B7795872031C226008E6A90 /* main.swift in Sources */,
+				2B882C1A245994AF004ABE39 /* XCStringSubTask.swift in Sources */,
+				2B882C2024599767004ABE39 /* XCEnumStringSubTask.swift in Sources */,
+				2B882C1C245994DE004ABE39 /* XCUrlSubTask.swift in Sources */,
 				2B2512B1203ED722005197C7 /* XCBuildPhase.swift in Sources */,
 				2BA46CF5204E8B3C009AAB8F /* XCText.swift in Sources */,
 				2B72CCEF2032F01400AE5D72 /* XCTaskColor.swift in Sources */,
+				2B882C1E24599512004ABE39 /* XCEnumSubTask.swift in Sources */,
 				2B7795982031C5F0008E6A90 /* XCColorNames.swift in Sources */,
 				2B86A33120428A7B00332E53 /* XCAssets.swift in Sources */,
 				2B72CCED2032EFEC00AE5D72 /* XCCommon.swift in Sources */,
@@ -454,6 +486,8 @@
 				2B31C9AC20568D70001833CA /* XCTaskResourcePath.swift in Sources */,
 				2B4E07F420AB04DC0026CCBF /* XCTaskXib.swift in Sources */,
 				2B2512B4203ED722005197C7 /* XCObject.swift in Sources */,
+				2B81657F23FFF45C00B6DC49 /* XCTaskColor2.swift in Sources */,
+				2B81658123FFF6AB00B6DC49 /* XCColorList.swift in Sources */,
 				2BC2C4972057F61300AC4B2A /* XCProject+Strings.swift in Sources */,
 				2BE04C8920AF1EDB00BAB6DB /* XCTaskTreePath.swift in Sources */,
 				2BBAA524208F6005003B796A /* XCValidator.swift in Sources */,
@@ -464,10 +498,13 @@
 				2B84EB17208734F0008B1E54 /* XCTaskString.swift in Sources */,
 				2B2512B8203EF1A2005197C7 /* XCEnvironment.swift in Sources */,
 				2BAEFFA62080CF3F00A886DF /* XCStrings.swift in Sources */,
+				2B81658323FFF90400B6DC49 /* XCTaskColorUtils.swift in Sources */,
 				2B2512B5203ED722005197C7 /* XCProjFile.swift in Sources */,
 				2B72CCEC2032EFEC00AE5D72 /* XCProject.swift in Sources */,
 				2B72CCEB2032EFEC00AE5D72 /* XCTask.swift in Sources */,
+				2B2AE71A234754BD005CE528 /* XCTaskAssets.swift in Sources */,
 				2BC2C4912057C9FB00AC4B2A /* XCStringsParser.swift in Sources */,
+				2B882C1824599422004ABE39 /* XCTaskStringSubTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +568,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -538,6 +576,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -571,6 +610,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -588,6 +628,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -595,6 +636,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -620,34 +662,33 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		2B77958B2031C226008E6A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		2B77958C2031C226008E6A90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -659,7 +700,6 @@
 				DEVELOPMENT_TEAM = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -671,51 +711,46 @@
 				DEVELOPMENT_TEAM = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		2BC2C48C2057C99A00AC4B2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		2BC2C48D2057C99A00AC4B2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		2BD4A88B204D6AC800EA12EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		2BD4A88C204D6AC800EA12EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

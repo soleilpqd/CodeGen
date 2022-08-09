@@ -104,26 +104,28 @@ class XCFileReference: XCItem {
     var lastKnownFileType: String?
     var fileEncoding: Int?
 
-    enum FileType: String {
-        case cHeader = "sourcecode.c.h"
-        case objc = "sourcecode.c.objc"
-        case swift = "sourcecode.swift"
-        case storyboard = "file.storyboard"
-        case xib = "file.xib"
-        case file
-        case text
-        case gif = "image.gif"
-        case png = "image.png"
-        case jpg = "image.jpeg"
-        case folder = "folder"
-        case assets = "folder.assetcatalog"
-        case xml = "text.plist.xml"
-        case json = "text.json"
-        case markdown = "net.daringfireball.markdown"
-        case coreDataModel = "wrapper.xcdatamodel"
-        case framwork = "wrapper.framework"
-        case xcconfig = "text.xcconfig"
-        case strings = "text.plist.strings"
+    struct FileType: Hashable {
+        var rawValue: String
+
+        static let cHeader = FileType(rawValue: "sourcecode.c.h")
+        static let objc = FileType(rawValue: "sourcecode.c.objc")
+        static let swift = FileType(rawValue: "sourcecode.swift")
+        static let storyboard = FileType(rawValue: "file.storyboard")
+        static let xib = FileType(rawValue: "file.xib")
+        static let file = FileType(rawValue: "file")
+        static let text = FileType(rawValue: "text")
+        static let gif = FileType(rawValue: "image.gif")
+        static let png = FileType(rawValue: "image.png")
+        static let jpg = FileType(rawValue: "image.jpeg")
+        static let folder = FileType(rawValue: "folder")
+        static let assets = FileType(rawValue: "folder.assetcatalog")
+        static let xml = FileType(rawValue: "text.plist.xml")
+        static let json = FileType(rawValue: "text.json")
+        static let markdown = FileType(rawValue: "net.daringfireball.markdown")
+        static let coreDataModel = FileType(rawValue: "wrapper.xcdatamodel")
+        static let framwork = FileType(rawValue: "wrapper.framework")
+        static let xcconfig = FileType(rawValue: "text.xcconfig")
+        static let strings = FileType(rawValue: "text.plist.strings")
     }
 
     var lastKnownFileTypeEnum: FileType? {

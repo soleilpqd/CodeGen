@@ -10,17 +10,27 @@ import Foundation
 
 private var indents = [Int: String]()
 
-private func makeIndentation(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+struct XCIndentConfig {
+    let tabWidth: Int
+    let indentWidth: Int
+    let useTab: Bool
+
+    static var `default`: XCIndentConfig {
+        return XCIndentConfig(tabWidth: 4, indentWidth: 4, useTab: false)
+    }
+}
+
+private func makeIndentation(level: Int, config: XCIndentConfig) -> String {
     if level <= 0 { return "" }
     var result = ""
     for _ in 0..<level {
-        for _ in 0..<indentWidth {
+        for _ in 0..<config.indentWidth {
             result += " "
         }
     }
-    if useTab && tabWidth > 0 {
+    if config.useTab && config.tabWidth > 0 {
         var tabSpaces = ""
-        for _ in 0..<tabWidth {
+        for _ in 0..<config.tabWidth {
             tabSpaces += " "
         }
         while result.contains(tabSpaces) {
@@ -30,15 +40,26 @@ private func makeIndentation(level: Int, tabWidth: Int, indentWidth: Int, useTab
     return result
 }
 
-func getIndent(level: Int, tabWidth: Int, indentWidth: Int, useTab: Bool) -> String {
+/**
+ Get indent spaces
+
+ - Parameter level: number of indent level
+ - Parameter tabWidth: size of Tab (how many Space equivalent 1 Tab) (get in XCProject)
+ - Parameter indentWidth: size of indent (how many Space for 1 indent) (get in XCProject)
+ - Parameter useTab: use Tab of Space only (get in XCProject)
+
+ - Returns: Indent text to use as prefix of line
+ */
+func getIndent(level: Int, config: XCIndentConfig) -> String {
     if let result = indents[level] {
         return result
     }
-    let result = makeIndentation(level: level, tabWidth: tabWidth, indentWidth: indentWidth, useTab: useTab)
+    let result = makeIndentation(level: level, config: config)
     indents[level] = result
     return result
 }
 
+/// Validate `input` to use as code keyword (remove special characters, check length)
 func makeKeyword(_ input: String) -> String {
     var result = input
     let specialChars = "'\"`~!@#$%^&*()_+-=[]\\{}|;:,./<>?\t\n"
@@ -57,6 +78,7 @@ func makeKeyword(_ input: String) -> String {
     return result.replacingOccurrences(of: " ", with: "")
 }
 
+/// Make keyword for `func`/`var`
 func makeFuncVarName(_ input: String) -> String {
     let result = makeKeyword(input)
     if result.count > 1 {

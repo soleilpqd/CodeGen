@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2AE71C234759FF005CE528 /* MYAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2AE71B234759FF005CE528 /* MYAssets.swift */; };
 		2B31C9A220566B16001833CA /* list.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A120566B16001833CA /* list.plist */; };
 		2B31C9A420566B2F001833CA /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A320566B2F001833CA /* text.txt */; };
 		2B31C9A720566B4B001833CA /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B31C9A620566B4B001833CA /* data.json */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B2AE71B234759FF005CE528 /* MYAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MYAssets.swift; sourceTree = "<group>"; };
 		2B31C9A120566B16001833CA /* list.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = list.plist; sourceTree = "<group>"; };
 		2B31C9A320566B2F001833CA /* text.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = text.txt; sourceTree = "<group>"; };
 		2B31C9A520566B3C001833CA /* markdown.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = markdown.md; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				2B84EB1A2087631A008B1E54 /* MYUrl.swift */,
 				2B84EB1C20876327008B1E54 /* MYText.swift */,
 				2B4E07F520AB070D0026CCBF /* MYStoryboards.swift */,
+				2B2AE71B234759FF005CE528 /* MYAssets.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -217,7 +220,7 @@
 			attributes = {
 				CLASSPREFIX = MY;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "GMO-Z.com RunSystem";
 				TargetAttributes = {
 					2BA5FEE52043B70E00AA42E5 = {
@@ -233,6 +236,7 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 2BA5FEDD2043B70E00AA42E5;
 			productRefGroup = 2BA5FEE72043B70E00AA42E5 /* Products */;
@@ -291,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2AE71C234759FF005CE528 /* MYAssets.swift in Sources */,
 				2BA5FF082043BA7A00AA42E5 /* MYCommon.swift in Sources */,
 				2B84EB1920876301008B1E54 /* MYMessages.swift in Sources */,
 				2B84EB1D20876327008B1E54 /* MYText.swift in Sources */,
@@ -368,6 +373,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -375,6 +381,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -426,6 +433,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -433,6 +441,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -473,7 +482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vn.runsystem.myProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -489,7 +498,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = vn.runsystem.myProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

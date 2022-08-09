@@ -25,7 +25,7 @@ enum XCIdiom: String {
     }
 }
 
-class XCAsset {
+class XCAsset: CustomStringConvertible {
 
     enum AssetExtension: String {
         case folder = ""
@@ -36,7 +36,12 @@ class XCAsset {
 
     weak var parent: XCAsset?
 
-    var name: String!
+    var name: String = ""
+
+    var description: String {
+        let res = type(of: self)
+        return "\(res) \"\(name)\""
+    }
 
 }
 
@@ -95,10 +100,26 @@ class XCAssetFoler: XCAsset {
 class XCAssetImage: XCAsset {
 
     struct ImageInfo {
+
+        struct Appearances {
+            var appearance: String?
+            var value: String?
+
+            init?(_ info: Any?) {
+                if let dic = info as? [String: String] {
+                    appearance = dic["appearance"]
+                    value = dic["value"]
+                } else {
+                    return nil
+                }
+            }
+        }
+
         var size: String? // AppIcon only
         var idiom: String?
         var filename: String?
         var scale: String? // nil => pdf
+        var appearances: [Appearances]?
 
         var scaleNum: UInt? {
             if let value = scale, value.hasSuffix("x") {
@@ -107,12 +128,23 @@ class XCAssetImage: XCAsset {
             return nil
         }
 
-        init?(_ info: [String: String]) {
-            if let name = info["filename"] {
+        init?(_ info: [String: Any]) {
+            if let name = info["filename"] as? String {
                 filename = name
-                size = info["size"]
-                idiom = info["idiom"]
-                scale = info["scale"]
+                size = info["size"] as? String
+                idiom = info["idiom"] as? String
+                scale = info["scale"] as? String
+                if let arrayInfo = info["appearances"] as? [Any] {
+                    var result = [Appearances]()
+                    for item in arrayInfo {
+                        if let itemResult = Appearances(item) {
+                            result.append(itemResult)
+                        }
+                    }
+                    if result.count > 0 {
+                        appearances = result
+                    }
+                }
             } else {
                 return nil
             }
@@ -123,7 +155,7 @@ class XCAssetImage: XCAsset {
     var images: [ImageInfo]?
 
     init?(_ info: [String: Any]) {
-        if let imagesInfo = info["images"] as? [[String: String]] {
+        if let imagesInfo = info["images"] as? [[String: Any]] {
             var result = [ImageInfo]()
             for info in imagesInfo {
                 if let img = ImageInfo(info) {

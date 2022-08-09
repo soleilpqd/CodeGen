@@ -8,1574 +8,1577 @@
 
 import AppKit
 
-let kColorNames: [String: NSColor] = [
-    "Costa Del Sol": NSColor(srgbRed: 0.380392, green: 0.364706, blue: 0.188235, alpha: 1.0),
-    "Hemlock": NSColor(srgbRed: 0.368627, green: 0.364706, blue: 0.231373, alpha: 1.0),
-    "Cherry Pie": NSColor(srgbRed: 0.164706, green: 0.0117647, blue: 0.34902, alpha: 1.0),
-    "Patina": NSColor(srgbRed: 0.388235, green: 0.603922, blue: 0.560784, alpha: 1.0),
-    "Chablis": NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.952941, alpha: 1.0),
-    "Pale Sky": NSColor(srgbRed: 0.431373, green: 0.466667, blue: 0.513726, alpha: 1.0),
-    "Paradiso": NSColor(srgbRed: 0.192157, green: 0.490196, blue: 0.509804, alpha: 1.0),
-    "Lightning Yellow": NSColor(srgbRed: 0.988235, green: 0.752941, blue: 0.117647, alpha: 1.0),
-    "Astra": NSColor(srgbRed: 0.980392, green: 0.917647, blue: 0.72549, alpha: 1.0),
-    "Steel Blue": NSColor(srgbRed: 0.27451, green: 0.509804, blue: 0.705882, alpha: 1.0),
-    "Carissma": NSColor(srgbRed: 0.917647, green: 0.533333, blue: 0.658824, alpha: 1.0),
-    "Cornflower Lilac": NSColor(srgbRed: 1.0, green: 0.690196, blue: 0.67451, alpha: 1.0),
-    "Red Devil": NSColor(srgbRed: 0.52549, green: 0.00392157, blue: 0.0666667, alpha: 1.0),
-    "Mai Tai": NSColor(srgbRed: 0.690196, green: 0.4, blue: 0.0313726, alpha: 1.0),
-    "Violet Eggplant": NSColor(srgbRed: 0.6, green: 0.0666667, blue: 0.6, alpha: 1.0),
-    "Aquamarine Blue": NSColor(srgbRed: 0.443137, green: 0.85098, blue: 0.886275, alpha: 1.0),
-    "Hokey Pokey": NSColor(srgbRed: 0.784314, green: 0.647059, blue: 0.156863, alpha: 1.0),
-    "Crusta": NSColor(srgbRed: 0.992157, green: 0.482353, blue: 0.2, alpha: 1.0),
-    "Squirrel": NSColor(srgbRed: 0.560784, green: 0.505882, blue: 0.462745, alpha: 1.0),
-    "Lemon Ginger": NSColor(srgbRed: 0.67451, green: 0.619608, blue: 0.133333, alpha: 1.0),
-    "Mandalay": NSColor(srgbRed: 0.678431, green: 0.470588, blue: 0.105882, alpha: 1.0),
-    "Gun Powder": NSColor(srgbRed: 0.254902, green: 0.258824, blue: 0.341176, alpha: 1.0),
-    "Celery": NSColor(srgbRed: 0.721569, green: 0.760784, blue: 0.364706, alpha: 1.0),
-    "Cream": NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.815686, alpha: 1.0),
-    "Disco": NSColor(srgbRed: 0.529412, green: 0.0823529, blue: 0.313726, alpha: 1.0),
-    "Deep Cove": NSColor(srgbRed: 0.0196078, green: 0.0627451, blue: 0.25098, alpha: 1.0),
-    "Eucalyptus": NSColor(srgbRed: 0.152941, green: 0.541176, blue: 0.356863, alpha: 1.0),
-    "Tolopea": NSColor(srgbRed: 0.105882, green: 0.00784314, blue: 0.270588, alpha: 1.0),
-    "Java": NSColor(srgbRed: 0.121569, green: 0.760784, blue: 0.760784, alpha: 1.0),
-    "Merlot": NSColor(srgbRed: 0.513726, green: 0.0980392, blue: 0.137255, alpha: 1.0),
-    "Sundown": NSColor(srgbRed: 1.0, green: 0.694118, blue: 0.701961, alpha: 1.0),
-    "Schist": NSColor(srgbRed: 0.662745, green: 0.705882, blue: 0.592157, alpha: 1.0),
-    "Victoria": NSColor(srgbRed: 0.32549, green: 0.266667, blue: 0.568627, alpha: 1.0),
-    "Mint Green": NSColor(srgbRed: 0.596078, green: 1.0, blue: 0.596078, alpha: 1.0),
-    "Pueblo": NSColor(srgbRed: 0.490196, green: 0.172549, blue: 0.0784314, alpha: 1.0),
-    "Off Yellow": NSColor(srgbRed: 0.996078, green: 0.976471, blue: 0.890196, alpha: 1.0),
-    "Conifer": NSColor(srgbRed: 0.67451, green: 0.866667, blue: 0.301961, alpha: 1.0),
-    "Viridian Green": NSColor(srgbRed: 0.403922, green: 0.537255, blue: 0.458824, alpha: 1.0),
-    "Bombay": NSColor(srgbRed: 0.686275, green: 0.694118, blue: 0.721569, alpha: 1.0),
-    "Bubbles": NSColor(srgbRed: 0.905882, green: 0.996078, blue: 1.0, alpha: 1.0),
-    "Mariner": NSColor(srgbRed: 0.156863, green: 0.415686, blue: 0.803922, alpha: 1.0),
-    "Judge Gray": NSColor(srgbRed: 0.329412, green: 0.262745, blue: 0.2, alpha: 1.0),
-    "Acadia": NSColor(srgbRed: 0.105882, green: 0.0784314, blue: 0.0156863, alpha: 1.0),
-    "Sushi": NSColor(srgbRed: 0.529412, green: 0.670588, blue: 0.223529, alpha: 1.0),
-    "Pink": NSColor(srgbRed: 1.0, green: 0.752941, blue: 0.796078, alpha: 1.0),
-    "Narvik": NSColor(srgbRed: 0.929412, green: 0.976471, blue: 0.945098, alpha: 1.0),
-    "Lola": NSColor(srgbRed: 0.87451, green: 0.811765, blue: 0.858824, alpha: 1.0),
-    "Fuel Yellow": NSColor(srgbRed: 0.92549, green: 0.662745, blue: 0.152941, alpha: 1.0),
-    "Smalt Blue": NSColor(srgbRed: 0.317647, green: 0.501961, blue: 0.560784, alpha: 1.0),
-    "Burning Orange": NSColor(srgbRed: 1.0, green: 0.439216, blue: 0.203922, alpha: 1.0),
-    "Trinidad": NSColor(srgbRed: 0.901961, green: 0.305882, blue: 0.0117647, alpha: 1.0),
-    "Clay Creek": NSColor(srgbRed: 0.541176, green: 0.513726, blue: 0.376471, alpha: 1.0),
-    "Honeysuckle": NSColor(srgbRed: 0.929412, green: 0.988235, blue: 0.517647, alpha: 1.0),
-    "Putty": NSColor(srgbRed: 0.905882, green: 0.803922, blue: 0.54902, alpha: 1.0),
-    "Tangerine": NSColor(srgbRed: 0.94902, green: 0.521569, blue: 0.0, alpha: 1.0),
-    "Sepia Skin": NSColor(srgbRed: 0.619608, green: 0.356863, blue: 0.25098, alpha: 1.0),
-    "Dune": NSColor(srgbRed: 0.219608, green: 0.207843, blue: 0.2, alpha: 1.0),
-    "Electric Violet": NSColor(srgbRed: 0.545098, green: 0.0, blue: 1.0, alpha: 1.0),
-    "Saffron": NSColor(srgbRed: 0.956863, green: 0.768627, blue: 0.188235, alpha: 1.0),
-    "Inch Worm": NSColor(srgbRed: 0.690196, green: 0.890196, blue: 0.0745098, alpha: 1.0),
-    "Cosmic": NSColor(srgbRed: 0.462745, green: 0.223529, blue: 0.364706, alpha: 1.0),
-    "Quill Gray": NSColor(srgbRed: 0.839216, green: 0.839216, blue: 0.819608, alpha: 1.0),
-    "Robin's Egg Blue": NSColor(srgbRed: 0.0, green: 0.8, blue: 0.8, alpha: 1.0),
-    "Zombie": NSColor(srgbRed: 0.894118, green: 0.839216, blue: 0.607843, alpha: 1.0),
-    "Yellow Orange": NSColor(srgbRed: 1.0, green: 0.682353, blue: 0.258824, alpha: 1.0),
-    "Deep Sea Green": NSColor(srgbRed: 0.0352941, green: 0.345098, blue: 0.34902, alpha: 1.0),
-    "Ironstone": NSColor(srgbRed: 0.52549, green: 0.282353, blue: 0.235294, alpha: 1.0),
-    "Lavender Rose": NSColor(srgbRed: 0.984314, green: 0.627451, blue: 0.890196, alpha: 1.0),
-    "Van Cleef": NSColor(srgbRed: 0.286275, green: 0.0901961, blue: 0.0470588, alpha: 1.0),
-    "Jacksons Purple": NSColor(srgbRed: 0.12549, green: 0.12549, blue: 0.552941, alpha: 1.0),
-    "Watercourse": NSColor(srgbRed: 0.0196078, green: 0.435294, blue: 0.341176, alpha: 1.0),
-    "Peach Cream": NSColor(srgbRed: 1.0, green: 0.941176, blue: 0.858824, alpha: 1.0),
-    "Orchid": NSColor(srgbRed: 0.854902, green: 0.439216, blue: 0.839216, alpha: 1.0),
-    "Lucky Point": NSColor(srgbRed: 0.101961, green: 0.101961, blue: 0.407843, alpha: 1.0),
-    "Snow Drift": NSColor(srgbRed: 0.968627, green: 0.980392, blue: 0.968627, alpha: 1.0),
-    "Amulet": NSColor(srgbRed: 0.482353, green: 0.623529, blue: 0.501961, alpha: 1.0),
-    "Governor Bay": NSColor(srgbRed: 0.184314, green: 0.235294, blue: 0.701961, alpha: 1.0),
-    "Pale Prim": NSColor(srgbRed: 0.992157, green: 0.996078, blue: 0.721569, alpha: 1.0),
-    "Well Read": NSColor(srgbRed: 0.705882, green: 0.2, blue: 0.196078, alpha: 1.0),
-    "Tiber": NSColor(srgbRed: 0.0235294, green: 0.207843, blue: 0.215686, alpha: 1.0),
-    "Limed Ash": NSColor(srgbRed: 0.454902, green: 0.490196, blue: 0.388235, alpha: 1.0),
-    "Millbrook": NSColor(srgbRed: 0.34902, green: 0.266667, blue: 0.2, alpha: 1.0),
-    "Hawaiian Tan": NSColor(srgbRed: 0.615686, green: 0.337255, blue: 0.0862745, alpha: 1.0),
-    "Pumpkin Skin": NSColor(srgbRed: 0.694118, green: 0.380392, blue: 0.0431373, alpha: 1.0),
-    "Water Leaf": NSColor(srgbRed: 0.631373, green: 0.913725, blue: 0.870588, alpha: 1.0),
-    "Rich Gold": NSColor(srgbRed: 0.658824, green: 0.32549, blue: 0.027451, alpha: 1.0),
-    "Soya Bean": NSColor(srgbRed: 0.415686, green: 0.376471, blue: 0.317647, alpha: 1.0),
-    "Bronze": NSColor(srgbRed: 0.247059, green: 0.129412, blue: 0.0352941, alpha: 1.0),
-    "Apple Blossom": NSColor(srgbRed: 0.686275, green: 0.301961, blue: 0.262745, alpha: 1.0),
-    "Bright Green": NSColor(srgbRed: 0.4, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Roman": NSColor(srgbRed: 0.870588, green: 0.388235, blue: 0.376471, alpha: 1.0),
-    "Chelsea Gem": NSColor(srgbRed: 0.619608, green: 0.32549, blue: 0.00784314, alpha: 1.0),
-    "Avocado": NSColor(srgbRed: 0.533333, green: 0.552941, blue: 0.396078, alpha: 1.0),
-    "La Rioja": NSColor(srgbRed: 0.701961, green: 0.756863, blue: 0.0627451, alpha: 1.0),
-    "Midnight": NSColor(srgbRed: 0.00392157, green: 0.0862745, blue: 0.207843, alpha: 1.0),
-    "Iroko": NSColor(srgbRed: 0.262745, green: 0.192157, blue: 0.12549, alpha: 1.0),
-    "Frost": NSColor(srgbRed: 0.929412, green: 0.960784, blue: 0.866667, alpha: 1.0),
-    "Mountain Mist": NSColor(srgbRed: 0.584314, green: 0.576471, blue: 0.588235, alpha: 1.0),
-    "Glade Green": NSColor(srgbRed: 0.380392, green: 0.517647, blue: 0.372549, alpha: 1.0),
-    "Shadow Green": NSColor(srgbRed: 0.603922, green: 0.760784, blue: 0.721569, alpha: 1.0),
-    "Koromiko": NSColor(srgbRed: 1.0, green: 0.741176, blue: 0.372549, alpha: 1.0),
-    "Cabbage Pont": NSColor(srgbRed: 0.247059, green: 0.298039, blue: 0.227451, alpha: 1.0),
-    "Flush Orange": NSColor(srgbRed: 1.0, green: 0.498039, blue: 0.0, alpha: 1.0),
-    "Schooner": NSColor(srgbRed: 0.545098, green: 0.517647, blue: 0.494118, alpha: 1.0),
-    "Mantle": NSColor(srgbRed: 0.545098, green: 0.611765, blue: 0.564706, alpha: 1.0),
-    "Maroon": NSColor(srgbRed: 0.501961, green: 0.0, blue: 0.0, alpha: 1.0),
-    "Bordeaux": NSColor(srgbRed: 0.360784, green: 0.00392157, blue: 0.12549, alpha: 1.0),
-    "Magnolia": NSColor(srgbRed: 0.972549, green: 0.956863, blue: 1.0, alpha: 1.0),
-    "Pablo": NSColor(srgbRed: 0.466667, green: 0.435294, blue: 0.380392, alpha: 1.0),
-    "Rose Fog": NSColor(srgbRed: 0.905882, green: 0.737255, blue: 0.705882, alpha: 1.0),
-    "Stratos": NSColor(srgbRed: 0.0, green: 0.027451, blue: 0.254902, alpha: 1.0),
-    "Black Rock": NSColor(srgbRed: 0.0509804, green: 0.0117647, blue: 0.196078, alpha: 1.0),
-    "Cioccolato": NSColor(srgbRed: 0.333333, green: 0.156863, blue: 0.0470588, alpha: 1.0),
-    "Dark Tan": NSColor(srgbRed: 0.4, green: 0.0627451, blue: 0.0627451, alpha: 1.0),
-    "Walnut": NSColor(srgbRed: 0.466667, green: 0.247059, blue: 0.101961, alpha: 1.0),
-    "Kangaroo": NSColor(srgbRed: 0.776471, green: 0.784314, blue: 0.741176, alpha: 1.0),
-    "Cinder": NSColor(srgbRed: 0.054902, green: 0.054902, blue: 0.0941176, alpha: 1.0),
-    "Hit Gray": NSColor(srgbRed: 0.631373, green: 0.678431, blue: 0.709804, alpha: 1.0),
-    "Twilight": NSColor(srgbRed: 0.894118, green: 0.811765, blue: 0.870588, alpha: 1.0),
-    "Carnation": NSColor(srgbRed: 0.976471, green: 0.352941, blue: 0.380392, alpha: 1.0),
-    "Peach": NSColor(srgbRed: 1.0, green: 0.898039, blue: 0.705882, alpha: 1.0),
-    "Creole": NSColor(srgbRed: 0.117647, green: 0.0588235, blue: 0.0156863, alpha: 1.0),
-    "Thistle": NSColor(srgbRed: 0.847059, green: 0.74902, blue: 0.847059, alpha: 1.0),
-    "Crimson": NSColor(srgbRed: 0.862745, green: 0.0784314, blue: 0.235294, alpha: 1.0),
-    "Waterloo ": NSColor(srgbRed: 0.482353, green: 0.486275, blue: 0.580392, alpha: 1.0),
-    "Pink Flare": NSColor(srgbRed: 0.882353, green: 0.752941, blue: 0.784314, alpha: 1.0),
-    "Albescent White": NSColor(srgbRed: 0.960784, green: 0.913725, blue: 0.827451, alpha: 1.0),
-    "Bastille": NSColor(srgbRed: 0.160784, green: 0.129412, blue: 0.188235, alpha: 1.0),
-    "Valencia": NSColor(srgbRed: 0.847059, green: 0.266667, blue: 0.215686, alpha: 1.0),
-    "Australian Mint": NSColor(srgbRed: 0.960784, green: 1.0, blue: 0.745098, alpha: 1.0),
-    "Alabaster": NSColor(srgbRed: 0.980392, green: 0.980392, blue: 0.980392, alpha: 1.0),
-    "Azure": NSColor(srgbRed: 0.192157, green: 0.356863, blue: 0.631373, alpha: 1.0),
-    "Jordy Blue": NSColor(srgbRed: 0.541176, green: 0.72549, blue: 0.945098, alpha: 1.0),
-    "Wasabi": NSColor(srgbRed: 0.470588, green: 0.541176, blue: 0.145098, alpha: 1.0),
-    "Blue Smoke": NSColor(srgbRed: 0.454902, green: 0.533333, blue: 0.505882, alpha: 1.0),
-    "Scorpion": NSColor(srgbRed: 0.411765, green: 0.372549, blue: 0.384314, alpha: 1.0),
-    "Sycamore": NSColor(srgbRed: 0.564706, green: 0.552941, blue: 0.223529, alpha: 1.0),
-    "Spring Wood": NSColor(srgbRed: 0.972549, green: 0.964706, blue: 0.945098, alpha: 1.0),
-    "Tana": NSColor(srgbRed: 0.85098, green: 0.862745, blue: 0.756863, alpha: 1.0),
-    "Blue Dianne": NSColor(srgbRed: 0.12549, green: 0.282353, blue: 0.321569, alpha: 1.0),
-    "Cherrywood": NSColor(srgbRed: 0.396078, green: 0.101961, blue: 0.0784314, alpha: 1.0),
-    "Matterhorn": NSColor(srgbRed: 0.305882, green: 0.231373, blue: 0.254902, alpha: 1.0),
-    "Yellow Sea": NSColor(srgbRed: 0.996078, green: 0.662745, blue: 0.0156863, alpha: 1.0),
-    "Xanadu": NSColor(srgbRed: 0.45098, green: 0.52549, blue: 0.470588, alpha: 1.0),
-    "White Rock": NSColor(srgbRed: 0.917647, green: 0.909804, blue: 0.831373, alpha: 1.0),
-    "Science Blue": NSColor(srgbRed: 0.0, green: 0.4, blue: 0.8, alpha: 1.0),
-    "Tropical Rain Forest": NSColor(srgbRed: 0.0, green: 0.458824, blue: 0.368627, alpha: 1.0),
-    "Coffee Bean": NSColor(srgbRed: 0.164706, green: 0.0784314, blue: 0.054902, alpha: 1.0),
-    "Lavender Gray": NSColor(srgbRed: 0.741176, green: 0.733333, blue: 0.843137, alpha: 1.0),
-    "Zest": NSColor(srgbRed: 0.898039, green: 0.517647, blue: 0.105882, alpha: 1.0),
-    "Twine": NSColor(srgbRed: 0.760784, green: 0.584314, blue: 0.364706, alpha: 1.0),
-    "Double Pearl Lusta": NSColor(srgbRed: 0.988235, green: 0.956863, blue: 0.815686, alpha: 1.0),
-    "Half Dutch White": NSColor(srgbRed: 0.996078, green: 0.968627, blue: 0.870588, alpha: 1.0),
-    "London Hue": NSColor(srgbRed: 0.745098, green: 0.65098, blue: 0.764706, alpha: 1.0),
-    "Quincy": NSColor(srgbRed: 0.384314, green: 0.247059, blue: 0.176471, alpha: 1.0),
-    "French Lilac": NSColor(srgbRed: 0.92549, green: 0.780392, blue: 0.933333, alpha: 1.0),
-    "Red Damask": NSColor(srgbRed: 0.854902, green: 0.415686, blue: 0.254902, alpha: 1.0),
-    "Mountain Meadow": NSColor(srgbRed: 0.101961, green: 0.701961, blue: 0.521569, alpha: 1.0),
-    "Link Water": NSColor(srgbRed: 0.85098, green: 0.894118, blue: 0.960784, alpha: 1.0),
-    "Thunder": NSColor(srgbRed: 0.2, green: 0.160784, blue: 0.184314, alpha: 1.0),
-    "Witch Haze": NSColor(srgbRed: 1.0, green: 0.988235, blue: 0.6, alpha: 1.0),
-    "Pastel Green": NSColor(srgbRed: 0.466667, green: 0.866667, blue: 0.466667, alpha: 1.0),
-    "Peru Tan": NSColor(srgbRed: 0.498039, green: 0.227451, blue: 0.00784314, alpha: 1.0),
-    "Rock": NSColor(srgbRed: 0.301961, green: 0.219608, blue: 0.2, alpha: 1.0),
-    "Equator": NSColor(srgbRed: 0.882353, green: 0.737255, blue: 0.392157, alpha: 1.0),
-    "Saltpan": NSColor(srgbRed: 0.945098, green: 0.968627, blue: 0.94902, alpha: 1.0),
-    "Ghost": NSColor(srgbRed: 0.780392, green: 0.788235, blue: 0.835294, alpha: 1.0),
-    "Banana Mania": NSColor(srgbRed: 0.984314, green: 0.905882, blue: 0.698039, alpha: 1.0),
-    "Torea Bay": NSColor(srgbRed: 0.0588235, green: 0.176471, blue: 0.619608, alpha: 1.0),
-    "Woody Brown": NSColor(srgbRed: 0.282353, green: 0.192157, blue: 0.192157, alpha: 1.0),
-    "Merlin": NSColor(srgbRed: 0.254902, green: 0.235294, blue: 0.215686, alpha: 1.0),
-    "Keppel": NSColor(srgbRed: 0.227451, green: 0.690196, blue: 0.619608, alpha: 1.0),
-    "Tradewind": NSColor(srgbRed: 0.372549, green: 0.701961, blue: 0.67451, alpha: 1.0),
-    "Dairy Cream": NSColor(srgbRed: 0.976471, green: 0.894118, blue: 0.737255, alpha: 1.0),
-    "Sea Mist": NSColor(srgbRed: 0.772549, green: 0.858824, blue: 0.792157, alpha: 1.0),
-    "China Ivory": NSColor(srgbRed: 0.988235, green: 1.0, blue: 0.905882, alpha: 1.0),
-    "Shalimar": NSColor(srgbRed: 0.984314, green: 1.0, blue: 0.729412, alpha: 1.0),
-    "Reef Gold": NSColor(srgbRed: 0.623529, green: 0.509804, blue: 0.109804, alpha: 1.0),
-    "Sand Dune": NSColor(srgbRed: 0.509804, green: 0.435294, blue: 0.396078, alpha: 1.0),
-    "Gray Asparagus": NSColor(srgbRed: 0.27451, green: 0.34902, blue: 0.270588, alpha: 1.0),
-    "Astronaut": NSColor(srgbRed: 0.156863, green: 0.227451, blue: 0.466667, alpha: 1.0),
-    "Paarl": NSColor(srgbRed: 0.65098, green: 0.333333, blue: 0.160784, alpha: 1.0),
-    "Pale Rose": NSColor(srgbRed: 1.0, green: 0.882353, blue: 0.94902, alpha: 1.0),
-    "Jon": NSColor(srgbRed: 0.231373, green: 0.121569, blue: 0.121569, alpha: 1.0),
-    "Cognac": NSColor(srgbRed: 0.623529, green: 0.219608, blue: 0.113725, alpha: 1.0),
-    "Cape Cod": NSColor(srgbRed: 0.235294, green: 0.266667, blue: 0.262745, alpha: 1.0),
-    "Tussock": NSColor(srgbRed: 0.772549, green: 0.6, blue: 0.294118, alpha: 1.0),
-    "Frosted Mint": NSColor(srgbRed: 0.858824, green: 1.0, blue: 0.972549, alpha: 1.0),
-    "Tree Poppy": NSColor(srgbRed: 0.988235, green: 0.611765, blue: 0.113725, alpha: 1.0),
-    "Eden": NSColor(srgbRed: 0.0627451, green: 0.345098, blue: 0.321569, alpha: 1.0),
-    "Crail": NSColor(srgbRed: 0.72549, green: 0.317647, blue: 0.25098, alpha: 1.0),
-    "Malachite": NSColor(srgbRed: 0.0431373, green: 0.854902, blue: 0.317647, alpha: 1.0),
-    "Desert": NSColor(srgbRed: 0.682353, green: 0.376471, blue: 0.12549, alpha: 1.0),
-    "De York": NSColor(srgbRed: 0.478431, green: 0.768627, blue: 0.533333, alpha: 1.0),
-    "Deep Blush": NSColor(srgbRed: 0.894118, green: 0.462745, blue: 0.596078, alpha: 1.0),
-    "Flame Pea": NSColor(srgbRed: 0.854902, green: 0.356863, blue: 0.219608, alpha: 1.0),
-    "Bleached Cedar": NSColor(srgbRed: 0.172549, green: 0.129412, blue: 0.2, alpha: 1.0),
-    "Shingle Fawn": NSColor(srgbRed: 0.419608, green: 0.305882, blue: 0.192157, alpha: 1.0),
-    "Sepia Black": NSColor(srgbRed: 0.168627, green: 0.00784314, blue: 0.00784314, alpha: 1.0),
-    "Flax Smoke": NSColor(srgbRed: 0.482353, green: 0.509804, blue: 0.396078, alpha: 1.0),
-    "Mirage": NSColor(srgbRed: 0.0862745, green: 0.0980392, blue: 0.156863, alpha: 1.0),
-    "Horizon": NSColor(srgbRed: 0.352941, green: 0.529412, blue: 0.627451, alpha: 1.0),
-    "Fiord": NSColor(srgbRed: 0.25098, green: 0.317647, blue: 0.411765, alpha: 1.0),
-    "Granite Green": NSColor(srgbRed: 0.552941, green: 0.537255, blue: 0.454902, alpha: 1.0),
-    "Reno Sand": NSColor(srgbRed: 0.658824, green: 0.396078, blue: 0.0823529, alpha: 1.0),
-    "Sazerac": NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.878431, alpha: 1.0),
-    "Egg Sour": NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.866667, alpha: 1.0),
-    "Fern": NSColor(srgbRed: 0.388235, green: 0.717647, blue: 0.423529, alpha: 1.0),
-    "Selective Yellow": NSColor(srgbRed: 1.0, green: 0.729412, blue: 0.0, alpha: 1.0),
-    "Amethyst": NSColor(srgbRed: 0.6, green: 0.4, blue: 0.8, alpha: 1.0),
-    "Fountain Blue": NSColor(srgbRed: 0.337255, green: 0.705882, blue: 0.745098, alpha: 1.0),
-    "Flax": NSColor(srgbRed: 0.933333, green: 0.862745, blue: 0.509804, alpha: 1.0),
-    "Turkish Rose": NSColor(srgbRed: 0.709804, green: 0.447059, blue: 0.505882, alpha: 1.0),
-    "Marshland": NSColor(srgbRed: 0.0431373, green: 0.0588235, blue: 0.0313726, alpha: 1.0),
-    "Texas": NSColor(srgbRed: 0.972549, green: 0.976471, blue: 0.611765, alpha: 1.0),
-    "Golden Sand": NSColor(srgbRed: 0.941176, green: 0.858824, blue: 0.490196, alpha: 1.0),
-    "Gold": NSColor(srgbRed: 1.0, green: 0.843137, blue: 0.0, alpha: 1.0),
-    "Himalaya": NSColor(srgbRed: 0.415686, green: 0.364706, blue: 0.105882, alpha: 1.0),
-    "Parsley": NSColor(srgbRed: 0.0745098, green: 0.309804, blue: 0.0980392, alpha: 1.0),
-    "Blue Marguerite": NSColor(srgbRed: 0.462745, green: 0.4, blue: 0.776471, alpha: 1.0),
-    "Gable Green": NSColor(srgbRed: 0.0862745, green: 0.207843, blue: 0.192157, alpha: 1.0),
-    "Kobi": NSColor(srgbRed: 0.905882, green: 0.623529, blue: 0.768627, alpha: 1.0),
-    "Swans Down": NSColor(srgbRed: 0.862745, green: 0.941176, blue: 0.917647, alpha: 1.0),
-    "Christine": NSColor(srgbRed: 0.905882, green: 0.45098, blue: 0.0392157, alpha: 1.0),
-    "New York Pink": NSColor(srgbRed: 0.843137, green: 0.513726, blue: 0.498039, alpha: 1.0),
-    "Alice Blue": NSColor(srgbRed: 0.941176, green: 0.972549, blue: 1.0, alpha: 1.0),
-    "San Felix": NSColor(srgbRed: 0.0431373, green: 0.384314, blue: 0.027451, alpha: 1.0),
-    "Deco": NSColor(srgbRed: 0.823529, green: 0.854902, blue: 0.592157, alpha: 1.0),
-    "Christalle": NSColor(srgbRed: 0.2, green: 0.0117647, blue: 0.419608, alpha: 1.0),
-    "Sherpa Blue": NSColor(srgbRed: 0.0, green: 0.286275, blue: 0.313726, alpha: 1.0),
-    "Tabasco": NSColor(srgbRed: 0.627451, green: 0.152941, blue: 0.0705882, alpha: 1.0),
-    "Forget Me Not": NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.933333, alpha: 1.0),
-    "Woodrush": NSColor(srgbRed: 0.188235, green: 0.164706, blue: 0.0588235, alpha: 1.0),
-    "Kingfisher Daisy": NSColor(srgbRed: 0.243137, green: 0.0156863, blue: 0.501961, alpha: 1.0),
-    "Pewter": NSColor(srgbRed: 0.588235, green: 0.658824, blue: 0.631373, alpha: 1.0),
-    "Lochinvar": NSColor(srgbRed: 0.172549, green: 0.54902, blue: 0.517647, alpha: 1.0),
-    "Acapulco": NSColor(srgbRed: 0.486275, green: 0.690196, blue: 0.631373, alpha: 1.0),
-    "Saratoga": NSColor(srgbRed: 0.333333, green: 0.356863, blue: 0.0627451, alpha: 1.0),
-    "Treehouse": NSColor(srgbRed: 0.231373, green: 0.156863, blue: 0.12549, alpha: 1.0),
-    "My Pink": NSColor(srgbRed: 0.839216, green: 0.568627, blue: 0.533333, alpha: 1.0),
-    "Downriver": NSColor(srgbRed: 0.0352941, green: 0.133333, blue: 0.337255, alpha: 1.0),
-    "Gamboge": NSColor(srgbRed: 0.894118, green: 0.607843, blue: 0.0588235, alpha: 1.0),
-    "El Salva": NSColor(srgbRed: 0.560784, green: 0.243137, blue: 0.2, alpha: 1.0),
-    "Gigas": NSColor(srgbRed: 0.321569, green: 0.235294, blue: 0.580392, alpha: 1.0),
-    "Blue Romance": NSColor(srgbRed: 0.823529, green: 0.964706, blue: 0.870588, alpha: 1.0),
-    "Armadillo": NSColor(srgbRed: 0.262745, green: 0.243137, blue: 0.215686, alpha: 1.0),
-    "Spicy Mustard": NSColor(srgbRed: 0.454902, green: 0.392157, blue: 0.0509804, alpha: 1.0),
-    "Clear Day": NSColor(srgbRed: 0.913725, green: 1.0, blue: 0.992157, alpha: 1.0),
-    "Cherub": NSColor(srgbRed: 0.972549, green: 0.85098, blue: 0.913725, alpha: 1.0),
-    "Flesh": NSColor(srgbRed: 1.0, green: 0.796078, blue: 0.643137, alpha: 1.0),
-    "Golden Tainoi": NSColor(srgbRed: 1.0, green: 0.8, blue: 0.360784, alpha: 1.0),
-    "Melon": NSColor(srgbRed: 0.996078, green: 0.729412, blue: 0.678431, alpha: 1.0),
-    "Bird Flower": NSColor(srgbRed: 0.831373, green: 0.803922, blue: 0.0862745, alpha: 1.0),
-    "Maize": NSColor(srgbRed: 0.960784, green: 0.835294, blue: 0.627451, alpha: 1.0),
-    "Blue Stone": NSColor(srgbRed: 0.00392157, green: 0.380392, blue: 0.384314, alpha: 1.0),
-    "Fire": NSColor(srgbRed: 0.666667, green: 0.258824, blue: 0.0117647, alpha: 1.0),
-    "Gurkha": NSColor(srgbRed: 0.603922, green: 0.584314, blue: 0.466667, alpha: 1.0),
-    "Japonica": NSColor(srgbRed: 0.847059, green: 0.486275, blue: 0.388235, alpha: 1.0),
-    "Stromboli": NSColor(srgbRed: 0.196078, green: 0.364706, blue: 0.321569, alpha: 1.0),
-    "Limed Spruce": NSColor(srgbRed: 0.223529, green: 0.282353, blue: 0.317647, alpha: 1.0),
-    "Tulip Tree": NSColor(srgbRed: 0.917647, green: 0.701961, blue: 0.231373, alpha: 1.0),
-    "Zuccini": NSColor(srgbRed: 0.0156863, green: 0.25098, blue: 0.133333, alpha: 1.0),
-    "Pumice": NSColor(srgbRed: 0.760784, green: 0.792157, blue: 0.768627, alpha: 1.0),
-    "Brown": NSColor(srgbRed: 0.588235, green: 0.294118, blue: 0.0, alpha: 1.0),
-    "Spring Green": NSColor(srgbRed: 0.0, green: 1.0, blue: 0.498039, alpha: 1.0),
-    "Buccaneer": NSColor(srgbRed: 0.384314, green: 0.184314, blue: 0.188235, alpha: 1.0),
-    "Spicy Mix": NSColor(srgbRed: 0.533333, green: 0.32549, blue: 0.258824, alpha: 1.0),
-    "Royal Purple": NSColor(srgbRed: 0.419608, green: 0.247059, blue: 0.627451, alpha: 1.0),
-    "Red Orange": NSColor(srgbRed: 1.0, green: 0.247059, blue: 0.203922, alpha: 1.0),
-    "Portage": NSColor(srgbRed: 0.545098, green: 0.623529, blue: 0.933333, alpha: 1.0),
-    "West Coast": NSColor(srgbRed: 0.384314, green: 0.317647, blue: 0.0980392, alpha: 1.0),
-    "Gray Olive": NSColor(srgbRed: 0.662745, green: 0.643137, blue: 0.568627, alpha: 1.0),
-    "Bridesmaid": NSColor(srgbRed: 0.996078, green: 0.941176, blue: 0.92549, alpha: 1.0),
-    "Strikemaster": NSColor(srgbRed: 0.584314, green: 0.388235, blue: 0.529412, alpha: 1.0),
-    "Ultramarine": NSColor(srgbRed: 0.0705882, green: 0.0392157, blue: 0.560784, alpha: 1.0),
-    "Light Apricot": NSColor(srgbRed: 0.992157, green: 0.835294, blue: 0.694118, alpha: 1.0),
-    "Turbo": NSColor(srgbRed: 0.980392, green: 0.901961, blue: 0.0, alpha: 1.0),
-    "Candlelight": NSColor(srgbRed: 0.988235, green: 0.85098, blue: 0.0901961, alpha: 1.0),
-    "Bittersweet": NSColor(srgbRed: 0.996078, green: 0.435294, blue: 0.368627, alpha: 1.0),
-    "Peat": NSColor(srgbRed: 0.443137, green: 0.419608, blue: 0.337255, alpha: 1.0),
-    "Buttery White": NSColor(srgbRed: 1.0, green: 0.988235, blue: 0.917647, alpha: 1.0),
-    "Aths Special": NSColor(srgbRed: 0.92549, green: 0.921569, blue: 0.807843, alpha: 1.0),
-    "Carnation Pink": NSColor(srgbRed: 1.0, green: 0.65098, blue: 0.788235, alpha: 1.0),
-    "Rangitoto": NSColor(srgbRed: 0.180392, green: 0.196078, blue: 0.133333, alpha: 1.0),
-    "Royal Blue": NSColor(srgbRed: 0.254902, green: 0.411765, blue: 0.882353, alpha: 1.0),
-    "Bright Sun": NSColor(srgbRed: 0.996078, green: 0.827451, blue: 0.235294, alpha: 1.0),
-    "Harp": NSColor(srgbRed: 0.901961, green: 0.94902, blue: 0.917647, alpha: 1.0),
-    "Blizzard Blue": NSColor(srgbRed: 0.639216, green: 0.890196, blue: 0.929412, alpha: 1.0),
-    "Taupe": NSColor(srgbRed: 0.282353, green: 0.235294, blue: 0.196078, alpha: 1.0),
-    "Pig Pink": NSColor(srgbRed: 0.992157, green: 0.843137, blue: 0.894118, alpha: 1.0),
-    "Pale Slate": NSColor(srgbRed: 0.764706, green: 0.74902, blue: 0.756863, alpha: 1.0),
-    "Persian Pink": NSColor(srgbRed: 0.968627, green: 0.498039, blue: 0.745098, alpha: 1.0),
-    "Cherokee": NSColor(srgbRed: 0.988235, green: 0.854902, blue: 0.596078, alpha: 1.0),
-    "Storm Gray": NSColor(srgbRed: 0.443137, green: 0.454902, blue: 0.52549, alpha: 1.0),
-    "Tobacco Brown": NSColor(srgbRed: 0.443137, green: 0.364706, blue: 0.278431, alpha: 1.0),
-    "Studio": NSColor(srgbRed: 0.443137, green: 0.290196, blue: 0.698039, alpha: 1.0),
-    "Americano": NSColor(srgbRed: 0.529412, green: 0.458824, blue: 0.431373, alpha: 1.0),
-    "Corn": NSColor(srgbRed: 0.905882, green: 0.74902, blue: 0.0196078, alpha: 1.0),
-    "Daisy Bush": NSColor(srgbRed: 0.309804, green: 0.137255, blue: 0.596078, alpha: 1.0),
-    "Clinker": NSColor(srgbRed: 0.215686, green: 0.113725, blue: 0.0352941, alpha: 1.0),
-    "Leather": NSColor(srgbRed: 0.588235, green: 0.439216, blue: 0.34902, alpha: 1.0),
-    "Brandy": NSColor(srgbRed: 0.870588, green: 0.756863, blue: 0.588235, alpha: 1.0),
-    "Caribbean Green": NSColor(srgbRed: 0.0, green: 0.8, blue: 0.6, alpha: 1.0),
-    "Wistful": NSColor(srgbRed: 0.643137, green: 0.65098, blue: 0.827451, alpha: 1.0),
-    "Web Orange": NSColor(srgbRed: 1.0, green: 0.647059, blue: 0.0, alpha: 1.0),
-    "Tawny Port": NSColor(srgbRed: 0.411765, green: 0.145098, blue: 0.270588, alpha: 1.0),
-    "Silver Sand": NSColor(srgbRed: 0.74902, green: 0.756863, blue: 0.760784, alpha: 1.0),
-    "Bamboo": NSColor(srgbRed: 0.854902, green: 0.388235, blue: 0.0156863, alpha: 1.0),
-    "Sidecar": NSColor(srgbRed: 0.952941, green: 0.905882, blue: 0.733333, alpha: 1.0),
-    "Blue Bayoux": NSColor(srgbRed: 0.286275, green: 0.4, blue: 0.47451, alpha: 1.0),
-    "Daintree": NSColor(srgbRed: 0.00392157, green: 0.152941, blue: 0.192157, alpha: 1.0),
-    "Big Stone": NSColor(srgbRed: 0.0862745, green: 0.164706, blue: 0.25098, alpha: 1.0),
-    "Punch": NSColor(srgbRed: 0.862745, green: 0.262745, blue: 0.2, alpha: 1.0),
-    "Camarone": NSColor(srgbRed: 0.0, green: 0.345098, blue: 0.101961, alpha: 1.0),
-    "Chantilly": NSColor(srgbRed: 0.972549, green: 0.764706, blue: 0.87451, alpha: 1.0),
-    "Wattle": NSColor(srgbRed: 0.862745, green: 0.843137, blue: 0.278431, alpha: 1.0),
-    "Moccaccino": NSColor(srgbRed: 0.431373, green: 0.113725, blue: 0.0784314, alpha: 1.0),
-    "Pot Pourri": NSColor(srgbRed: 0.960784, green: 0.905882, blue: 0.886275, alpha: 1.0),
-    "Green Pea": NSColor(srgbRed: 0.113725, green: 0.380392, blue: 0.258824, alpha: 1.0),
-    "Lemon": NSColor(srgbRed: 0.992157, green: 0.913725, blue: 0.0627451, alpha: 1.0),
-    "Orange": NSColor(srgbRed: 1.0, green: 0.407843, blue: 0.121569, alpha: 1.0),
-    "Pine Green": NSColor(srgbRed: 0.00392157, green: 0.47451, blue: 0.435294, alpha: 1.0),
-    "Paua": NSColor(srgbRed: 0.14902, green: 0.0117647, blue: 0.407843, alpha: 1.0),
-    "Cruise": NSColor(srgbRed: 0.709804, green: 0.92549, blue: 0.87451, alpha: 1.0),
-    "Sun": NSColor(srgbRed: 0.984314, green: 0.67451, blue: 0.0745098, alpha: 1.0),
-    "Rice Cake": NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.941176, alpha: 1.0),
-    "Dawn Pink": NSColor(srgbRed: 0.952941, green: 0.913725, blue: 0.898039, alpha: 1.0),
-    "Bunker": NSColor(srgbRed: 0.0509804, green: 0.0666667, blue: 0.0901961, alpha: 1.0),
-    "Lily": NSColor(srgbRed: 0.784314, green: 0.666667, blue: 0.74902, alpha: 1.0),
-    "Everglade": NSColor(srgbRed: 0.109804, green: 0.25098, blue: 0.180392, alpha: 1.0),
-    "Espresso": NSColor(srgbRed: 0.380392, green: 0.152941, blue: 0.0941176, alpha: 1.0),
-    "Tenn": NSColor(srgbRed: 0.803922, green: 0.341176, blue: 0.0, alpha: 1.0),
-    "Apple Green": NSColor(srgbRed: 0.886275, green: 0.952941, blue: 0.92549, alpha: 1.0),
-    "Emperor": NSColor(srgbRed: 0.317647, green: 0.27451, blue: 0.286275, alpha: 1.0),
-    "Wewak": NSColor(srgbRed: 0.945098, green: 0.607843, blue: 0.670588, alpha: 1.0),
-    "Melrose": NSColor(srgbRed: 0.780392, green: 0.756863, blue: 1.0, alpha: 1.0),
-    "Chicago": NSColor(srgbRed: 0.364706, green: 0.360784, blue: 0.345098, alpha: 1.0),
-    "Pumpkin": NSColor(srgbRed: 1.0, green: 0.458824, blue: 0.0941176, alpha: 1.0),
-    "Morocco Brown": NSColor(srgbRed: 0.266667, green: 0.113725, blue: 0.0, alpha: 1.0),
-    "Deluge": NSColor(srgbRed: 0.458824, green: 0.388235, blue: 0.658824, alpha: 1.0),
-    "Peach Orange": NSColor(srgbRed: 1.0, green: 0.8, blue: 0.6, alpha: 1.0),
-    "Wild Rice": NSColor(srgbRed: 0.92549, green: 0.878431, blue: 0.564706, alpha: 1.0),
-    "Maroon Oak": NSColor(srgbRed: 0.321569, green: 0.0470588, blue: 0.0901961, alpha: 1.0),
-    "Lisbon Brown": NSColor(srgbRed: 0.258824, green: 0.223529, blue: 0.129412, alpha: 1.0),
-    "Gordons Green": NSColor(srgbRed: 0.0431373, green: 0.0666667, blue: 0.027451, alpha: 1.0),
-    "Salt Box": NSColor(srgbRed: 0.407843, green: 0.368627, blue: 0.431373, alpha: 1.0),
-    "Roman Coffee": NSColor(srgbRed: 0.47451, green: 0.364706, blue: 0.298039, alpha: 1.0),
-    "Chestnut Rose": NSColor(srgbRed: 0.803922, green: 0.360784, blue: 0.360784, alpha: 1.0),
-    "Rajah": NSColor(srgbRed: 0.968627, green: 0.713726, blue: 0.407843, alpha: 1.0),
-    "Beryl Green": NSColor(srgbRed: 0.870588, green: 0.898039, blue: 0.752941, alpha: 1.0),
-    "River Bed": NSColor(srgbRed: 0.262745, green: 0.298039, blue: 0.34902, alpha: 1.0),
-    "Corduroy": NSColor(srgbRed: 0.376471, green: 0.431373, blue: 0.407843, alpha: 1.0),
-    "Periwinkle Gray": NSColor(srgbRed: 0.764706, green: 0.803922, blue: 0.901961, alpha: 1.0),
-    "Rosewood": NSColor(srgbRed: 0.396078, green: 0.0, blue: 0.0431373, alpha: 1.0),
-    "Green Mist": NSColor(srgbRed: 0.796078, green: 0.827451, blue: 0.690196, alpha: 1.0),
-    "Madang": NSColor(srgbRed: 0.717647, green: 0.941176, blue: 0.745098, alpha: 1.0),
-    "Straw": NSColor(srgbRed: 0.831373, green: 0.74902, blue: 0.552941, alpha: 1.0),
-    "Viola": NSColor(srgbRed: 0.796078, green: 0.560784, blue: 0.662745, alpha: 1.0),
-    "Chrome White": NSColor(srgbRed: 0.909804, green: 0.945098, blue: 0.831373, alpha: 1.0),
-    "Rhino": NSColor(srgbRed: 0.180392, green: 0.247059, blue: 0.384314, alpha: 1.0),
-    "Kabul": NSColor(srgbRed: 0.368627, green: 0.282353, blue: 0.243137, alpha: 1.0),
-    "Off Green": NSColor(srgbRed: 0.901961, green: 0.972549, blue: 0.952941, alpha: 1.0),
-    "Porsche": NSColor(srgbRed: 0.917647, green: 0.682353, blue: 0.411765, alpha: 1.0),
-    "Cerulean Blue": NSColor(srgbRed: 0.164706, green: 0.321569, blue: 0.745098, alpha: 1.0),
-    "Madison": NSColor(srgbRed: 0.0352941, green: 0.145098, blue: 0.364706, alpha: 1.0),
-    "Oil": NSColor(srgbRed: 0.156863, green: 0.117647, blue: 0.0823529, alpha: 1.0),
-    "Gray Chateau": NSColor(srgbRed: 0.635294, green: 0.666667, blue: 0.701961, alpha: 1.0),
-    "Palm Green": NSColor(srgbRed: 0.0352941, green: 0.137255, blue: 0.0588235, alpha: 1.0),
-    "Hibiscus": NSColor(srgbRed: 0.713726, green: 0.192157, blue: 0.423529, alpha: 1.0),
-    "Aqua Forest": NSColor(srgbRed: 0.372549, green: 0.654902, blue: 0.466667, alpha: 1.0),
-    "Cannon Pink": NSColor(srgbRed: 0.537255, green: 0.262745, blue: 0.403922, alpha: 1.0),
-    "Dandelion": NSColor(srgbRed: 0.996078, green: 0.847059, blue: 0.364706, alpha: 1.0),
-    "Satin Linen": NSColor(srgbRed: 0.901961, green: 0.894118, blue: 0.831373, alpha: 1.0),
-    "Burnt Umber": NSColor(srgbRed: 0.541176, green: 0.2, blue: 0.141176, alpha: 1.0),
-    "Gray Suit": NSColor(srgbRed: 0.756863, green: 0.745098, blue: 0.803922, alpha: 1.0),
-    "Eunry": NSColor(srgbRed: 0.811765, green: 0.639216, blue: 0.615686, alpha: 1.0),
-    "Half Baked": NSColor(srgbRed: 0.521569, green: 0.768627, blue: 0.8, alpha: 1.0),
-    "Swiss Coffee": NSColor(srgbRed: 0.866667, green: 0.839216, blue: 0.835294, alpha: 1.0),
-    "Cumulus": NSColor(srgbRed: 0.992157, green: 1.0, blue: 0.835294, alpha: 1.0),
-    "Westar": NSColor(srgbRed: 0.862745, green: 0.85098, blue: 0.823529, alpha: 1.0),
-    "Christi": NSColor(srgbRed: 0.403922, green: 0.654902, blue: 0.0705882, alpha: 1.0),
-    "Nandor": NSColor(srgbRed: 0.294118, green: 0.364706, blue: 0.321569, alpha: 1.0),
-    "Bitter Lemon": NSColor(srgbRed: 0.792157, green: 0.878431, blue: 0.0509804, alpha: 1.0),
-    "Yukon Gold": NSColor(srgbRed: 0.482353, green: 0.4, blue: 0.0313726, alpha: 1.0),
-    "Curious Blue": NSColor(srgbRed: 0.145098, green: 0.588235, blue: 0.819608, alpha: 1.0),
-    "Cardinal": NSColor(srgbRed: 0.768627, green: 0.117647, blue: 0.227451, alpha: 1.0),
-    "Orange White": NSColor(srgbRed: 0.996078, green: 0.988235, blue: 0.929412, alpha: 1.0),
-    "Copper Rose": NSColor(srgbRed: 0.6, green: 0.4, blue: 0.4, alpha: 1.0),
-    "Deep Cerulean": NSColor(srgbRed: 0.0, green: 0.482353, blue: 0.654902, alpha: 1.0),
-    "Friar Gray": NSColor(srgbRed: 0.501961, green: 0.494118, blue: 0.47451, alpha: 1.0),
-    "Jumbo": NSColor(srgbRed: 0.486275, green: 0.482353, blue: 0.509804, alpha: 1.0),
-    "Tosca": NSColor(srgbRed: 0.552941, green: 0.247059, blue: 0.247059, alpha: 1.0),
-    "Vida Loca": NSColor(srgbRed: 0.329412, green: 0.564706, blue: 0.0980392, alpha: 1.0),
-    "Pixie Green": NSColor(srgbRed: 0.752941, green: 0.847059, blue: 0.713726, alpha: 1.0),
-    "Japanese Laurel": NSColor(srgbRed: 0.0392157, green: 0.411765, blue: 0.0235294, alpha: 1.0),
-    "Nevada": NSColor(srgbRed: 0.392157, green: 0.431373, blue: 0.458824, alpha: 1.0),
-    "Reef": NSColor(srgbRed: 0.788235, green: 1.0, blue: 0.635294, alpha: 1.0),
-    "Yuma": NSColor(srgbRed: 0.807843, green: 0.760784, blue: 0.568627, alpha: 1.0),
-    "Terracotta": NSColor(srgbRed: 0.886275, green: 0.447059, blue: 0.356863, alpha: 1.0),
-    "Scarlet Gum": NSColor(srgbRed: 0.262745, green: 0.0823529, blue: 0.376471, alpha: 1.0),
-    "Bossanova": NSColor(srgbRed: 0.305882, green: 0.164706, blue: 0.352941, alpha: 1.0),
-    "Port Gore": NSColor(srgbRed: 0.145098, green: 0.121569, blue: 0.309804, alpha: 1.0),
-    "Manatee": NSColor(srgbRed: 0.552941, green: 0.564706, blue: 0.631373, alpha: 1.0),
-    "Brown Rust": NSColor(srgbRed: 0.686275, green: 0.34902, blue: 0.243137, alpha: 1.0),
-    "Bizarre": NSColor(srgbRed: 0.933333, green: 0.870588, blue: 0.854902, alpha: 1.0),
-    "Cyprus": NSColor(srgbRed: 0.0, green: 0.243137, blue: 0.25098, alpha: 1.0),
-    "Axolotl": NSColor(srgbRed: 0.305882, green: 0.4, blue: 0.286275, alpha: 1.0),
-    "Star Dust": NSColor(srgbRed: 0.623529, green: 0.623529, blue: 0.611765, alpha: 1.0),
-    "Fuscous Gray": NSColor(srgbRed: 0.329412, green: 0.32549, blue: 0.301961, alpha: 1.0),
-    "Cotton Candy": NSColor(srgbRed: 1.0, green: 0.717647, blue: 0.835294, alpha: 1.0),
-    "Persian Plum": NSColor(srgbRed: 0.439216, green: 0.109804, blue: 0.109804, alpha: 1.0),
-    "Finn": NSColor(srgbRed: 0.411765, green: 0.176471, blue: 0.329412, alpha: 1.0),
-    "Haiti": NSColor(srgbRed: 0.105882, green: 0.0627451, blue: 0.207843, alpha: 1.0),
-    "Falu Red": NSColor(srgbRed: 0.501961, green: 0.0941176, blue: 0.0941176, alpha: 1.0),
-    "Punga": NSColor(srgbRed: 0.301961, green: 0.239216, blue: 0.0784314, alpha: 1.0),
-    "Buff": NSColor(srgbRed: 0.941176, green: 0.862745, blue: 0.509804, alpha: 1.0),
-    "Blue Ribbon": NSColor(srgbRed: 0.0, green: 0.4, blue: 1.0, alpha: 1.0),
-    "Sirocco": NSColor(srgbRed: 0.443137, green: 0.501961, blue: 0.501961, alpha: 1.0),
-    "Deep Koamaru": NSColor(srgbRed: 0.105882, green: 0.0705882, blue: 0.482353, alpha: 1.0),
-    "Abbey": NSColor(srgbRed: 0.298039, green: 0.309804, blue: 0.337255, alpha: 1.0),
-    "Laser Lemon": NSColor(srgbRed: 1.0, green: 1.0, blue: 0.4, alpha: 1.0),
-    "Golden Dream": NSColor(srgbRed: 0.941176, green: 0.835294, blue: 0.176471, alpha: 1.0),
-    "Pattens Blue": NSColor(srgbRed: 0.870588, green: 0.960784, blue: 1.0, alpha: 1.0),
-    "Nebula": NSColor(srgbRed: 0.796078, green: 0.858824, blue: 0.839216, alpha: 1.0),
-    "Venetian Red": NSColor(srgbRed: 0.447059, green: 0.00392157, blue: 0.0588235, alpha: 1.0),
-    "Dove Gray": NSColor(srgbRed: 0.427451, green: 0.423529, blue: 0.423529, alpha: 1.0),
-    "Mulled Wine": NSColor(srgbRed: 0.305882, green: 0.270588, blue: 0.384314, alpha: 1.0),
-    "Island Spice": NSColor(srgbRed: 1.0, green: 0.988235, blue: 0.933333, alpha: 1.0),
-    "Havelock Blue": NSColor(srgbRed: 0.333333, green: 0.564706, blue: 0.85098, alpha: 1.0),
-    "Cork": NSColor(srgbRed: 0.25098, green: 0.160784, blue: 0.113725, alpha: 1.0),
-    "Beeswax": NSColor(srgbRed: 0.996078, green: 0.94902, blue: 0.780392, alpha: 1.0),
-    "Glacier": NSColor(srgbRed: 0.501961, green: 0.701961, blue: 0.768627, alpha: 1.0),
-    "Santas Gray": NSColor(srgbRed: 0.623529, green: 0.627451, blue: 0.694118, alpha: 1.0),
-    "Finlandia": NSColor(srgbRed: 0.333333, green: 0.427451, blue: 0.337255, alpha: 1.0),
-    "Indigo": NSColor(srgbRed: 0.309804, green: 0.411765, blue: 0.776471, alpha: 1.0),
-    "Eastern Blue": NSColor(srgbRed: 0.117647, green: 0.603922, blue: 0.690196, alpha: 1.0),
-    "Wedgewood": NSColor(srgbRed: 0.305882, green: 0.498039, blue: 0.619608, alpha: 1.0),
-    "Pesto": NSColor(srgbRed: 0.486275, green: 0.462745, blue: 0.192157, alpha: 1.0),
-    "Cocoa Bean": NSColor(srgbRed: 0.282353, green: 0.109804, blue: 0.109804, alpha: 1.0),
-    "Coral Tree": NSColor(srgbRed: 0.658824, green: 0.419608, blue: 0.419608, alpha: 1.0),
-    "Oregon": NSColor(srgbRed: 0.607843, green: 0.278431, blue: 0.0117647, alpha: 1.0),
-    "Siren": NSColor(srgbRed: 0.478431, green: 0.00392157, blue: 0.227451, alpha: 1.0),
-    "Bali Hai": NSColor(srgbRed: 0.521569, green: 0.623529, blue: 0.686275, alpha: 1.0),
-    "Topaz": NSColor(srgbRed: 0.486275, green: 0.466667, blue: 0.541176, alpha: 1.0),
-    "Faded Jade": NSColor(srgbRed: 0.258824, green: 0.47451, blue: 0.466667, alpha: 1.0),
-    "Deep Oak": NSColor(srgbRed: 0.254902, green: 0.12549, blue: 0.0627451, alpha: 1.0),
-    "Seance": NSColor(srgbRed: 0.45098, green: 0.117647, blue: 0.560784, alpha: 1.0),
-    "Red Beech": NSColor(srgbRed: 0.482353, green: 0.219608, blue: 0.00392157, alpha: 1.0),
-    "Biloba Flower": NSColor(srgbRed: 0.698039, green: 0.631373, blue: 0.917647, alpha: 1.0),
-    "French Gray": NSColor(srgbRed: 0.741176, green: 0.741176, blue: 0.776471, alpha: 1.0),
-    "Pink Salmon": NSColor(srgbRed: 1.0, green: 0.568627, blue: 0.643137, alpha: 1.0),
-    "Ash": NSColor(srgbRed: 0.776471, green: 0.764706, blue: 0.709804, alpha: 1.0),
-    "Don Juan": NSColor(srgbRed: 0.364706, green: 0.298039, blue: 0.317647, alpha: 1.0),
-    "Blue": NSColor(srgbRed: 0.0, green: 0.0, blue: 1.0, alpha: 1.0),
-    "Plum": NSColor(srgbRed: 0.517647, green: 0.192157, blue: 0.47451, alpha: 1.0),
-    "Santa Fe": NSColor(srgbRed: 0.694118, green: 0.427451, blue: 0.321569, alpha: 1.0),
-    "Norway": NSColor(srgbRed: 0.658824, green: 0.741176, blue: 0.623529, alpha: 1.0),
-    "Sea Nymph": NSColor(srgbRed: 0.470588, green: 0.639216, blue: 0.611765, alpha: 1.0),
-    "Heather": NSColor(srgbRed: 0.717647, green: 0.764706, blue: 0.815686, alpha: 1.0),
-    "Roof Terracotta": NSColor(srgbRed: 0.65098, green: 0.184314, blue: 0.12549, alpha: 1.0),
-    "Chiffon": NSColor(srgbRed: 0.945098, green: 1.0, blue: 0.784314, alpha: 1.0),
-    "Suva Gray": NSColor(srgbRed: 0.533333, green: 0.513726, blue: 0.529412, alpha: 1.0),
-    "Tutu": NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.976471, alpha: 1.0),
-    "Hemp": NSColor(srgbRed: 0.564706, green: 0.470588, blue: 0.454902, alpha: 1.0),
-    "Fun Blue": NSColor(srgbRed: 0.0980392, green: 0.34902, blue: 0.658824, alpha: 1.0),
-    "Venice Blue": NSColor(srgbRed: 0.0196078, green: 0.34902, blue: 0.537255, alpha: 1.0),
-    "Lemon Chiffon": NSColor(srgbRed: 1.0, green: 0.980392, blue: 0.803922, alpha: 1.0),
-    "Pickled Bean": NSColor(srgbRed: 0.431373, green: 0.282353, blue: 0.14902, alpha: 1.0),
-    "Tequila": NSColor(srgbRed: 1.0, green: 0.901961, blue: 0.780392, alpha: 1.0),
-    "Goldenrod": NSColor(srgbRed: 0.988235, green: 0.839216, blue: 0.403922, alpha: 1.0),
-    "Ship Cove": NSColor(srgbRed: 0.470588, green: 0.545098, blue: 0.729412, alpha: 1.0),
-    "Cinderella": NSColor(srgbRed: 0.992157, green: 0.882353, blue: 0.862745, alpha: 1.0),
-    "Night Rider": NSColor(srgbRed: 0.121569, green: 0.0705882, blue: 0.0588235, alpha: 1.0),
-    "Donkey Brown": NSColor(srgbRed: 0.65098, green: 0.572549, blue: 0.47451, alpha: 1.0),
-    "Oasis": NSColor(srgbRed: 0.996078, green: 0.937255, blue: 0.807843, alpha: 1.0),
-    "Alpine": NSColor(srgbRed: 0.686275, green: 0.560784, blue: 0.172549, alpha: 1.0),
-    "Sweet Corn": NSColor(srgbRed: 0.984314, green: 0.917647, blue: 0.54902, alpha: 1.0),
-    "Bourbon": NSColor(srgbRed: 0.729412, green: 0.435294, blue: 0.117647, alpha: 1.0),
-    "Bulgarian Rose": NSColor(srgbRed: 0.282353, green: 0.0235294, blue: 0.027451, alpha: 1.0),
-    "St Tropaz": NSColor(srgbRed: 0.176471, green: 0.337255, blue: 0.607843, alpha: 1.0),
-    "Brandy Punch": NSColor(srgbRed: 0.803922, green: 0.517647, blue: 0.160784, alpha: 1.0),
-    "Colonial White": NSColor(srgbRed: 1.0, green: 0.929412, blue: 0.737255, alpha: 1.0),
-    "Olivine": NSColor(srgbRed: 0.603922, green: 0.72549, blue: 0.45098, alpha: 1.0),
-    "Outrageous Orange": NSColor(srgbRed: 1.0, green: 0.376471, blue: 0.215686, alpha: 1.0),
-    "Coffee": NSColor(srgbRed: 0.439216, green: 0.396078, blue: 0.333333, alpha: 1.0),
-    "Aqua Spring": NSColor(srgbRed: 0.917647, green: 0.976471, blue: 0.960784, alpha: 1.0),
-    "Edgewater": NSColor(srgbRed: 0.784314, green: 0.890196, blue: 0.843137, alpha: 1.0),
-    "English Holly": NSColor(srgbRed: 0.00784314, green: 0.176471, blue: 0.0823529, alpha: 1.0),
-    "Brown Tumbleweed": NSColor(srgbRed: 0.215686, green: 0.160784, blue: 0.054902, alpha: 1.0),
-    "Totem Pole": NSColor(srgbRed: 0.6, green: 0.105882, blue: 0.027451, alpha: 1.0),
-    "Buttermilk": NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.709804, alpha: 1.0),
-    "Racing Green": NSColor(srgbRed: 0.0470588, green: 0.0980392, blue: 0.0666667, alpha: 1.0),
-    "Mustard": NSColor(srgbRed: 1.0, green: 0.858824, blue: 0.345098, alpha: 1.0),
-    "Flint": NSColor(srgbRed: 0.435294, green: 0.415686, blue: 0.380392, alpha: 1.0),
-    "Sepia": NSColor(srgbRed: 0.439216, green: 0.258824, blue: 0.0784314, alpha: 1.0),
-    "Bud": NSColor(srgbRed: 0.658824, green: 0.682353, blue: 0.611765, alpha: 1.0),
-    "Red Stage": NSColor(srgbRed: 0.815686, green: 0.372549, blue: 0.0156863, alpha: 1.0),
-    "Onahau": NSColor(srgbRed: 0.803922, green: 0.956863, blue: 1.0, alpha: 1.0),
-    "Tidal": NSColor(srgbRed: 0.945098, green: 1.0, blue: 0.678431, alpha: 1.0),
-    "Olivetone": NSColor(srgbRed: 0.443137, green: 0.431373, blue: 0.0627451, alpha: 1.0),
-    "Saddle": NSColor(srgbRed: 0.298039, green: 0.188235, blue: 0.141176, alpha: 1.0),
-    "Niagara": NSColor(srgbRed: 0.0235294, green: 0.631373, blue: 0.537255, alpha: 1.0),
-    "Electric Lime": NSColor(srgbRed: 0.8, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Half Spanish White": NSColor(srgbRed: 0.996078, green: 0.956863, blue: 0.858824, alpha: 1.0),
-    "Chardonnay": NSColor(srgbRed: 1.0, green: 0.803922, blue: 0.54902, alpha: 1.0),
-    "Pastel Pink": NSColor(srgbRed: 1.0, green: 0.819608, blue: 0.862745, alpha: 1.0),
-    "Granny Smith Apple": NSColor(srgbRed: 0.615686, green: 0.878431, blue: 0.576471, alpha: 1.0),
-    "Aqua Haze": NSColor(srgbRed: 0.929412, green: 0.960784, blue: 0.960784, alpha: 1.0),
-    "Sherwood Green": NSColor(srgbRed: 0.00784314, green: 0.25098, blue: 0.172549, alpha: 1.0),
-    "Baltic Sea": NSColor(srgbRed: 0.164706, green: 0.14902, blue: 0.188235, alpha: 1.0),
-    "Pine Cone": NSColor(srgbRed: 0.427451, green: 0.368627, blue: 0.329412, alpha: 1.0),
-    "Thatch": NSColor(srgbRed: 0.713726, green: 0.615686, blue: 0.596078, alpha: 1.0),
-    "Sea Buckthorn": NSColor(srgbRed: 0.984314, green: 0.631373, blue: 0.160784, alpha: 1.0),
-    "Birch": NSColor(srgbRed: 0.215686, green: 0.188235, blue: 0.129412, alpha: 1.0),
-    "Gorse": NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.309804, alpha: 1.0),
-    "Observatory": NSColor(srgbRed: 0.00784314, green: 0.52549, blue: 0.435294, alpha: 1.0),
-    "Tapestry": NSColor(srgbRed: 0.690196, green: 0.368627, blue: 0.505882, alpha: 1.0),
-    "Saffron Mango": NSColor(srgbRed: 0.976471, green: 0.74902, blue: 0.345098, alpha: 1.0),
-    "Gulf Blue": NSColor(srgbRed: 0.0196078, green: 0.0862745, blue: 0.341176, alpha: 1.0),
-    "Gunsmoke": NSColor(srgbRed: 0.509804, green: 0.52549, blue: 0.521569, alpha: 1.0),
-    "Prim": NSColor(srgbRed: 0.941176, green: 0.886275, blue: 0.92549, alpha: 1.0),
-    "Mimosa": NSColor(srgbRed: 0.972549, green: 0.992157, blue: 0.827451, alpha: 1.0),
-    "Bismark": NSColor(srgbRed: 0.286275, green: 0.443137, blue: 0.513726, alpha: 1.0),
-    "Mojo": NSColor(srgbRed: 0.752941, green: 0.278431, blue: 0.215686, alpha: 1.0),
-    "Saddle Brown": NSColor(srgbRed: 0.345098, green: 0.203922, blue: 0.00392157, alpha: 1.0),
-    "Paprika": NSColor(srgbRed: 0.552941, green: 0.00784314, blue: 0.14902, alpha: 1.0),
-    "Blush Pink": NSColor(srgbRed: 1.0, green: 0.435294, blue: 1.0, alpha: 1.0),
-    "Midnight Blue": NSColor(srgbRed: 0.0, green: 0.2, blue: 0.4, alpha: 1.0),
-    "Valentino": NSColor(srgbRed: 0.207843, green: 0.054902, blue: 0.258824, alpha: 1.0),
-    "Blue Whale": NSColor(srgbRed: 0.0156863, green: 0.180392, blue: 0.298039, alpha: 1.0),
-    "Sulu": NSColor(srgbRed: 0.756863, green: 0.941176, blue: 0.486275, alpha: 1.0),
-    "Earls Green": NSColor(srgbRed: 0.788235, green: 0.72549, blue: 0.231373, alpha: 1.0),
-    "Dolphin": NSColor(srgbRed: 0.392157, green: 0.376471, blue: 0.466667, alpha: 1.0),
-    "Highland": NSColor(srgbRed: 0.435294, green: 0.556863, blue: 0.388235, alpha: 1.0),
-    "Orinoco": NSColor(srgbRed: 0.952941, green: 0.984314, blue: 0.831373, alpha: 1.0),
-    "Milan": NSColor(srgbRed: 0.980392, green: 1.0, blue: 0.643137, alpha: 1.0),
-    "Slate Gray": NSColor(srgbRed: 0.439216, green: 0.501961, blue: 0.564706, alpha: 1.0),
-    "Zambezi": NSColor(srgbRed: 0.407843, green: 0.333333, blue: 0.345098, alpha: 1.0),
-    "Linen": NSColor(srgbRed: 0.980392, green: 0.941176, blue: 0.901961, alpha: 1.0),
-    "Tan Hide": NSColor(srgbRed: 0.980392, green: 0.615686, blue: 0.352941, alpha: 1.0),
-    "Powder Blue": NSColor(srgbRed: 0.690196, green: 0.878431, blue: 0.901961, alpha: 1.0),
-    "Sundance": NSColor(srgbRed: 0.788235, green: 0.701961, blue: 0.356863, alpha: 1.0),
-    "Copperfield": NSColor(srgbRed: 0.854902, green: 0.541176, blue: 0.403922, alpha: 1.0),
-    "Festival": NSColor(srgbRed: 0.984314, green: 0.913725, blue: 0.423529, alpha: 1.0),
-    "Coral": NSColor(srgbRed: 1.0, green: 0.498039, blue: 0.313726, alpha: 1.0),
-    "Shiraz": NSColor(srgbRed: 0.698039, green: 0.0352941, blue: 0.192157, alpha: 1.0),
-    "Sorbus": NSColor(srgbRed: 0.992157, green: 0.486275, blue: 0.027451, alpha: 1.0),
-    "Green Spring": NSColor(srgbRed: 0.721569, green: 0.756863, blue: 0.694118, alpha: 1.0),
-    "Travertine": NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.909804, alpha: 1.0),
-    "Navajo White": NSColor(srgbRed: 1.0, green: 0.870588, blue: 0.678431, alpha: 1.0),
-    "Grenadier": NSColor(srgbRed: 0.835294, green: 0.27451, blue: 0.0, alpha: 1.0),
-    "Supernova": NSColor(srgbRed: 1.0, green: 0.788235, blue: 0.00392157, alpha: 1.0),
-    "Cowboy": NSColor(srgbRed: 0.301961, green: 0.156863, blue: 0.176471, alpha: 1.0),
-    "Swamp": NSColor(srgbRed: 0.0, green: 0.105882, blue: 0.109804, alpha: 1.0),
-    "Evening Sea": NSColor(srgbRed: 0.00784314, green: 0.305882, blue: 0.27451, alpha: 1.0),
-    "Au Chico": NSColor(srgbRed: 0.592157, green: 0.376471, blue: 0.364706, alpha: 1.0),
-    "Gimblet": NSColor(srgbRed: 0.721569, green: 0.709804, blue: 0.415686, alpha: 1.0),
-    "Wheatfield": NSColor(srgbRed: 0.952941, green: 0.929412, blue: 0.811765, alpha: 1.0),
-    "Viking": NSColor(srgbRed: 0.392157, green: 0.8, blue: 0.858824, alpha: 1.0),
-    "Storm Dust": NSColor(srgbRed: 0.392157, green: 0.392157, blue: 0.388235, alpha: 1.0),
-    "Mauvelous": NSColor(srgbRed: 0.941176, green: 0.568627, blue: 0.662745, alpha: 1.0),
-    "Lipstick": NSColor(srgbRed: 0.670588, green: 0.0196078, blue: 0.388235, alpha: 1.0),
-    "Red Ribbon": NSColor(srgbRed: 0.929412, green: 0.0392157, blue: 0.247059, alpha: 1.0),
-    "Ming": NSColor(srgbRed: 0.211765, green: 0.454902, blue: 0.490196, alpha: 1.0),
-    "Aubergine": NSColor(srgbRed: 0.231373, green: 0.0352941, blue: 0.0627451, alpha: 1.0),
-    "Desert Sand": NSColor(srgbRed: 0.929412, green: 0.788235, blue: 0.686275, alpha: 1.0),
-    "Dixie": NSColor(srgbRed: 0.886275, green: 0.580392, blue: 0.0941176, alpha: 1.0),
-    "Sea Green": NSColor(srgbRed: 0.180392, green: 0.545098, blue: 0.341176, alpha: 1.0),
-    "Silver Chalice": NSColor(srgbRed: 0.67451, green: 0.67451, blue: 0.67451, alpha: 1.0),
-    "Pacifika": NSColor(srgbRed: 0.466667, green: 0.505882, blue: 0.12549, alpha: 1.0),
-    "Bright Red": NSColor(srgbRed: 0.694118, green: 0.0, blue: 0.0, alpha: 1.0),
-    "Hunter Green": NSColor(srgbRed: 0.0862745, green: 0.113725, blue: 0.0627451, alpha: 1.0),
-    "Derby": NSColor(srgbRed: 1.0, green: 0.933333, blue: 0.847059, alpha: 1.0),
-    "Meteorite": NSColor(srgbRed: 0.235294, green: 0.121569, blue: 0.462745, alpha: 1.0),
-    "Burning Sand": NSColor(srgbRed: 0.85098, green: 0.576471, blue: 0.462745, alpha: 1.0),
-    "Jewel": NSColor(srgbRed: 0.0705882, green: 0.419608, blue: 0.25098, alpha: 1.0),
-    "Hippie Pink": NSColor(srgbRed: 0.682353, green: 0.270588, blue: 0.376471, alpha: 1.0),
-    "Horses Neck": NSColor(srgbRed: 0.376471, green: 0.286275, blue: 0.0745098, alpha: 1.0),
-    "Jungle Green": NSColor(srgbRed: 0.160784, green: 0.670588, blue: 0.529412, alpha: 1.0),
-    "Picton Blue": NSColor(srgbRed: 0.270588, green: 0.694118, blue: 0.909804, alpha: 1.0),
-    "Fern Green": NSColor(srgbRed: 0.309804, green: 0.47451, blue: 0.258824, alpha: 1.0),
-    "Milano Red": NSColor(srgbRed: 0.721569, green: 0.0666667, blue: 0.0156863, alpha: 1.0),
-    "Mortar": NSColor(srgbRed: 0.313726, green: 0.262745, blue: 0.317647, alpha: 1.0),
-    "Almond": NSColor(srgbRed: 0.933333, green: 0.85098, blue: 0.768627, alpha: 1.0),
-    "Rice Flower": NSColor(srgbRed: 0.933333, green: 1.0, blue: 0.886275, alpha: 1.0),
-    "Cadillac": NSColor(srgbRed: 0.690196, green: 0.298039, blue: 0.415686, alpha: 1.0),
-    "Limeade": NSColor(srgbRed: 0.435294, green: 0.615686, blue: 0.00784314, alpha: 1.0),
-    "Fall Green": NSColor(srgbRed: 0.92549, green: 0.921569, blue: 0.741176, alpha: 1.0),
-    "Drover": NSColor(srgbRed: 0.992157, green: 0.968627, blue: 0.678431, alpha: 1.0),
-    "Pale Leaf": NSColor(srgbRed: 0.752941, green: 0.827451, blue: 0.72549, alpha: 1.0),
-    "Green Haze": NSColor(srgbRed: 0.00392157, green: 0.639216, blue: 0.407843, alpha: 1.0),
-    "Persian Indigo": NSColor(srgbRed: 0.196078, green: 0.0705882, blue: 0.478431, alpha: 1.0),
-    "Puce": NSColor(srgbRed: 0.8, green: 0.533333, blue: 0.6, alpha: 1.0),
-    "Chilean Heath": NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.901961, alpha: 1.0),
-    "Screamin' Green": NSColor(srgbRed: 0.4, green: 1.0, blue: 0.4, alpha: 1.0),
-    "Edward": NSColor(srgbRed: 0.635294, green: 0.682353, blue: 0.670588, alpha: 1.0),
-    "Finch": NSColor(srgbRed: 0.384314, green: 0.4, blue: 0.286275, alpha: 1.0),
-    "Boulder": NSColor(srgbRed: 0.478431, green: 0.478431, blue: 0.478431, alpha: 1.0),
-    "Hippie Green": NSColor(srgbRed: 0.32549, green: 0.509804, blue: 0.294118, alpha: 1.0),
-    "Bon Jour": NSColor(srgbRed: 0.898039, green: 0.878431, blue: 0.882353, alpha: 1.0),
-    "Flamenco": NSColor(srgbRed: 1.0, green: 0.490196, blue: 0.027451, alpha: 1.0),
-    "Cosmos": NSColor(srgbRed: 1.0, green: 0.847059, blue: 0.85098, alpha: 1.0),
-    "Papaya Whip": NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.835294, alpha: 1.0),
-    "Fern Frond": NSColor(srgbRed: 0.396078, green: 0.447059, blue: 0.12549, alpha: 1.0),
-    "Moss Green": NSColor(srgbRed: 0.678431, green: 0.87451, blue: 0.678431, alpha: 1.0),
-    "Chartreuse Yellow": NSColor(srgbRed: 0.87451, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Old Brick": NSColor(srgbRed: 0.564706, green: 0.117647, blue: 0.117647, alpha: 1.0),
-    "Orange Peel": NSColor(srgbRed: 1.0, green: 0.627451, blue: 0.0, alpha: 1.0),
-    "Purple Heart": NSColor(srgbRed: 0.396078, green: 0.176471, blue: 0.756863, alpha: 1.0),
-    "Cadet Blue": NSColor(srgbRed: 0.662745, green: 0.698039, blue: 0.764706, alpha: 1.0),
-    "Orient": NSColor(srgbRed: 0.00392157, green: 0.368627, blue: 0.521569, alpha: 1.0),
-    "Bistre": NSColor(srgbRed: 0.239216, green: 0.168627, blue: 0.121569, alpha: 1.0),
-    "Golden Bell": NSColor(srgbRed: 0.886275, green: 0.537255, blue: 0.0745098, alpha: 1.0),
-    "Ecstasy": NSColor(srgbRed: 0.980392, green: 0.470588, blue: 0.0784314, alpha: 1.0),
-    "Cupid": NSColor(srgbRed: 0.984314, green: 0.745098, blue: 0.854902, alpha: 1.0),
-    "Neon Carrot": NSColor(srgbRed: 1.0, green: 0.6, blue: 0.2, alpha: 1.0),
-    "Puerto Rico": NSColor(srgbRed: 0.247059, green: 0.756863, blue: 0.666667, alpha: 1.0),
-    "Cocoa Brown": NSColor(srgbRed: 0.188235, green: 0.121569, blue: 0.117647, alpha: 1.0),
-    "Lucky": NSColor(srgbRed: 0.686275, green: 0.623529, blue: 0.109804, alpha: 1.0),
-    "Chestnut": NSColor(srgbRed: 0.72549, green: 0.305882, blue: 0.282353, alpha: 1.0),
-    "Perfume": NSColor(srgbRed: 0.815686, green: 0.745098, blue: 0.972549, alpha: 1.0),
-    "Almond Frost": NSColor(srgbRed: 0.564706, green: 0.482353, blue: 0.443137, alpha: 1.0),
-    "Gold Tips": NSColor(srgbRed: 0.870588, green: 0.729412, blue: 0.0745098, alpha: 1.0),
-    "Viridian": NSColor(srgbRed: 0.25098, green: 0.509804, blue: 0.427451, alpha: 1.0),
-    "Asparagus": NSColor(srgbRed: 0.482353, green: 0.627451, blue: 0.356863, alpha: 1.0),
-    "Mobster": NSColor(srgbRed: 0.498039, green: 0.458824, blue: 0.537255, alpha: 1.0),
-    "Grape": NSColor(srgbRed: 0.219608, green: 0.101961, blue: 0.317647, alpha: 1.0),
-    "Rebel": NSColor(srgbRed: 0.235294, green: 0.0705882, blue: 0.0235294, alpha: 1.0),
-    "Broom": NSColor(srgbRed: 1.0, green: 0.92549, blue: 0.0745098, alpha: 1.0),
-    "Willow Grove": NSColor(srgbRed: 0.396078, green: 0.454902, blue: 0.364706, alpha: 1.0),
-    "Mondo": NSColor(srgbRed: 0.290196, green: 0.235294, blue: 0.188235, alpha: 1.0),
-    "Pipi": NSColor(srgbRed: 0.996078, green: 0.956863, blue: 0.8, alpha: 1.0),
-    "Jacarta": NSColor(srgbRed: 0.227451, green: 0.164706, blue: 0.415686, alpha: 1.0),
-    "Persian Blue": NSColor(srgbRed: 0.109804, green: 0.223529, blue: 0.733333, alpha: 1.0),
-    "Blue Zodiac": NSColor(srgbRed: 0.0745098, green: 0.14902, blue: 0.301961, alpha: 1.0),
-    "Silver Rust": NSColor(srgbRed: 0.788235, green: 0.752941, blue: 0.733333, alpha: 1.0),
-    "Pavlova": NSColor(srgbRed: 0.843137, green: 0.768627, blue: 0.596078, alpha: 1.0),
-    "Foam": NSColor(srgbRed: 0.847059, green: 0.988235, blue: 0.980392, alpha: 1.0),
-    "Pippin": NSColor(srgbRed: 1.0, green: 0.882353, blue: 0.87451, alpha: 1.0),
-    "Careys Pink": NSColor(srgbRed: 0.823529, green: 0.619608, blue: 0.666667, alpha: 1.0),
-    "Corn Field": NSColor(srgbRed: 0.972549, green: 0.980392, blue: 0.803922, alpha: 1.0),
-    "Hippie Blue": NSColor(srgbRed: 0.345098, green: 0.603922, blue: 0.686275, alpha: 1.0),
-    "Brandy Rose": NSColor(srgbRed: 0.733333, green: 0.537255, blue: 0.513726, alpha: 1.0),
-    "Azure Radiance": NSColor(srgbRed: 0.0, green: 0.498039, blue: 1.0, alpha: 1.0),
-    "Gravel": NSColor(srgbRed: 0.290196, green: 0.266667, blue: 0.294118, alpha: 1.0),
-    "Cedar Wood Finish": NSColor(srgbRed: 0.443137, green: 0.101961, blue: 0.0, alpha: 1.0),
-    "Mid Gray": NSColor(srgbRed: 0.372549, green: 0.372549, blue: 0.431373, alpha: 1.0),
-    "Mandys Pink": NSColor(srgbRed: 0.94902, green: 0.764706, blue: 0.698039, alpha: 1.0),
-    "Citron": NSColor(srgbRed: 0.619608, green: 0.662745, blue: 0.121569, alpha: 1.0),
-    "Dell": NSColor(srgbRed: 0.223529, green: 0.392157, blue: 0.0745098, alpha: 1.0),
-    "Atlantis": NSColor(srgbRed: 0.592157, green: 0.803922, blue: 0.176471, alpha: 1.0),
-    "Razzle Dazzle Rose": NSColor(srgbRed: 1.0, green: 0.2, blue: 0.8, alpha: 1.0),
-    "Tea Green": NSColor(srgbRed: 0.815686, green: 0.941176, blue: 0.752941, alpha: 1.0),
-    "Forest Green": NSColor(srgbRed: 0.133333, green: 0.545098, blue: 0.133333, alpha: 1.0),
-    "Aero Blue": NSColor(srgbRed: 0.788235, green: 1.0, blue: 0.898039, alpha: 1.0),
-    "Vis Vis": NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.631373, alpha: 1.0),
-    "Varden": NSColor(srgbRed: 1.0, green: 0.964706, blue: 0.87451, alpha: 1.0),
-    "White": NSColor(srgbRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0),
-    "Medium Red Violet": NSColor(srgbRed: 0.733333, green: 0.2, blue: 0.521569, alpha: 1.0),
-    "Orange Roughy": NSColor(srgbRed: 0.768627, green: 0.341176, blue: 0.0980392, alpha: 1.0),
-    "Indochine": NSColor(srgbRed: 0.760784, green: 0.419608, blue: 0.0117647, alpha: 1.0),
-    "Early Dawn": NSColor(srgbRed: 1.0, green: 0.976471, blue: 0.901961, alpha: 1.0),
-    "Catskill White": NSColor(srgbRed: 0.933333, green: 0.964706, blue: 0.968627, alpha: 1.0),
-    "Turtle Green": NSColor(srgbRed: 0.164706, green: 0.219608, blue: 0.0431373, alpha: 1.0),
-    "Comet": NSColor(srgbRed: 0.360784, green: 0.364706, blue: 0.458824, alpha: 1.0),
-    "Brown Derby": NSColor(srgbRed: 0.286275, green: 0.14902, blue: 0.0823529, alpha: 1.0),
-    "Corvette": NSColor(srgbRed: 0.980392, green: 0.827451, blue: 0.635294, alpha: 1.0),
-    "Romantic": NSColor(srgbRed: 1.0, green: 0.823529, blue: 0.717647, alpha: 1.0),
-    "Cashmere": NSColor(srgbRed: 0.901961, green: 0.745098, blue: 0.647059, alpha: 1.0),
-    "Lime": NSColor(srgbRed: 0.74902, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Teal Blue": NSColor(srgbRed: 0.0156863, green: 0.258824, blue: 0.34902, alpha: 1.0),
-    "Sprout": NSColor(srgbRed: 0.756863, green: 0.843137, blue: 0.690196, alpha: 1.0),
-    "Clover": NSColor(srgbRed: 0.219608, green: 0.286275, blue: 0.0627451, alpha: 1.0),
-    "Quarter Pearl Lusta": NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.956863, alpha: 1.0),
-    "Peach Schnapps": NSColor(srgbRed: 1.0, green: 0.862745, blue: 0.839216, alpha: 1.0),
-    "Titan White": NSColor(srgbRed: 0.941176, green: 0.933333, blue: 1.0, alpha: 1.0),
-    "Spectra": NSColor(srgbRed: 0.184314, green: 0.352941, blue: 0.341176, alpha: 1.0),
-    "Rodeo Dust": NSColor(srgbRed: 0.788235, green: 0.698039, blue: 0.607843, alpha: 1.0),
-    "Mindaro": NSColor(srgbRed: 0.890196, green: 0.976471, blue: 0.533333, alpha: 1.0),
-    "Claret": NSColor(srgbRed: 0.498039, green: 0.0901961, blue: 0.203922, alpha: 1.0),
-    "Morning Glory": NSColor(srgbRed: 0.619608, green: 0.870588, blue: 0.878431, alpha: 1.0),
-    "Provincial Pink": NSColor(srgbRed: 0.996078, green: 0.960784, blue: 0.945098, alpha: 1.0),
-    "Illusion": NSColor(srgbRed: 0.964706, green: 0.643137, blue: 0.788235, alpha: 1.0),
-    "Lima": NSColor(srgbRed: 0.462745, green: 0.741176, blue: 0.0901961, alpha: 1.0),
-    "Anzac": NSColor(srgbRed: 0.878431, green: 0.713726, blue: 0.27451, alpha: 1.0),
-    "Mint Julep": NSColor(srgbRed: 0.945098, green: 0.933333, blue: 0.756863, alpha: 1.0),
-    "Blue Gem": NSColor(srgbRed: 0.172549, green: 0.054902, blue: 0.54902, alpha: 1.0),
-    "Pharlap": NSColor(srgbRed: 0.639216, green: 0.501961, blue: 0.482353, alpha: 1.0),
-    "Camelot": NSColor(srgbRed: 0.537255, green: 0.203922, blue: 0.337255, alpha: 1.0),
-    "Stack": NSColor(srgbRed: 0.541176, green: 0.560784, blue: 0.541176, alpha: 1.0),
-    "Go Ben": NSColor(srgbRed: 0.447059, green: 0.427451, blue: 0.305882, alpha: 1.0),
-    "Cold Turkey": NSColor(srgbRed: 0.807843, green: 0.729412, blue: 0.729412, alpha: 1.0),
-    "Bay Leaf": NSColor(srgbRed: 0.490196, green: 0.662745, blue: 0.552941, alpha: 1.0),
-    "Clairvoyant": NSColor(srgbRed: 0.282353, green: 0.0235294, blue: 0.337255, alpha: 1.0),
-    "Russet": NSColor(srgbRed: 0.501961, green: 0.27451, blue: 0.105882, alpha: 1.0),
-    "Chateau Green": NSColor(srgbRed: 0.25098, green: 0.658824, blue: 0.376471, alpha: 1.0),
-    "Copper Canyon": NSColor(srgbRed: 0.494118, green: 0.227451, blue: 0.0823529, alpha: 1.0),
-    "Maroon Flush": NSColor(srgbRed: 0.764706, green: 0.129412, blue: 0.282353, alpha: 1.0),
-    "Lunar Green": NSColor(srgbRed: 0.235294, green: 0.286275, blue: 0.227451, alpha: 1.0),
-    "Blue Violet": NSColor(srgbRed: 0.392157, green: 0.337255, blue: 0.717647, alpha: 1.0),
-    "Shuttle Gray": NSColor(srgbRed: 0.372549, green: 0.4, blue: 0.447059, alpha: 1.0),
-    "Crown of Thorns": NSColor(srgbRed: 0.466667, green: 0.121569, blue: 0.121569, alpha: 1.0),
-    "Dallas": NSColor(srgbRed: 0.431373, green: 0.294118, blue: 0.14902, alpha: 1.0),
-    "Dull Lavender": NSColor(srgbRed: 0.658824, green: 0.6, blue: 0.901961, alpha: 1.0),
-    "Surfie Green": NSColor(srgbRed: 0.0470588, green: 0.478431, blue: 0.47451, alpha: 1.0),
-    "Marigold Yellow": NSColor(srgbRed: 0.984314, green: 0.909804, blue: 0.439216, alpha: 1.0),
-    "Regal Blue": NSColor(srgbRed: 0.00392157, green: 0.247059, blue: 0.415686, alpha: 1.0),
-    "Carla": NSColor(srgbRed: 0.952941, green: 1.0, blue: 0.847059, alpha: 1.0),
-    "Watusi": NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.811765, alpha: 1.0),
-    "Teak": NSColor(srgbRed: 0.694118, green: 0.580392, blue: 0.380392, alpha: 1.0),
-    "Chathams Blue": NSColor(srgbRed: 0.0901961, green: 0.333333, blue: 0.47451, alpha: 1.0),
-    "Green Waterloo": NSColor(srgbRed: 0.0627451, green: 0.0784314, blue: 0.0196078, alpha: 1.0),
-    "Dark Ebony": NSColor(srgbRed: 0.235294, green: 0.12549, blue: 0.0196078, alpha: 1.0),
-    "Dust Storm": NSColor(srgbRed: 0.898039, green: 0.8, blue: 0.788235, alpha: 1.0),
-    "Manhattan": NSColor(srgbRed: 0.960784, green: 0.788235, blue: 0.6, alpha: 1.0),
-    "Mona Lisa": NSColor(srgbRed: 1.0, green: 0.631373, blue: 0.580392, alpha: 1.0),
-    "Deep Fir": NSColor(srgbRed: 0.0, green: 0.160784, blue: 0.0, alpha: 1.0),
-    "Woodland": NSColor(srgbRed: 0.301961, green: 0.32549, blue: 0.156863, alpha: 1.0),
-    "Tory Blue": NSColor(srgbRed: 0.0784314, green: 0.313726, blue: 0.666667, alpha: 1.0),
-    "Seaweed": NSColor(srgbRed: 0.105882, green: 0.184314, blue: 0.0666667, alpha: 1.0),
-    "Crocodile": NSColor(srgbRed: 0.45098, green: 0.427451, blue: 0.345098, alpha: 1.0),
-    "Muddy Waters": NSColor(srgbRed: 0.717647, green: 0.556863, blue: 0.360784, alpha: 1.0),
-    "Eternity": NSColor(srgbRed: 0.129412, green: 0.101961, blue: 0.054902, alpha: 1.0),
-    "Wisteria": NSColor(srgbRed: 0.592157, green: 0.443137, blue: 0.709804, alpha: 1.0),
-    "Black Russian": NSColor(srgbRed: 0.0392157, green: 0.0, blue: 0.109804, alpha: 1.0),
-    "William": NSColor(srgbRed: 0.227451, green: 0.407843, blue: 0.423529, alpha: 1.0),
-    "Calico": NSColor(srgbRed: 0.878431, green: 0.752941, blue: 0.584314, alpha: 1.0),
-    "Bitter": NSColor(srgbRed: 0.52549, green: 0.537255, blue: 0.454902, alpha: 1.0),
-    "Cinnabar": NSColor(srgbRed: 0.890196, green: 0.258824, blue: 0.203922, alpha: 1.0),
-    "Battleship Gray": NSColor(srgbRed: 0.509804, green: 0.560784, blue: 0.447059, alpha: 1.0),
-    "Dodger Blue": NSColor(srgbRed: 0.117647, green: 0.564706, blue: 1.0, alpha: 1.0),
-    "Harlequin": NSColor(srgbRed: 0.247059, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Oxley": NSColor(srgbRed: 0.466667, green: 0.619608, blue: 0.52549, alpha: 1.0),
-    "Orchid White": NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.952941, alpha: 1.0),
-    "Fruit Salad": NSColor(srgbRed: 0.309804, green: 0.615686, blue: 0.364706, alpha: 1.0),
-    "Baja White": NSColor(srgbRed: 1.0, green: 0.972549, blue: 0.819608, alpha: 1.0),
-    "Sweet Pink": NSColor(srgbRed: 0.992157, green: 0.623529, blue: 0.635294, alpha: 1.0),
-    "Fuzzy Wuzzy Brown": NSColor(srgbRed: 0.768627, green: 0.337255, blue: 0.333333, alpha: 1.0),
-    "Gossamer": NSColor(srgbRed: 0.0235294, green: 0.607843, blue: 0.505882, alpha: 1.0),
-    "Bronco": NSColor(srgbRed: 0.670588, green: 0.631373, blue: 0.588235, alpha: 1.0),
-    "Coral Reef": NSColor(srgbRed: 0.780392, green: 0.737255, blue: 0.635294, alpha: 1.0),
-    "Algae Green": NSColor(srgbRed: 0.576471, green: 0.87451, blue: 0.721569, alpha: 1.0),
-    "Fire Bush": NSColor(srgbRed: 0.909804, green: 0.6, blue: 0.156863, alpha: 1.0),
-    "Botticelli": NSColor(srgbRed: 0.780392, green: 0.866667, blue: 0.898039, alpha: 1.0),
-    "Steel Gray": NSColor(srgbRed: 0.14902, green: 0.137255, blue: 0.207843, alpha: 1.0),
-    "Bahama Blue": NSColor(srgbRed: 0.00784314, green: 0.388235, blue: 0.584314, alpha: 1.0),
-    "Dorado": NSColor(srgbRed: 0.419608, green: 0.341176, blue: 0.333333, alpha: 1.0),
-    "Serenade": NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.909804, alpha: 1.0),
-    "Mystic": NSColor(srgbRed: 0.886275, green: 0.921569, blue: 0.929412, alpha: 1.0),
-    "Tranquil": NSColor(srgbRed: 0.901961, green: 1.0, blue: 1.0, alpha: 1.0),
-    "Cararra": NSColor(srgbRed: 0.933333, green: 0.933333, blue: 0.909804, alpha: 1.0),
-    "Karry": NSColor(srgbRed: 1.0, green: 0.917647, blue: 0.831373, alpha: 1.0),
-    "Boston Blue": NSColor(srgbRed: 0.231373, green: 0.568627, blue: 0.705882, alpha: 1.0),
-    "Bronze Olive": NSColor(srgbRed: 0.305882, green: 0.258824, blue: 0.0470588, alpha: 1.0),
-    "Emerald": NSColor(srgbRed: 0.313726, green: 0.784314, blue: 0.470588, alpha: 1.0),
-    "Pompadour": NSColor(srgbRed: 0.4, green: 0.0, blue: 0.270588, alpha: 1.0),
-    "Vanilla": NSColor(srgbRed: 0.819608, green: 0.745098, blue: 0.658824, alpha: 1.0),
-    "Panache": NSColor(srgbRed: 0.917647, green: 0.964706, blue: 0.933333, alpha: 1.0),
-    "Fresh Eggplant": NSColor(srgbRed: 0.6, green: 0.0, blue: 0.4, alpha: 1.0),
-    "Maverick": NSColor(srgbRed: 0.847059, green: 0.760784, blue: 0.835294, alpha: 1.0),
-    "Snuff": NSColor(srgbRed: 0.886275, green: 0.847059, blue: 0.929412, alpha: 1.0),
-    "Fiery Orange": NSColor(srgbRed: 0.701961, green: 0.321569, blue: 0.0745098, alpha: 1.0),
-    "Clam Shell": NSColor(srgbRed: 0.831373, green: 0.713726, blue: 0.686275, alpha: 1.0),
-    "Texas Rose": NSColor(srgbRed: 1.0, green: 0.709804, blue: 0.333333, alpha: 1.0),
-    "Black Forest": NSColor(srgbRed: 0.0431373, green: 0.0745098, blue: 0.0156863, alpha: 1.0),
-    "Amber": NSColor(srgbRed: 1.0, green: 0.74902, blue: 0.0, alpha: 1.0),
-    "Can Can": NSColor(srgbRed: 0.835294, green: 0.568627, blue: 0.643137, alpha: 1.0),
-    "Whiskey": NSColor(srgbRed: 0.835294, green: 0.603922, blue: 0.435294, alpha: 1.0),
-    "Blue Chill": NSColor(srgbRed: 0.0470588, green: 0.537255, blue: 0.564706, alpha: 1.0),
-    "Vesuvius": NSColor(srgbRed: 0.694118, green: 0.290196, blue: 0.0431373, alpha: 1.0),
-    "Husk": NSColor(srgbRed: 0.717647, green: 0.643137, blue: 0.345098, alpha: 1.0),
-    "California": NSColor(srgbRed: 0.996078, green: 0.615686, blue: 0.0156863, alpha: 1.0),
-    "Astronaut Blue": NSColor(srgbRed: 0.00392157, green: 0.243137, blue: 0.384314, alpha: 1.0),
-    "Mineral Green": NSColor(srgbRed: 0.247059, green: 0.364706, blue: 0.32549, alpha: 1.0),
-    "Zeus": NSColor(srgbRed: 0.160784, green: 0.137255, blue: 0.0980392, alpha: 1.0),
-    "Kumera": NSColor(srgbRed: 0.533333, green: 0.384314, blue: 0.129412, alpha: 1.0),
-    "Madras": NSColor(srgbRed: 0.247059, green: 0.188235, blue: 0.00784314, alpha: 1.0),
-    "Froly": NSColor(srgbRed: 0.960784, green: 0.458824, blue: 0.517647, alpha: 1.0),
-    "Gold Drop": NSColor(srgbRed: 0.945098, green: 0.509804, blue: 0.0, alpha: 1.0),
-    "Burnt Sienna": NSColor(srgbRed: 0.913725, green: 0.454902, blue: 0.317647, alpha: 1.0),
-    "Anakiwa": NSColor(srgbRed: 0.615686, green: 0.898039, blue: 1.0, alpha: 1.0),
-    "Vivid Tangerine": NSColor(srgbRed: 1.0, green: 0.6, blue: 0.501961, alpha: 1.0),
-    "Razzmatazz": NSColor(srgbRed: 0.890196, green: 0.0431373, blue: 0.360784, alpha: 1.0),
-    "Pampas": NSColor(srgbRed: 0.956863, green: 0.94902, blue: 0.933333, alpha: 1.0),
-    "Hint of Yellow": NSColor(srgbRed: 0.980392, green: 0.992157, blue: 0.894118, alpha: 1.0),
-    "Bridal Heath": NSColor(srgbRed: 1.0, green: 0.980392, blue: 0.956863, alpha: 1.0),
-    "Bermuda Gray": NSColor(srgbRed: 0.419608, green: 0.545098, blue: 0.635294, alpha: 1.0),
-    "Waiouru": NSColor(srgbRed: 0.211765, green: 0.235294, blue: 0.0509804, alpha: 1.0),
-    "Moon Glow": NSColor(srgbRed: 0.988235, green: 0.996078, blue: 0.854902, alpha: 1.0),
-    "International Klein Blue": NSColor(srgbRed: 0.0, green: 0.184314, blue: 0.654902, alpha: 1.0),
-    "Sunshade": NSColor(srgbRed: 1.0, green: 0.619608, blue: 0.172549, alpha: 1.0),
-    "Red Violet": NSColor(srgbRed: 0.780392, green: 0.0823529, blue: 0.521569, alpha: 1.0),
-    "Buddha Gold": NSColor(srgbRed: 0.756863, green: 0.627451, blue: 0.0156863, alpha: 1.0),
-    "Petite Orchid": NSColor(srgbRed: 0.858824, green: 0.588235, blue: 0.564706, alpha: 1.0),
-    "Tuft Bush": NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.803922, alpha: 1.0),
-    "Fun Green": NSColor(srgbRed: 0.00392157, green: 0.427451, blue: 0.223529, alpha: 1.0),
-    "Deep Sapphire": NSColor(srgbRed: 0.0313726, green: 0.145098, blue: 0.403922, alpha: 1.0),
-    "Red Berry": NSColor(srgbRed: 0.556863, green: 0.0, blue: 0.0, alpha: 1.0),
-    "Ochre": NSColor(srgbRed: 0.8, green: 0.466667, blue: 0.133333, alpha: 1.0),
-    "Tall Poppy": NSColor(srgbRed: 0.701961, green: 0.176471, blue: 0.160784, alpha: 1.0),
-    "Jungle Mist": NSColor(srgbRed: 0.705882, green: 0.811765, blue: 0.827451, alpha: 1.0),
-    "Dark Blue": NSColor(srgbRed: 0.0, green: 0.0, blue: 0.784314, alpha: 1.0),
-    "Tamarind": NSColor(srgbRed: 0.203922, green: 0.0823529, blue: 0.0823529, alpha: 1.0),
-    "Tea": NSColor(srgbRed: 0.756863, green: 0.729412, blue: 0.690196, alpha: 1.0),
-    "Deep Bronze": NSColor(srgbRed: 0.290196, green: 0.188235, blue: 0.0156863, alpha: 1.0),
-    "Monza": NSColor(srgbRed: 0.780392, green: 0.0117647, blue: 0.117647, alpha: 1.0),
-    "Charm": NSColor(srgbRed: 0.831373, green: 0.454902, blue: 0.580392, alpha: 1.0),
-    "Carmine": NSColor(srgbRed: 0.588235, green: 0.0, blue: 0.0941176, alpha: 1.0),
-    "Red": NSColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0),
-    "Purple Pizzazz": NSColor(srgbRed: 1.0, green: 0.0, blue: 0.8, alpha: 1.0),
-    "Navy Blue": NSColor(srgbRed: 0.0, green: 0.0, blue: 0.501961, alpha: 1.0),
-    "Nugget": NSColor(srgbRed: 0.772549, green: 0.6, blue: 0.133333, alpha: 1.0),
-    "Oyster Pink": NSColor(srgbRed: 0.913725, green: 0.807843, blue: 0.803922, alpha: 1.0),
-    "Chelsea Cucumber": NSColor(srgbRed: 0.513726, green: 0.666667, blue: 0.364706, alpha: 1.0),
-    "Copper Rust": NSColor(srgbRed: 0.580392, green: 0.278431, blue: 0.278431, alpha: 1.0),
-    "Fair Pink": NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.92549, alpha: 1.0),
-    "Ripe Lemon": NSColor(srgbRed: 0.956863, green: 0.847059, blue: 0.109804, alpha: 1.0),
-    "Geyser": NSColor(srgbRed: 0.831373, green: 0.87451, blue: 0.886275, alpha: 1.0),
-    "Apricot White": NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.92549, alpha: 1.0),
-    "Foggy Gray": NSColor(srgbRed: 0.796078, green: 0.792157, blue: 0.713726, alpha: 1.0),
-    "Sandwisp": NSColor(srgbRed: 0.960784, green: 0.905882, blue: 0.635294, alpha: 1.0),
-    "Allports": NSColor(srgbRed: 0.0, green: 0.462745, blue: 0.639216, alpha: 1.0),
-    "Dolly": NSColor(srgbRed: 0.976471, green: 1.0, blue: 0.545098, alpha: 1.0),
-    "Gray Nickel": NSColor(srgbRed: 0.764706, green: 0.764706, blue: 0.741176, alpha: 1.0),
-    "Amaranth": NSColor(srgbRed: 0.898039, green: 0.168627, blue: 0.313726, alpha: 1.0),
-    "Windsor": NSColor(srgbRed: 0.235294, green: 0.0313726, blue: 0.470588, alpha: 1.0),
-    "Rusty Nail": NSColor(srgbRed: 0.52549, green: 0.337255, blue: 0.0392157, alpha: 1.0),
-    "Roti": NSColor(srgbRed: 0.776471, green: 0.658824, blue: 0.294118, alpha: 1.0),
-    "Wheat": NSColor(srgbRed: 0.960784, green: 0.870588, blue: 0.701961, alpha: 1.0),
-    "Scarpa Flow": NSColor(srgbRed: 0.345098, green: 0.333333, blue: 0.384314, alpha: 1.0),
-    "Periwinkle": NSColor(srgbRed: 0.8, green: 0.8, blue: 1.0, alpha: 1.0),
-    "Janna": NSColor(srgbRed: 0.956863, green: 0.921569, blue: 0.827451, alpha: 1.0),
-    "Hot Toddy": NSColor(srgbRed: 0.701961, green: 0.501961, blue: 0.027451, alpha: 1.0),
-    "Sahara Sand": NSColor(srgbRed: 0.945098, green: 0.905882, blue: 0.533333, alpha: 1.0),
-    "Dusty Gray": NSColor(srgbRed: 0.658824, green: 0.596078, blue: 0.607843, alpha: 1.0),
-    "Romance": NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.992157, alpha: 1.0),
-    "Killarney": NSColor(srgbRed: 0.227451, green: 0.415686, blue: 0.278431, alpha: 1.0),
-    "Burnt Maroon": NSColor(srgbRed: 0.258824, green: 0.0117647, blue: 0.0117647, alpha: 1.0),
-    "Khaki": NSColor(srgbRed: 0.941176, green: 0.901961, blue: 0.54902, alpha: 1.0),
-    "Scampi": NSColor(srgbRed: 0.403922, green: 0.372549, blue: 0.65098, alpha: 1.0),
-    "Paco": NSColor(srgbRed: 0.254902, green: 0.121569, blue: 0.0627451, alpha: 1.0),
-    "Lotus": NSColor(srgbRed: 0.52549, green: 0.235294, blue: 0.235294, alpha: 1.0),
-    "Bronzetone": NSColor(srgbRed: 0.301961, green: 0.25098, blue: 0.0588235, alpha: 1.0),
-    "Solitude": NSColor(srgbRed: 0.917647, green: 0.964706, blue: 1.0, alpha: 1.0),
-    "Geebung": NSColor(srgbRed: 0.819608, green: 0.560784, blue: 0.105882, alpha: 1.0),
-    "Blumine": NSColor(srgbRed: 0.0941176, green: 0.345098, blue: 0.478431, alpha: 1.0),
-    "Juniper": NSColor(srgbRed: 0.427451, green: 0.572549, blue: 0.572549, alpha: 1.0),
-    "Makara": NSColor(srgbRed: 0.537255, green: 0.490196, blue: 0.427451, alpha: 1.0),
-    "Aquamarine": NSColor(srgbRed: 0.498039, green: 1.0, blue: 0.831373, alpha: 1.0),
-    "Black Rose": NSColor(srgbRed: 0.403922, green: 0.0117647, blue: 0.176471, alpha: 1.0),
-    "Natural Gray": NSColor(srgbRed: 0.545098, green: 0.52549, blue: 0.501961, alpha: 1.0),
-    "Ocean Green": NSColor(srgbRed: 0.254902, green: 0.666667, blue: 0.470588, alpha: 1.0),
-    "Toast": NSColor(srgbRed: 0.603922, green: 0.431373, blue: 0.380392, alpha: 1.0),
-    "Padua": NSColor(srgbRed: 0.678431, green: 0.901961, blue: 0.768627, alpha: 1.0),
-    "Shilo": NSColor(srgbRed: 0.909804, green: 0.72549, blue: 0.701961, alpha: 1.0),
-    "Rose White": NSColor(srgbRed: 1.0, green: 0.964706, blue: 0.960784, alpha: 1.0),
-    "Hoki": NSColor(srgbRed: 0.396078, green: 0.52549, blue: 0.623529, alpha: 1.0),
-    "Gumbo": NSColor(srgbRed: 0.486275, green: 0.631373, blue: 0.65098, alpha: 1.0),
-    "Smoky": NSColor(srgbRed: 0.376471, green: 0.356863, blue: 0.45098, alpha: 1.0),
-    "Wild Watermelon": NSColor(srgbRed: 0.992157, green: 0.356863, blue: 0.470588, alpha: 1.0),
-    "Quicksand": NSColor(srgbRed: 0.741176, green: 0.592157, blue: 0.556863, alpha: 1.0),
-    "Tapa": NSColor(srgbRed: 0.482353, green: 0.470588, blue: 0.454902, alpha: 1.0),
-    "Jacko Bean": NSColor(srgbRed: 0.180392, green: 0.0980392, blue: 0.0196078, alpha: 1.0),
-    "Lilac Bush": NSColor(srgbRed: 0.596078, green: 0.454902, blue: 0.827451, alpha: 1.0),
-    "Chino": NSColor(srgbRed: 0.807843, green: 0.780392, blue: 0.654902, alpha: 1.0),
-    "Apricot": NSColor(srgbRed: 0.921569, green: 0.576471, blue: 0.45098, alpha: 1.0),
-    "Lilac": NSColor(srgbRed: 0.784314, green: 0.635294, blue: 0.784314, alpha: 1.0),
-    "Caramel": NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.686275, alpha: 1.0),
-    "Jambalaya": NSColor(srgbRed: 0.356863, green: 0.188235, blue: 0.0745098, alpha: 1.0),
-    "Beaver": NSColor(srgbRed: 0.572549, green: 0.435294, blue: 0.356863, alpha: 1.0),
-    "Old Copper": NSColor(srgbRed: 0.447059, green: 0.290196, blue: 0.184314, alpha: 1.0),
-    "Tamarillo": NSColor(srgbRed: 0.6, green: 0.0862745, blue: 0.0745098, alpha: 1.0),
-    "East Bay": NSColor(srgbRed: 0.254902, green: 0.298039, blue: 0.490196, alpha: 1.0),
-    "Aqua Deep": NSColor(srgbRed: 0.00392157, green: 0.294118, blue: 0.262745, alpha: 1.0),
-    "Mongoose": NSColor(srgbRed: 0.709804, green: 0.635294, blue: 0.498039, alpha: 1.0),
-    "Loblolly": NSColor(srgbRed: 0.741176, green: 0.788235, blue: 0.807843, alpha: 1.0),
-    "Ripe Plum": NSColor(srgbRed: 0.254902, green: 0.0, blue: 0.337255, alpha: 1.0),
-    "Pine Tree": NSColor(srgbRed: 0.0901961, green: 0.121569, blue: 0.0156863, alpha: 1.0),
-    "Pirate Gold": NSColor(srgbRed: 0.729412, green: 0.498039, blue: 0.0117647, alpha: 1.0),
-    "Bone": NSColor(srgbRed: 0.894118, green: 0.819608, blue: 0.752941, alpha: 1.0),
-    "Taupe Gray": NSColor(srgbRed: 0.701961, green: 0.686275, blue: 0.584314, alpha: 1.0),
-    "Dawn": NSColor(srgbRed: 0.65098, green: 0.635294, blue: 0.603922, alpha: 1.0),
-    "Lemon Grass": NSColor(srgbRed: 0.607843, green: 0.619608, blue: 0.560784, alpha: 1.0),
-    "Negroni": NSColor(srgbRed: 1.0, green: 0.886275, blue: 0.772549, alpha: 1.0),
-    "Parchment": NSColor(srgbRed: 0.945098, green: 0.913725, blue: 0.823529, alpha: 1.0),
-    "Gallery": NSColor(srgbRed: 0.937255, green: 0.937255, blue: 0.937255, alpha: 1.0),
-    "Ebony": NSColor(srgbRed: 0.0470588, green: 0.0431373, blue: 0.113725, alpha: 1.0),
-    "Mulberry Wood": NSColor(srgbRed: 0.360784, green: 0.0196078, blue: 0.211765, alpha: 1.0),
-    "Kenyan Copper": NSColor(srgbRed: 0.486275, green: 0.109804, blue: 0.0196078, alpha: 1.0),
-    "Blackberry": NSColor(srgbRed: 0.301961, green: 0.00392157, blue: 0.207843, alpha: 1.0),
-    "Kaitoke Green": NSColor(srgbRed: 0.0, green: 0.27451, blue: 0.12549, alpha: 1.0),
-    "Neptune": NSColor(srgbRed: 0.486275, green: 0.717647, blue: 0.733333, alpha: 1.0),
-    "Galliano": NSColor(srgbRed: 0.862745, green: 0.698039, blue: 0.0470588, alpha: 1.0),
-    "Smalt": NSColor(srgbRed: 0.0, green: 0.2, blue: 0.6, alpha: 1.0),
-    "Cardin Green": NSColor(srgbRed: 0.00392157, green: 0.211765, blue: 0.109804, alpha: 1.0),
-    "Guardsman Red": NSColor(srgbRed: 0.729412, green: 0.00392157, blue: 0.00392157, alpha: 1.0),
-    "Graphite": NSColor(srgbRed: 0.145098, green: 0.0862745, blue: 0.027451, alpha: 1.0),
-    "Sanguine Brown": NSColor(srgbRed: 0.552941, green: 0.239216, blue: 0.219608, alpha: 1.0),
-    "Jagged Ice": NSColor(srgbRed: 0.760784, green: 0.909804, blue: 0.898039, alpha: 1.0),
-    "Hampton": NSColor(srgbRed: 0.898039, green: 0.847059, blue: 0.686275, alpha: 1.0),
-    "Seashell": NSColor(srgbRed: 0.945098, green: 0.945098, blue: 0.945098, alpha: 1.0),
-    "Timber Green": NSColor(srgbRed: 0.0862745, green: 0.196078, blue: 0.172549, alpha: 1.0),
-    "We Peep": NSColor(srgbRed: 0.968627, green: 0.858824, blue: 0.901961, alpha: 1.0),
-    "Pizza": NSColor(srgbRed: 0.788235, green: 0.580392, blue: 0.0823529, alpha: 1.0),
-    "Nile Blue": NSColor(srgbRed: 0.0980392, green: 0.215686, blue: 0.317647, alpha: 1.0),
-    "Cod Gray": NSColor(srgbRed: 0.0431373, green: 0.0431373, blue: 0.0431373, alpha: 1.0),
-    "Old Gold": NSColor(srgbRed: 0.811765, green: 0.709804, blue: 0.231373, alpha: 1.0),
-    "Shocking Pink": NSColor(srgbRed: 0.988235, green: 0.0588235, blue: 0.752941, alpha: 1.0),
-    "Green Vogue": NSColor(srgbRed: 0.0117647, green: 0.168627, blue: 0.321569, alpha: 1.0),
-    "Congo Brown": NSColor(srgbRed: 0.34902, green: 0.215686, blue: 0.215686, alpha: 1.0),
-    "Genoa": NSColor(srgbRed: 0.0823529, green: 0.45098, blue: 0.419608, alpha: 1.0),
-    "Russett": NSColor(srgbRed: 0.458824, green: 0.352941, blue: 0.341176, alpha: 1.0),
-    "Tonys Pink": NSColor(srgbRed: 0.905882, green: 0.623529, blue: 0.54902, alpha: 1.0),
-    "Turquoise": NSColor(srgbRed: 0.188235, green: 0.835294, blue: 0.784314, alpha: 1.0),
-    "Spring Rain": NSColor(srgbRed: 0.67451, green: 0.796078, blue: 0.694118, alpha: 1.0),
-    "Radical Red": NSColor(srgbRed: 1.0, green: 0.207843, blue: 0.368627, alpha: 1.0),
-    "Milk Punch": NSColor(srgbRed: 1.0, green: 0.964706, blue: 0.831373, alpha: 1.0),
-    "Cement": NSColor(srgbRed: 0.552941, green: 0.462745, blue: 0.384314, alpha: 1.0),
-    "Pear": NSColor(srgbRed: 0.819608, green: 0.886275, blue: 0.192157, alpha: 1.0),
-    "Oyster Bay": NSColor(srgbRed: 0.854902, green: 0.980392, blue: 1.0, alpha: 1.0),
-    "Envy": NSColor(srgbRed: 0.545098, green: 0.65098, blue: 0.564706, alpha: 1.0),
-    "Gin": NSColor(srgbRed: 0.909804, green: 0.94902, blue: 0.921569, alpha: 1.0),
-    "Torch Red": NSColor(srgbRed: 0.992157, green: 0.054902, blue: 0.207843, alpha: 1.0),
-    "Verdun Green": NSColor(srgbRed: 0.286275, green: 0.329412, blue: 0.0, alpha: 1.0),
-    "Soapstone": NSColor(srgbRed: 1.0, green: 0.984314, blue: 0.976471, alpha: 1.0),
-    "Deep Sea": NSColor(srgbRed: 0.00392157, green: 0.509804, blue: 0.419608, alpha: 1.0),
-    "Brown Bramble": NSColor(srgbRed: 0.34902, green: 0.156863, blue: 0.0156863, alpha: 1.0),
-    "Rust": NSColor(srgbRed: 0.717647, green: 0.254902, blue: 0.054902, alpha: 1.0),
-    "Livid Brown": NSColor(srgbRed: 0.301961, green: 0.156863, blue: 0.180392, alpha: 1.0),
-    "Raven": NSColor(srgbRed: 0.447059, green: 0.482353, blue: 0.537255, alpha: 1.0),
-    "Soft Amber": NSColor(srgbRed: 0.819608, green: 0.776471, blue: 0.705882, alpha: 1.0),
-    "Eclipse": NSColor(srgbRed: 0.192157, green: 0.109804, blue: 0.0901961, alpha: 1.0),
-    "Sapphire": NSColor(srgbRed: 0.184314, green: 0.317647, blue: 0.619608, alpha: 1.0),
-    "Sandstone": NSColor(srgbRed: 0.47451, green: 0.427451, blue: 0.384314, alpha: 1.0),
-    "Falcon": NSColor(srgbRed: 0.498039, green: 0.384314, blue: 0.427451, alpha: 1.0),
-    "Gossip": NSColor(srgbRed: 0.823529, green: 0.972549, blue: 0.690196, alpha: 1.0),
-    "Endeavour": NSColor(srgbRed: 0.0, green: 0.337255, blue: 0.654902, alpha: 1.0),
-    "Tom Thumb": NSColor(srgbRed: 0.247059, green: 0.345098, blue: 0.231373, alpha: 1.0),
-    "Crater Brown": NSColor(srgbRed: 0.27451, green: 0.141176, blue: 0.145098, alpha: 1.0),
-    "Stiletto": NSColor(srgbRed: 0.611765, green: 0.2, blue: 0.211765, alpha: 1.0),
-    "Bahia": NSColor(srgbRed: 0.647059, green: 0.796078, blue: 0.0470588, alpha: 1.0),
-    "Venus": NSColor(srgbRed: 0.572549, green: 0.521569, blue: 0.564706, alpha: 1.0),
-    "Bouquet": NSColor(srgbRed: 0.682353, green: 0.501961, blue: 0.619608, alpha: 1.0),
-    "Golden Grass": NSColor(srgbRed: 0.854902, green: 0.647059, blue: 0.12549, alpha: 1.0),
-    "Submarine": NSColor(srgbRed: 0.729412, green: 0.780392, blue: 0.788235, alpha: 1.0),
-    "Butterfly Bush": NSColor(srgbRed: 0.384314, green: 0.305882, blue: 0.603922, alpha: 1.0),
-    "Chartreuse": NSColor(srgbRed: 0.498039, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Bull Shot": NSColor(srgbRed: 0.52549, green: 0.301961, blue: 0.117647, alpha: 1.0),
-    "Monsoon": NSColor(srgbRed: 0.541176, green: 0.513726, blue: 0.537255, alpha: 1.0),
-    "Pickled Bluewood": NSColor(srgbRed: 0.192157, green: 0.266667, blue: 0.34902, alpha: 1.0),
-    "Metallic Bronze": NSColor(srgbRed: 0.286275, green: 0.215686, blue: 0.105882, alpha: 1.0),
-    "Thunderbird": NSColor(srgbRed: 0.752941, green: 0.168627, blue: 0.0941176, alpha: 1.0),
-    "Sorrell Brown": NSColor(srgbRed: 0.807843, green: 0.72549, blue: 0.560784, alpha: 1.0),
-    "Snowy Mint": NSColor(srgbRed: 0.839216, green: 1.0, blue: 0.858824, alpha: 1.0),
-    "Wax Flower": NSColor(srgbRed: 1.0, green: 0.752941, blue: 0.658824, alpha: 1.0),
-    "Rock Blue": NSColor(srgbRed: 0.619608, green: 0.694118, blue: 0.803922, alpha: 1.0),
-    "Olive": NSColor(srgbRed: 0.501961, green: 0.501961, blue: 0.0, alpha: 1.0),
-    "Regent St Blue": NSColor(srgbRed: 0.666667, green: 0.839216, blue: 0.901961, alpha: 1.0),
-    "Brown Pod": NSColor(srgbRed: 0.25098, green: 0.0941176, blue: 0.00392157, alpha: 1.0),
-    "Purple Mountain's Majesty": NSColor(srgbRed: 0.588235, green: 0.470588, blue: 0.713726, alpha: 1.0),
-    "Congress Blue": NSColor(srgbRed: 0.00784314, green: 0.278431, blue: 0.556863, alpha: 1.0),
-    "Black Bean": NSColor(srgbRed: 0.0313726, green: 0.0980392, blue: 0.0627451, alpha: 1.0),
-    "Laurel": NSColor(srgbRed: 0.454902, green: 0.576471, blue: 0.470588, alpha: 1.0),
-    "Persimmon": NSColor(srgbRed: 1.0, green: 0.419608, blue: 0.32549, alpha: 1.0),
-    "Blue Haze": NSColor(srgbRed: 0.74902, green: 0.745098, blue: 0.847059, alpha: 1.0),
-    "Casablanca": NSColor(srgbRed: 0.972549, green: 0.721569, blue: 0.32549, alpha: 1.0),
-    "Green": NSColor(srgbRed: 0.0, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Vulcan": NSColor(srgbRed: 0.0627451, green: 0.0705882, blue: 0.113725, alpha: 1.0),
-    "Pink Swan": NSColor(srgbRed: 0.745098, green: 0.709804, blue: 0.717647, alpha: 1.0),
-    "Hollywood Cerise": NSColor(srgbRed: 0.956863, green: 0.0, blue: 0.631373, alpha: 1.0),
-    "Citrus": NSColor(srgbRed: 0.631373, green: 0.772549, blue: 0.0392157, alpha: 1.0),
-    "Frangipani": NSColor(srgbRed: 1.0, green: 0.870588, blue: 0.701961, alpha: 1.0),
-    "Yellow": NSColor(srgbRed: 1.0, green: 1.0, blue: 0.0, alpha: 1.0),
-    "Rangoon Green": NSColor(srgbRed: 0.109804, green: 0.117647, blue: 0.0745098, alpha: 1.0),
-    "Cedar": NSColor(srgbRed: 0.243137, green: 0.109804, blue: 0.0784314, alpha: 1.0),
-    "Tuscany": NSColor(srgbRed: 0.741176, green: 0.368627, blue: 0.180392, alpha: 1.0),
-    "Nobel": NSColor(srgbRed: 0.717647, green: 0.694118, blue: 0.694118, alpha: 1.0),
-    "Powder Ash": NSColor(srgbRed: 0.737255, green: 0.788235, blue: 0.760784, alpha: 1.0),
-    "Scandal": NSColor(srgbRed: 0.811765, green: 0.980392, blue: 0.956863, alpha: 1.0),
-    "Palm Leaf": NSColor(srgbRed: 0.0980392, green: 0.2, blue: 0.054902, alpha: 1.0),
-    "Revolver": NSColor(srgbRed: 0.172549, green: 0.0862745, blue: 0.196078, alpha: 1.0),
-    "Diesel": NSColor(srgbRed: 0.0745098, green: 0.0, blue: 0.0, alpha: 1.0),
-    "Teal": NSColor(srgbRed: 0.0, green: 0.501961, blue: 0.501961, alpha: 1.0),
-    "Biscay": NSColor(srgbRed: 0.105882, green: 0.192157, blue: 0.384314, alpha: 1.0),
-    "Salomie": NSColor(srgbRed: 0.996078, green: 0.858824, blue: 0.552941, alpha: 1.0),
-    "Mischka": NSColor(srgbRed: 0.819608, green: 0.823529, blue: 0.866667, alpha: 1.0),
-    "Desert Storm": NSColor(srgbRed: 0.972549, green: 0.972549, blue: 0.968627, alpha: 1.0),
-    "Del Rio": NSColor(srgbRed: 0.690196, green: 0.603922, blue: 0.584314, alpha: 1.0),
-    "Blue Chalk": NSColor(srgbRed: 0.945098, green: 0.913725, blue: 1.0, alpha: 1.0),
-    "Bianca": NSColor(srgbRed: 0.988235, green: 0.984314, blue: 0.952941, alpha: 1.0),
-    "Karaka": NSColor(srgbRed: 0.117647, green: 0.0862745, blue: 0.0352941, alpha: 1.0),
-    "Nutmeg Wood Finish": NSColor(srgbRed: 0.407843, green: 0.211765, blue: 0.0, alpha: 1.0),
-    "Sisal": NSColor(srgbRed: 0.827451, green: 0.796078, blue: 0.729412, alpha: 1.0),
-    "Cabaret": NSColor(srgbRed: 0.85098, green: 0.286275, blue: 0.447059, alpha: 1.0),
-    "Olive Green": NSColor(srgbRed: 0.709804, green: 0.701961, blue: 0.360784, alpha: 1.0),
-    "Yellow Green": NSColor(srgbRed: 0.772549, green: 0.882353, blue: 0.478431, alpha: 1.0),
-    "Half and Half": NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.882353, alpha: 1.0),
-    "Scarlett": NSColor(srgbRed: 0.584314, green: 0.0, blue: 0.0823529, alpha: 1.0),
-    "Gull Gray": NSColor(srgbRed: 0.615686, green: 0.67451, blue: 0.717647, alpha: 1.0),
-    "Cactus": NSColor(srgbRed: 0.345098, green: 0.443137, blue: 0.337255, alpha: 1.0),
-    "Deep Forest Green": NSColor(srgbRed: 0.0941176, green: 0.176471, blue: 0.0352941, alpha: 1.0),
-    "Thistle Green": NSColor(srgbRed: 0.8, green: 0.792157, blue: 0.658824, alpha: 1.0),
-    "Gondola": NSColor(srgbRed: 0.14902, green: 0.0784314, blue: 0.0784314, alpha: 1.0),
-    "Kournikova": NSColor(srgbRed: 1.0, green: 0.905882, blue: 0.447059, alpha: 1.0),
-    "Concrete": NSColor(srgbRed: 0.94902, green: 0.94902, blue: 0.94902, alpha: 1.0),
-    "Potters Clay": NSColor(srgbRed: 0.54902, green: 0.341176, blue: 0.219608, alpha: 1.0),
-    "Goblin": NSColor(srgbRed: 0.239216, green: 0.490196, blue: 0.321569, alpha: 1.0),
-    "Shadow": NSColor(srgbRed: 0.513726, green: 0.439216, blue: 0.313726, alpha: 1.0),
-    "Japanese Maple": NSColor(srgbRed: 0.470588, green: 0.00392157, blue: 0.0352941, alpha: 1.0),
-    "Pale Oyster": NSColor(srgbRed: 0.596078, green: 0.552941, blue: 0.466667, alpha: 1.0),
-    "Turquoise Blue": NSColor(srgbRed: 0.423529, green: 0.854902, blue: 0.905882, alpha: 1.0),
-    "Medium Purple": NSColor(srgbRed: 0.576471, green: 0.439216, blue: 0.858824, alpha: 1.0),
-    "Barossa": NSColor(srgbRed: 0.266667, green: 0.00392157, blue: 0.176471, alpha: 1.0),
-    "Opal": NSColor(srgbRed: 0.662745, green: 0.776471, blue: 0.760784, alpha: 1.0),
-    "Lonestar": NSColor(srgbRed: 0.427451, green: 0.00392157, blue: 0.00392157, alpha: 1.0),
-    "Vista White": NSColor(srgbRed: 0.988235, green: 0.972549, blue: 0.968627, alpha: 1.0),
-    "Soft Peach": NSColor(srgbRed: 0.960784, green: 0.929412, blue: 0.937255, alpha: 1.0),
-    "Oslo Gray": NSColor(srgbRed: 0.529412, green: 0.552941, blue: 0.568627, alpha: 1.0),
-    "Gold Sand": NSColor(srgbRed: 0.901961, green: 0.745098, blue: 0.541176, alpha: 1.0),
-    "Fog": NSColor(srgbRed: 0.843137, green: 0.815686, blue: 1.0, alpha: 1.0),
-    "Mikado": NSColor(srgbRed: 0.176471, green: 0.145098, blue: 0.0627451, alpha: 1.0),
-    "Green Yellow": NSColor(srgbRed: 0.678431, green: 1.0, blue: 0.184314, alpha: 1.0),
-    "Frostee": NSColor(srgbRed: 0.894118, green: 0.964706, blue: 0.905882, alpha: 1.0),
-    "Willow Brook": NSColor(srgbRed: 0.87451, green: 0.92549, blue: 0.854902, alpha: 1.0),
-    "Cumin": NSColor(srgbRed: 0.572549, green: 0.262745, blue: 0.129412, alpha: 1.0),
-    "Tacao": NSColor(srgbRed: 0.929412, green: 0.701961, blue: 0.505882, alpha: 1.0),
-    "Amour": NSColor(srgbRed: 0.976471, green: 0.917647, blue: 0.952941, alpha: 1.0),
-    "Honey Flower": NSColor(srgbRed: 0.309804, green: 0.109804, blue: 0.439216, alpha: 1.0),
-    "Loulou": NSColor(srgbRed: 0.27451, green: 0.0431373, blue: 0.254902, alpha: 1.0),
-    "Tuna": NSColor(srgbRed: 0.207843, green: 0.207843, blue: 0.258824, alpha: 1.0),
-    "Pancho": NSColor(srgbRed: 0.929412, green: 0.803922, blue: 0.670588, alpha: 1.0),
-    "Seashell Peach": NSColor(srgbRed: 1.0, green: 0.960784, blue: 0.933333, alpha: 1.0),
-    "Silk": NSColor(srgbRed: 0.741176, green: 0.694118, blue: 0.658824, alpha: 1.0),
-    "Remy": NSColor(srgbRed: 0.996078, green: 0.921569, blue: 0.952941, alpha: 1.0),
-    "Mauve": NSColor(srgbRed: 0.878431, green: 0.690196, blue: 1.0, alpha: 1.0),
-    "Coriander": NSColor(srgbRed: 0.768627, green: 0.815686, blue: 0.690196, alpha: 1.0),
-    "Matisse": NSColor(srgbRed: 0.105882, green: 0.396078, blue: 0.615686, alpha: 1.0),
-    "Minsk": NSColor(srgbRed: 0.247059, green: 0.188235, blue: 0.498039, alpha: 1.0),
-    "Tasman": NSColor(srgbRed: 0.811765, green: 0.862745, blue: 0.811765, alpha: 1.0),
-    "Spring Leaves": NSColor(srgbRed: 0.341176, green: 0.513726, blue: 0.388235, alpha: 1.0),
-    "Gray Nurse": NSColor(srgbRed: 0.905882, green: 0.92549, blue: 0.901961, alpha: 1.0),
-    "Beauty Bush": NSColor(srgbRed: 0.933333, green: 0.756863, blue: 0.745098, alpha: 1.0),
-    "Cornflower Blue": NSColor(srgbRed: 0.392157, green: 0.584314, blue: 0.929412, alpha: 1.0),
-    "Hacienda": NSColor(srgbRed: 0.596078, green: 0.505882, blue: 0.105882, alpha: 1.0),
-    "Rum": NSColor(srgbRed: 0.47451, green: 0.411765, blue: 0.537255, alpha: 1.0),
-    "Paris White": NSColor(srgbRed: 0.792157, green: 0.862745, blue: 0.831373, alpha: 1.0),
-    "Picasso": NSColor(srgbRed: 1.0, green: 0.952941, blue: 0.615686, alpha: 1.0),
-    "Wild Blue Yonder": NSColor(srgbRed: 0.478431, green: 0.537255, blue: 0.721569, alpha: 1.0),
-    "White Linen": NSColor(srgbRed: 0.972549, green: 0.941176, blue: 0.909804, alpha: 1.0),
-    "Double Colonial White": NSColor(srgbRed: 0.933333, green: 0.890196, blue: 0.678431, alpha: 1.0),
-    "Lavender Pink": NSColor(srgbRed: 0.984314, green: 0.682353, blue: 0.823529, alpha: 1.0),
-    "Thatch Green": NSColor(srgbRed: 0.25098, green: 0.239216, blue: 0.0980392, alpha: 1.0),
-    "New Orleans": NSColor(srgbRed: 0.952941, green: 0.839216, blue: 0.615686, alpha: 1.0),
-    "Verdigris": NSColor(srgbRed: 0.364706, green: 0.368627, blue: 0.215686, alpha: 1.0),
-    "Green House": NSColor(srgbRed: 0.141176, green: 0.313726, blue: 0.0588235, alpha: 1.0),
-    "Marzipan": NSColor(srgbRed: 0.972549, green: 0.858824, blue: 0.615686, alpha: 1.0),
-    "Cerulean": NSColor(srgbRed: 0.00784314, green: 0.643137, blue: 0.827451, alpha: 1.0),
-    "Blackcurrant": NSColor(srgbRed: 0.196078, green: 0.160784, blue: 0.227451, alpha: 1.0),
-    "Blush": NSColor(srgbRed: 0.705882, green: 0.27451, blue: 0.407843, alpha: 1.0),
-    "Granny Smith": NSColor(srgbRed: 0.517647, green: 0.627451, blue: 0.627451, alpha: 1.0),
-    "Shocking": NSColor(srgbRed: 0.886275, green: 0.572549, blue: 0.752941, alpha: 1.0),
-    "Hurricane": NSColor(srgbRed: 0.529412, green: 0.486275, blue: 0.482353, alpha: 1.0),
-    "Egg White": NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.756863, alpha: 1.0),
-    "Rainee": NSColor(srgbRed: 0.72549, green: 0.784314, blue: 0.67451, alpha: 1.0),
-    "Tropical Blue": NSColor(srgbRed: 0.764706, green: 0.866667, blue: 0.976471, alpha: 1.0),
-    "Wafer": NSColor(srgbRed: 0.870588, green: 0.796078, blue: 0.776471, alpha: 1.0),
-    "Arapawa": NSColor(srgbRed: 0.0666667, green: 0.0470588, blue: 0.423529, alpha: 1.0),
-    "Cannon Black": NSColor(srgbRed: 0.145098, green: 0.0901961, blue: 0.0235294, alpha: 1.0),
-    "Kashmir Blue": NSColor(srgbRed: 0.313726, green: 0.439216, blue: 0.588235, alpha: 1.0),
-    "Atoll": NSColor(srgbRed: 0.0392157, green: 0.435294, blue: 0.458824, alpha: 1.0),
-    "Sandy brown": NSColor(srgbRed: 0.956863, green: 0.643137, blue: 0.376471, alpha: 1.0),
-    "Green Smoke": NSColor(srgbRed: 0.643137, green: 0.686275, blue: 0.431373, alpha: 1.0),
-    "Salem": NSColor(srgbRed: 0.0352941, green: 0.498039, blue: 0.294118, alpha: 1.0),
-    "Flirt": NSColor(srgbRed: 0.635294, green: 0.0, blue: 0.427451, alpha: 1.0),
-    "Cardinal Pink": NSColor(srgbRed: 0.54902, green: 0.0196078, blue: 0.368627, alpha: 1.0),
-    "Olive Haze": NSColor(srgbRed: 0.545098, green: 0.517647, blue: 0.439216, alpha: 1.0),
-    "Cutty Sark": NSColor(srgbRed: 0.313726, green: 0.462745, blue: 0.447059, alpha: 1.0),
-    "Mahogany": NSColor(srgbRed: 0.305882, green: 0.0235294, blue: 0.0235294, alpha: 1.0),
-    "Winter Hazel": NSColor(srgbRed: 0.835294, green: 0.819608, blue: 0.584314, alpha: 1.0),
-    "Cape Palliser": NSColor(srgbRed: 0.635294, green: 0.4, blue: 0.270588, alpha: 1.0),
-    "Chilean Fire": NSColor(srgbRed: 0.968627, green: 0.466667, blue: 0.0117647, alpha: 1.0),
-    "Bondi Blue": NSColor(srgbRed: 0.0, green: 0.584314, blue: 0.713726, alpha: 1.0),
-    "Bunting": NSColor(srgbRed: 0.0823529, green: 0.121569, blue: 0.298039, alpha: 1.0),
-    "Hairy Heath": NSColor(srgbRed: 0.419608, green: 0.164706, blue: 0.0784314, alpha: 1.0),
-    "Jazzberry Jam": NSColor(srgbRed: 0.647059, green: 0.0431373, blue: 0.368627, alpha: 1.0),
-    "Apache": NSColor(srgbRed: 0.87451, green: 0.745098, blue: 0.435294, alpha: 1.0),
-    "Black Squeeze": NSColor(srgbRed: 0.94902, green: 0.980392, blue: 0.980392, alpha: 1.0),
-    "Indian Tan": NSColor(srgbRed: 0.301961, green: 0.117647, blue: 0.00392157, alpha: 1.0),
-    "Carrot Orange": NSColor(srgbRed: 0.929412, green: 0.568627, blue: 0.129412, alpha: 1.0),
-    "Pink Lady": NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.847059, alpha: 1.0),
-    "Sapling": NSColor(srgbRed: 0.870588, green: 0.831373, blue: 0.643137, alpha: 1.0),
-    "Carousel Pink": NSColor(srgbRed: 0.976471, green: 0.878431, blue: 0.929412, alpha: 1.0),
-    "Apple": NSColor(srgbRed: 0.309804, green: 0.658824, blue: 0.239216, alpha: 1.0),
-    "Napa": NSColor(srgbRed: 0.67451, green: 0.643137, blue: 0.580392, alpha: 1.0),
-    "Black Olive": NSColor(srgbRed: 0.141176, green: 0.180392, blue: 0.0862745, alpha: 1.0),
-    "Wild Sand": NSColor(srgbRed: 0.956863, green: 0.956863, blue: 0.956863, alpha: 1.0),
-    "Cotton Seed": NSColor(srgbRed: 0.760784, green: 0.741176, blue: 0.713726, alpha: 1.0),
-    "El Paso": NSColor(srgbRed: 0.117647, green: 0.0901961, blue: 0.0313726, alpha: 1.0),
-    "Peach Yellow": NSColor(srgbRed: 0.980392, green: 0.87451, blue: 0.678431, alpha: 1.0),
-    "Cavern Pink": NSColor(srgbRed: 0.890196, green: 0.745098, blue: 0.745098, alpha: 1.0),
-    "Bracken": NSColor(srgbRed: 0.290196, green: 0.164706, blue: 0.0156863, alpha: 1.0),
-    "Cold Purple": NSColor(srgbRed: 0.670588, green: 0.627451, blue: 0.85098, alpha: 1.0),
-    "Polo Blue": NSColor(srgbRed: 0.552941, green: 0.658824, blue: 0.8, alpha: 1.0),
-    "Bright Turquoise": NSColor(srgbRed: 0.0313726, green: 0.909804, blue: 0.870588, alpha: 1.0),
-    "Tuatara": NSColor(srgbRed: 0.211765, green: 0.207843, blue: 0.203922, alpha: 1.0),
-    "Classic Rose": NSColor(srgbRed: 0.984314, green: 0.8, blue: 0.905882, alpha: 1.0),
-    "Zorba": NSColor(srgbRed: 0.647059, green: 0.607843, blue: 0.568627, alpha: 1.0),
-    "Bush": NSColor(srgbRed: 0.0509804, green: 0.180392, blue: 0.109804, alpha: 1.0),
-    "Cab Sav": NSColor(srgbRed: 0.301961, green: 0.0392157, blue: 0.0941176, alpha: 1.0),
-    "Crete": NSColor(srgbRed: 0.45098, green: 0.470588, blue: 0.160784, alpha: 1.0),
-    "Empress": NSColor(srgbRed: 0.505882, green: 0.45098, blue: 0.466667, alpha: 1.0),
-    "Fedora": NSColor(srgbRed: 0.47451, green: 0.415686, blue: 0.470588, alpha: 1.0),
-    "Peanut": NSColor(srgbRed: 0.470588, green: 0.184314, blue: 0.0862745, alpha: 1.0),
-    "Starship": NSColor(srgbRed: 0.92549, green: 0.94902, blue: 0.270588, alpha: 1.0),
-    "Cerise Red": NSColor(srgbRed: 0.870588, green: 0.192157, blue: 0.388235, alpha: 1.0),
-    "Malibu": NSColor(srgbRed: 0.490196, green: 0.784314, blue: 0.968627, alpha: 1.0),
-    "Sunset Orange": NSColor(srgbRed: 0.996078, green: 0.298039, blue: 0.25098, alpha: 1.0),
-    "Old Lavender": NSColor(srgbRed: 0.47451, green: 0.407843, blue: 0.470588, alpha: 1.0),
-    "Zumthor": NSColor(srgbRed: 0.929412, green: 0.964706, blue: 1.0, alpha: 1.0),
-    "Pink Lace": NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.956863, alpha: 1.0),
-    "Korma": NSColor(srgbRed: 0.560784, green: 0.294118, blue: 0.054902, alpha: 1.0),
-    "Pearl Bush": NSColor(srgbRed: 0.909804, green: 0.878431, blue: 0.835294, alpha: 1.0),
-    "Seagull": NSColor(srgbRed: 0.501961, green: 0.8, blue: 0.917647, alpha: 1.0),
-    "Concord": NSColor(srgbRed: 0.486275, green: 0.482353, blue: 0.478431, alpha: 1.0),
-    "Shady Lady": NSColor(srgbRed: 0.666667, green: 0.647059, blue: 0.662745, alpha: 1.0),
-    "Tundora": NSColor(srgbRed: 0.290196, green: 0.258824, blue: 0.266667, alpha: 1.0),
-    "Matrix": NSColor(srgbRed: 0.690196, green: 0.364706, blue: 0.329412, alpha: 1.0),
-    "Lavender": NSColor(srgbRed: 0.709804, green: 0.494118, blue: 0.862745, alpha: 1.0),
-    "Blossom": NSColor(srgbRed: 0.862745, green: 0.705882, blue: 0.737255, alpha: 1.0),
-    "Woodsmoke": NSColor(srgbRed: 0.0470588, green: 0.0509804, blue: 0.0588235, alpha: 1.0),
-    "Domino": NSColor(srgbRed: 0.556863, green: 0.466667, blue: 0.368627, alpha: 1.0),
-    "Ironside Gray": NSColor(srgbRed: 0.403922, green: 0.4, blue: 0.384314, alpha: 1.0),
-    "Cafe Royale": NSColor(srgbRed: 0.435294, green: 0.266667, blue: 0.0470588, alpha: 1.0),
-    "Heath": NSColor(srgbRed: 0.329412, green: 0.0627451, blue: 0.0705882, alpha: 1.0),
-    "Te Papa Green": NSColor(srgbRed: 0.117647, green: 0.262745, blue: 0.235294, alpha: 1.0),
-    "Energy Yellow": NSColor(srgbRed: 0.972549, green: 0.866667, blue: 0.360784, alpha: 1.0),
-    "Dark Fern": NSColor(srgbRed: 0.0392157, green: 0.282353, blue: 0.0509804, alpha: 1.0),
-    "Vista Blue": NSColor(srgbRed: 0.560784, green: 0.839216, blue: 0.705882, alpha: 1.0),
-    "Pizazz": NSColor(srgbRed: 1.0, green: 0.564706, blue: 0.0, alpha: 1.0),
-    "Deep Blue": NSColor(srgbRed: 0.133333, green: 0.0313726, blue: 0.470588, alpha: 1.0),
-    "Swamp Green": NSColor(srgbRed: 0.67451, green: 0.717647, blue: 0.556863, alpha: 1.0),
-    "Hot Pink": NSColor(srgbRed: 1.0, green: 0.411765, blue: 0.705882, alpha: 1.0),
-    "Salmon": NSColor(srgbRed: 1.0, green: 0.54902, blue: 0.411765, alpha: 1.0),
-    "Blue Bell": NSColor(srgbRed: 0.6, green: 0.6, blue: 0.8, alpha: 1.0),
-    "Heavy Metal": NSColor(srgbRed: 0.168627, green: 0.196078, blue: 0.156863, alpha: 1.0),
-    "Paris M": NSColor(srgbRed: 0.14902, green: 0.0196078, blue: 0.415686, alpha: 1.0),
-    "Shamrock": NSColor(srgbRed: 0.2, green: 0.8, blue: 0.6, alpha: 1.0),
-    "Cerise": NSColor(srgbRed: 0.854902, green: 0.196078, blue: 0.529412, alpha: 1.0),
-    "Alizarin Crimson": NSColor(srgbRed: 0.890196, green: 0.14902, blue: 0.211765, alpha: 1.0),
-    "Sinbad": NSColor(srgbRed: 0.623529, green: 0.843137, blue: 0.827451, alpha: 1.0),
-    "Eggplant": NSColor(srgbRed: 0.380392, green: 0.25098, blue: 0.317647, alpha: 1.0),
-    "Waikawa Gray": NSColor(srgbRed: 0.352941, green: 0.431373, blue: 0.611765, alpha: 1.0),
-    "Marigold": NSColor(srgbRed: 0.72549, green: 0.552941, blue: 0.156863, alpha: 1.0),
-    "Spring Sun": NSColor(srgbRed: 0.964706, green: 1.0, blue: 0.862745, alpha: 1.0),
-    "Irish Coffee": NSColor(srgbRed: 0.372549, green: 0.239216, blue: 0.14902, alpha: 1.0),
-    "Gray": NSColor(srgbRed: 0.501961, green: 0.501961, blue: 0.501961, alpha: 1.0),
-    "Amazon": NSColor(srgbRed: 0.231373, green: 0.478431, blue: 0.341176, alpha: 1.0),
-    "Yellow Metal": NSColor(srgbRed: 0.443137, green: 0.388235, blue: 0.219608, alpha: 1.0),
-    "Cloud": NSColor(srgbRed: 0.780392, green: 0.768627, blue: 0.74902, alpha: 1.0),
-    "Casper": NSColor(srgbRed: 0.678431, green: 0.745098, blue: 0.819608, alpha: 1.0),
-    "Mallard": NSColor(srgbRed: 0.137255, green: 0.203922, blue: 0.0941176, alpha: 1.0),
-    "Laser": NSColor(srgbRed: 0.784314, green: 0.709804, blue: 0.407843, alpha: 1.0),
-    "Atomic Tangerine": NSColor(srgbRed: 1.0, green: 0.6, blue: 0.4, alpha: 1.0),
-    "Tumbleweed": NSColor(srgbRed: 0.870588, green: 0.65098, blue: 0.505882, alpha: 1.0),
-    "Bison Hide": NSColor(srgbRed: 0.756863, green: 0.717647, blue: 0.643137, alpha: 1.0),
-    "Outer Space": NSColor(srgbRed: 0.176471, green: 0.219608, blue: 0.227451, alpha: 1.0),
-    "Temptress": NSColor(srgbRed: 0.231373, green: 0.0, blue: 0.0431373, alpha: 1.0),
-    "Aqua Island": NSColor(srgbRed: 0.631373, green: 0.854902, blue: 0.843137, alpha: 1.0),
-    "Di Serria": NSColor(srgbRed: 0.858824, green: 0.6, blue: 0.368627, alpha: 1.0),
-    "Redwood": NSColor(srgbRed: 0.364706, green: 0.117647, blue: 0.0588235, alpha: 1.0),
-    "Stonewall": NSColor(srgbRed: 0.572549, green: 0.521569, blue: 0.45098, alpha: 1.0),
-    "Jet Stream": NSColor(srgbRed: 0.709804, green: 0.823529, blue: 0.807843, alpha: 1.0),
-    "Perano": NSColor(srgbRed: 0.662745, green: 0.745098, blue: 0.94902, alpha: 1.0),
-    "Melanzane": NSColor(srgbRed: 0.188235, green: 0.0196078, blue: 0.160784, alpha: 1.0),
-    "Royal Heath": NSColor(srgbRed: 0.670588, green: 0.203922, blue: 0.447059, alpha: 1.0),
-    "Elf Green": NSColor(srgbRed: 0.0313726, green: 0.513726, blue: 0.439216, alpha: 1.0),
-    "Blue Charcoal": NSColor(srgbRed: 0.00392157, green: 0.0509804, blue: 0.101961, alpha: 1.0),
-    "Akaroa": NSColor(srgbRed: 0.831373, green: 0.768627, blue: 0.658824, alpha: 1.0),
-    "La Palma": NSColor(srgbRed: 0.211765, green: 0.529412, blue: 0.0862745, alpha: 1.0),
-    "Indian Khaki": NSColor(srgbRed: 0.764706, green: 0.690196, blue: 0.568627, alpha: 1.0),
-    "Cranberry": NSColor(srgbRed: 0.858824, green: 0.313726, blue: 0.47451, alpha: 1.0),
-    "Night Shadz": NSColor(srgbRed: 0.666667, green: 0.215686, blue: 0.352941, alpha: 1.0),
-    "Kilamanjaro": NSColor(srgbRed: 0.141176, green: 0.0470588, blue: 0.00784314, alpha: 1.0),
-    "Castro": NSColor(srgbRed: 0.321569, green: 0.0, blue: 0.121569, alpha: 1.0),
-    "Solid Pink": NSColor(srgbRed: 0.537255, green: 0.219608, blue: 0.262745, alpha: 1.0),
-    "Raw Sienna": NSColor(srgbRed: 0.823529, green: 0.490196, blue: 0.27451, alpha: 1.0),
-    "Antique Bronze": NSColor(srgbRed: 0.439216, green: 0.290196, blue: 0.027451, alpha: 1.0),
-    "Chinook": NSColor(srgbRed: 0.658824, green: 0.890196, blue: 0.741176, alpha: 1.0),
-    "Fringy Flower": NSColor(srgbRed: 0.694118, green: 0.886275, blue: 0.756863, alpha: 1.0),
-    "Piper": NSColor(srgbRed: 0.788235, green: 0.388235, blue: 0.137255, alpha: 1.0),
-    "Pink Flamingo": NSColor(srgbRed: 1.0, green: 0.4, blue: 1.0, alpha: 1.0),
-    "Hint of Green": NSColor(srgbRed: 0.901961, green: 1.0, blue: 0.913725, alpha: 1.0),
-    "Vivid Violet": NSColor(srgbRed: 0.501961, green: 0.215686, blue: 0.564706, alpha: 1.0),
-    "Blue Diamond": NSColor(srgbRed: 0.219608, green: 0.0156863, blue: 0.454902, alpha: 1.0),
-    "Givry": NSColor(srgbRed: 0.972549, green: 0.894118, blue: 0.74902, alpha: 1.0),
-    "Flush Mahogany": NSColor(srgbRed: 0.792157, green: 0.203922, blue: 0.207843, alpha: 1.0),
-    "Riptide": NSColor(srgbRed: 0.545098, green: 0.901961, blue: 0.847059, alpha: 1.0),
-    "Geraldine": NSColor(srgbRed: 0.984314, green: 0.537255, blue: 0.537255, alpha: 1.0),
-    "Light Wisteria": NSColor(srgbRed: 0.788235, green: 0.627451, blue: 0.862745, alpha: 1.0),
-    "Delta": NSColor(srgbRed: 0.643137, green: 0.643137, blue: 0.615686, alpha: 1.0),
-    "Burnham": NSColor(srgbRed: 0.0, green: 0.180392, blue: 0.12549, alpha: 1.0),
-    "Affair": NSColor(srgbRed: 0.443137, green: 0.27451, blue: 0.576471, alpha: 1.0),
-    "Rouge": NSColor(srgbRed: 0.635294, green: 0.231373, blue: 0.423529, alpha: 1.0),
-    "Sail": NSColor(srgbRed: 0.721569, green: 0.878431, blue: 0.976471, alpha: 1.0),
-    "Prairie Sand": NSColor(srgbRed: 0.603922, green: 0.219608, blue: 0.12549, alpha: 1.0),
-    "Masala": NSColor(srgbRed: 0.25098, green: 0.231373, blue: 0.219608, alpha: 1.0),
-    "Hillary": NSColor(srgbRed: 0.67451, green: 0.647059, blue: 0.52549, alpha: 1.0),
-    "Turmeric": NSColor(srgbRed: 0.792157, green: 0.733333, blue: 0.282353, alpha: 1.0),
-    "White Ice": NSColor(srgbRed: 0.866667, green: 0.976471, blue: 0.945098, alpha: 1.0),
-    "Oriental Pink": NSColor(srgbRed: 0.776471, green: 0.568627, blue: 0.568627, alpha: 1.0),
-    "Dingley": NSColor(srgbRed: 0.364706, green: 0.466667, blue: 0.278431, alpha: 1.0),
-    "Persian Red": NSColor(srgbRed: 0.8, green: 0.2, blue: 0.2, alpha: 1.0),
-    "Light Orchid": NSColor(srgbRed: 0.886275, green: 0.611765, blue: 0.823529, alpha: 1.0),
-    "Como": NSColor(srgbRed: 0.317647, green: 0.486275, blue: 0.4, alpha: 1.0),
-    "Half Colonial White": NSColor(srgbRed: 0.992157, green: 0.964706, blue: 0.827451, alpha: 1.0),
-    "Pistachio": NSColor(srgbRed: 0.615686, green: 0.760784, blue: 0.0352941, alpha: 1.0),
-    "Ivory": NSColor(srgbRed: 1.0, green: 1.0, blue: 0.941176, alpha: 1.0),
-    "Mercury": NSColor(srgbRed: 0.898039, green: 0.898039, blue: 0.898039, alpha: 1.0),
-    "Mexican Red": NSColor(srgbRed: 0.654902, green: 0.145098, blue: 0.145098, alpha: 1.0),
-    "Tickle Me Pink": NSColor(srgbRed: 0.988235, green: 0.501961, blue: 0.647059, alpha: 1.0),
-    "Cascade": NSColor(srgbRed: 0.545098, green: 0.662745, blue: 0.647059, alpha: 1.0),
-    "Oracle": NSColor(srgbRed: 0.215686, green: 0.454902, blue: 0.458824, alpha: 1.0),
-    "Spray": NSColor(srgbRed: 0.47451, green: 0.870588, blue: 0.92549, alpha: 1.0),
-    "Tiara": NSColor(srgbRed: 0.764706, green: 0.819608, blue: 0.819608, alpha: 1.0),
-    "Peppermint": NSColor(srgbRed: 0.890196, green: 0.960784, blue: 0.882353, alpha: 1.0),
-    "Lily White": NSColor(srgbRed: 0.905882, green: 0.972549, blue: 1.0, alpha: 1.0),
-    "Medium Carmine": NSColor(srgbRed: 0.686275, green: 0.25098, blue: 0.207843, alpha: 1.0),
-    "Pohutukawa": NSColor(srgbRed: 0.560784, green: 0.00784314, blue: 0.109804, alpha: 1.0),
-    "Key Lime Pie": NSColor(srgbRed: 0.74902, green: 0.788235, blue: 0.129412, alpha: 1.0),
-    "Tahiti Gold": NSColor(srgbRed: 0.913725, green: 0.486275, blue: 0.027451, alpha: 1.0),
-    "Jelly Bean": NSColor(srgbRed: 0.160784, green: 0.482353, blue: 0.603922, alpha: 1.0),
-    "Firefly": NSColor(srgbRed: 0.054902, green: 0.164706, blue: 0.188235, alpha: 1.0),
-    "Burnt Orange": NSColor(srgbRed: 0.8, green: 0.333333, blue: 0.0, alpha: 1.0),
-    "Nero": NSColor(srgbRed: 0.0784314, green: 0.0235294, blue: 0.0, alpha: 1.0),
-    "Feijoa": NSColor(srgbRed: 0.623529, green: 0.866667, blue: 0.54902, alpha: 1.0),
-    "Sunflower": NSColor(srgbRed: 0.894118, green: 0.831373, blue: 0.133333, alpha: 1.0),
-    "Sunglo": NSColor(srgbRed: 0.882353, green: 0.407843, blue: 0.396078, alpha: 1.0),
-    "Chambray": NSColor(srgbRed: 0.207843, green: 0.305882, blue: 0.54902, alpha: 1.0),
-    "Ottoman": NSColor(srgbRed: 0.913725, green: 0.972549, blue: 0.929412, alpha: 1.0),
-    "Martini": NSColor(srgbRed: 0.686275, green: 0.627451, blue: 0.619608, alpha: 1.0),
-    "Blaze Orange": NSColor(srgbRed: 1.0, green: 0.4, blue: 0.0, alpha: 1.0),
-    "Rustic Red": NSColor(srgbRed: 0.282353, green: 0.0156863, blue: 0.0156863, alpha: 1.0),
-    "Sky Blue": NSColor(srgbRed: 0.462745, green: 0.843137, blue: 0.917647, alpha: 1.0),
-    "Tango": NSColor(srgbRed: 0.929412, green: 0.478431, blue: 0.109804, alpha: 1.0),
-    "Black Marlin": NSColor(srgbRed: 0.243137, green: 0.172549, blue: 0.109804, alpha: 1.0),
-    "Downy": NSColor(srgbRed: 0.435294, green: 0.815686, blue: 0.772549, alpha: 1.0),
-    "Your Pink": NSColor(srgbRed: 1.0, green: 0.764706, blue: 0.752941, alpha: 1.0),
-    "Mantis": NSColor(srgbRed: 0.454902, green: 0.764706, blue: 0.396078, alpha: 1.0),
-    "Monte Carlo": NSColor(srgbRed: 0.513726, green: 0.815686, blue: 0.776471, alpha: 1.0),
-    "Ebony Clay": NSColor(srgbRed: 0.14902, green: 0.156863, blue: 0.231373, alpha: 1.0),
-    "Rock Spray": NSColor(srgbRed: 0.729412, green: 0.270588, blue: 0.0470588, alpha: 1.0),
-    "Crowshead": NSColor(srgbRed: 0.109804, green: 0.0705882, blue: 0.0313726, alpha: 1.0),
-    "Double Spanish White": NSColor(srgbRed: 0.901961, green: 0.843137, blue: 0.72549, alpha: 1.0),
-    "Breaker Bay": NSColor(srgbRed: 0.364706, green: 0.631373, blue: 0.623529, alpha: 1.0),
-    "Black White": NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.964706, alpha: 1.0),
-    "Resolution Blue": NSColor(srgbRed: 0.0, green: 0.137255, blue: 0.529412, alpha: 1.0),
-    "Ecru White": NSColor(srgbRed: 0.960784, green: 0.952941, blue: 0.898039, alpha: 1.0),
-    "Summer Green": NSColor(srgbRed: 0.588235, green: 0.733333, blue: 0.670588, alpha: 1.0),
-    "Cameo": NSColor(srgbRed: 0.85098, green: 0.72549, blue: 0.607843, alpha: 1.0),
-    "Green White": NSColor(srgbRed: 0.909804, green: 0.921569, blue: 0.878431, alpha: 1.0),
-    "Mosque": NSColor(srgbRed: 0.0117647, green: 0.415686, blue: 0.431373, alpha: 1.0),
-    "Sambuca": NSColor(srgbRed: 0.227451, green: 0.12549, blue: 0.0627451, alpha: 1.0),
-    "Pomegranate": NSColor(srgbRed: 0.952941, green: 0.278431, blue: 0.137255, alpha: 1.0),
-    "Fantasy": NSColor(srgbRed: 0.980392, green: 0.952941, blue: 0.941176, alpha: 1.0),
-    "Wood Bark": NSColor(srgbRed: 0.14902, green: 0.0666667, blue: 0.0196078, alpha: 1.0),
-    "Nomad": NSColor(srgbRed: 0.729412, green: 0.694118, blue: 0.635294, alpha: 1.0),
-    "Olive Drab": NSColor(srgbRed: 0.419608, green: 0.556863, blue: 0.137255, alpha: 1.0),
-    "Macaroni and Cheese": NSColor(srgbRed: 1.0, green: 0.72549, blue: 0.482353, alpha: 1.0),
-    "Tarawera": NSColor(srgbRed: 0.027451, green: 0.227451, blue: 0.313726, alpha: 1.0),
-    "Just Right": NSColor(srgbRed: 0.92549, green: 0.803922, blue: 0.72549, alpha: 1.0),
-    "Pacific Blue": NSColor(srgbRed: 0.0, green: 0.615686, blue: 0.768627, alpha: 1.0),
-    "Fuego": NSColor(srgbRed: 0.745098, green: 0.870588, blue: 0.0509804, alpha: 1.0),
-    "Ice Cold": NSColor(srgbRed: 0.694118, green: 0.956863, blue: 0.905882, alpha: 1.0),
-    "Solitaire": NSColor(srgbRed: 0.996078, green: 0.972549, blue: 0.886275, alpha: 1.0),
-    "Chalet Green": NSColor(srgbRed: 0.317647, green: 0.431373, blue: 0.239216, alpha: 1.0),
-    "Cinnamon": NSColor(srgbRed: 0.482353, green: 0.247059, blue: 0.0, alpha: 1.0),
-    "Buttered Rum": NSColor(srgbRed: 0.631373, green: 0.458824, blue: 0.0509804, alpha: 1.0),
-    "Confetti": NSColor(srgbRed: 0.913725, green: 0.843137, blue: 0.352941, alpha: 1.0),
-    "Bottle Green": NSColor(srgbRed: 0.0352941, green: 0.211765, blue: 0.141176, alpha: 1.0),
-    "Cornflower": NSColor(srgbRed: 0.576471, green: 0.8, blue: 0.917647, alpha: 1.0),
-    "Trendy Pink": NSColor(srgbRed: 0.54902, green: 0.392157, blue: 0.584314, alpha: 1.0),
-    "Ebb": NSColor(srgbRed: 0.913725, green: 0.890196, blue: 0.890196, alpha: 1.0),
-    "Siam": NSColor(srgbRed: 0.392157, green: 0.415686, blue: 0.329412, alpha: 1.0),
-    "Spanish Green": NSColor(srgbRed: 0.505882, green: 0.596078, blue: 0.521569, alpha: 1.0),
-    "Chardon": NSColor(srgbRed: 1.0, green: 0.952941, blue: 0.945098, alpha: 1.0),
-    "Rob Roy": NSColor(srgbRed: 0.917647, green: 0.776471, blue: 0.454902, alpha: 1.0),
-    "Chamois": NSColor(srgbRed: 0.929412, green: 0.862745, blue: 0.694118, alpha: 1.0),
-    "Citrine White": NSColor(srgbRed: 0.980392, green: 0.968627, blue: 0.839216, alpha: 1.0),
-    "Timberwolf": NSColor(srgbRed: 0.85098, green: 0.839216, blue: 0.811765, alpha: 1.0),
-    "Iron": NSColor(srgbRed: 0.831373, green: 0.843137, blue: 0.85098, alpha: 1.0),
-    "Voodoo": NSColor(srgbRed: 0.32549, green: 0.203922, blue: 0.333333, alpha: 1.0),
-    "Gin Fizz": NSColor(srgbRed: 1.0, green: 0.976471, blue: 0.886275, alpha: 1.0),
-    "Purple": NSColor(srgbRed: 0.4, green: 0.0, blue: 0.6, alpha: 1.0),
-    "Moody Blue": NSColor(srgbRed: 0.498039, green: 0.462745, blue: 0.827451, alpha: 1.0),
-    "Moon Raker": NSColor(srgbRed: 0.839216, green: 0.807843, blue: 0.964706, alpha: 1.0),
-    "Opium": NSColor(srgbRed: 0.556863, green: 0.435294, blue: 0.439216, alpha: 1.0),
-    "Carnaby Tan": NSColor(srgbRed: 0.360784, green: 0.180392, blue: 0.00392157, alpha: 1.0),
-    "Mako": NSColor(srgbRed: 0.266667, green: 0.286275, blue: 0.329412, alpha: 1.0),
-    "Meteor": NSColor(srgbRed: 0.815686, green: 0.490196, blue: 0.0705882, alpha: 1.0),
-    "Copper": NSColor(srgbRed: 0.721569, green: 0.45098, blue: 0.2, alpha: 1.0),
-    "Coconut Cream": NSColor(srgbRed: 0.972549, green: 0.968627, blue: 0.862745, alpha: 1.0),
-    "Tahuna Sands": NSColor(srgbRed: 0.933333, green: 0.941176, blue: 0.784314, alpha: 1.0),
-    "Bermuda": NSColor(srgbRed: 0.490196, green: 0.847059, blue: 0.776471, alpha: 1.0),
-    "Chatelle": NSColor(srgbRed: 0.741176, green: 0.701961, blue: 0.780392, alpha: 1.0),
-    "Cello": NSColor(srgbRed: 0.117647, green: 0.219608, blue: 0.356863, alpha: 1.0),
-    "Sahara": NSColor(srgbRed: 0.717647, green: 0.635294, blue: 0.0784314, alpha: 1.0),
-    "Rio Grande": NSColor(srgbRed: 0.733333, green: 0.815686, blue: 0.0352941, alpha: 1.0),
-    "Spicy Pink": NSColor(srgbRed: 0.505882, green: 0.431373, blue: 0.443137, alpha: 1.0),
-    "Charlotte": NSColor(srgbRed: 0.729412, green: 0.933333, blue: 0.976471, alpha: 1.0),
-    "Old Lace": NSColor(srgbRed: 0.992157, green: 0.960784, blue: 0.901961, alpha: 1.0),
-    "Driftwood": NSColor(srgbRed: 0.686275, green: 0.529412, blue: 0.317647, alpha: 1.0),
-    "Mine Shaft": NSColor(srgbRed: 0.196078, green: 0.196078, blue: 0.196078, alpha: 1.0),
-    "Rose of Sharon": NSColor(srgbRed: 0.74902, green: 0.333333, blue: 0.0, alpha: 1.0),
-    "Prussian Blue": NSColor(srgbRed: 0.0, green: 0.192157, blue: 0.32549, alpha: 1.0),
-    "Manz": NSColor(srgbRed: 0.933333, green: 0.937255, blue: 0.470588, alpha: 1.0),
-    "Ceramic": NSColor(srgbRed: 0.988235, green: 1.0, blue: 0.976471, alpha: 1.0),
-    "Limed Oak": NSColor(srgbRed: 0.67451, green: 0.541176, blue: 0.337255, alpha: 1.0),
-    "Zanah": NSColor(srgbRed: 0.854902, green: 0.92549, blue: 0.839216, alpha: 1.0),
-    "Ferra": NSColor(srgbRed: 0.439216, green: 0.309804, blue: 0.313726, alpha: 1.0),
-    "Midnight Moss": NSColor(srgbRed: 0.0156863, green: 0.0627451, blue: 0.0156863, alpha: 1.0),
-    "Ronchi": NSColor(srgbRed: 0.92549, green: 0.772549, blue: 0.305882, alpha: 1.0),
-    "White Pointer": NSColor(srgbRed: 0.996078, green: 0.972549, blue: 1.0, alpha: 1.0),
-    "Shakespeare": NSColor(srgbRed: 0.305882, green: 0.670588, blue: 0.819608, alpha: 1.0),
-    "Vanilla Ice": NSColor(srgbRed: 0.952941, green: 0.85098, blue: 0.87451, alpha: 1.0),
-    "Antique Brass": NSColor(srgbRed: 0.784314, green: 0.541176, blue: 0.396078, alpha: 1.0),
-    "Quarter Spanish White": NSColor(srgbRed: 0.968627, green: 0.94902, blue: 0.882353, alpha: 1.0),
-    "Chocolate": NSColor(srgbRed: 0.215686, green: 0.00784314, blue: 0.00784314, alpha: 1.0),
-    "Sandrift": NSColor(srgbRed: 0.670588, green: 0.568627, blue: 0.478431, alpha: 1.0),
-    "Jaffa": NSColor(srgbRed: 0.937255, green: 0.52549, blue: 0.247059, alpha: 1.0),
-    "Canary": NSColor(srgbRed: 0.952941, green: 0.984314, blue: 0.384314, alpha: 1.0),
-    "Violent Violet": NSColor(srgbRed: 0.160784, green: 0.0470588, blue: 0.368627, alpha: 1.0),
-    "Camouflage Green": NSColor(srgbRed: 0.470588, green: 0.52549, blue: 0.419608, alpha: 1.0),
-    "Regent Gray": NSColor(srgbRed: 0.52549, green: 0.580392, blue: 0.623529, alpha: 1.0),
-    "Metallic Copper": NSColor(srgbRed: 0.443137, green: 0.160784, blue: 0.113725, alpha: 1.0),
-    "Cloud Burst": NSColor(srgbRed: 0.12549, green: 0.180392, blue: 0.329412, alpha: 1.0),
-    "Green Kelp": NSColor(srgbRed: 0.145098, green: 0.192157, blue: 0.109804, alpha: 1.0),
-    "Elephant": NSColor(srgbRed: 0.0705882, green: 0.203922, blue: 0.278431, alpha: 1.0),
-    "Kokoda": NSColor(srgbRed: 0.431373, green: 0.427451, blue: 0.341176, alpha: 1.0),
-    "Jaguar": NSColor(srgbRed: 0.0313726, green: 0.00392157, blue: 0.0627451, alpha: 1.0),
-    "Red Robin": NSColor(srgbRed: 0.501961, green: 0.203922, blue: 0.121569, alpha: 1.0),
-    "Celadon": NSColor(srgbRed: 0.67451, green: 0.882353, blue: 0.686275, alpha: 1.0),
-    "Eagle": NSColor(srgbRed: 0.713726, green: 0.729412, blue: 0.643137, alpha: 1.0),
-    "Zircon": NSColor(srgbRed: 0.956863, green: 0.972549, blue: 1.0, alpha: 1.0),
-    "Champagne": NSColor(srgbRed: 0.980392, green: 0.92549, blue: 0.8, alpha: 1.0),
-    "Hot Cinnamon": NSColor(srgbRed: 0.823529, green: 0.411765, blue: 0.117647, alpha: 1.0),
-    "Black": NSColor(srgbRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
-    "Red Oxide": NSColor(srgbRed: 0.431373, green: 0.0352941, blue: 0.00784314, alpha: 1.0),
-    "Fuchsia Blue": NSColor(srgbRed: 0.478431, green: 0.345098, blue: 0.756863, alpha: 1.0),
-    "Dew": NSColor(srgbRed: 0.917647, green: 1.0, blue: 0.996078, alpha: 1.0),
-    "Violet Red": NSColor(srgbRed: 0.968627, green: 0.27451, blue: 0.541176, alpha: 1.0),
-    "Celeste": NSColor(srgbRed: 0.819608, green: 0.823529, blue: 0.792157, alpha: 1.0),
-    "Hint of Red": NSColor(srgbRed: 0.984314, green: 0.976471, blue: 0.976471, alpha: 1.0),
-    "Chenin": NSColor(srgbRed: 0.87451, green: 0.803922, blue: 0.435294, alpha: 1.0),
-    "Conch": NSColor(srgbRed: 0.788235, green: 0.85098, blue: 0.823529, alpha: 1.0),
-    "Surf Crest": NSColor(srgbRed: 0.811765, green: 0.898039, blue: 0.823529, alpha: 1.0),
-    "Sauvignon": NSColor(srgbRed: 1.0, green: 0.960784, blue: 0.952941, alpha: 1.0),
-    "Wild Strawberry": NSColor(srgbRed: 1.0, green: 0.2, blue: 0.6, alpha: 1.0),
-    "Polar": NSColor(srgbRed: 0.898039, green: 0.976471, blue: 0.964706, alpha: 1.0),
-    "Shark": NSColor(srgbRed: 0.145098, green: 0.152941, blue: 0.172549, alpha: 1.0),
-    "San Juan": NSColor(srgbRed: 0.188235, green: 0.294118, blue: 0.415686, alpha: 1.0),
-    "Pigeon Post": NSColor(srgbRed: 0.686275, green: 0.741176, blue: 0.85098, alpha: 1.0),
-    "Tia Maria": NSColor(srgbRed: 0.756863, green: 0.266667, blue: 0.054902, alpha: 1.0),
-    "Kimberly": NSColor(srgbRed: 0.45098, green: 0.423529, blue: 0.623529, alpha: 1.0),
-    "Bilbao": NSColor(srgbRed: 0.196078, green: 0.486275, blue: 0.0784314, alpha: 1.0),
-    "San Marino": NSColor(srgbRed: 0.270588, green: 0.423529, blue: 0.67451, alpha: 1.0),
-    "Tallow": NSColor(srgbRed: 0.658824, green: 0.647059, blue: 0.537255, alpha: 1.0),
-    "Gum Leaf": NSColor(srgbRed: 0.713726, green: 0.827451, blue: 0.74902, alpha: 1.0),
-    "Jonquil": NSColor(srgbRed: 0.933333, green: 1.0, blue: 0.603922, alpha: 1.0),
-    "Rope": NSColor(srgbRed: 0.556863, green: 0.301961, blue: 0.117647, alpha: 1.0),
-    "Ziggurat": NSColor(srgbRed: 0.74902, green: 0.858824, blue: 0.886275, alpha: 1.0),
-    "English Walnut": NSColor(srgbRed: 0.243137, green: 0.168627, blue: 0.137255, alpha: 1.0),
-    "International Orange": NSColor(srgbRed: 1.0, green: 0.309804, blue: 0.0, alpha: 1.0),
-    "Porcelain": NSColor(srgbRed: 0.937255, green: 0.94902, blue: 0.952941, alpha: 1.0),
-    "Chetwode Blue": NSColor(srgbRed: 0.521569, green: 0.505882, blue: 0.85098, alpha: 1.0),
-    "Wild Willow": NSColor(srgbRed: 0.72549, green: 0.768627, blue: 0.415686, alpha: 1.0),
-    "Cobalt": NSColor(srgbRed: 0.0, green: 0.278431, blue: 0.670588, alpha: 1.0),
-    "Silver": NSColor(srgbRed: 0.752941, green: 0.752941, blue: 0.752941, alpha: 1.0),
-    "Las Palmas": NSColor(srgbRed: 0.776471, green: 0.901961, blue: 0.0627451, alpha: 1.0),
-    "Azalea": NSColor(srgbRed: 0.968627, green: 0.784314, blue: 0.854902, alpha: 1.0),
-    "Contessa": NSColor(srgbRed: 0.776471, green: 0.447059, blue: 0.419608, alpha: 1.0),
-    "Asphalt": NSColor(srgbRed: 0.0745098, green: 0.0392157, blue: 0.0235294, alpha: 1.0),
-    "Kelp": NSColor(srgbRed: 0.270588, green: 0.286275, blue: 0.211765, alpha: 1.0),
-    "Pale Canary": NSColor(srgbRed: 1.0, green: 1.0, blue: 0.6, alpha: 1.0),
-    "Celtic": NSColor(srgbRed: 0.0862745, green: 0.196078, blue: 0.133333, alpha: 1.0),
-    "Amethyst Smoke": NSColor(srgbRed: 0.639216, green: 0.592157, blue: 0.705882, alpha: 1.0),
-    "Melanie": NSColor(srgbRed: 0.894118, green: 0.760784, blue: 0.835294, alpha: 1.0),
-    "Gulf Stream": NSColor(srgbRed: 0.501961, green: 0.701961, blue: 0.682353, alpha: 1.0),
-    "Aqua Squeeze": NSColor(srgbRed: 0.909804, green: 0.960784, blue: 0.94902, alpha: 1.0),
-    "Bazaar": NSColor(srgbRed: 0.596078, green: 0.466667, blue: 0.482353, alpha: 1.0),
-    "Lynch": NSColor(srgbRed: 0.411765, green: 0.494118, blue: 0.603922, alpha: 1.0),
-    "Barley Corn": NSColor(srgbRed: 0.65098, green: 0.545098, blue: 0.356863, alpha: 1.0),
-    "Brilliant Rose": NSColor(srgbRed: 0.964706, green: 0.32549, blue: 0.65098, alpha: 1.0),
-    "Old Rose": NSColor(srgbRed: 0.752941, green: 0.501961, blue: 0.505882, alpha: 1.0),
-    "Astral": NSColor(srgbRed: 0.196078, green: 0.490196, blue: 0.627451, alpha: 1.0),
-    "Apricot Peach": NSColor(srgbRed: 0.984314, green: 0.807843, blue: 0.694118, alpha: 1.0),
-    "Wine Berry": NSColor(srgbRed: 0.34902, green: 0.113725, blue: 0.207843, alpha: 1.0),
-    "Tide": NSColor(srgbRed: 0.74902, green: 0.721569, blue: 0.690196, alpha: 1.0),
-    "Denim": NSColor(srgbRed: 0.0823529, green: 0.376471, blue: 0.741176, alpha: 1.0),
-    "Sunglow": NSColor(srgbRed: 1.0, green: 0.8, blue: 0.2, alpha: 1.0),
-    "Primrose": NSColor(srgbRed: 0.929412, green: 0.917647, blue: 0.6, alpha: 1.0),
-    "Dark Burgundy": NSColor(srgbRed: 0.466667, green: 0.0588235, blue: 0.0196078, alpha: 1.0),
-    "Kidnapper": NSColor(srgbRed: 0.882353, green: 0.917647, blue: 0.831373, alpha: 1.0),
-    "Hit Pink": NSColor(srgbRed: 1.0, green: 0.670588, blue: 0.505882, alpha: 1.0),
-    "Brick Red": NSColor(srgbRed: 0.776471, green: 0.176471, blue: 0.258824, alpha: 1.0),
-    "Twilight Blue": NSColor(srgbRed: 0.933333, green: 0.992157, blue: 1.0, alpha: 1.0),
-    "Cape Honey": NSColor(srgbRed: 0.996078, green: 0.898039, blue: 0.67451, alpha: 1.0),
-    "Cream Brulee": NSColor(srgbRed: 1.0, green: 0.898039, blue: 0.627451, alpha: 1.0),
-    "Heathered Gray": NSColor(srgbRed: 0.713726, green: 0.690196, blue: 0.584314, alpha: 1.0),
-    "My Sin": NSColor(srgbRed: 1.0, green: 0.701961, blue: 0.121569, alpha: 1.0),
-    "Arrowtown": NSColor(srgbRed: 0.580392, green: 0.529412, blue: 0.443137, alpha: 1.0),
-    "Crusoe": NSColor(srgbRed: 0.0, green: 0.282353, blue: 0.0862745, alpha: 1.0),
-    "Malta": NSColor(srgbRed: 0.741176, green: 0.698039, blue: 0.631373, alpha: 1.0),
-    "True V": NSColor(srgbRed: 0.541176, green: 0.45098, blue: 0.839216, alpha: 1.0),
-    "Sugar Cane": NSColor(srgbRed: 0.976471, green: 1.0, blue: 0.964706, alpha: 1.0),
-    "Snow Flurry": NSColor(srgbRed: 0.894118, green: 1.0, blue: 0.819608, alpha: 1.0),
-    "Mango Tango": NSColor(srgbRed: 0.905882, green: 0.447059, blue: 0.0, alpha: 1.0),
-    "Corn Harvest": NSColor(srgbRed: 0.545098, green: 0.419608, blue: 0.0431373, alpha: 1.0),
-    "Rose": NSColor(srgbRed: 1.0, green: 0.0, blue: 0.498039, alpha: 1.0),
-    "Sangria": NSColor(srgbRed: 0.572549, green: 0.0, blue: 0.0392157, alpha: 1.0),
-    "Spun Pearl": NSColor(srgbRed: 0.666667, green: 0.670588, blue: 0.717647, alpha: 1.0),
-    "Golden Glow": NSColor(srgbRed: 0.992157, green: 0.886275, blue: 0.584314, alpha: 1.0),
-    "Periglacial Blue": NSColor(srgbRed: 0.882353, green: 0.901961, blue: 0.839216, alpha: 1.0),
-    "West Side": NSColor(srgbRed: 1.0, green: 0.568627, blue: 0.0588235, alpha: 1.0),
-    "Rum Swizzle": NSColor(srgbRed: 0.976471, green: 0.972549, blue: 0.894118, alpha: 1.0),
-    "Raffia": NSColor(srgbRed: 0.917647, green: 0.854902, blue: 0.721569, alpha: 1.0),
-    "Mist Gray": NSColor(srgbRed: 0.768627, green: 0.768627, blue: 0.737255, alpha: 1.0),
-    "Pigment Indigo": NSColor(srgbRed: 0.294118, green: 0.0, blue: 0.509804, alpha: 1.0),
-    "Bean  ": NSColor(srgbRed: 0.239216, green: 0.0470588, blue: 0.00784314, alpha: 1.0),
-    "Lochmara": NSColor(srgbRed: 0.0, green: 0.494118, blue: 0.780392, alpha: 1.0),
-    "Ship Gray": NSColor(srgbRed: 0.243137, green: 0.227451, blue: 0.266667, alpha: 1.0),
-    "Whisper": NSColor(srgbRed: 0.968627, green: 0.960784, blue: 0.980392, alpha: 1.0),
-    "Eminence": NSColor(srgbRed: 0.423529, green: 0.188235, blue: 0.509804, alpha: 1.0),
-    "Sandy Beach": NSColor(srgbRed: 1.0, green: 0.917647, blue: 0.784314, alpha: 1.0),
-    "Mardi Gras": NSColor(srgbRed: 0.207843, green: 0.0, blue: 0.211765, alpha: 1.0),
-    "Scarlet": NSColor(srgbRed: 1.0, green: 0.141176, blue: 0.0, alpha: 1.0),
-    "Catalina Blue": NSColor(srgbRed: 0.0235294, green: 0.164706, blue: 0.470588, alpha: 1.0),
-    "Bay of Many": NSColor(srgbRed: 0.152941, green: 0.227451, blue: 0.505882, alpha: 1.0),
-    "Swirl": NSColor(srgbRed: 0.827451, green: 0.803922, blue: 0.772549, alpha: 1.0),
-    "Jacaranda": NSColor(srgbRed: 0.180392, green: 0.0117647, blue: 0.160784, alpha: 1.0),
-    "Green Leaf": NSColor(srgbRed: 0.262745, green: 0.415686, blue: 0.0509804, alpha: 1.0),
-    "Pine Glade": NSColor(srgbRed: 0.780392, green: 0.803922, blue: 0.564706, alpha: 1.0),
-    "Martinique": NSColor(srgbRed: 0.211765, green: 0.188235, blue: 0.313726, alpha: 1.0),
-    "Rose Bud Cherry": NSColor(srgbRed: 0.501961, green: 0.0431373, blue: 0.278431, alpha: 1.0),
-    "Casal": NSColor(srgbRed: 0.184314, green: 0.380392, blue: 0.407843, alpha: 1.0),
-    "Monarch": NSColor(srgbRed: 0.545098, green: 0.027451, blue: 0.137255, alpha: 1.0),
-    "Portica": NSColor(srgbRed: 0.976471, green: 0.901961, blue: 0.388235, alpha: 1.0),
-    "Wisp Pink": NSColor(srgbRed: 0.996078, green: 0.956863, blue: 0.972549, alpha: 1.0),
-    "Portafino": NSColor(srgbRed: 1.0, green: 1.0, blue: 0.705882, alpha: 1.0),
-    "Spindle": NSColor(srgbRed: 0.713726, green: 0.819608, blue: 0.917647, alpha: 1.0),
-    "Coral Red": NSColor(srgbRed: 1.0, green: 0.25098, blue: 0.25098, alpha: 1.0),
-    "Zinnwaldite": NSColor(srgbRed: 0.921569, green: 0.760784, blue: 0.686275, alpha: 1.0),
-    "School bus Yellow": NSColor(srgbRed: 1.0, green: 0.847059, blue: 0.0, alpha: 1.0),
-    "Silver Tree": NSColor(srgbRed: 0.4, green: 0.709804, blue: 0.560784, alpha: 1.0),
-    "Lavender Magenta": NSColor(srgbRed: 0.933333, green: 0.509804, blue: 0.933333, alpha: 1.0),
-    "Gothic": NSColor(srgbRed: 0.427451, green: 0.572549, blue: 0.631373, alpha: 1.0),
-    "Persian Green": NSColor(srgbRed: 0.0, green: 0.65098, blue: 0.576471, alpha: 1.0),
-    "Log Cabin": NSColor(srgbRed: 0.141176, green: 0.164706, blue: 0.113725, alpha: 1.0),
-    "Rose Bud": NSColor(srgbRed: 0.984314, green: 0.698039, blue: 0.639216, alpha: 1.0),
-    "Surf": NSColor(srgbRed: 0.733333, green: 0.843137, blue: 0.756863, alpha: 1.0),
-    "Merino": NSColor(srgbRed: 0.964706, green: 0.941176, blue: 0.901961, alpha: 1.0),
-    "Blue Lagoon": NSColor(srgbRed: 0.00392157, green: 0.47451, blue: 0.529412, alpha: 1.0),
-    "Scooter": NSColor(srgbRed: 0.180392, green: 0.74902, blue: 0.831373, alpha: 1.0),
-    "Holly": NSColor(srgbRed: 0.00392157, green: 0.113725, blue: 0.0745098, alpha: 1.0),
-    "Cream Can": NSColor(srgbRed: 0.960784, green: 0.784314, blue: 0.360784, alpha: 1.0),
-    "Clay Ash": NSColor(srgbRed: 0.741176, green: 0.784314, blue: 0.701961, alpha: 1.0),
-    "Candy Corn": NSColor(srgbRed: 0.984314, green: 0.92549, blue: 0.364706, alpha: 1.0),
-    "Rolling Stone": NSColor(srgbRed: 0.454902, green: 0.490196, blue: 0.513726, alpha: 1.0),
-    "Locust": NSColor(srgbRed: 0.658824, green: 0.686275, blue: 0.556863, alpha: 1.0),
-    "Moon Mist": NSColor(srgbRed: 0.862745, green: 0.866667, blue: 0.8, alpha: 1.0),
-    "Grandis": NSColor(srgbRed: 1.0, green: 0.827451, blue: 0.54902, alpha: 1.0),
-    "Mocha": NSColor(srgbRed: 0.470588, green: 0.176471, blue: 0.0980392, alpha: 1.0),
-    "Violet": NSColor(srgbRed: 0.141176, green: 0.0392157, blue: 0.25098, alpha: 1.0),
-    "Iceberg": NSColor(srgbRed: 0.854902, green: 0.956863, blue: 0.941176, alpha: 1.0),
-    "French Rose": NSColor(srgbRed: 0.964706, green: 0.290196, blue: 0.541176, alpha: 1.0),
-    "Mabel": NSColor(srgbRed: 0.85098, green: 0.968627, blue: 1.0, alpha: 1.0),
-    "Trendy Green": NSColor(srgbRed: 0.486275, green: 0.533333, blue: 0.101961, alpha: 1.0),
-    "Bandicoot": NSColor(srgbRed: 0.521569, green: 0.517647, blue: 0.439216, alpha: 1.0),
-    "Oxford Blue": NSColor(srgbRed: 0.219608, green: 0.270588, blue: 0.333333, alpha: 1.0),
-    "Vin Rouge": NSColor(srgbRed: 0.596078, green: 0.239216, blue: 0.380392, alpha: 1.0),
-    "Humming Bird": NSColor(srgbRed: 0.811765, green: 0.976471, blue: 0.952941, alpha: 1.0),
-    "Charade": NSColor(srgbRed: 0.160784, green: 0.160784, blue: 0.215686, alpha: 1.0),
-    "County Green": NSColor(srgbRed: 0.00392157, green: 0.215686, blue: 0.101961, alpha: 1.0),
-    "Mountbatten Pink": NSColor(srgbRed: 0.6, green: 0.478431, blue: 0.552941, alpha: 1.0),
-    "Feta": NSColor(srgbRed: 0.941176, green: 0.988235, blue: 0.917647, alpha: 1.0),
-    "Logan": NSColor(srgbRed: 0.666667, green: 0.662745, blue: 0.803922, alpha: 1.0),
-    "Flamingo": NSColor(srgbRed: 0.94902, green: 0.333333, blue: 0.164706, alpha: 1.0),
-    "Mule Fawn": NSColor(srgbRed: 0.54902, green: 0.278431, blue: 0.184314, alpha: 1.0),
-    "Luxor Gold": NSColor(srgbRed: 0.654902, green: 0.533333, blue: 0.172549, alpha: 1.0),
-    "Black Haze": NSColor(srgbRed: 0.964706, green: 0.968627, blue: 0.968627, alpha: 1.0),
-    "Magenta / Fuchsia": NSColor(srgbRed: 1.0, green: 0.0, blue: 1.0, alpha: 1.0),
-    "Muesli": NSColor(srgbRed: 0.666667, green: 0.545098, blue: 0.356863, alpha: 1.0),
-    "Magic Mint": NSColor(srgbRed: 0.666667, green: 0.941176, blue: 0.819608, alpha: 1.0),
-    "Alto": NSColor(srgbRed: 0.858824, green: 0.858824, blue: 0.858824, alpha: 1.0),
-    "Toledo": NSColor(srgbRed: 0.227451, green: 0.0, blue: 0.12549, alpha: 1.0),
-    "Tara": NSColor(srgbRed: 0.882353, green: 0.964706, blue: 0.909804, alpha: 1.0),
-    "Mulberry": NSColor(srgbRed: 0.772549, green: 0.294118, blue: 0.54902, alpha: 1.0),
-    "Persian Rose": NSColor(srgbRed: 0.996078, green: 0.156863, blue: 0.635294, alpha: 1.0),
-    "Sandal": NSColor(srgbRed: 0.666667, green: 0.552941, blue: 0.435294, alpha: 1.0),
-    "Jade": NSColor(srgbRed: 0.0, green: 0.658824, blue: 0.419608, alpha: 1.0),
-    "Bright Gray": NSColor(srgbRed: 0.235294, green: 0.254902, blue: 0.317647, alpha: 1.0),
-    "Camouflage": NSColor(srgbRed: 0.235294, green: 0.223529, blue: 0.0627451, alpha: 1.0),
-    "Loafer": NSColor(srgbRed: 0.933333, green: 0.956863, blue: 0.870588, alpha: 1.0),
-    "Tan": NSColor(srgbRed: 0.823529, green: 0.705882, blue: 0.54902, alpha: 1.0),
-    "Tower Gray": NSColor(srgbRed: 0.662745, green: 0.741176, blue: 0.74902, alpha: 1.0),
-    "Mint Tulip": NSColor(srgbRed: 0.768627, green: 0.956863, blue: 0.921569, alpha: 1.0),
-    "Chalky": NSColor(srgbRed: 0.933333, green: 0.843137, blue: 0.580392, alpha: 1.0),
-    "Tyrian Purple": NSColor(srgbRed: 0.4, green: 0.00784314, blue: 0.235294, alpha: 1.0),
-    "Pearl Lusta": NSColor(srgbRed: 0.988235, green: 0.956863, blue: 0.862745, alpha: 1.0),
-    "Selago": NSColor(srgbRed: 0.941176, green: 0.933333, blue: 0.992157, alpha: 1.0),
-    "Vermilion": NSColor(srgbRed: 1.0, green: 0.301961, blue: 0.0, alpha: 1.0),
-    "Cola": NSColor(srgbRed: 0.247059, green: 0.145098, blue: 0.0, alpha: 1.0),
-    "Heliotrope": NSColor(srgbRed: 0.87451, green: 0.45098, blue: 1.0, alpha: 1.0),
-    "Cyan / Aqua": NSColor(srgbRed: 0.0, green: 1.0, blue: 1.0, alpha: 1.0),
-    "Fuchsia Pink": NSColor(srgbRed: 0.756863, green: 0.329412, blue: 0.756863, alpha: 1.0),
-    "Elm": NSColor(srgbRed: 0.109804, green: 0.486275, blue: 0.490196, alpha: 1.0),
-    "Stark White": NSColor(srgbRed: 0.898039, green: 0.843137, blue: 0.741176, alpha: 1.0),
-    "Sage": NSColor(srgbRed: 0.619608, green: 0.647059, blue: 0.529412, alpha: 1.0),
-    "East Side": NSColor(srgbRed: 0.67451, green: 0.568627, blue: 0.807843, alpha: 1.0),
-    "French Pass": NSColor(srgbRed: 0.741176, green: 0.929412, blue: 0.992157, alpha: 1.0),
-    "Tusk": NSColor(srgbRed: 0.933333, green: 0.952941, blue: 0.764706, alpha: 1.0),
-    "Aztec": NSColor(srgbRed: 0.0509804, green: 0.109804, blue: 0.0980392, alpha: 1.0),
-    "Spice": NSColor(srgbRed: 0.415686, green: 0.266667, blue: 0.180392, alpha: 1.0),
-    "Skeptic": NSColor(srgbRed: 0.792157, green: 0.901961, blue: 0.854902, alpha: 1.0),
-    "Plantation": NSColor(srgbRed: 0.152941, green: 0.313726, blue: 0.294118, alpha: 1.0),
-    "White Lilac": NSColor(srgbRed: 0.972549, green: 0.968627, blue: 0.988235, alpha: 1.0),
-    "Granny Apple": NSColor(srgbRed: 0.835294, green: 0.964706, blue: 0.890196, alpha: 1.0),
-    "Brink Pink": NSColor(srgbRed: 0.984314, green: 0.376471, blue: 0.498039, alpha: 1.0),
-    "Beige": NSColor(srgbRed: 0.960784, green: 0.960784, blue: 0.862745, alpha: 1.0),
-    "Burgundy": NSColor(srgbRed: 0.564706, green: 0.0, blue: 0.12549, alpha: 1.0),
-    "Prelude": NSColor(srgbRed: 0.815686, green: 0.752941, blue: 0.898039, alpha: 1.0),
-    "Calypso": NSColor(srgbRed: 0.192157, green: 0.447059, blue: 0.552941, alpha: 1.0),
-    "Pelorous": NSColor(srgbRed: 0.243137, green: 0.670588, blue: 0.74902, alpha: 1.0),
-    "Hawkes Blue": NSColor(srgbRed: 0.831373, green: 0.886275, blue: 0.988235, alpha: 1.0),
-    "Athens Gray": NSColor(srgbRed: 0.933333, green: 0.941176, blue: 0.952941, alpha: 1.0),
-    "Trout": NSColor(srgbRed: 0.290196, green: 0.305882, blue: 0.352941, alpha: 1.0),
-    "Cloudy": NSColor(srgbRed: 0.67451, green: 0.647059, blue: 0.623529, alpha: 1.0),
-    "Mamba": NSColor(srgbRed: 0.556863, green: 0.505882, blue: 0.564706, alpha: 1.0),
-    "Barberry": NSColor(srgbRed: 0.870588, green: 0.843137, blue: 0.0901961, alpha: 1.0),
-    "Baby Blue": NSColor(srgbRed: 0.878431, green: 1.0, blue: 1.0, alpha: 1.0),
-    "Barley White": NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.807843, alpha: 1.0),
-    "Sea Pink": NSColor(srgbRed: 0.929412, green: 0.596078, blue: 0.619608, alpha: 1.0),
-    "Raw Umber": NSColor(srgbRed: 0.45098, green: 0.290196, blue: 0.0705882, alpha: 1.0),
-    "Scotch Mist": NSColor(srgbRed: 1.0, green: 0.984314, blue: 0.862745, alpha: 1.0),
-    "Nutmeg": NSColor(srgbRed: 0.505882, green: 0.258824, blue: 0.172549, alpha: 1.0),
-    "Danube": NSColor(srgbRed: 0.376471, green: 0.576471, blue: 0.819608, alpha: 1.0),
-    "Buttercup": NSColor(srgbRed: 0.952941, green: 0.678431, blue: 0.0862745, alpha: 1.0),
-    "Bleach White": NSColor(srgbRed: 0.996078, green: 0.952941, blue: 0.847059, alpha: 1.0),
-    "Clementine": NSColor(srgbRed: 0.913725, green: 0.431373, blue: 0.0, alpha: 1.0),
-    "Lavender blush": NSColor(srgbRed: 1.0, green: 0.941176, blue: 0.960784, alpha: 1.0),
-    "Jagger": NSColor(srgbRed: 0.207843, green: 0.054902, blue: 0.341176, alpha: 1.0),
-    "Hopbush": NSColor(srgbRed: 0.815686, green: 0.427451, blue: 0.631373, alpha: 1.0),
-    "Black Pearl": NSColor(srgbRed: 0.0156863, green: 0.0745098, blue: 0.133333, alpha: 1.0),
-    "Golden Fizz": NSColor(srgbRed: 0.960784, green: 0.984314, blue: 0.239216, alpha: 1.0),
-    "Valhalla": NSColor(srgbRed: 0.168627, green: 0.0980392, blue: 0.309804, alpha: 1.0),
-    "Nepal": NSColor(srgbRed: 0.556863, green: 0.670588, blue: 0.756863, alpha: 1.0),
-    "Paris Daisy": NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.431373, alpha: 1.0),
-    "Mandy": NSColor(srgbRed: 0.886275, green: 0.329412, blue: 0.396078, alpha: 1.0),
-    "Lavender Purple": NSColor(srgbRed: 0.588235, green: 0.482353, blue: 0.713726, alpha: 1.0),
-    "Harvest Gold": NSColor(srgbRed: 0.878431, green: 0.72549, blue: 0.454902, alpha: 1.0),
-    "Grain Brown": NSColor(srgbRed: 0.894118, green: 0.835294, blue: 0.717647, alpha: 1.0),
-    "Aluminium": NSColor(srgbRed: 0.662745, green: 0.67451, blue: 0.713726, alpha: 1.0),
-    "Deep Teal": NSColor(srgbRed: 0.0, green: 0.207843, blue: 0.196078, alpha: 1.0),
-    "Tacha": NSColor(srgbRed: 0.839216, green: 0.772549, blue: 0.384314, alpha: 1.0),
-    "Tangaroa": NSColor(srgbRed: 0.0117647, green: 0.0862745, blue: 0.235294, alpha: 1.0),
-    "Caper": NSColor(srgbRed: 0.862745, green: 0.929412, blue: 0.705882, alpha: 1.0),
-    "Onion": NSColor(srgbRed: 0.184314, green: 0.152941, blue: 0.054902, alpha: 1.0),
-]
+let kColorNames: [String: NSColor] = {
+    var result = [String: NSColor]()
+    result["Costa Del Sol"] = NSColor(srgbRed: 0.380392, green: 0.364706, blue: 0.188235, alpha: 1.0)
+    result["Hemlock"] = NSColor(srgbRed: 0.368627, green: 0.364706, blue: 0.231373, alpha: 1.0)
+    result["Cherry Pie"] = NSColor(srgbRed: 0.164706, green: 0.0117647, blue: 0.34902, alpha: 1.0)
+    result["Patina"] = NSColor(srgbRed: 0.388235, green: 0.603922, blue: 0.560784, alpha: 1.0)
+    result["Chablis"] = NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.952941, alpha: 1.0)
+    result["Pale Sky"] = NSColor(srgbRed: 0.431373, green: 0.466667, blue: 0.513726, alpha: 1.0)
+    result["Paradiso"] = NSColor(srgbRed: 0.192157, green: 0.490196, blue: 0.509804, alpha: 1.0)
+    result["Lightning Yellow"] = NSColor(srgbRed: 0.988235, green: 0.752941, blue: 0.117647, alpha: 1.0)
+    result["Astra"] = NSColor(srgbRed: 0.980392, green: 0.917647, blue: 0.72549, alpha: 1.0)
+    result["Steel Blue"] = NSColor(srgbRed: 0.27451, green: 0.509804, blue: 0.705882, alpha: 1.0)
+    result["Carissma"] = NSColor(srgbRed: 0.917647, green: 0.533333, blue: 0.658824, alpha: 1.0)
+    result["Cornflower Lilac"] = NSColor(srgbRed: 1.0, green: 0.690196, blue: 0.67451, alpha: 1.0)
+    result["Red Devil"] = NSColor(srgbRed: 0.52549, green: 0.00392157, blue: 0.0666667, alpha: 1.0)
+    result["Mai Tai"] = NSColor(srgbRed: 0.690196, green: 0.4, blue: 0.0313726, alpha: 1.0)
+    result["Violet Eggplant"] = NSColor(srgbRed: 0.6, green: 0.0666667, blue: 0.6, alpha: 1.0)
+    result["Aquamarine Blue"] = NSColor(srgbRed: 0.443137, green: 0.85098, blue: 0.886275, alpha: 1.0)
+    result["Hokey Pokey"] = NSColor(srgbRed: 0.784314, green: 0.647059, blue: 0.156863, alpha: 1.0)
+    result["Crusta"] = NSColor(srgbRed: 0.992157, green: 0.482353, blue: 0.2, alpha: 1.0)
+    result["Squirrel"] = NSColor(srgbRed: 0.560784, green: 0.505882, blue: 0.462745, alpha: 1.0)
+    result["Lemon Ginger"] = NSColor(srgbRed: 0.67451, green: 0.619608, blue: 0.133333, alpha: 1.0)
+    result["Mandalay"] = NSColor(srgbRed: 0.678431, green: 0.470588, blue: 0.105882, alpha: 1.0)
+    result["Gun Powder"] = NSColor(srgbRed: 0.254902, green: 0.258824, blue: 0.341176, alpha: 1.0)
+    result["Celery"] = NSColor(srgbRed: 0.721569, green: 0.760784, blue: 0.364706, alpha: 1.0)
+    result["Cream"] = NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.815686, alpha: 1.0)
+    result["Disco"] = NSColor(srgbRed: 0.529412, green: 0.0823529, blue: 0.313726, alpha: 1.0)
+    result["Deep Cove"] = NSColor(srgbRed: 0.0196078, green: 0.0627451, blue: 0.25098, alpha: 1.0)
+    result["Eucalyptus"] = NSColor(srgbRed: 0.152941, green: 0.541176, blue: 0.356863, alpha: 1.0)
+    result["Tolopea"] = NSColor(srgbRed: 0.105882, green: 0.00784314, blue: 0.270588, alpha: 1.0)
+    result["Java"] = NSColor(srgbRed: 0.121569, green: 0.760784, blue: 0.760784, alpha: 1.0)
+    result["Merlot"] = NSColor(srgbRed: 0.513726, green: 0.0980392, blue: 0.137255, alpha: 1.0)
+    result["Sundown"] = NSColor(srgbRed: 1.0, green: 0.694118, blue: 0.701961, alpha: 1.0)
+    result["Schist"] = NSColor(srgbRed: 0.662745, green: 0.705882, blue: 0.592157, alpha: 1.0)
+    result["Victoria"] = NSColor(srgbRed: 0.32549, green: 0.266667, blue: 0.568627, alpha: 1.0)
+    result["Mint Green"] = NSColor(srgbRed: 0.596078, green: 1.0, blue: 0.596078, alpha: 1.0)
+    result["Pueblo"] = NSColor(srgbRed: 0.490196, green: 0.172549, blue: 0.0784314, alpha: 1.0)
+    result["Off Yellow"] = NSColor(srgbRed: 0.996078, green: 0.976471, blue: 0.890196, alpha: 1.0)
+    result["Conifer"] = NSColor(srgbRed: 0.67451, green: 0.866667, blue: 0.301961, alpha: 1.0)
+    result["Viridian Green"] = NSColor(srgbRed: 0.403922, green: 0.537255, blue: 0.458824, alpha: 1.0)
+    result["Bombay"] = NSColor(srgbRed: 0.686275, green: 0.694118, blue: 0.721569, alpha: 1.0)
+    result["Bubbles"] = NSColor(srgbRed: 0.905882, green: 0.996078, blue: 1.0, alpha: 1.0)
+    result["Mariner"] = NSColor(srgbRed: 0.156863, green: 0.415686, blue: 0.803922, alpha: 1.0)
+    result["Judge Gray"] = NSColor(srgbRed: 0.329412, green: 0.262745, blue: 0.2, alpha: 1.0)
+    result["Acadia"] = NSColor(srgbRed: 0.105882, green: 0.0784314, blue: 0.0156863, alpha: 1.0)
+    result["Sushi"] = NSColor(srgbRed: 0.529412, green: 0.670588, blue: 0.223529, alpha: 1.0)
+    result["Pink"] = NSColor(srgbRed: 1.0, green: 0.752941, blue: 0.796078, alpha: 1.0)
+    result["Narvik"] = NSColor(srgbRed: 0.929412, green: 0.976471, blue: 0.945098, alpha: 1.0)
+    result["Lola"] = NSColor(srgbRed: 0.87451, green: 0.811765, blue: 0.858824, alpha: 1.0)
+    result["Fuel Yellow"] = NSColor(srgbRed: 0.92549, green: 0.662745, blue: 0.152941, alpha: 1.0)
+    result["Smalt Blue"] = NSColor(srgbRed: 0.317647, green: 0.501961, blue: 0.560784, alpha: 1.0)
+    result["Burning Orange"] = NSColor(srgbRed: 1.0, green: 0.439216, blue: 0.203922, alpha: 1.0)
+    result["Trinidad"] = NSColor(srgbRed: 0.901961, green: 0.305882, blue: 0.0117647, alpha: 1.0)
+    result["Clay Creek"] = NSColor(srgbRed: 0.541176, green: 0.513726, blue: 0.376471, alpha: 1.0)
+    result["Honeysuckle"] = NSColor(srgbRed: 0.929412, green: 0.988235, blue: 0.517647, alpha: 1.0)
+    result["Putty"] = NSColor(srgbRed: 0.905882, green: 0.803922, blue: 0.54902, alpha: 1.0)
+    result["Tangerine"] = NSColor(srgbRed: 0.94902, green: 0.521569, blue: 0.0, alpha: 1.0)
+    result["Sepia Skin"] = NSColor(srgbRed: 0.619608, green: 0.356863, blue: 0.25098, alpha: 1.0)
+    result["Dune"] = NSColor(srgbRed: 0.219608, green: 0.207843, blue: 0.2, alpha: 1.0)
+    result["Electric Violet"] = NSColor(srgbRed: 0.545098, green: 0.0, blue: 1.0, alpha: 1.0)
+    result["Saffron"] = NSColor(srgbRed: 0.956863, green: 0.768627, blue: 0.188235, alpha: 1.0)
+    result["Inch Worm"] = NSColor(srgbRed: 0.690196, green: 0.890196, blue: 0.0745098, alpha: 1.0)
+    result["Cosmic"] = NSColor(srgbRed: 0.462745, green: 0.223529, blue: 0.364706, alpha: 1.0)
+    result["Quill Gray"] = NSColor(srgbRed: 0.839216, green: 0.839216, blue: 0.819608, alpha: 1.0)
+    result["Robin's Egg Blue"] = NSColor(srgbRed: 0.0, green: 0.8, blue: 0.8, alpha: 1.0)
+    result["Zombie"] = NSColor(srgbRed: 0.894118, green: 0.839216, blue: 0.607843, alpha: 1.0)
+    result["Yellow Orange"] = NSColor(srgbRed: 1.0, green: 0.682353, blue: 0.258824, alpha: 1.0)
+    result["Deep Sea Green"] = NSColor(srgbRed: 0.0352941, green: 0.345098, blue: 0.34902, alpha: 1.0)
+    result["Ironstone"] = NSColor(srgbRed: 0.52549, green: 0.282353, blue: 0.235294, alpha: 1.0)
+    result["Lavender Rose"] = NSColor(srgbRed: 0.984314, green: 0.627451, blue: 0.890196, alpha: 1.0)
+    result["Van Cleef"] = NSColor(srgbRed: 0.286275, green: 0.0901961, blue: 0.0470588, alpha: 1.0)
+    result["Jacksons Purple"] = NSColor(srgbRed: 0.12549, green: 0.12549, blue: 0.552941, alpha: 1.0)
+    result["Watercourse"] = NSColor(srgbRed: 0.0196078, green: 0.435294, blue: 0.341176, alpha: 1.0)
+    result["Peach Cream"] = NSColor(srgbRed: 1.0, green: 0.941176, blue: 0.858824, alpha: 1.0)
+    result["Orchid"] = NSColor(srgbRed: 0.854902, green: 0.439216, blue: 0.839216, alpha: 1.0)
+    result["Lucky Point"] = NSColor(srgbRed: 0.101961, green: 0.101961, blue: 0.407843, alpha: 1.0)
+    result["Snow Drift"] = NSColor(srgbRed: 0.968627, green: 0.980392, blue: 0.968627, alpha: 1.0)
+    result["Amulet"] = NSColor(srgbRed: 0.482353, green: 0.623529, blue: 0.501961, alpha: 1.0)
+    result["Governor Bay"] = NSColor(srgbRed: 0.184314, green: 0.235294, blue: 0.701961, alpha: 1.0)
+    result["Pale Prim"] = NSColor(srgbRed: 0.992157, green: 0.996078, blue: 0.721569, alpha: 1.0)
+    result["Well Read"] = NSColor(srgbRed: 0.705882, green: 0.2, blue: 0.196078, alpha: 1.0)
+    result["Tiber"] = NSColor(srgbRed: 0.0235294, green: 0.207843, blue: 0.215686, alpha: 1.0)
+    result["Limed Ash"] = NSColor(srgbRed: 0.454902, green: 0.490196, blue: 0.388235, alpha: 1.0)
+    result["Millbrook"] = NSColor(srgbRed: 0.34902, green: 0.266667, blue: 0.2, alpha: 1.0)
+    result["Hawaiian Tan"] = NSColor(srgbRed: 0.615686, green: 0.337255, blue: 0.0862745, alpha: 1.0)
+    result["Pumpkin Skin"] = NSColor(srgbRed: 0.694118, green: 0.380392, blue: 0.0431373, alpha: 1.0)
+    result["Water Leaf"] = NSColor(srgbRed: 0.631373, green: 0.913725, blue: 0.870588, alpha: 1.0)
+    result["Rich Gold"] = NSColor(srgbRed: 0.658824, green: 0.32549, blue: 0.027451, alpha: 1.0)
+    result["Soya Bean"] = NSColor(srgbRed: 0.415686, green: 0.376471, blue: 0.317647, alpha: 1.0)
+    result["Bronze"] = NSColor(srgbRed: 0.247059, green: 0.129412, blue: 0.0352941, alpha: 1.0)
+    result["Apple Blossom"] = NSColor(srgbRed: 0.686275, green: 0.301961, blue: 0.262745, alpha: 1.0)
+    result["Bright Green"] = NSColor(srgbRed: 0.4, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Roman"] = NSColor(srgbRed: 0.870588, green: 0.388235, blue: 0.376471, alpha: 1.0)
+    result["Chelsea Gem"] = NSColor(srgbRed: 0.619608, green: 0.32549, blue: 0.00784314, alpha: 1.0)
+    result["Avocado"] = NSColor(srgbRed: 0.533333, green: 0.552941, blue: 0.396078, alpha: 1.0)
+    result["La Rioja"] = NSColor(srgbRed: 0.701961, green: 0.756863, blue: 0.0627451, alpha: 1.0)
+    result["Midnight"] = NSColor(srgbRed: 0.00392157, green: 0.0862745, blue: 0.207843, alpha: 1.0)
+    result["Iroko"] = NSColor(srgbRed: 0.262745, green: 0.192157, blue: 0.12549, alpha: 1.0)
+    result["Frost"] = NSColor(srgbRed: 0.929412, green: 0.960784, blue: 0.866667, alpha: 1.0)
+    result["Mountain Mist"] = NSColor(srgbRed: 0.584314, green: 0.576471, blue: 0.588235, alpha: 1.0)
+    result["Glade Green"] = NSColor(srgbRed: 0.380392, green: 0.517647, blue: 0.372549, alpha: 1.0)
+    result["Shadow Green"] = NSColor(srgbRed: 0.603922, green: 0.760784, blue: 0.721569, alpha: 1.0)
+    result["Koromiko"] = NSColor(srgbRed: 1.0, green: 0.741176, blue: 0.372549, alpha: 1.0)
+    result["Cabbage Pont"] = NSColor(srgbRed: 0.247059, green: 0.298039, blue: 0.227451, alpha: 1.0)
+    result["Flush Orange"] = NSColor(srgbRed: 1.0, green: 0.498039, blue: 0.0, alpha: 1.0)
+    result["Schooner"] = NSColor(srgbRed: 0.545098, green: 0.517647, blue: 0.494118, alpha: 1.0)
+    result["Mantle"] = NSColor(srgbRed: 0.545098, green: 0.611765, blue: 0.564706, alpha: 1.0)
+    result["Maroon"] = NSColor(srgbRed: 0.501961, green: 0.0, blue: 0.0, alpha: 1.0)
+    result["Bordeaux"] = NSColor(srgbRed: 0.360784, green: 0.00392157, blue: 0.12549, alpha: 1.0)
+    result["Magnolia"] = NSColor(srgbRed: 0.972549, green: 0.956863, blue: 1.0, alpha: 1.0)
+    result["Pablo"] = NSColor(srgbRed: 0.466667, green: 0.435294, blue: 0.380392, alpha: 1.0)
+    result["Rose Fog"] = NSColor(srgbRed: 0.905882, green: 0.737255, blue: 0.705882, alpha: 1.0)
+    result["Stratos"] = NSColor(srgbRed: 0.0, green: 0.027451, blue: 0.254902, alpha: 1.0)
+    result["Black Rock"] = NSColor(srgbRed: 0.0509804, green: 0.0117647, blue: 0.196078, alpha: 1.0)
+    result["Cioccolato"] = NSColor(srgbRed: 0.333333, green: 0.156863, blue: 0.0470588, alpha: 1.0)
+    result["Dark Tan"] = NSColor(srgbRed: 0.4, green: 0.0627451, blue: 0.0627451, alpha: 1.0)
+    result["Walnut"] = NSColor(srgbRed: 0.466667, green: 0.247059, blue: 0.101961, alpha: 1.0)
+    result["Kangaroo"] = NSColor(srgbRed: 0.776471, green: 0.784314, blue: 0.741176, alpha: 1.0)
+    result["Cinder"] = NSColor(srgbRed: 0.054902, green: 0.054902, blue: 0.0941176, alpha: 1.0)
+    result["Hit Gray"] = NSColor(srgbRed: 0.631373, green: 0.678431, blue: 0.709804, alpha: 1.0)
+    result["Twilight"] = NSColor(srgbRed: 0.894118, green: 0.811765, blue: 0.870588, alpha: 1.0)
+    result["Carnation"] = NSColor(srgbRed: 0.976471, green: 0.352941, blue: 0.380392, alpha: 1.0)
+    result["Peach"] = NSColor(srgbRed: 1.0, green: 0.898039, blue: 0.705882, alpha: 1.0)
+    result["Creole"] = NSColor(srgbRed: 0.117647, green: 0.0588235, blue: 0.0156863, alpha: 1.0)
+    result["Thistle"] = NSColor(srgbRed: 0.847059, green: 0.74902, blue: 0.847059, alpha: 1.0)
+    result["Crimson"] = NSColor(srgbRed: 0.862745, green: 0.0784314, blue: 0.235294, alpha: 1.0)
+    result["Waterloo "] = NSColor(srgbRed: 0.482353, green: 0.486275, blue: 0.580392, alpha: 1.0)
+    result["Pink Flare"] = NSColor(srgbRed: 0.882353, green: 0.752941, blue: 0.784314, alpha: 1.0)
+    result["Albescent White"] = NSColor(srgbRed: 0.960784, green: 0.913725, blue: 0.827451, alpha: 1.0)
+    result["Bastille"] = NSColor(srgbRed: 0.160784, green: 0.129412, blue: 0.188235, alpha: 1.0)
+    result["Valencia"] = NSColor(srgbRed: 0.847059, green: 0.266667, blue: 0.215686, alpha: 1.0)
+    result["Australian Mint"] = NSColor(srgbRed: 0.960784, green: 1.0, blue: 0.745098, alpha: 1.0)
+    result["Alabaster"] = NSColor(srgbRed: 0.980392, green: 0.980392, blue: 0.980392, alpha: 1.0)
+    result["Azure"] = NSColor(srgbRed: 0.192157, green: 0.356863, blue: 0.631373, alpha: 1.0)
+    result["Jordy Blue"] = NSColor(srgbRed: 0.541176, green: 0.72549, blue: 0.945098, alpha: 1.0)
+    result["Wasabi"] = NSColor(srgbRed: 0.470588, green: 0.541176, blue: 0.145098, alpha: 1.0)
+    result["Blue Smoke"] = NSColor(srgbRed: 0.454902, green: 0.533333, blue: 0.505882, alpha: 1.0)
+    result["Scorpion"] = NSColor(srgbRed: 0.411765, green: 0.372549, blue: 0.384314, alpha: 1.0)
+    result["Sycamore"] = NSColor(srgbRed: 0.564706, green: 0.552941, blue: 0.223529, alpha: 1.0)
+    result["Spring Wood"] = NSColor(srgbRed: 0.972549, green: 0.964706, blue: 0.945098, alpha: 1.0)
+    result["Tana"] = NSColor(srgbRed: 0.85098, green: 0.862745, blue: 0.756863, alpha: 1.0)
+    result["Blue Dianne"] = NSColor(srgbRed: 0.12549, green: 0.282353, blue: 0.321569, alpha: 1.0)
+    result["Cherrywood"] = NSColor(srgbRed: 0.396078, green: 0.101961, blue: 0.0784314, alpha: 1.0)
+    result["Matterhorn"] = NSColor(srgbRed: 0.305882, green: 0.231373, blue: 0.254902, alpha: 1.0)
+    result["Yellow Sea"] = NSColor(srgbRed: 0.996078, green: 0.662745, blue: 0.0156863, alpha: 1.0)
+    result["Xanadu"] = NSColor(srgbRed: 0.45098, green: 0.52549, blue: 0.470588, alpha: 1.0)
+    result["White Rock"] = NSColor(srgbRed: 0.917647, green: 0.909804, blue: 0.831373, alpha: 1.0)
+    result["Science Blue"] = NSColor(srgbRed: 0.0, green: 0.4, blue: 0.8, alpha: 1.0)
+    result["Tropical Rain Forest"] = NSColor(srgbRed: 0.0, green: 0.458824, blue: 0.368627, alpha: 1.0)
+    result["Coffee Bean"] = NSColor(srgbRed: 0.164706, green: 0.0784314, blue: 0.054902, alpha: 1.0)
+    result["Lavender Gray"] = NSColor(srgbRed: 0.741176, green: 0.733333, blue: 0.843137, alpha: 1.0)
+    result["Zest"] = NSColor(srgbRed: 0.898039, green: 0.517647, blue: 0.105882, alpha: 1.0)
+    result["Twine"] = NSColor(srgbRed: 0.760784, green: 0.584314, blue: 0.364706, alpha: 1.0)
+    result["Double Pearl Lusta"] = NSColor(srgbRed: 0.988235, green: 0.956863, blue: 0.815686, alpha: 1.0)
+    result["Half Dutch White"] = NSColor(srgbRed: 0.996078, green: 0.968627, blue: 0.870588, alpha: 1.0)
+    result["London Hue"] = NSColor(srgbRed: 0.745098, green: 0.65098, blue: 0.764706, alpha: 1.0)
+    result["Quincy"] = NSColor(srgbRed: 0.384314, green: 0.247059, blue: 0.176471, alpha: 1.0)
+    result["French Lilac"] = NSColor(srgbRed: 0.92549, green: 0.780392, blue: 0.933333, alpha: 1.0)
+    result["Red Damask"] = NSColor(srgbRed: 0.854902, green: 0.415686, blue: 0.254902, alpha: 1.0)
+    result["Mountain Meadow"] = NSColor(srgbRed: 0.101961, green: 0.701961, blue: 0.521569, alpha: 1.0)
+    result["Link Water"] = NSColor(srgbRed: 0.85098, green: 0.894118, blue: 0.960784, alpha: 1.0)
+    result["Thunder"] = NSColor(srgbRed: 0.2, green: 0.160784, blue: 0.184314, alpha: 1.0)
+    result["Witch Haze"] = NSColor(srgbRed: 1.0, green: 0.988235, blue: 0.6, alpha: 1.0)
+    result["Pastel Green"] = NSColor(srgbRed: 0.466667, green: 0.866667, blue: 0.466667, alpha: 1.0)
+    result["Peru Tan"] = NSColor(srgbRed: 0.498039, green: 0.227451, blue: 0.00784314, alpha: 1.0)
+    result["Rock"] = NSColor(srgbRed: 0.301961, green: 0.219608, blue: 0.2, alpha: 1.0)
+    result["Equator"] = NSColor(srgbRed: 0.882353, green: 0.737255, blue: 0.392157, alpha: 1.0)
+    result["Saltpan"] = NSColor(srgbRed: 0.945098, green: 0.968627, blue: 0.94902, alpha: 1.0)
+    result["Ghost"] = NSColor(srgbRed: 0.780392, green: 0.788235, blue: 0.835294, alpha: 1.0)
+    result["Banana Mania"] = NSColor(srgbRed: 0.984314, green: 0.905882, blue: 0.698039, alpha: 1.0)
+    result["Torea Bay"] = NSColor(srgbRed: 0.0588235, green: 0.176471, blue: 0.619608, alpha: 1.0)
+    result["Woody Brown"] = NSColor(srgbRed: 0.282353, green: 0.192157, blue: 0.192157, alpha: 1.0)
+    result["Merlin"] = NSColor(srgbRed: 0.254902, green: 0.235294, blue: 0.215686, alpha: 1.0)
+    result["Keppel"] = NSColor(srgbRed: 0.227451, green: 0.690196, blue: 0.619608, alpha: 1.0)
+    result["Tradewind"] = NSColor(srgbRed: 0.372549, green: 0.701961, blue: 0.67451, alpha: 1.0)
+    result["Dairy Cream"] = NSColor(srgbRed: 0.976471, green: 0.894118, blue: 0.737255, alpha: 1.0)
+    result["Sea Mist"] = NSColor(srgbRed: 0.772549, green: 0.858824, blue: 0.792157, alpha: 1.0)
+    result["China Ivory"] = NSColor(srgbRed: 0.988235, green: 1.0, blue: 0.905882, alpha: 1.0)
+    result["Shalimar"] = NSColor(srgbRed: 0.984314, green: 1.0, blue: 0.729412, alpha: 1.0)
+    result["Reef Gold"] = NSColor(srgbRed: 0.623529, green: 0.509804, blue: 0.109804, alpha: 1.0)
+    result["Sand Dune"] = NSColor(srgbRed: 0.509804, green: 0.435294, blue: 0.396078, alpha: 1.0)
+    result["Gray Asparagus"] = NSColor(srgbRed: 0.27451, green: 0.34902, blue: 0.270588, alpha: 1.0)
+    result["Astronaut"] = NSColor(srgbRed: 0.156863, green: 0.227451, blue: 0.466667, alpha: 1.0)
+    result["Paarl"] = NSColor(srgbRed: 0.65098, green: 0.333333, blue: 0.160784, alpha: 1.0)
+    result["Pale Rose"] = NSColor(srgbRed: 1.0, green: 0.882353, blue: 0.94902, alpha: 1.0)
+    result["Jon"] = NSColor(srgbRed: 0.231373, green: 0.121569, blue: 0.121569, alpha: 1.0)
+    result["Cognac"] = NSColor(srgbRed: 0.623529, green: 0.219608, blue: 0.113725, alpha: 1.0)
+    result["Cape Cod"] = NSColor(srgbRed: 0.235294, green: 0.266667, blue: 0.262745, alpha: 1.0)
+    result["Tussock"] = NSColor(srgbRed: 0.772549, green: 0.6, blue: 0.294118, alpha: 1.0)
+    result["Frosted Mint"] = NSColor(srgbRed: 0.858824, green: 1.0, blue: 0.972549, alpha: 1.0)
+    result["Tree Poppy"] = NSColor(srgbRed: 0.988235, green: 0.611765, blue: 0.113725, alpha: 1.0)
+    result["Eden"] = NSColor(srgbRed: 0.0627451, green: 0.345098, blue: 0.321569, alpha: 1.0)
+    result["Crail"] = NSColor(srgbRed: 0.72549, green: 0.317647, blue: 0.25098, alpha: 1.0)
+    result["Malachite"] = NSColor(srgbRed: 0.0431373, green: 0.854902, blue: 0.317647, alpha: 1.0)
+    result["Desert"] = NSColor(srgbRed: 0.682353, green: 0.376471, blue: 0.12549, alpha: 1.0)
+    result["De York"] = NSColor(srgbRed: 0.478431, green: 0.768627, blue: 0.533333, alpha: 1.0)
+    result["Deep Blush"] = NSColor(srgbRed: 0.894118, green: 0.462745, blue: 0.596078, alpha: 1.0)
+    result["Flame Pea"] = NSColor(srgbRed: 0.854902, green: 0.356863, blue: 0.219608, alpha: 1.0)
+    result["Bleached Cedar"] = NSColor(srgbRed: 0.172549, green: 0.129412, blue: 0.2, alpha: 1.0)
+    result["Shingle Fawn"] = NSColor(srgbRed: 0.419608, green: 0.305882, blue: 0.192157, alpha: 1.0)
+    result["Sepia Black"] = NSColor(srgbRed: 0.168627, green: 0.00784314, blue: 0.00784314, alpha: 1.0)
+    result["Flax Smoke"] = NSColor(srgbRed: 0.482353, green: 0.509804, blue: 0.396078, alpha: 1.0)
+    result["Mirage"] = NSColor(srgbRed: 0.0862745, green: 0.0980392, blue: 0.156863, alpha: 1.0)
+    result["Horizon"] = NSColor(srgbRed: 0.352941, green: 0.529412, blue: 0.627451, alpha: 1.0)
+    result["Fiord"] = NSColor(srgbRed: 0.25098, green: 0.317647, blue: 0.411765, alpha: 1.0)
+    result["Granite Green"] = NSColor(srgbRed: 0.552941, green: 0.537255, blue: 0.454902, alpha: 1.0)
+    result["Reno Sand"] = NSColor(srgbRed: 0.658824, green: 0.396078, blue: 0.0823529, alpha: 1.0)
+    result["Sazerac"] = NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.878431, alpha: 1.0)
+    result["Egg Sour"] = NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.866667, alpha: 1.0)
+    result["Fern"] = NSColor(srgbRed: 0.388235, green: 0.717647, blue: 0.423529, alpha: 1.0)
+    result["Selective Yellow"] = NSColor(srgbRed: 1.0, green: 0.729412, blue: 0.0, alpha: 1.0)
+    result["Amethyst"] = NSColor(srgbRed: 0.6, green: 0.4, blue: 0.8, alpha: 1.0)
+    result["Fountain Blue"] = NSColor(srgbRed: 0.337255, green: 0.705882, blue: 0.745098, alpha: 1.0)
+    result["Flax"] = NSColor(srgbRed: 0.933333, green: 0.862745, blue: 0.509804, alpha: 1.0)
+    result["Turkish Rose"] = NSColor(srgbRed: 0.709804, green: 0.447059, blue: 0.505882, alpha: 1.0)
+    result["Marshland"] = NSColor(srgbRed: 0.0431373, green: 0.0588235, blue: 0.0313726, alpha: 1.0)
+    result["Texas"] = NSColor(srgbRed: 0.972549, green: 0.976471, blue: 0.611765, alpha: 1.0)
+    result["Golden Sand"] = NSColor(srgbRed: 0.941176, green: 0.858824, blue: 0.490196, alpha: 1.0)
+    result["Gold"] = NSColor(srgbRed: 1.0, green: 0.843137, blue: 0.0, alpha: 1.0)
+    result["Himalaya"] = NSColor(srgbRed: 0.415686, green: 0.364706, blue: 0.105882, alpha: 1.0)
+    result["Parsley"] = NSColor(srgbRed: 0.0745098, green: 0.309804, blue: 0.0980392, alpha: 1.0)
+    result["Blue Marguerite"] = NSColor(srgbRed: 0.462745, green: 0.4, blue: 0.776471, alpha: 1.0)
+    result["Gable Green"] = NSColor(srgbRed: 0.0862745, green: 0.207843, blue: 0.192157, alpha: 1.0)
+    result["Kobi"] = NSColor(srgbRed: 0.905882, green: 0.623529, blue: 0.768627, alpha: 1.0)
+    result["Swans Down"] = NSColor(srgbRed: 0.862745, green: 0.941176, blue: 0.917647, alpha: 1.0)
+    result["Christine"] = NSColor(srgbRed: 0.905882, green: 0.45098, blue: 0.0392157, alpha: 1.0)
+    result["New York Pink"] = NSColor(srgbRed: 0.843137, green: 0.513726, blue: 0.498039, alpha: 1.0)
+    result["Alice Blue"] = NSColor(srgbRed: 0.941176, green: 0.972549, blue: 1.0, alpha: 1.0)
+    result["San Felix"] = NSColor(srgbRed: 0.0431373, green: 0.384314, blue: 0.027451, alpha: 1.0)
+    result["Deco"] = NSColor(srgbRed: 0.823529, green: 0.854902, blue: 0.592157, alpha: 1.0)
+    result["Christalle"] = NSColor(srgbRed: 0.2, green: 0.0117647, blue: 0.419608, alpha: 1.0)
+    result["Sherpa Blue"] = NSColor(srgbRed: 0.0, green: 0.286275, blue: 0.313726, alpha: 1.0)
+    result["Tabasco"] = NSColor(srgbRed: 0.627451, green: 0.152941, blue: 0.0705882, alpha: 1.0)
+    result["Forget Me Not"] = NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.933333, alpha: 1.0)
+    result["Woodrush"] = NSColor(srgbRed: 0.188235, green: 0.164706, blue: 0.0588235, alpha: 1.0)
+    result["Kingfisher Daisy"] = NSColor(srgbRed: 0.243137, green: 0.0156863, blue: 0.501961, alpha: 1.0)
+    result["Pewter"] = NSColor(srgbRed: 0.588235, green: 0.658824, blue: 0.631373, alpha: 1.0)
+    result["Lochinvar"] = NSColor(srgbRed: 0.172549, green: 0.54902, blue: 0.517647, alpha: 1.0)
+    result["Acapulco"] = NSColor(srgbRed: 0.486275, green: 0.690196, blue: 0.631373, alpha: 1.0)
+    result["Saratoga"] = NSColor(srgbRed: 0.333333, green: 0.356863, blue: 0.0627451, alpha: 1.0)
+    result["Treehouse"] = NSColor(srgbRed: 0.231373, green: 0.156863, blue: 0.12549, alpha: 1.0)
+    result["My Pink"] = NSColor(srgbRed: 0.839216, green: 0.568627, blue: 0.533333, alpha: 1.0)
+    result["Downriver"] = NSColor(srgbRed: 0.0352941, green: 0.133333, blue: 0.337255, alpha: 1.0)
+    result["Gamboge"] = NSColor(srgbRed: 0.894118, green: 0.607843, blue: 0.0588235, alpha: 1.0)
+    result["El Salva"] = NSColor(srgbRed: 0.560784, green: 0.243137, blue: 0.2, alpha: 1.0)
+    result["Gigas"] = NSColor(srgbRed: 0.321569, green: 0.235294, blue: 0.580392, alpha: 1.0)
+    result["Blue Romance"] = NSColor(srgbRed: 0.823529, green: 0.964706, blue: 0.870588, alpha: 1.0)
+    result["Armadillo"] = NSColor(srgbRed: 0.262745, green: 0.243137, blue: 0.215686, alpha: 1.0)
+    result["Spicy Mustard"] = NSColor(srgbRed: 0.454902, green: 0.392157, blue: 0.0509804, alpha: 1.0)
+    result["Clear Day"] = NSColor(srgbRed: 0.913725, green: 1.0, blue: 0.992157, alpha: 1.0)
+    result["Cherub"] = NSColor(srgbRed: 0.972549, green: 0.85098, blue: 0.913725, alpha: 1.0)
+    result["Flesh"] = NSColor(srgbRed: 1.0, green: 0.796078, blue: 0.643137, alpha: 1.0)
+    result["Golden Tainoi"] = NSColor(srgbRed: 1.0, green: 0.8, blue: 0.360784, alpha: 1.0)
+    result["Melon"] = NSColor(srgbRed: 0.996078, green: 0.729412, blue: 0.678431, alpha: 1.0)
+    result["Bird Flower"] = NSColor(srgbRed: 0.831373, green: 0.803922, blue: 0.0862745, alpha: 1.0)
+    result["Maize"] = NSColor(srgbRed: 0.960784, green: 0.835294, blue: 0.627451, alpha: 1.0)
+    result["Blue Stone"] = NSColor(srgbRed: 0.00392157, green: 0.380392, blue: 0.384314, alpha: 1.0)
+    result["Fire"] = NSColor(srgbRed: 0.666667, green: 0.258824, blue: 0.0117647, alpha: 1.0)
+    result["Gurkha"] = NSColor(srgbRed: 0.603922, green: 0.584314, blue: 0.466667, alpha: 1.0)
+    result["Japonica"] = NSColor(srgbRed: 0.847059, green: 0.486275, blue: 0.388235, alpha: 1.0)
+    result["Stromboli"] = NSColor(srgbRed: 0.196078, green: 0.364706, blue: 0.321569, alpha: 1.0)
+    result["Limed Spruce"] = NSColor(srgbRed: 0.223529, green: 0.282353, blue: 0.317647, alpha: 1.0)
+    result["Tulip Tree"] = NSColor(srgbRed: 0.917647, green: 0.701961, blue: 0.231373, alpha: 1.0)
+    result["Zuccini"] = NSColor(srgbRed: 0.0156863, green: 0.25098, blue: 0.133333, alpha: 1.0)
+    result["Pumice"] = NSColor(srgbRed: 0.760784, green: 0.792157, blue: 0.768627, alpha: 1.0)
+    result["Brown"] = NSColor(srgbRed: 0.588235, green: 0.294118, blue: 0.0, alpha: 1.0)
+    result["Spring Green"] = NSColor(srgbRed: 0.0, green: 1.0, blue: 0.498039, alpha: 1.0)
+    result["Buccaneer"] = NSColor(srgbRed: 0.384314, green: 0.184314, blue: 0.188235, alpha: 1.0)
+    result["Spicy Mix"] = NSColor(srgbRed: 0.533333, green: 0.32549, blue: 0.258824, alpha: 1.0)
+    result["Royal Purple"] = NSColor(srgbRed: 0.419608, green: 0.247059, blue: 0.627451, alpha: 1.0)
+    result["Red Orange"] = NSColor(srgbRed: 1.0, green: 0.247059, blue: 0.203922, alpha: 1.0)
+    result["Portage"] = NSColor(srgbRed: 0.545098, green: 0.623529, blue: 0.933333, alpha: 1.0)
+    result["West Coast"] = NSColor(srgbRed: 0.384314, green: 0.317647, blue: 0.0980392, alpha: 1.0)
+    result["Gray Olive"] = NSColor(srgbRed: 0.662745, green: 0.643137, blue: 0.568627, alpha: 1.0)
+    result["Bridesmaid"] = NSColor(srgbRed: 0.996078, green: 0.941176, blue: 0.92549, alpha: 1.0)
+    result["Strikemaster"] = NSColor(srgbRed: 0.584314, green: 0.388235, blue: 0.529412, alpha: 1.0)
+    result["Ultramarine"] = NSColor(srgbRed: 0.0705882, green: 0.0392157, blue: 0.560784, alpha: 1.0)
+    result["Light Apricot"] = NSColor(srgbRed: 0.992157, green: 0.835294, blue: 0.694118, alpha: 1.0)
+    result["Turbo"] = NSColor(srgbRed: 0.980392, green: 0.901961, blue: 0.0, alpha: 1.0)
+    result["Candlelight"] = NSColor(srgbRed: 0.988235, green: 0.85098, blue: 0.0901961, alpha: 1.0)
+    result["Bittersweet"] = NSColor(srgbRed: 0.996078, green: 0.435294, blue: 0.368627, alpha: 1.0)
+    result["Peat"] = NSColor(srgbRed: 0.443137, green: 0.419608, blue: 0.337255, alpha: 1.0)
+    result["Buttery White"] = NSColor(srgbRed: 1.0, green: 0.988235, blue: 0.917647, alpha: 1.0)
+    result["Aths Special"] = NSColor(srgbRed: 0.92549, green: 0.921569, blue: 0.807843, alpha: 1.0)
+    result["Carnation Pink"] = NSColor(srgbRed: 1.0, green: 0.65098, blue: 0.788235, alpha: 1.0)
+    result["Rangitoto"] = NSColor(srgbRed: 0.180392, green: 0.196078, blue: 0.133333, alpha: 1.0)
+    result["Royal Blue"] = NSColor(srgbRed: 0.254902, green: 0.411765, blue: 0.882353, alpha: 1.0)
+    result["Bright Sun"] = NSColor(srgbRed: 0.996078, green: 0.827451, blue: 0.235294, alpha: 1.0)
+    result["Harp"] = NSColor(srgbRed: 0.901961, green: 0.94902, blue: 0.917647, alpha: 1.0)
+    result["Blizzard Blue"] = NSColor(srgbRed: 0.639216, green: 0.890196, blue: 0.929412, alpha: 1.0)
+    result["Taupe"] = NSColor(srgbRed: 0.282353, green: 0.235294, blue: 0.196078, alpha: 1.0)
+    result["Pig Pink"] = NSColor(srgbRed: 0.992157, green: 0.843137, blue: 0.894118, alpha: 1.0)
+    result["Pale Slate"] = NSColor(srgbRed: 0.764706, green: 0.74902, blue: 0.756863, alpha: 1.0)
+    result["Persian Pink"] = NSColor(srgbRed: 0.968627, green: 0.498039, blue: 0.745098, alpha: 1.0)
+    result["Cherokee"] = NSColor(srgbRed: 0.988235, green: 0.854902, blue: 0.596078, alpha: 1.0)
+    result["Storm Gray"] = NSColor(srgbRed: 0.443137, green: 0.454902, blue: 0.52549, alpha: 1.0)
+    result["Tobacco Brown"] = NSColor(srgbRed: 0.443137, green: 0.364706, blue: 0.278431, alpha: 1.0)
+    result["Studio"] = NSColor(srgbRed: 0.443137, green: 0.290196, blue: 0.698039, alpha: 1.0)
+    result["Americano"] = NSColor(srgbRed: 0.529412, green: 0.458824, blue: 0.431373, alpha: 1.0)
+    result["Corn"] = NSColor(srgbRed: 0.905882, green: 0.74902, blue: 0.0196078, alpha: 1.0)
+    result["Daisy Bush"] = NSColor(srgbRed: 0.309804, green: 0.137255, blue: 0.596078, alpha: 1.0)
+    result["Clinker"] = NSColor(srgbRed: 0.215686, green: 0.113725, blue: 0.0352941, alpha: 1.0)
+    result["Leather"] = NSColor(srgbRed: 0.588235, green: 0.439216, blue: 0.34902, alpha: 1.0)
+    result["Brandy"] = NSColor(srgbRed: 0.870588, green: 0.756863, blue: 0.588235, alpha: 1.0)
+    result["Caribbean Green"] = NSColor(srgbRed: 0.0, green: 0.8, blue: 0.6, alpha: 1.0)
+    result["Wistful"] = NSColor(srgbRed: 0.643137, green: 0.65098, blue: 0.827451, alpha: 1.0)
+    result["Web Orange"] = NSColor(srgbRed: 1.0, green: 0.647059, blue: 0.0, alpha: 1.0)
+    result["Tawny Port"] = NSColor(srgbRed: 0.411765, green: 0.145098, blue: 0.270588, alpha: 1.0)
+    result["Silver Sand"] = NSColor(srgbRed: 0.74902, green: 0.756863, blue: 0.760784, alpha: 1.0)
+    result["Bamboo"] = NSColor(srgbRed: 0.854902, green: 0.388235, blue: 0.0156863, alpha: 1.0)
+    result["Sidecar"] = NSColor(srgbRed: 0.952941, green: 0.905882, blue: 0.733333, alpha: 1.0)
+    result["Blue Bayoux"] = NSColor(srgbRed: 0.286275, green: 0.4, blue: 0.47451, alpha: 1.0)
+    result["Daintree"] = NSColor(srgbRed: 0.00392157, green: 0.152941, blue: 0.192157, alpha: 1.0)
+    result["Big Stone"] = NSColor(srgbRed: 0.0862745, green: 0.164706, blue: 0.25098, alpha: 1.0)
+    result["Punch"] = NSColor(srgbRed: 0.862745, green: 0.262745, blue: 0.2, alpha: 1.0)
+    result["Camarone"] = NSColor(srgbRed: 0.0, green: 0.345098, blue: 0.101961, alpha: 1.0)
+    result["Chantilly"] = NSColor(srgbRed: 0.972549, green: 0.764706, blue: 0.87451, alpha: 1.0)
+    result["Wattle"] = NSColor(srgbRed: 0.862745, green: 0.843137, blue: 0.278431, alpha: 1.0)
+    result["Moccaccino"] = NSColor(srgbRed: 0.431373, green: 0.113725, blue: 0.0784314, alpha: 1.0)
+    result["Pot Pourri"] = NSColor(srgbRed: 0.960784, green: 0.905882, blue: 0.886275, alpha: 1.0)
+    result["Green Pea"] = NSColor(srgbRed: 0.113725, green: 0.380392, blue: 0.258824, alpha: 1.0)
+    result["Lemon"] = NSColor(srgbRed: 0.992157, green: 0.913725, blue: 0.0627451, alpha: 1.0)
+    result["Orange"] = NSColor(srgbRed: 1.0, green: 0.407843, blue: 0.121569, alpha: 1.0)
+    result["Pine Green"] = NSColor(srgbRed: 0.00392157, green: 0.47451, blue: 0.435294, alpha: 1.0)
+    result["Paua"] = NSColor(srgbRed: 0.14902, green: 0.0117647, blue: 0.407843, alpha: 1.0)
+    result["Cruise"] = NSColor(srgbRed: 0.709804, green: 0.92549, blue: 0.87451, alpha: 1.0)
+    result["Sun"] = NSColor(srgbRed: 0.984314, green: 0.67451, blue: 0.0745098, alpha: 1.0)
+    result["Rice Cake"] = NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.941176, alpha: 1.0)
+    result["Dawn Pink"] = NSColor(srgbRed: 0.952941, green: 0.913725, blue: 0.898039, alpha: 1.0)
+    result["Bunker"] = NSColor(srgbRed: 0.0509804, green: 0.0666667, blue: 0.0901961, alpha: 1.0)
+    result["Lily"] = NSColor(srgbRed: 0.784314, green: 0.666667, blue: 0.74902, alpha: 1.0)
+    result["Everglade"] = NSColor(srgbRed: 0.109804, green: 0.25098, blue: 0.180392, alpha: 1.0)
+    result["Espresso"] = NSColor(srgbRed: 0.380392, green: 0.152941, blue: 0.0941176, alpha: 1.0)
+    result["Tenn"] = NSColor(srgbRed: 0.803922, green: 0.341176, blue: 0.0, alpha: 1.0)
+    result["Apple Green"] = NSColor(srgbRed: 0.886275, green: 0.952941, blue: 0.92549, alpha: 1.0)
+    result["Emperor"] = NSColor(srgbRed: 0.317647, green: 0.27451, blue: 0.286275, alpha: 1.0)
+    result["Wewak"] = NSColor(srgbRed: 0.945098, green: 0.607843, blue: 0.670588, alpha: 1.0)
+    result["Melrose"] = NSColor(srgbRed: 0.780392, green: 0.756863, blue: 1.0, alpha: 1.0)
+    result["Chicago"] = NSColor(srgbRed: 0.364706, green: 0.360784, blue: 0.345098, alpha: 1.0)
+    result["Pumpkin"] = NSColor(srgbRed: 1.0, green: 0.458824, blue: 0.0941176, alpha: 1.0)
+    result["Morocco Brown"] = NSColor(srgbRed: 0.266667, green: 0.113725, blue: 0.0, alpha: 1.0)
+    result["Deluge"] = NSColor(srgbRed: 0.458824, green: 0.388235, blue: 0.658824, alpha: 1.0)
+    result["Peach Orange"] = NSColor(srgbRed: 1.0, green: 0.8, blue: 0.6, alpha: 1.0)
+    result["Wild Rice"] = NSColor(srgbRed: 0.92549, green: 0.878431, blue: 0.564706, alpha: 1.0)
+    result["Maroon Oak"] = NSColor(srgbRed: 0.321569, green: 0.0470588, blue: 0.0901961, alpha: 1.0)
+    result["Lisbon Brown"] = NSColor(srgbRed: 0.258824, green: 0.223529, blue: 0.129412, alpha: 1.0)
+    result["Gordons Green"] = NSColor(srgbRed: 0.0431373, green: 0.0666667, blue: 0.027451, alpha: 1.0)
+    result["Salt Box"] = NSColor(srgbRed: 0.407843, green: 0.368627, blue: 0.431373, alpha: 1.0)
+    result["Roman Coffee"] = NSColor(srgbRed: 0.47451, green: 0.364706, blue: 0.298039, alpha: 1.0)
+    result["Chestnut Rose"] = NSColor(srgbRed: 0.803922, green: 0.360784, blue: 0.360784, alpha: 1.0)
+    result["Rajah"] = NSColor(srgbRed: 0.968627, green: 0.713726, blue: 0.407843, alpha: 1.0)
+    result["Beryl Green"] = NSColor(srgbRed: 0.870588, green: 0.898039, blue: 0.752941, alpha: 1.0)
+    result["River Bed"] = NSColor(srgbRed: 0.262745, green: 0.298039, blue: 0.34902, alpha: 1.0)
+    result["Corduroy"] = NSColor(srgbRed: 0.376471, green: 0.431373, blue: 0.407843, alpha: 1.0)
+    result["Periwinkle Gray"] = NSColor(srgbRed: 0.764706, green: 0.803922, blue: 0.901961, alpha: 1.0)
+    result["Rosewood"] = NSColor(srgbRed: 0.396078, green: 0.0, blue: 0.0431373, alpha: 1.0)
+    result["Green Mist"] = NSColor(srgbRed: 0.796078, green: 0.827451, blue: 0.690196, alpha: 1.0)
+    result["Madang"] = NSColor(srgbRed: 0.717647, green: 0.941176, blue: 0.745098, alpha: 1.0)
+    result["Straw"] = NSColor(srgbRed: 0.831373, green: 0.74902, blue: 0.552941, alpha: 1.0)
+    result["Viola"] = NSColor(srgbRed: 0.796078, green: 0.560784, blue: 0.662745, alpha: 1.0)
+    result["Chrome White"] = NSColor(srgbRed: 0.909804, green: 0.945098, blue: 0.831373, alpha: 1.0)
+    result["Rhino"] = NSColor(srgbRed: 0.180392, green: 0.247059, blue: 0.384314, alpha: 1.0)
+    result["Kabul"] = NSColor(srgbRed: 0.368627, green: 0.282353, blue: 0.243137, alpha: 1.0)
+    result["Off Green"] = NSColor(srgbRed: 0.901961, green: 0.972549, blue: 0.952941, alpha: 1.0)
+    result["Porsche"] = NSColor(srgbRed: 0.917647, green: 0.682353, blue: 0.411765, alpha: 1.0)
+    result["Cerulean Blue"] = NSColor(srgbRed: 0.164706, green: 0.321569, blue: 0.745098, alpha: 1.0)
+    result["Madison"] = NSColor(srgbRed: 0.0352941, green: 0.145098, blue: 0.364706, alpha: 1.0)
+    result["Oil"] = NSColor(srgbRed: 0.156863, green: 0.117647, blue: 0.0823529, alpha: 1.0)
+    result["Gray Chateau"] = NSColor(srgbRed: 0.635294, green: 0.666667, blue: 0.701961, alpha: 1.0)
+    result["Palm Green"] = NSColor(srgbRed: 0.0352941, green: 0.137255, blue: 0.0588235, alpha: 1.0)
+    result["Hibiscus"] = NSColor(srgbRed: 0.713726, green: 0.192157, blue: 0.423529, alpha: 1.0)
+    result["Aqua Forest"] = NSColor(srgbRed: 0.372549, green: 0.654902, blue: 0.466667, alpha: 1.0)
+    result["Cannon Pink"] = NSColor(srgbRed: 0.537255, green: 0.262745, blue: 0.403922, alpha: 1.0)
+    result["Dandelion"] = NSColor(srgbRed: 0.996078, green: 0.847059, blue: 0.364706, alpha: 1.0)
+    result["Satin Linen"] = NSColor(srgbRed: 0.901961, green: 0.894118, blue: 0.831373, alpha: 1.0)
+    result["Burnt Umber"] = NSColor(srgbRed: 0.541176, green: 0.2, blue: 0.141176, alpha: 1.0)
+    result["Gray Suit"] = NSColor(srgbRed: 0.756863, green: 0.745098, blue: 0.803922, alpha: 1.0)
+    result["Eunry"] = NSColor(srgbRed: 0.811765, green: 0.639216, blue: 0.615686, alpha: 1.0)
+    result["Half Baked"] = NSColor(srgbRed: 0.521569, green: 0.768627, blue: 0.8, alpha: 1.0)
+    result["Swiss Coffee"] = NSColor(srgbRed: 0.866667, green: 0.839216, blue: 0.835294, alpha: 1.0)
+    result["Cumulus"] = NSColor(srgbRed: 0.992157, green: 1.0, blue: 0.835294, alpha: 1.0)
+    result["Westar"] = NSColor(srgbRed: 0.862745, green: 0.85098, blue: 0.823529, alpha: 1.0)
+    result["Christi"] = NSColor(srgbRed: 0.403922, green: 0.654902, blue: 0.0705882, alpha: 1.0)
+    result["Nandor"] = NSColor(srgbRed: 0.294118, green: 0.364706, blue: 0.321569, alpha: 1.0)
+    result["Bitter Lemon"] = NSColor(srgbRed: 0.792157, green: 0.878431, blue: 0.0509804, alpha: 1.0)
+    result["Yukon Gold"] = NSColor(srgbRed: 0.482353, green: 0.4, blue: 0.0313726, alpha: 1.0)
+    result["Curious Blue"] = NSColor(srgbRed: 0.145098, green: 0.588235, blue: 0.819608, alpha: 1.0)
+    result["Cardinal"] = NSColor(srgbRed: 0.768627, green: 0.117647, blue: 0.227451, alpha: 1.0)
+    result["Orange White"] = NSColor(srgbRed: 0.996078, green: 0.988235, blue: 0.929412, alpha: 1.0)
+    result["Copper Rose"] = NSColor(srgbRed: 0.6, green: 0.4, blue: 0.4, alpha: 1.0)
+    result["Deep Cerulean"] = NSColor(srgbRed: 0.0, green: 0.482353, blue: 0.654902, alpha: 1.0)
+    result["Friar Gray"] = NSColor(srgbRed: 0.501961, green: 0.494118, blue: 0.47451, alpha: 1.0)
+    result["Jumbo"] = NSColor(srgbRed: 0.486275, green: 0.482353, blue: 0.509804, alpha: 1.0)
+    result["Tosca"] = NSColor(srgbRed: 0.552941, green: 0.247059, blue: 0.247059, alpha: 1.0)
+    result["Vida Loca"] = NSColor(srgbRed: 0.329412, green: 0.564706, blue: 0.0980392, alpha: 1.0)
+    result["Pixie Green"] = NSColor(srgbRed: 0.752941, green: 0.847059, blue: 0.713726, alpha: 1.0)
+    result["Japanese Laurel"] = NSColor(srgbRed: 0.0392157, green: 0.411765, blue: 0.0235294, alpha: 1.0)
+    result["Nevada"] = NSColor(srgbRed: 0.392157, green: 0.431373, blue: 0.458824, alpha: 1.0)
+    result["Reef"] = NSColor(srgbRed: 0.788235, green: 1.0, blue: 0.635294, alpha: 1.0)
+    result["Yuma"] = NSColor(srgbRed: 0.807843, green: 0.760784, blue: 0.568627, alpha: 1.0)
+    result["Terracotta"] = NSColor(srgbRed: 0.886275, green: 0.447059, blue: 0.356863, alpha: 1.0)
+    result["Scarlet Gum"] = NSColor(srgbRed: 0.262745, green: 0.0823529, blue: 0.376471, alpha: 1.0)
+    result["Bossanova"] = NSColor(srgbRed: 0.305882, green: 0.164706, blue: 0.352941, alpha: 1.0)
+    result["Port Gore"] = NSColor(srgbRed: 0.145098, green: 0.121569, blue: 0.309804, alpha: 1.0)
+    result["Manatee"] = NSColor(srgbRed: 0.552941, green: 0.564706, blue: 0.631373, alpha: 1.0)
+    result["Brown Rust"] = NSColor(srgbRed: 0.686275, green: 0.34902, blue: 0.243137, alpha: 1.0)
+    result["Bizarre"] = NSColor(srgbRed: 0.933333, green: 0.870588, blue: 0.854902, alpha: 1.0)
+    result["Cyprus"] = NSColor(srgbRed: 0.0, green: 0.243137, blue: 0.25098, alpha: 1.0)
+    result["Axolotl"] = NSColor(srgbRed: 0.305882, green: 0.4, blue: 0.286275, alpha: 1.0)
+    result["Star Dust"] = NSColor(srgbRed: 0.623529, green: 0.623529, blue: 0.611765, alpha: 1.0)
+    result["Fuscous Gray"] = NSColor(srgbRed: 0.329412, green: 0.32549, blue: 0.301961, alpha: 1.0)
+    result["Cotton Candy"] = NSColor(srgbRed: 1.0, green: 0.717647, blue: 0.835294, alpha: 1.0)
+    result["Persian Plum"] = NSColor(srgbRed: 0.439216, green: 0.109804, blue: 0.109804, alpha: 1.0)
+    result["Finn"] = NSColor(srgbRed: 0.411765, green: 0.176471, blue: 0.329412, alpha: 1.0)
+    result["Haiti"] = NSColor(srgbRed: 0.105882, green: 0.0627451, blue: 0.207843, alpha: 1.0)
+    result["Falu Red"] = NSColor(srgbRed: 0.501961, green: 0.0941176, blue: 0.0941176, alpha: 1.0)
+    result["Punga"] = NSColor(srgbRed: 0.301961, green: 0.239216, blue: 0.0784314, alpha: 1.0)
+    result["Buff"] = NSColor(srgbRed: 0.941176, green: 0.862745, blue: 0.509804, alpha: 1.0)
+    result["Blue Ribbon"] = NSColor(srgbRed: 0.0, green: 0.4, blue: 1.0, alpha: 1.0)
+    result["Sirocco"] = NSColor(srgbRed: 0.443137, green: 0.501961, blue: 0.501961, alpha: 1.0)
+    result["Deep Koamaru"] = NSColor(srgbRed: 0.105882, green: 0.0705882, blue: 0.482353, alpha: 1.0)
+    result["Abbey"] = NSColor(srgbRed: 0.298039, green: 0.309804, blue: 0.337255, alpha: 1.0)
+    result["Laser Lemon"] = NSColor(srgbRed: 1.0, green: 1.0, blue: 0.4, alpha: 1.0)
+    result["Golden Dream"] = NSColor(srgbRed: 0.941176, green: 0.835294, blue: 0.176471, alpha: 1.0)
+    result["Pattens Blue"] = NSColor(srgbRed: 0.870588, green: 0.960784, blue: 1.0, alpha: 1.0)
+    result["Nebula"] = NSColor(srgbRed: 0.796078, green: 0.858824, blue: 0.839216, alpha: 1.0)
+    result["Venetian Red"] = NSColor(srgbRed: 0.447059, green: 0.00392157, blue: 0.0588235, alpha: 1.0)
+    result["Dove Gray"] = NSColor(srgbRed: 0.427451, green: 0.423529, blue: 0.423529, alpha: 1.0)
+    result["Mulled Wine"] = NSColor(srgbRed: 0.305882, green: 0.270588, blue: 0.384314, alpha: 1.0)
+    result["Island Spice"] = NSColor(srgbRed: 1.0, green: 0.988235, blue: 0.933333, alpha: 1.0)
+    result["Havelock Blue"] = NSColor(srgbRed: 0.333333, green: 0.564706, blue: 0.85098, alpha: 1.0)
+    result["Cork"] = NSColor(srgbRed: 0.25098, green: 0.160784, blue: 0.113725, alpha: 1.0)
+    result["Beeswax"] = NSColor(srgbRed: 0.996078, green: 0.94902, blue: 0.780392, alpha: 1.0)
+    result["Glacier"] = NSColor(srgbRed: 0.501961, green: 0.701961, blue: 0.768627, alpha: 1.0)
+    result["Santas Gray"] = NSColor(srgbRed: 0.623529, green: 0.627451, blue: 0.694118, alpha: 1.0)
+    result["Finlandia"] = NSColor(srgbRed: 0.333333, green: 0.427451, blue: 0.337255, alpha: 1.0)
+    result["Indigo"] = NSColor(srgbRed: 0.309804, green: 0.411765, blue: 0.776471, alpha: 1.0)
+    result["Eastern Blue"] = NSColor(srgbRed: 0.117647, green: 0.603922, blue: 0.690196, alpha: 1.0)
+    result["Wedgewood"] = NSColor(srgbRed: 0.305882, green: 0.498039, blue: 0.619608, alpha: 1.0)
+    result["Pesto"] = NSColor(srgbRed: 0.486275, green: 0.462745, blue: 0.192157, alpha: 1.0)
+    result["Cocoa Bean"] = NSColor(srgbRed: 0.282353, green: 0.109804, blue: 0.109804, alpha: 1.0)
+    result["Coral Tree"] = NSColor(srgbRed: 0.658824, green: 0.419608, blue: 0.419608, alpha: 1.0)
+    result["Oregon"] = NSColor(srgbRed: 0.607843, green: 0.278431, blue: 0.0117647, alpha: 1.0)
+    result["Siren"] = NSColor(srgbRed: 0.478431, green: 0.00392157, blue: 0.227451, alpha: 1.0)
+    result["Bali Hai"] = NSColor(srgbRed: 0.521569, green: 0.623529, blue: 0.686275, alpha: 1.0)
+    result["Topaz"] = NSColor(srgbRed: 0.486275, green: 0.466667, blue: 0.541176, alpha: 1.0)
+    result["Faded Jade"] = NSColor(srgbRed: 0.258824, green: 0.47451, blue: 0.466667, alpha: 1.0)
+    result["Deep Oak"] = NSColor(srgbRed: 0.254902, green: 0.12549, blue: 0.0627451, alpha: 1.0)
+    result["Seance"] = NSColor(srgbRed: 0.45098, green: 0.117647, blue: 0.560784, alpha: 1.0)
+    result["Red Beech"] = NSColor(srgbRed: 0.482353, green: 0.219608, blue: 0.00392157, alpha: 1.0)
+    result["Biloba Flower"] = NSColor(srgbRed: 0.698039, green: 0.631373, blue: 0.917647, alpha: 1.0)
+    result["French Gray"] = NSColor(srgbRed: 0.741176, green: 0.741176, blue: 0.776471, alpha: 1.0)
+    result["Pink Salmon"] = NSColor(srgbRed: 1.0, green: 0.568627, blue: 0.643137, alpha: 1.0)
+    result["Ash"] = NSColor(srgbRed: 0.776471, green: 0.764706, blue: 0.709804, alpha: 1.0)
+    result["Don Juan"] = NSColor(srgbRed: 0.364706, green: 0.298039, blue: 0.317647, alpha: 1.0)
+    result["Blue"] = NSColor(srgbRed: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+    result["Plum"] = NSColor(srgbRed: 0.517647, green: 0.192157, blue: 0.47451, alpha: 1.0)
+    result["Santa Fe"] = NSColor(srgbRed: 0.694118, green: 0.427451, blue: 0.321569, alpha: 1.0)
+    result["Norway"] = NSColor(srgbRed: 0.658824, green: 0.741176, blue: 0.623529, alpha: 1.0)
+    result["Sea Nymph"] = NSColor(srgbRed: 0.470588, green: 0.639216, blue: 0.611765, alpha: 1.0)
+    result["Heather"] = NSColor(srgbRed: 0.717647, green: 0.764706, blue: 0.815686, alpha: 1.0)
+    result["Roof Terracotta"] = NSColor(srgbRed: 0.65098, green: 0.184314, blue: 0.12549, alpha: 1.0)
+    result["Chiffon"] = NSColor(srgbRed: 0.945098, green: 1.0, blue: 0.784314, alpha: 1.0)
+    result["Suva Gray"] = NSColor(srgbRed: 0.533333, green: 0.513726, blue: 0.529412, alpha: 1.0)
+    result["Tutu"] = NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.976471, alpha: 1.0)
+    result["Hemp"] = NSColor(srgbRed: 0.564706, green: 0.470588, blue: 0.454902, alpha: 1.0)
+    result["Fun Blue"] = NSColor(srgbRed: 0.0980392, green: 0.34902, blue: 0.658824, alpha: 1.0)
+    result["Venice Blue"] = NSColor(srgbRed: 0.0196078, green: 0.34902, blue: 0.537255, alpha: 1.0)
+    result["Lemon Chiffon"] = NSColor(srgbRed: 1.0, green: 0.980392, blue: 0.803922, alpha: 1.0)
+    result["Pickled Bean"] = NSColor(srgbRed: 0.431373, green: 0.282353, blue: 0.14902, alpha: 1.0)
+    result["Tequila"] = NSColor(srgbRed: 1.0, green: 0.901961, blue: 0.780392, alpha: 1.0)
+    result["Goldenrod"] = NSColor(srgbRed: 0.988235, green: 0.839216, blue: 0.403922, alpha: 1.0)
+    result["Ship Cove"] = NSColor(srgbRed: 0.470588, green: 0.545098, blue: 0.729412, alpha: 1.0)
+    result["Cinderella"] = NSColor(srgbRed: 0.992157, green: 0.882353, blue: 0.862745, alpha: 1.0)
+    result["Night Rider"] = NSColor(srgbRed: 0.121569, green: 0.0705882, blue: 0.0588235, alpha: 1.0)
+    result["Donkey Brown"] = NSColor(srgbRed: 0.65098, green: 0.572549, blue: 0.47451, alpha: 1.0)
+    result["Oasis"] = NSColor(srgbRed: 0.996078, green: 0.937255, blue: 0.807843, alpha: 1.0)
+    result["Alpine"] = NSColor(srgbRed: 0.686275, green: 0.560784, blue: 0.172549, alpha: 1.0)
+    result["Sweet Corn"] = NSColor(srgbRed: 0.984314, green: 0.917647, blue: 0.54902, alpha: 1.0)
+    result["Bourbon"] = NSColor(srgbRed: 0.729412, green: 0.435294, blue: 0.117647, alpha: 1.0)
+    result["Bulgarian Rose"] = NSColor(srgbRed: 0.282353, green: 0.0235294, blue: 0.027451, alpha: 1.0)
+    result["St Tropaz"] = NSColor(srgbRed: 0.176471, green: 0.337255, blue: 0.607843, alpha: 1.0)
+    result["Brandy Punch"] = NSColor(srgbRed: 0.803922, green: 0.517647, blue: 0.160784, alpha: 1.0)
+    result["Colonial White"] = NSColor(srgbRed: 1.0, green: 0.929412, blue: 0.737255, alpha: 1.0)
+    result["Olivine"] = NSColor(srgbRed: 0.603922, green: 0.72549, blue: 0.45098, alpha: 1.0)
+    result["Outrageous Orange"] = NSColor(srgbRed: 1.0, green: 0.376471, blue: 0.215686, alpha: 1.0)
+    result["Coffee"] = NSColor(srgbRed: 0.439216, green: 0.396078, blue: 0.333333, alpha: 1.0)
+    result["Aqua Spring"] = NSColor(srgbRed: 0.917647, green: 0.976471, blue: 0.960784, alpha: 1.0)
+    result["Edgewater"] = NSColor(srgbRed: 0.784314, green: 0.890196, blue: 0.843137, alpha: 1.0)
+    result["English Holly"] = NSColor(srgbRed: 0.00784314, green: 0.176471, blue: 0.0823529, alpha: 1.0)
+    result["Brown Tumbleweed"] = NSColor(srgbRed: 0.215686, green: 0.160784, blue: 0.054902, alpha: 1.0)
+    result["Totem Pole"] = NSColor(srgbRed: 0.6, green: 0.105882, blue: 0.027451, alpha: 1.0)
+    result["Buttermilk"] = NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.709804, alpha: 1.0)
+    result["Racing Green"] = NSColor(srgbRed: 0.0470588, green: 0.0980392, blue: 0.0666667, alpha: 1.0)
+    result["Mustard"] = NSColor(srgbRed: 1.0, green: 0.858824, blue: 0.345098, alpha: 1.0)
+    result["Flint"] = NSColor(srgbRed: 0.435294, green: 0.415686, blue: 0.380392, alpha: 1.0)
+    result["Sepia"] = NSColor(srgbRed: 0.439216, green: 0.258824, blue: 0.0784314, alpha: 1.0)
+    result["Bud"] = NSColor(srgbRed: 0.658824, green: 0.682353, blue: 0.611765, alpha: 1.0)
+    result["Red Stage"] = NSColor(srgbRed: 0.815686, green: 0.372549, blue: 0.0156863, alpha: 1.0)
+    result["Onahau"] = NSColor(srgbRed: 0.803922, green: 0.956863, blue: 1.0, alpha: 1.0)
+    result["Tidal"] = NSColor(srgbRed: 0.945098, green: 1.0, blue: 0.678431, alpha: 1.0)
+    result["Olivetone"] = NSColor(srgbRed: 0.443137, green: 0.431373, blue: 0.0627451, alpha: 1.0)
+    result["Saddle"] = NSColor(srgbRed: 0.298039, green: 0.188235, blue: 0.141176, alpha: 1.0)
+    result["Niagara"] = NSColor(srgbRed: 0.0235294, green: 0.631373, blue: 0.537255, alpha: 1.0)
+    result["Electric Lime"] = NSColor(srgbRed: 0.8, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Half Spanish White"] = NSColor(srgbRed: 0.996078, green: 0.956863, blue: 0.858824, alpha: 1.0)
+    result["Chardonnay"] = NSColor(srgbRed: 1.0, green: 0.803922, blue: 0.54902, alpha: 1.0)
+    result["Pastel Pink"] = NSColor(srgbRed: 1.0, green: 0.819608, blue: 0.862745, alpha: 1.0)
+    result["Granny Smith Apple"] = NSColor(srgbRed: 0.615686, green: 0.878431, blue: 0.576471, alpha: 1.0)
+    result["Aqua Haze"] = NSColor(srgbRed: 0.929412, green: 0.960784, blue: 0.960784, alpha: 1.0)
+    result["Sherwood Green"] = NSColor(srgbRed: 0.00784314, green: 0.25098, blue: 0.172549, alpha: 1.0)
+    result["Baltic Sea"] = NSColor(srgbRed: 0.164706, green: 0.14902, blue: 0.188235, alpha: 1.0)
+    result["Pine Cone"] = NSColor(srgbRed: 0.427451, green: 0.368627, blue: 0.329412, alpha: 1.0)
+    result["Thatch"] = NSColor(srgbRed: 0.713726, green: 0.615686, blue: 0.596078, alpha: 1.0)
+    result["Sea Buckthorn"] = NSColor(srgbRed: 0.984314, green: 0.631373, blue: 0.160784, alpha: 1.0)
+    result["Birch"] = NSColor(srgbRed: 0.215686, green: 0.188235, blue: 0.129412, alpha: 1.0)
+    result["Gorse"] = NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.309804, alpha: 1.0)
+    result["Observatory"] = NSColor(srgbRed: 0.00784314, green: 0.52549, blue: 0.435294, alpha: 1.0)
+    result["Tapestry"] = NSColor(srgbRed: 0.690196, green: 0.368627, blue: 0.505882, alpha: 1.0)
+    result["Saffron Mango"] = NSColor(srgbRed: 0.976471, green: 0.74902, blue: 0.345098, alpha: 1.0)
+    result["Gulf Blue"] = NSColor(srgbRed: 0.0196078, green: 0.0862745, blue: 0.341176, alpha: 1.0)
+    result["Gunsmoke"] = NSColor(srgbRed: 0.509804, green: 0.52549, blue: 0.521569, alpha: 1.0)
+    result["Prim"] = NSColor(srgbRed: 0.941176, green: 0.886275, blue: 0.92549, alpha: 1.0)
+    result["Mimosa"] = NSColor(srgbRed: 0.972549, green: 0.992157, blue: 0.827451, alpha: 1.0)
+    result["Bismark"] = NSColor(srgbRed: 0.286275, green: 0.443137, blue: 0.513726, alpha: 1.0)
+    result["Mojo"] = NSColor(srgbRed: 0.752941, green: 0.278431, blue: 0.215686, alpha: 1.0)
+    result["Saddle Brown"] = NSColor(srgbRed: 0.345098, green: 0.203922, blue: 0.00392157, alpha: 1.0)
+    result["Paprika"] = NSColor(srgbRed: 0.552941, green: 0.00784314, blue: 0.14902, alpha: 1.0)
+    result["Blush Pink"] = NSColor(srgbRed: 1.0, green: 0.435294, blue: 1.0, alpha: 1.0)
+    result["Midnight Blue"] = NSColor(srgbRed: 0.0, green: 0.2, blue: 0.4, alpha: 1.0)
+    result["Valentino"] = NSColor(srgbRed: 0.207843, green: 0.054902, blue: 0.258824, alpha: 1.0)
+    result["Blue Whale"] = NSColor(srgbRed: 0.0156863, green: 0.180392, blue: 0.298039, alpha: 1.0)
+    result["Sulu"] = NSColor(srgbRed: 0.756863, green: 0.941176, blue: 0.486275, alpha: 1.0)
+    result["Earls Green"] = NSColor(srgbRed: 0.788235, green: 0.72549, blue: 0.231373, alpha: 1.0)
+    result["Dolphin"] = NSColor(srgbRed: 0.392157, green: 0.376471, blue: 0.466667, alpha: 1.0)
+    result["Highland"] = NSColor(srgbRed: 0.435294, green: 0.556863, blue: 0.388235, alpha: 1.0)
+    result["Orinoco"] = NSColor(srgbRed: 0.952941, green: 0.984314, blue: 0.831373, alpha: 1.0)
+    result["Milan"] = NSColor(srgbRed: 0.980392, green: 1.0, blue: 0.643137, alpha: 1.0)
+    result["Slate Gray"] = NSColor(srgbRed: 0.439216, green: 0.501961, blue: 0.564706, alpha: 1.0)
+    result["Zambezi"] = NSColor(srgbRed: 0.407843, green: 0.333333, blue: 0.345098, alpha: 1.0)
+    result["Linen"] = NSColor(srgbRed: 0.980392, green: 0.941176, blue: 0.901961, alpha: 1.0)
+    result["Tan Hide"] = NSColor(srgbRed: 0.980392, green: 0.615686, blue: 0.352941, alpha: 1.0)
+    result["Powder Blue"] = NSColor(srgbRed: 0.690196, green: 0.878431, blue: 0.901961, alpha: 1.0)
+    result["Sundance"] = NSColor(srgbRed: 0.788235, green: 0.701961, blue: 0.356863, alpha: 1.0)
+    result["Copperfield"] = NSColor(srgbRed: 0.854902, green: 0.541176, blue: 0.403922, alpha: 1.0)
+    result["Festival"] = NSColor(srgbRed: 0.984314, green: 0.913725, blue: 0.423529, alpha: 1.0)
+    result["Coral"] = NSColor(srgbRed: 1.0, green: 0.498039, blue: 0.313726, alpha: 1.0)
+    result["Shiraz"] = NSColor(srgbRed: 0.698039, green: 0.0352941, blue: 0.192157, alpha: 1.0)
+    result["Sorbus"] = NSColor(srgbRed: 0.992157, green: 0.486275, blue: 0.027451, alpha: 1.0)
+    result["Green Spring"] = NSColor(srgbRed: 0.721569, green: 0.756863, blue: 0.694118, alpha: 1.0)
+    result["Travertine"] = NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.909804, alpha: 1.0)
+    result["Navajo White"] = NSColor(srgbRed: 1.0, green: 0.870588, blue: 0.678431, alpha: 1.0)
+    result["Grenadier"] = NSColor(srgbRed: 0.835294, green: 0.27451, blue: 0.0, alpha: 1.0)
+    result["Supernova"] = NSColor(srgbRed: 1.0, green: 0.788235, blue: 0.00392157, alpha: 1.0)
+    result["Cowboy"] = NSColor(srgbRed: 0.301961, green: 0.156863, blue: 0.176471, alpha: 1.0)
+    result["Swamp"] = NSColor(srgbRed: 0.0, green: 0.105882, blue: 0.109804, alpha: 1.0)
+    result["Evening Sea"] = NSColor(srgbRed: 0.00784314, green: 0.305882, blue: 0.27451, alpha: 1.0)
+    result["Au Chico"] = NSColor(srgbRed: 0.592157, green: 0.376471, blue: 0.364706, alpha: 1.0)
+    result["Gimblet"] = NSColor(srgbRed: 0.721569, green: 0.709804, blue: 0.415686, alpha: 1.0)
+    result["Wheatfield"] = NSColor(srgbRed: 0.952941, green: 0.929412, blue: 0.811765, alpha: 1.0)
+    result["Viking"] = NSColor(srgbRed: 0.392157, green: 0.8, blue: 0.858824, alpha: 1.0)
+    result["Storm Dust"] = NSColor(srgbRed: 0.392157, green: 0.392157, blue: 0.388235, alpha: 1.0)
+    result["Mauvelous"] = NSColor(srgbRed: 0.941176, green: 0.568627, blue: 0.662745, alpha: 1.0)
+    result["Lipstick"] = NSColor(srgbRed: 0.670588, green: 0.0196078, blue: 0.388235, alpha: 1.0)
+    result["Red Ribbon"] = NSColor(srgbRed: 0.929412, green: 0.0392157, blue: 0.247059, alpha: 1.0)
+    result["Ming"] = NSColor(srgbRed: 0.211765, green: 0.454902, blue: 0.490196, alpha: 1.0)
+    result["Aubergine"] = NSColor(srgbRed: 0.231373, green: 0.0352941, blue: 0.0627451, alpha: 1.0)
+    result["Desert Sand"] = NSColor(srgbRed: 0.929412, green: 0.788235, blue: 0.686275, alpha: 1.0)
+    result["Dixie"] = NSColor(srgbRed: 0.886275, green: 0.580392, blue: 0.0941176, alpha: 1.0)
+    result["Sea Green"] = NSColor(srgbRed: 0.180392, green: 0.545098, blue: 0.341176, alpha: 1.0)
+    result["Silver Chalice"] = NSColor(srgbRed: 0.67451, green: 0.67451, blue: 0.67451, alpha: 1.0)
+    result["Pacifika"] = NSColor(srgbRed: 0.466667, green: 0.505882, blue: 0.12549, alpha: 1.0)
+    result["Bright Red"] = NSColor(srgbRed: 0.694118, green: 0.0, blue: 0.0, alpha: 1.0)
+    result["Hunter Green"] = NSColor(srgbRed: 0.0862745, green: 0.113725, blue: 0.0627451, alpha: 1.0)
+    result["Derby"] = NSColor(srgbRed: 1.0, green: 0.933333, blue: 0.847059, alpha: 1.0)
+    result["Meteorite"] = NSColor(srgbRed: 0.235294, green: 0.121569, blue: 0.462745, alpha: 1.0)
+    result["Burning Sand"] = NSColor(srgbRed: 0.85098, green: 0.576471, blue: 0.462745, alpha: 1.0)
+    result["Jewel"] = NSColor(srgbRed: 0.0705882, green: 0.419608, blue: 0.25098, alpha: 1.0)
+    result["Hippie Pink"] = NSColor(srgbRed: 0.682353, green: 0.270588, blue: 0.376471, alpha: 1.0)
+    result["Horses Neck"] = NSColor(srgbRed: 0.376471, green: 0.286275, blue: 0.0745098, alpha: 1.0)
+    result["Jungle Green"] = NSColor(srgbRed: 0.160784, green: 0.670588, blue: 0.529412, alpha: 1.0)
+    result["Picton Blue"] = NSColor(srgbRed: 0.270588, green: 0.694118, blue: 0.909804, alpha: 1.0)
+    result["Fern Green"] = NSColor(srgbRed: 0.309804, green: 0.47451, blue: 0.258824, alpha: 1.0)
+    result["Milano Red"] = NSColor(srgbRed: 0.721569, green: 0.0666667, blue: 0.0156863, alpha: 1.0)
+    result["Mortar"] = NSColor(srgbRed: 0.313726, green: 0.262745, blue: 0.317647, alpha: 1.0)
+    result["Almond"] = NSColor(srgbRed: 0.933333, green: 0.85098, blue: 0.768627, alpha: 1.0)
+    result["Rice Flower"] = NSColor(srgbRed: 0.933333, green: 1.0, blue: 0.886275, alpha: 1.0)
+    result["Cadillac"] = NSColor(srgbRed: 0.690196, green: 0.298039, blue: 0.415686, alpha: 1.0)
+    result["Limeade"] = NSColor(srgbRed: 0.435294, green: 0.615686, blue: 0.00784314, alpha: 1.0)
+    result["Fall Green"] = NSColor(srgbRed: 0.92549, green: 0.921569, blue: 0.741176, alpha: 1.0)
+    result["Drover"] = NSColor(srgbRed: 0.992157, green: 0.968627, blue: 0.678431, alpha: 1.0)
+    result["Pale Leaf"] = NSColor(srgbRed: 0.752941, green: 0.827451, blue: 0.72549, alpha: 1.0)
+    result["Green Haze"] = NSColor(srgbRed: 0.00392157, green: 0.639216, blue: 0.407843, alpha: 1.0)
+    result["Persian Indigo"] = NSColor(srgbRed: 0.196078, green: 0.0705882, blue: 0.478431, alpha: 1.0)
+    result["Puce"] = NSColor(srgbRed: 0.8, green: 0.533333, blue: 0.6, alpha: 1.0)
+    result["Chilean Heath"] = NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.901961, alpha: 1.0)
+    result["Screamin' Green"] = NSColor(srgbRed: 0.4, green: 1.0, blue: 0.4, alpha: 1.0)
+    result["Edward"] = NSColor(srgbRed: 0.635294, green: 0.682353, blue: 0.670588, alpha: 1.0)
+    result["Finch"] = NSColor(srgbRed: 0.384314, green: 0.4, blue: 0.286275, alpha: 1.0)
+    result["Boulder"] = NSColor(srgbRed: 0.478431, green: 0.478431, blue: 0.478431, alpha: 1.0)
+    result["Hippie Green"] = NSColor(srgbRed: 0.32549, green: 0.509804, blue: 0.294118, alpha: 1.0)
+    result["Bon Jour"] = NSColor(srgbRed: 0.898039, green: 0.878431, blue: 0.882353, alpha: 1.0)
+    result["Flamenco"] = NSColor(srgbRed: 1.0, green: 0.490196, blue: 0.027451, alpha: 1.0)
+    result["Cosmos"] = NSColor(srgbRed: 1.0, green: 0.847059, blue: 0.85098, alpha: 1.0)
+    result["Papaya Whip"] = NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.835294, alpha: 1.0)
+    result["Fern Frond"] = NSColor(srgbRed: 0.396078, green: 0.447059, blue: 0.12549, alpha: 1.0)
+    result["Moss Green"] = NSColor(srgbRed: 0.678431, green: 0.87451, blue: 0.678431, alpha: 1.0)
+    result["Chartreuse Yellow"] = NSColor(srgbRed: 0.87451, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Old Brick"] = NSColor(srgbRed: 0.564706, green: 0.117647, blue: 0.117647, alpha: 1.0)
+    result["Orange Peel"] = NSColor(srgbRed: 1.0, green: 0.627451, blue: 0.0, alpha: 1.0)
+    result["Purple Heart"] = NSColor(srgbRed: 0.396078, green: 0.176471, blue: 0.756863, alpha: 1.0)
+    result["Cadet Blue"] = NSColor(srgbRed: 0.662745, green: 0.698039, blue: 0.764706, alpha: 1.0)
+    result["Orient"] = NSColor(srgbRed: 0.00392157, green: 0.368627, blue: 0.521569, alpha: 1.0)
+    result["Bistre"] = NSColor(srgbRed: 0.239216, green: 0.168627, blue: 0.121569, alpha: 1.0)
+    result["Golden Bell"] = NSColor(srgbRed: 0.886275, green: 0.537255, blue: 0.0745098, alpha: 1.0)
+    result["Ecstasy"] = NSColor(srgbRed: 0.980392, green: 0.470588, blue: 0.0784314, alpha: 1.0)
+    result["Cupid"] = NSColor(srgbRed: 0.984314, green: 0.745098, blue: 0.854902, alpha: 1.0)
+    result["Neon Carrot"] = NSColor(srgbRed: 1.0, green: 0.6, blue: 0.2, alpha: 1.0)
+    result["Puerto Rico"] = NSColor(srgbRed: 0.247059, green: 0.756863, blue: 0.666667, alpha: 1.0)
+    result["Cocoa Brown"] = NSColor(srgbRed: 0.188235, green: 0.121569, blue: 0.117647, alpha: 1.0)
+    result["Lucky"] = NSColor(srgbRed: 0.686275, green: 0.623529, blue: 0.109804, alpha: 1.0)
+    result["Chestnut"] = NSColor(srgbRed: 0.72549, green: 0.305882, blue: 0.282353, alpha: 1.0)
+    result["Perfume"] = NSColor(srgbRed: 0.815686, green: 0.745098, blue: 0.972549, alpha: 1.0)
+    result["Almond Frost"] = NSColor(srgbRed: 0.564706, green: 0.482353, blue: 0.443137, alpha: 1.0)
+    result["Gold Tips"] = NSColor(srgbRed: 0.870588, green: 0.729412, blue: 0.0745098, alpha: 1.0)
+    result["Viridian"] = NSColor(srgbRed: 0.25098, green: 0.509804, blue: 0.427451, alpha: 1.0)
+    result["Asparagus"] = NSColor(srgbRed: 0.482353, green: 0.627451, blue: 0.356863, alpha: 1.0)
+    result["Mobster"] = NSColor(srgbRed: 0.498039, green: 0.458824, blue: 0.537255, alpha: 1.0)
+    result["Grape"] = NSColor(srgbRed: 0.219608, green: 0.101961, blue: 0.317647, alpha: 1.0)
+    result["Rebel"] = NSColor(srgbRed: 0.235294, green: 0.0705882, blue: 0.0235294, alpha: 1.0)
+    result["Broom"] = NSColor(srgbRed: 1.0, green: 0.92549, blue: 0.0745098, alpha: 1.0)
+    result["Willow Grove"] = NSColor(srgbRed: 0.396078, green: 0.454902, blue: 0.364706, alpha: 1.0)
+    result["Mondo"] = NSColor(srgbRed: 0.290196, green: 0.235294, blue: 0.188235, alpha: 1.0)
+    result["Pipi"] = NSColor(srgbRed: 0.996078, green: 0.956863, blue: 0.8, alpha: 1.0)
+    result["Jacarta"] = NSColor(srgbRed: 0.227451, green: 0.164706, blue: 0.415686, alpha: 1.0)
+    result["Persian Blue"] = NSColor(srgbRed: 0.109804, green: 0.223529, blue: 0.733333, alpha: 1.0)
+    result["Blue Zodiac"] = NSColor(srgbRed: 0.0745098, green: 0.14902, blue: 0.301961, alpha: 1.0)
+    result["Silver Rust"] = NSColor(srgbRed: 0.788235, green: 0.752941, blue: 0.733333, alpha: 1.0)
+    result["Pavlova"] = NSColor(srgbRed: 0.843137, green: 0.768627, blue: 0.596078, alpha: 1.0)
+    result["Foam"] = NSColor(srgbRed: 0.847059, green: 0.988235, blue: 0.980392, alpha: 1.0)
+    result["Pippin"] = NSColor(srgbRed: 1.0, green: 0.882353, blue: 0.87451, alpha: 1.0)
+    result["Careys Pink"] = NSColor(srgbRed: 0.823529, green: 0.619608, blue: 0.666667, alpha: 1.0)
+    result["Corn Field"] = NSColor(srgbRed: 0.972549, green: 0.980392, blue: 0.803922, alpha: 1.0)
+    result["Hippie Blue"] = NSColor(srgbRed: 0.345098, green: 0.603922, blue: 0.686275, alpha: 1.0)
+    result["Brandy Rose"] = NSColor(srgbRed: 0.733333, green: 0.537255, blue: 0.513726, alpha: 1.0)
+    result["Azure Radiance"] = NSColor(srgbRed: 0.0, green: 0.498039, blue: 1.0, alpha: 1.0)
+    result["Gravel"] = NSColor(srgbRed: 0.290196, green: 0.266667, blue: 0.294118, alpha: 1.0)
+    result["Cedar Wood Finish"] = NSColor(srgbRed: 0.443137, green: 0.101961, blue: 0.0, alpha: 1.0)
+    result["Mid Gray"] = NSColor(srgbRed: 0.372549, green: 0.372549, blue: 0.431373, alpha: 1.0)
+    result["Mandys Pink"] = NSColor(srgbRed: 0.94902, green: 0.764706, blue: 0.698039, alpha: 1.0)
+    result["Citron"] = NSColor(srgbRed: 0.619608, green: 0.662745, blue: 0.121569, alpha: 1.0)
+    result["Dell"] = NSColor(srgbRed: 0.223529, green: 0.392157, blue: 0.0745098, alpha: 1.0)
+    result["Atlantis"] = NSColor(srgbRed: 0.592157, green: 0.803922, blue: 0.176471, alpha: 1.0)
+    result["Razzle Dazzle Rose"] = NSColor(srgbRed: 1.0, green: 0.2, blue: 0.8, alpha: 1.0)
+    result["Tea Green"] = NSColor(srgbRed: 0.815686, green: 0.941176, blue: 0.752941, alpha: 1.0)
+    result["Forest Green"] = NSColor(srgbRed: 0.133333, green: 0.545098, blue: 0.133333, alpha: 1.0)
+    result["Aero Blue"] = NSColor(srgbRed: 0.788235, green: 1.0, blue: 0.898039, alpha: 1.0)
+    result["Vis Vis"] = NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.631373, alpha: 1.0)
+    result["Varden"] = NSColor(srgbRed: 1.0, green: 0.964706, blue: 0.87451, alpha: 1.0)
+    result["White"] = NSColor(srgbRed: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    result["Medium Red Violet"] = NSColor(srgbRed: 0.733333, green: 0.2, blue: 0.521569, alpha: 1.0)
+    result["Orange Roughy"] = NSColor(srgbRed: 0.768627, green: 0.341176, blue: 0.0980392, alpha: 1.0)
+    result["Indochine"] = NSColor(srgbRed: 0.760784, green: 0.419608, blue: 0.0117647, alpha: 1.0)
+    result["Early Dawn"] = NSColor(srgbRed: 1.0, green: 0.976471, blue: 0.901961, alpha: 1.0)
+    result["Catskill White"] = NSColor(srgbRed: 0.933333, green: 0.964706, blue: 0.968627, alpha: 1.0)
+    result["Turtle Green"] = NSColor(srgbRed: 0.164706, green: 0.219608, blue: 0.0431373, alpha: 1.0)
+    result["Comet"] = NSColor(srgbRed: 0.360784, green: 0.364706, blue: 0.458824, alpha: 1.0)
+    result["Brown Derby"] = NSColor(srgbRed: 0.286275, green: 0.14902, blue: 0.0823529, alpha: 1.0)
+    result["Corvette"] = NSColor(srgbRed: 0.980392, green: 0.827451, blue: 0.635294, alpha: 1.0)
+    result["Romantic"] = NSColor(srgbRed: 1.0, green: 0.823529, blue: 0.717647, alpha: 1.0)
+    result["Cashmere"] = NSColor(srgbRed: 0.901961, green: 0.745098, blue: 0.647059, alpha: 1.0)
+    result["Lime"] = NSColor(srgbRed: 0.74902, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Teal Blue"] = NSColor(srgbRed: 0.0156863, green: 0.258824, blue: 0.34902, alpha: 1.0)
+    result["Sprout"] = NSColor(srgbRed: 0.756863, green: 0.843137, blue: 0.690196, alpha: 1.0)
+    result["Clover"] = NSColor(srgbRed: 0.219608, green: 0.286275, blue: 0.0627451, alpha: 1.0)
+    result["Quarter Pearl Lusta"] = NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.956863, alpha: 1.0)
+    result["Peach Schnapps"] = NSColor(srgbRed: 1.0, green: 0.862745, blue: 0.839216, alpha: 1.0)
+    result["Titan White"] = NSColor(srgbRed: 0.941176, green: 0.933333, blue: 1.0, alpha: 1.0)
+    result["Spectra"] = NSColor(srgbRed: 0.184314, green: 0.352941, blue: 0.341176, alpha: 1.0)
+    result["Rodeo Dust"] = NSColor(srgbRed: 0.788235, green: 0.698039, blue: 0.607843, alpha: 1.0)
+    result["Mindaro"] = NSColor(srgbRed: 0.890196, green: 0.976471, blue: 0.533333, alpha: 1.0)
+    result["Claret"] = NSColor(srgbRed: 0.498039, green: 0.0901961, blue: 0.203922, alpha: 1.0)
+    result["Morning Glory"] = NSColor(srgbRed: 0.619608, green: 0.870588, blue: 0.878431, alpha: 1.0)
+    result["Provincial Pink"] = NSColor(srgbRed: 0.996078, green: 0.960784, blue: 0.945098, alpha: 1.0)
+    result["Illusion"] = NSColor(srgbRed: 0.964706, green: 0.643137, blue: 0.788235, alpha: 1.0)
+    result["Lima"] = NSColor(srgbRed: 0.462745, green: 0.741176, blue: 0.0901961, alpha: 1.0)
+    result["Anzac"] = NSColor(srgbRed: 0.878431, green: 0.713726, blue: 0.27451, alpha: 1.0)
+    result["Mint Julep"] = NSColor(srgbRed: 0.945098, green: 0.933333, blue: 0.756863, alpha: 1.0)
+    result["Blue Gem"] = NSColor(srgbRed: 0.172549, green: 0.054902, blue: 0.54902, alpha: 1.0)
+    result["Pharlap"] = NSColor(srgbRed: 0.639216, green: 0.501961, blue: 0.482353, alpha: 1.0)
+    result["Camelot"] = NSColor(srgbRed: 0.537255, green: 0.203922, blue: 0.337255, alpha: 1.0)
+    result["Stack"] = NSColor(srgbRed: 0.541176, green: 0.560784, blue: 0.541176, alpha: 1.0)
+    result["Go Ben"] = NSColor(srgbRed: 0.447059, green: 0.427451, blue: 0.305882, alpha: 1.0)
+    result["Cold Turkey"] = NSColor(srgbRed: 0.807843, green: 0.729412, blue: 0.729412, alpha: 1.0)
+    result["Bay Leaf"] = NSColor(srgbRed: 0.490196, green: 0.662745, blue: 0.552941, alpha: 1.0)
+    result["Clairvoyant"] = NSColor(srgbRed: 0.282353, green: 0.0235294, blue: 0.337255, alpha: 1.0)
+    result["Russet"] = NSColor(srgbRed: 0.501961, green: 0.27451, blue: 0.105882, alpha: 1.0)
+    result["Chateau Green"] = NSColor(srgbRed: 0.25098, green: 0.658824, blue: 0.376471, alpha: 1.0)
+    result["Copper Canyon"] = NSColor(srgbRed: 0.494118, green: 0.227451, blue: 0.0823529, alpha: 1.0)
+    result["Maroon Flush"] = NSColor(srgbRed: 0.764706, green: 0.129412, blue: 0.282353, alpha: 1.0)
+    result["Lunar Green"] = NSColor(srgbRed: 0.235294, green: 0.286275, blue: 0.227451, alpha: 1.0)
+    result["Blue Violet"] = NSColor(srgbRed: 0.392157, green: 0.337255, blue: 0.717647, alpha: 1.0)
+    result["Shuttle Gray"] = NSColor(srgbRed: 0.372549, green: 0.4, blue: 0.447059, alpha: 1.0)
+    result["Crown of Thorns"] = NSColor(srgbRed: 0.466667, green: 0.121569, blue: 0.121569, alpha: 1.0)
+    result["Dallas"] = NSColor(srgbRed: 0.431373, green: 0.294118, blue: 0.14902, alpha: 1.0)
+    result["Dull Lavender"] = NSColor(srgbRed: 0.658824, green: 0.6, blue: 0.901961, alpha: 1.0)
+    result["Surfie Green"] = NSColor(srgbRed: 0.0470588, green: 0.478431, blue: 0.47451, alpha: 1.0)
+    result["Marigold Yellow"] = NSColor(srgbRed: 0.984314, green: 0.909804, blue: 0.439216, alpha: 1.0)
+    result["Regal Blue"] = NSColor(srgbRed: 0.00392157, green: 0.247059, blue: 0.415686, alpha: 1.0)
+    result["Carla"] = NSColor(srgbRed: 0.952941, green: 1.0, blue: 0.847059, alpha: 1.0)
+    result["Watusi"] = NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.811765, alpha: 1.0)
+    result["Teak"] = NSColor(srgbRed: 0.694118, green: 0.580392, blue: 0.380392, alpha: 1.0)
+    result["Chathams Blue"] = NSColor(srgbRed: 0.0901961, green: 0.333333, blue: 0.47451, alpha: 1.0)
+    result["Green Waterloo"] = NSColor(srgbRed: 0.0627451, green: 0.0784314, blue: 0.0196078, alpha: 1.0)
+    result["Dark Ebony"] = NSColor(srgbRed: 0.235294, green: 0.12549, blue: 0.0196078, alpha: 1.0)
+    result["Dust Storm"] = NSColor(srgbRed: 0.898039, green: 0.8, blue: 0.788235, alpha: 1.0)
+    result["Manhattan"] = NSColor(srgbRed: 0.960784, green: 0.788235, blue: 0.6, alpha: 1.0)
+    result["Mona Lisa"] = NSColor(srgbRed: 1.0, green: 0.631373, blue: 0.580392, alpha: 1.0)
+    result["Deep Fir"] = NSColor(srgbRed: 0.0, green: 0.160784, blue: 0.0, alpha: 1.0)
+    result["Woodland"] = NSColor(srgbRed: 0.301961, green: 0.32549, blue: 0.156863, alpha: 1.0)
+    result["Tory Blue"] = NSColor(srgbRed: 0.0784314, green: 0.313726, blue: 0.666667, alpha: 1.0)
+    result["Seaweed"] = NSColor(srgbRed: 0.105882, green: 0.184314, blue: 0.0666667, alpha: 1.0)
+    result["Crocodile"] = NSColor(srgbRed: 0.45098, green: 0.427451, blue: 0.345098, alpha: 1.0)
+    result["Muddy Waters"] = NSColor(srgbRed: 0.717647, green: 0.556863, blue: 0.360784, alpha: 1.0)
+    result["Eternity"] = NSColor(srgbRed: 0.129412, green: 0.101961, blue: 0.054902, alpha: 1.0)
+    result["Wisteria"] = NSColor(srgbRed: 0.592157, green: 0.443137, blue: 0.709804, alpha: 1.0)
+    result["Black Russian"] = NSColor(srgbRed: 0.0392157, green: 0.0, blue: 0.109804, alpha: 1.0)
+    result["William"] = NSColor(srgbRed: 0.227451, green: 0.407843, blue: 0.423529, alpha: 1.0)
+    result["Calico"] = NSColor(srgbRed: 0.878431, green: 0.752941, blue: 0.584314, alpha: 1.0)
+    result["Bitter"] = NSColor(srgbRed: 0.52549, green: 0.537255, blue: 0.454902, alpha: 1.0)
+    result["Cinnabar"] = NSColor(srgbRed: 0.890196, green: 0.258824, blue: 0.203922, alpha: 1.0)
+    result["Battleship Gray"] = NSColor(srgbRed: 0.509804, green: 0.560784, blue: 0.447059, alpha: 1.0)
+    result["Dodger Blue"] = NSColor(srgbRed: 0.117647, green: 0.564706, blue: 1.0, alpha: 1.0)
+    result["Harlequin"] = NSColor(srgbRed: 0.247059, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Oxley"] = NSColor(srgbRed: 0.466667, green: 0.619608, blue: 0.52549, alpha: 1.0)
+    result["Orchid White"] = NSColor(srgbRed: 1.0, green: 0.992157, blue: 0.952941, alpha: 1.0)
+    result["Fruit Salad"] = NSColor(srgbRed: 0.309804, green: 0.615686, blue: 0.364706, alpha: 1.0)
+    result["Baja White"] = NSColor(srgbRed: 1.0, green: 0.972549, blue: 0.819608, alpha: 1.0)
+    result["Sweet Pink"] = NSColor(srgbRed: 0.992157, green: 0.623529, blue: 0.635294, alpha: 1.0)
+    result["Fuzzy Wuzzy Brown"] = NSColor(srgbRed: 0.768627, green: 0.337255, blue: 0.333333, alpha: 1.0)
+    result["Gossamer"] = NSColor(srgbRed: 0.0235294, green: 0.607843, blue: 0.505882, alpha: 1.0)
+    result["Bronco"] = NSColor(srgbRed: 0.670588, green: 0.631373, blue: 0.588235, alpha: 1.0)
+    result["Coral Reef"] = NSColor(srgbRed: 0.780392, green: 0.737255, blue: 0.635294, alpha: 1.0)
+    result["Algae Green"] = NSColor(srgbRed: 0.576471, green: 0.87451, blue: 0.721569, alpha: 1.0)
+    result["Fire Bush"] = NSColor(srgbRed: 0.909804, green: 0.6, blue: 0.156863, alpha: 1.0)
+    result["Botticelli"] = NSColor(srgbRed: 0.780392, green: 0.866667, blue: 0.898039, alpha: 1.0)
+    result["Steel Gray"] = NSColor(srgbRed: 0.14902, green: 0.137255, blue: 0.207843, alpha: 1.0)
+    result["Bahama Blue"] = NSColor(srgbRed: 0.00784314, green: 0.388235, blue: 0.584314, alpha: 1.0)
+    result["Dorado"] = NSColor(srgbRed: 0.419608, green: 0.341176, blue: 0.333333, alpha: 1.0)
+    result["Serenade"] = NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.909804, alpha: 1.0)
+    result["Mystic"] = NSColor(srgbRed: 0.886275, green: 0.921569, blue: 0.929412, alpha: 1.0)
+    result["Tranquil"] = NSColor(srgbRed: 0.901961, green: 1.0, blue: 1.0, alpha: 1.0)
+    result["Cararra"] = NSColor(srgbRed: 0.933333, green: 0.933333, blue: 0.909804, alpha: 1.0)
+    result["Karry"] = NSColor(srgbRed: 1.0, green: 0.917647, blue: 0.831373, alpha: 1.0)
+    result["Boston Blue"] = NSColor(srgbRed: 0.231373, green: 0.568627, blue: 0.705882, alpha: 1.0)
+    result["Bronze Olive"] = NSColor(srgbRed: 0.305882, green: 0.258824, blue: 0.0470588, alpha: 1.0)
+    result["Emerald"] = NSColor(srgbRed: 0.313726, green: 0.784314, blue: 0.470588, alpha: 1.0)
+    result["Pompadour"] = NSColor(srgbRed: 0.4, green: 0.0, blue: 0.270588, alpha: 1.0)
+    result["Vanilla"] = NSColor(srgbRed: 0.819608, green: 0.745098, blue: 0.658824, alpha: 1.0)
+    result["Panache"] = NSColor(srgbRed: 0.917647, green: 0.964706, blue: 0.933333, alpha: 1.0)
+    result["Fresh Eggplant"] = NSColor(srgbRed: 0.6, green: 0.0, blue: 0.4, alpha: 1.0)
+    result["Maverick"] = NSColor(srgbRed: 0.847059, green: 0.760784, blue: 0.835294, alpha: 1.0)
+    result["Snuff"] = NSColor(srgbRed: 0.886275, green: 0.847059, blue: 0.929412, alpha: 1.0)
+    result["Fiery Orange"] = NSColor(srgbRed: 0.701961, green: 0.321569, blue: 0.0745098, alpha: 1.0)
+    result["Clam Shell"] = NSColor(srgbRed: 0.831373, green: 0.713726, blue: 0.686275, alpha: 1.0)
+    result["Texas Rose"] = NSColor(srgbRed: 1.0, green: 0.709804, blue: 0.333333, alpha: 1.0)
+    result["Black Forest"] = NSColor(srgbRed: 0.0431373, green: 0.0745098, blue: 0.0156863, alpha: 1.0)
+    result["Amber"] = NSColor(srgbRed: 1.0, green: 0.74902, blue: 0.0, alpha: 1.0)
+    result["Can Can"] = NSColor(srgbRed: 0.835294, green: 0.568627, blue: 0.643137, alpha: 1.0)
+    result["Whiskey"] = NSColor(srgbRed: 0.835294, green: 0.603922, blue: 0.435294, alpha: 1.0)
+    result["Blue Chill"] = NSColor(srgbRed: 0.0470588, green: 0.537255, blue: 0.564706, alpha: 1.0)
+    result["Vesuvius"] = NSColor(srgbRed: 0.694118, green: 0.290196, blue: 0.0431373, alpha: 1.0)
+    result["Husk"] = NSColor(srgbRed: 0.717647, green: 0.643137, blue: 0.345098, alpha: 1.0)
+    result["California"] = NSColor(srgbRed: 0.996078, green: 0.615686, blue: 0.0156863, alpha: 1.0)
+    result["Astronaut Blue"] = NSColor(srgbRed: 0.00392157, green: 0.243137, blue: 0.384314, alpha: 1.0)
+    result["Mineral Green"] = NSColor(srgbRed: 0.247059, green: 0.364706, blue: 0.32549, alpha: 1.0)
+    result["Zeus"] = NSColor(srgbRed: 0.160784, green: 0.137255, blue: 0.0980392, alpha: 1.0)
+    result["Kumera"] = NSColor(srgbRed: 0.533333, green: 0.384314, blue: 0.129412, alpha: 1.0)
+    result["Madras"] = NSColor(srgbRed: 0.247059, green: 0.188235, blue: 0.00784314, alpha: 1.0)
+    result["Froly"] = NSColor(srgbRed: 0.960784, green: 0.458824, blue: 0.517647, alpha: 1.0)
+    result["Gold Drop"] = NSColor(srgbRed: 0.945098, green: 0.509804, blue: 0.0, alpha: 1.0)
+    result["Burnt Sienna"] = NSColor(srgbRed: 0.913725, green: 0.454902, blue: 0.317647, alpha: 1.0)
+    result["Anakiwa"] = NSColor(srgbRed: 0.615686, green: 0.898039, blue: 1.0, alpha: 1.0)
+    result["Vivid Tangerine"] = NSColor(srgbRed: 1.0, green: 0.6, blue: 0.501961, alpha: 1.0)
+    result["Razzmatazz"] = NSColor(srgbRed: 0.890196, green: 0.0431373, blue: 0.360784, alpha: 1.0)
+    result["Pampas"] = NSColor(srgbRed: 0.956863, green: 0.94902, blue: 0.933333, alpha: 1.0)
+    result["Hint of Yellow"] = NSColor(srgbRed: 0.980392, green: 0.992157, blue: 0.894118, alpha: 1.0)
+    result["Bridal Heath"] = NSColor(srgbRed: 1.0, green: 0.980392, blue: 0.956863, alpha: 1.0)
+    result["Bermuda Gray"] = NSColor(srgbRed: 0.419608, green: 0.545098, blue: 0.635294, alpha: 1.0)
+    result["Waiouru"] = NSColor(srgbRed: 0.211765, green: 0.235294, blue: 0.0509804, alpha: 1.0)
+    result["Moon Glow"] = NSColor(srgbRed: 0.988235, green: 0.996078, blue: 0.854902, alpha: 1.0)
+    result["International Klein Blue"] = NSColor(srgbRed: 0.0, green: 0.184314, blue: 0.654902, alpha: 1.0)
+    result["Sunshade"] = NSColor(srgbRed: 1.0, green: 0.619608, blue: 0.172549, alpha: 1.0)
+    result["Red Violet"] = NSColor(srgbRed: 0.780392, green: 0.0823529, blue: 0.521569, alpha: 1.0)
+    result["Buddha Gold"] = NSColor(srgbRed: 0.756863, green: 0.627451, blue: 0.0156863, alpha: 1.0)
+    result["Petite Orchid"] = NSColor(srgbRed: 0.858824, green: 0.588235, blue: 0.564706, alpha: 1.0)
+    result["Tuft Bush"] = NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.803922, alpha: 1.0)
+    result["Fun Green"] = NSColor(srgbRed: 0.00392157, green: 0.427451, blue: 0.223529, alpha: 1.0)
+    result["Deep Sapphire"] = NSColor(srgbRed: 0.0313726, green: 0.145098, blue: 0.403922, alpha: 1.0)
+    result["Red Berry"] = NSColor(srgbRed: 0.556863, green: 0.0, blue: 0.0, alpha: 1.0)
+    result["Ochre"] = NSColor(srgbRed: 0.8, green: 0.466667, blue: 0.133333, alpha: 1.0)
+    result["Tall Poppy"] = NSColor(srgbRed: 0.701961, green: 0.176471, blue: 0.160784, alpha: 1.0)
+    result["Jungle Mist"] = NSColor(srgbRed: 0.705882, green: 0.811765, blue: 0.827451, alpha: 1.0)
+    result["Dark Blue"] = NSColor(srgbRed: 0.0, green: 0.0, blue: 0.784314, alpha: 1.0)
+    result["Tamarind"] = NSColor(srgbRed: 0.203922, green: 0.0823529, blue: 0.0823529, alpha: 1.0)
+    result["Tea"] = NSColor(srgbRed: 0.756863, green: 0.729412, blue: 0.690196, alpha: 1.0)
+    result["Deep Bronze"] = NSColor(srgbRed: 0.290196, green: 0.188235, blue: 0.0156863, alpha: 1.0)
+    result["Monza"] = NSColor(srgbRed: 0.780392, green: 0.0117647, blue: 0.117647, alpha: 1.0)
+    result["Charm"] = NSColor(srgbRed: 0.831373, green: 0.454902, blue: 0.580392, alpha: 1.0)
+    result["Carmine"] = NSColor(srgbRed: 0.588235, green: 0.0, blue: 0.0941176, alpha: 1.0)
+    result["Red"] = NSColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    result["Purple Pizzazz"] = NSColor(srgbRed: 1.0, green: 0.0, blue: 0.8, alpha: 1.0)
+    result["Navy Blue"] = NSColor(srgbRed: 0.0, green: 0.0, blue: 0.501961, alpha: 1.0)
+    result["Nugget"] = NSColor(srgbRed: 0.772549, green: 0.6, blue: 0.133333, alpha: 1.0)
+    result["Oyster Pink"] = NSColor(srgbRed: 0.913725, green: 0.807843, blue: 0.803922, alpha: 1.0)
+    result["Chelsea Cucumber"] = NSColor(srgbRed: 0.513726, green: 0.666667, blue: 0.364706, alpha: 1.0)
+    result["Copper Rust"] = NSColor(srgbRed: 0.580392, green: 0.278431, blue: 0.278431, alpha: 1.0)
+    result["Fair Pink"] = NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.92549, alpha: 1.0)
+    result["Ripe Lemon"] = NSColor(srgbRed: 0.956863, green: 0.847059, blue: 0.109804, alpha: 1.0)
+    result["Geyser"] = NSColor(srgbRed: 0.831373, green: 0.87451, blue: 0.886275, alpha: 1.0)
+    result["Apricot White"] = NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.92549, alpha: 1.0)
+    result["Foggy Gray"] = NSColor(srgbRed: 0.796078, green: 0.792157, blue: 0.713726, alpha: 1.0)
+    result["Sandwisp"] = NSColor(srgbRed: 0.960784, green: 0.905882, blue: 0.635294, alpha: 1.0)
+    result["Allports"] = NSColor(srgbRed: 0.0, green: 0.462745, blue: 0.639216, alpha: 1.0)
+    result["Dolly"] = NSColor(srgbRed: 0.976471, green: 1.0, blue: 0.545098, alpha: 1.0)
+    result["Gray Nickel"] = NSColor(srgbRed: 0.764706, green: 0.764706, blue: 0.741176, alpha: 1.0)
+    result["Amaranth"] = NSColor(srgbRed: 0.898039, green: 0.168627, blue: 0.313726, alpha: 1.0)
+    result["Windsor"] = NSColor(srgbRed: 0.235294, green: 0.0313726, blue: 0.470588, alpha: 1.0)
+    result["Rusty Nail"] = NSColor(srgbRed: 0.52549, green: 0.337255, blue: 0.0392157, alpha: 1.0)
+    result["Roti"] = NSColor(srgbRed: 0.776471, green: 0.658824, blue: 0.294118, alpha: 1.0)
+    result["Wheat"] = NSColor(srgbRed: 0.960784, green: 0.870588, blue: 0.701961, alpha: 1.0)
+    result["Scarpa Flow"] = NSColor(srgbRed: 0.345098, green: 0.333333, blue: 0.384314, alpha: 1.0)
+    result["Periwinkle"] = NSColor(srgbRed: 0.8, green: 0.8, blue: 1.0, alpha: 1.0)
+    result["Janna"] = NSColor(srgbRed: 0.956863, green: 0.921569, blue: 0.827451, alpha: 1.0)
+    result["Hot Toddy"] = NSColor(srgbRed: 0.701961, green: 0.501961, blue: 0.027451, alpha: 1.0)
+    result["Sahara Sand"] = NSColor(srgbRed: 0.945098, green: 0.905882, blue: 0.533333, alpha: 1.0)
+    result["Dusty Gray"] = NSColor(srgbRed: 0.658824, green: 0.596078, blue: 0.607843, alpha: 1.0)
+    result["Romance"] = NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.992157, alpha: 1.0)
+    result["Killarney"] = NSColor(srgbRed: 0.227451, green: 0.415686, blue: 0.278431, alpha: 1.0)
+    result["Burnt Maroon"] = NSColor(srgbRed: 0.258824, green: 0.0117647, blue: 0.0117647, alpha: 1.0)
+    result["Khaki"] = NSColor(srgbRed: 0.941176, green: 0.901961, blue: 0.54902, alpha: 1.0)
+    result["Scampi"] = NSColor(srgbRed: 0.403922, green: 0.372549, blue: 0.65098, alpha: 1.0)
+    result["Paco"] = NSColor(srgbRed: 0.254902, green: 0.121569, blue: 0.0627451, alpha: 1.0)
+    result["Lotus"] = NSColor(srgbRed: 0.52549, green: 0.235294, blue: 0.235294, alpha: 1.0)
+    result["Bronzetone"] = NSColor(srgbRed: 0.301961, green: 0.25098, blue: 0.0588235, alpha: 1.0)
+    result["Solitude"] = NSColor(srgbRed: 0.917647, green: 0.964706, blue: 1.0, alpha: 1.0)
+    result["Geebung"] = NSColor(srgbRed: 0.819608, green: 0.560784, blue: 0.105882, alpha: 1.0)
+    result["Blumine"] = NSColor(srgbRed: 0.0941176, green: 0.345098, blue: 0.478431, alpha: 1.0)
+    result["Juniper"] = NSColor(srgbRed: 0.427451, green: 0.572549, blue: 0.572549, alpha: 1.0)
+    result["Makara"] = NSColor(srgbRed: 0.537255, green: 0.490196, blue: 0.427451, alpha: 1.0)
+    result["Aquamarine"] = NSColor(srgbRed: 0.498039, green: 1.0, blue: 0.831373, alpha: 1.0)
+    result["Black Rose"] = NSColor(srgbRed: 0.403922, green: 0.0117647, blue: 0.176471, alpha: 1.0)
+    result["Natural Gray"] = NSColor(srgbRed: 0.545098, green: 0.52549, blue: 0.501961, alpha: 1.0)
+    result["Ocean Green"] = NSColor(srgbRed: 0.254902, green: 0.666667, blue: 0.470588, alpha: 1.0)
+    result["Toast"] = NSColor(srgbRed: 0.603922, green: 0.431373, blue: 0.380392, alpha: 1.0)
+    result["Padua"] = NSColor(srgbRed: 0.678431, green: 0.901961, blue: 0.768627, alpha: 1.0)
+    result["Shilo"] = NSColor(srgbRed: 0.909804, green: 0.72549, blue: 0.701961, alpha: 1.0)
+    result["Rose White"] = NSColor(srgbRed: 1.0, green: 0.964706, blue: 0.960784, alpha: 1.0)
+    result["Hoki"] = NSColor(srgbRed: 0.396078, green: 0.52549, blue: 0.623529, alpha: 1.0)
+    result["Gumbo"] = NSColor(srgbRed: 0.486275, green: 0.631373, blue: 0.65098, alpha: 1.0)
+    result["Smoky"] = NSColor(srgbRed: 0.376471, green: 0.356863, blue: 0.45098, alpha: 1.0)
+    result["Wild Watermelon"] = NSColor(srgbRed: 0.992157, green: 0.356863, blue: 0.470588, alpha: 1.0)
+    result["Quicksand"] = NSColor(srgbRed: 0.741176, green: 0.592157, blue: 0.556863, alpha: 1.0)
+    result["Tapa"] = NSColor(srgbRed: 0.482353, green: 0.470588, blue: 0.454902, alpha: 1.0)
+    result["Jacko Bean"] = NSColor(srgbRed: 0.180392, green: 0.0980392, blue: 0.0196078, alpha: 1.0)
+    result["Lilac Bush"] = NSColor(srgbRed: 0.596078, green: 0.454902, blue: 0.827451, alpha: 1.0)
+    result["Chino"] = NSColor(srgbRed: 0.807843, green: 0.780392, blue: 0.654902, alpha: 1.0)
+    result["Apricot"] = NSColor(srgbRed: 0.921569, green: 0.576471, blue: 0.45098, alpha: 1.0)
+    result["Lilac"] = NSColor(srgbRed: 0.784314, green: 0.635294, blue: 0.784314, alpha: 1.0)
+    result["Caramel"] = NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.686275, alpha: 1.0)
+    result["Jambalaya"] = NSColor(srgbRed: 0.356863, green: 0.188235, blue: 0.0745098, alpha: 1.0)
+    result["Beaver"] = NSColor(srgbRed: 0.572549, green: 0.435294, blue: 0.356863, alpha: 1.0)
+    result["Old Copper"] = NSColor(srgbRed: 0.447059, green: 0.290196, blue: 0.184314, alpha: 1.0)
+    result["Tamarillo"] = NSColor(srgbRed: 0.6, green: 0.0862745, blue: 0.0745098, alpha: 1.0)
+    result["East Bay"] = NSColor(srgbRed: 0.254902, green: 0.298039, blue: 0.490196, alpha: 1.0)
+    result["Aqua Deep"] = NSColor(srgbRed: 0.00392157, green: 0.294118, blue: 0.262745, alpha: 1.0)
+    result["Mongoose"] = NSColor(srgbRed: 0.709804, green: 0.635294, blue: 0.498039, alpha: 1.0)
+    result["Loblolly"] = NSColor(srgbRed: 0.741176, green: 0.788235, blue: 0.807843, alpha: 1.0)
+    result["Ripe Plum"] = NSColor(srgbRed: 0.254902, green: 0.0, blue: 0.337255, alpha: 1.0)
+    result["Pine Tree"] = NSColor(srgbRed: 0.0901961, green: 0.121569, blue: 0.0156863, alpha: 1.0)
+    result["Pirate Gold"] = NSColor(srgbRed: 0.729412, green: 0.498039, blue: 0.0117647, alpha: 1.0)
+    result["Bone"] = NSColor(srgbRed: 0.894118, green: 0.819608, blue: 0.752941, alpha: 1.0)
+    result["Taupe Gray"] = NSColor(srgbRed: 0.701961, green: 0.686275, blue: 0.584314, alpha: 1.0)
+    result["Dawn"] = NSColor(srgbRed: 0.65098, green: 0.635294, blue: 0.603922, alpha: 1.0)
+    result["Lemon Grass"] = NSColor(srgbRed: 0.607843, green: 0.619608, blue: 0.560784, alpha: 1.0)
+    result["Negroni"] = NSColor(srgbRed: 1.0, green: 0.886275, blue: 0.772549, alpha: 1.0)
+    result["Parchment"] = NSColor(srgbRed: 0.945098, green: 0.913725, blue: 0.823529, alpha: 1.0)
+    result["Gallery"] = NSColor(srgbRed: 0.937255, green: 0.937255, blue: 0.937255, alpha: 1.0)
+    result["Ebony"] = NSColor(srgbRed: 0.0470588, green: 0.0431373, blue: 0.113725, alpha: 1.0)
+    result["Mulberry Wood"] = NSColor(srgbRed: 0.360784, green: 0.0196078, blue: 0.211765, alpha: 1.0)
+    result["Kenyan Copper"] = NSColor(srgbRed: 0.486275, green: 0.109804, blue: 0.0196078, alpha: 1.0)
+    result["Blackberry"] = NSColor(srgbRed: 0.301961, green: 0.00392157, blue: 0.207843, alpha: 1.0)
+    result["Kaitoke Green"] = NSColor(srgbRed: 0.0, green: 0.27451, blue: 0.12549, alpha: 1.0)
+    result["Neptune"] = NSColor(srgbRed: 0.486275, green: 0.717647, blue: 0.733333, alpha: 1.0)
+    result["Galliano"] = NSColor(srgbRed: 0.862745, green: 0.698039, blue: 0.0470588, alpha: 1.0)
+    result["Smalt"] = NSColor(srgbRed: 0.0, green: 0.2, blue: 0.6, alpha: 1.0)
+    result["Cardin Green"] = NSColor(srgbRed: 0.00392157, green: 0.211765, blue: 0.109804, alpha: 1.0)
+    result["Guardsman Red"] = NSColor(srgbRed: 0.729412, green: 0.00392157, blue: 0.00392157, alpha: 1.0)
+    result["Graphite"] = NSColor(srgbRed: 0.145098, green: 0.0862745, blue: 0.027451, alpha: 1.0)
+    result["Sanguine Brown"] = NSColor(srgbRed: 0.552941, green: 0.239216, blue: 0.219608, alpha: 1.0)
+    result["Jagged Ice"] = NSColor(srgbRed: 0.760784, green: 0.909804, blue: 0.898039, alpha: 1.0)
+    result["Hampton"] = NSColor(srgbRed: 0.898039, green: 0.847059, blue: 0.686275, alpha: 1.0)
+    result["Seashell"] = NSColor(srgbRed: 0.945098, green: 0.945098, blue: 0.945098, alpha: 1.0)
+    result["Timber Green"] = NSColor(srgbRed: 0.0862745, green: 0.196078, blue: 0.172549, alpha: 1.0)
+    result["We Peep"] = NSColor(srgbRed: 0.968627, green: 0.858824, blue: 0.901961, alpha: 1.0)
+    result["Pizza"] = NSColor(srgbRed: 0.788235, green: 0.580392, blue: 0.0823529, alpha: 1.0)
+    result["Nile Blue"] = NSColor(srgbRed: 0.0980392, green: 0.215686, blue: 0.317647, alpha: 1.0)
+    result["Cod Gray"] = NSColor(srgbRed: 0.0431373, green: 0.0431373, blue: 0.0431373, alpha: 1.0)
+    result["Old Gold"] = NSColor(srgbRed: 0.811765, green: 0.709804, blue: 0.231373, alpha: 1.0)
+    result["Shocking Pink"] = NSColor(srgbRed: 0.988235, green: 0.0588235, blue: 0.752941, alpha: 1.0)
+    result["Green Vogue"] = NSColor(srgbRed: 0.0117647, green: 0.168627, blue: 0.321569, alpha: 1.0)
+    result["Congo Brown"] = NSColor(srgbRed: 0.34902, green: 0.215686, blue: 0.215686, alpha: 1.0)
+    result["Genoa"] = NSColor(srgbRed: 0.0823529, green: 0.45098, blue: 0.419608, alpha: 1.0)
+    result["Russett"] = NSColor(srgbRed: 0.458824, green: 0.352941, blue: 0.341176, alpha: 1.0)
+    result["Tonys Pink"] = NSColor(srgbRed: 0.905882, green: 0.623529, blue: 0.54902, alpha: 1.0)
+    result["Turquoise"] = NSColor(srgbRed: 0.188235, green: 0.835294, blue: 0.784314, alpha: 1.0)
+    result["Spring Rain"] = NSColor(srgbRed: 0.67451, green: 0.796078, blue: 0.694118, alpha: 1.0)
+    result["Radical Red"] = NSColor(srgbRed: 1.0, green: 0.207843, blue: 0.368627, alpha: 1.0)
+    result["Milk Punch"] = NSColor(srgbRed: 1.0, green: 0.964706, blue: 0.831373, alpha: 1.0)
+    result["Cement"] = NSColor(srgbRed: 0.552941, green: 0.462745, blue: 0.384314, alpha: 1.0)
+    result["Pear"] = NSColor(srgbRed: 0.819608, green: 0.886275, blue: 0.192157, alpha: 1.0)
+    result["Oyster Bay"] = NSColor(srgbRed: 0.854902, green: 0.980392, blue: 1.0, alpha: 1.0)
+    result["Envy"] = NSColor(srgbRed: 0.545098, green: 0.65098, blue: 0.564706, alpha: 1.0)
+    result["Gin"] = NSColor(srgbRed: 0.909804, green: 0.94902, blue: 0.921569, alpha: 1.0)
+    result["Torch Red"] = NSColor(srgbRed: 0.992157, green: 0.054902, blue: 0.207843, alpha: 1.0)
+    result["Verdun Green"] = NSColor(srgbRed: 0.286275, green: 0.329412, blue: 0.0, alpha: 1.0)
+    result["Soapstone"] = NSColor(srgbRed: 1.0, green: 0.984314, blue: 0.976471, alpha: 1.0)
+    result["Deep Sea"] = NSColor(srgbRed: 0.00392157, green: 0.509804, blue: 0.419608, alpha: 1.0)
+    result["Brown Bramble"] = NSColor(srgbRed: 0.34902, green: 0.156863, blue: 0.0156863, alpha: 1.0)
+    result["Rust"] = NSColor(srgbRed: 0.717647, green: 0.254902, blue: 0.054902, alpha: 1.0)
+    result["Livid Brown"] = NSColor(srgbRed: 0.301961, green: 0.156863, blue: 0.180392, alpha: 1.0)
+    result["Raven"] = NSColor(srgbRed: 0.447059, green: 0.482353, blue: 0.537255, alpha: 1.0)
+    result["Soft Amber"] = NSColor(srgbRed: 0.819608, green: 0.776471, blue: 0.705882, alpha: 1.0)
+    result["Eclipse"] = NSColor(srgbRed: 0.192157, green: 0.109804, blue: 0.0901961, alpha: 1.0)
+    result["Sapphire"] = NSColor(srgbRed: 0.184314, green: 0.317647, blue: 0.619608, alpha: 1.0)
+    result["Sandstone"] = NSColor(srgbRed: 0.47451, green: 0.427451, blue: 0.384314, alpha: 1.0)
+    result["Falcon"] = NSColor(srgbRed: 0.498039, green: 0.384314, blue: 0.427451, alpha: 1.0)
+    result["Gossip"] = NSColor(srgbRed: 0.823529, green: 0.972549, blue: 0.690196, alpha: 1.0)
+    result["Endeavour"] = NSColor(srgbRed: 0.0, green: 0.337255, blue: 0.654902, alpha: 1.0)
+    result["Tom Thumb"] = NSColor(srgbRed: 0.247059, green: 0.345098, blue: 0.231373, alpha: 1.0)
+    result["Crater Brown"] = NSColor(srgbRed: 0.27451, green: 0.141176, blue: 0.145098, alpha: 1.0)
+    result["Stiletto"] = NSColor(srgbRed: 0.611765, green: 0.2, blue: 0.211765, alpha: 1.0)
+    result["Bahia"] = NSColor(srgbRed: 0.647059, green: 0.796078, blue: 0.0470588, alpha: 1.0)
+    result["Venus"] = NSColor(srgbRed: 0.572549, green: 0.521569, blue: 0.564706, alpha: 1.0)
+    result["Bouquet"] = NSColor(srgbRed: 0.682353, green: 0.501961, blue: 0.619608, alpha: 1.0)
+    result["Golden Grass"] = NSColor(srgbRed: 0.854902, green: 0.647059, blue: 0.12549, alpha: 1.0)
+    result["Submarine"] = NSColor(srgbRed: 0.729412, green: 0.780392, blue: 0.788235, alpha: 1.0)
+    result["Butterfly Bush"] = NSColor(srgbRed: 0.384314, green: 0.305882, blue: 0.603922, alpha: 1.0)
+    result["Chartreuse"] = NSColor(srgbRed: 0.498039, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Bull Shot"] = NSColor(srgbRed: 0.52549, green: 0.301961, blue: 0.117647, alpha: 1.0)
+    result["Monsoon"] = NSColor(srgbRed: 0.541176, green: 0.513726, blue: 0.537255, alpha: 1.0)
+    result["Pickled Bluewood"] = NSColor(srgbRed: 0.192157, green: 0.266667, blue: 0.34902, alpha: 1.0)
+    result["Metallic Bronze"] = NSColor(srgbRed: 0.286275, green: 0.215686, blue: 0.105882, alpha: 1.0)
+    result["Thunderbird"] = NSColor(srgbRed: 0.752941, green: 0.168627, blue: 0.0941176, alpha: 1.0)
+    result["Sorrell Brown"] = NSColor(srgbRed: 0.807843, green: 0.72549, blue: 0.560784, alpha: 1.0)
+    result["Snowy Mint"] = NSColor(srgbRed: 0.839216, green: 1.0, blue: 0.858824, alpha: 1.0)
+    result["Wax Flower"] = NSColor(srgbRed: 1.0, green: 0.752941, blue: 0.658824, alpha: 1.0)
+    result["Rock Blue"] = NSColor(srgbRed: 0.619608, green: 0.694118, blue: 0.803922, alpha: 1.0)
+    result["Olive"] = NSColor(srgbRed: 0.501961, green: 0.501961, blue: 0.0, alpha: 1.0)
+    result["Regent St Blue"] = NSColor(srgbRed: 0.666667, green: 0.839216, blue: 0.901961, alpha: 1.0)
+    result["Brown Pod"] = NSColor(srgbRed: 0.25098, green: 0.0941176, blue: 0.00392157, alpha: 1.0)
+    result["Purple Mountain's Majesty"] = NSColor(srgbRed: 0.588235, green: 0.470588, blue: 0.713726, alpha: 1.0)
+    result["Congress Blue"] = NSColor(srgbRed: 0.00784314, green: 0.278431, blue: 0.556863, alpha: 1.0)
+    result["Black Bean"] = NSColor(srgbRed: 0.0313726, green: 0.0980392, blue: 0.0627451, alpha: 1.0)
+    result["Laurel"] = NSColor(srgbRed: 0.454902, green: 0.576471, blue: 0.470588, alpha: 1.0)
+    result["Persimmon"] = NSColor(srgbRed: 1.0, green: 0.419608, blue: 0.32549, alpha: 1.0)
+    result["Blue Haze"] = NSColor(srgbRed: 0.74902, green: 0.745098, blue: 0.847059, alpha: 1.0)
+    result["Casablanca"] = NSColor(srgbRed: 0.972549, green: 0.721569, blue: 0.32549, alpha: 1.0)
+    result["Green"] = NSColor(srgbRed: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Vulcan"] = NSColor(srgbRed: 0.0627451, green: 0.0705882, blue: 0.113725, alpha: 1.0)
+    result["Pink Swan"] = NSColor(srgbRed: 0.745098, green: 0.709804, blue: 0.717647, alpha: 1.0)
+    result["Hollywood Cerise"] = NSColor(srgbRed: 0.956863, green: 0.0, blue: 0.631373, alpha: 1.0)
+    result["Citrus"] = NSColor(srgbRed: 0.631373, green: 0.772549, blue: 0.0392157, alpha: 1.0)
+    result["Frangipani"] = NSColor(srgbRed: 1.0, green: 0.870588, blue: 0.701961, alpha: 1.0)
+    result["Yellow"] = NSColor(srgbRed: 1.0, green: 1.0, blue: 0.0, alpha: 1.0)
+    result["Rangoon Green"] = NSColor(srgbRed: 0.109804, green: 0.117647, blue: 0.0745098, alpha: 1.0)
+    result["Cedar"] = NSColor(srgbRed: 0.243137, green: 0.109804, blue: 0.0784314, alpha: 1.0)
+    result["Tuscany"] = NSColor(srgbRed: 0.741176, green: 0.368627, blue: 0.180392, alpha: 1.0)
+    result["Nobel"] = NSColor(srgbRed: 0.717647, green: 0.694118, blue: 0.694118, alpha: 1.0)
+    result["Powder Ash"] = NSColor(srgbRed: 0.737255, green: 0.788235, blue: 0.760784, alpha: 1.0)
+    result["Scandal"] = NSColor(srgbRed: 0.811765, green: 0.980392, blue: 0.956863, alpha: 1.0)
+    result["Palm Leaf"] = NSColor(srgbRed: 0.0980392, green: 0.2, blue: 0.054902, alpha: 1.0)
+    result["Revolver"] = NSColor(srgbRed: 0.172549, green: 0.0862745, blue: 0.196078, alpha: 1.0)
+    result["Diesel"] = NSColor(srgbRed: 0.0745098, green: 0.0, blue: 0.0, alpha: 1.0)
+    result["Teal"] = NSColor(srgbRed: 0.0, green: 0.501961, blue: 0.501961, alpha: 1.0)
+    result["Biscay"] = NSColor(srgbRed: 0.105882, green: 0.192157, blue: 0.384314, alpha: 1.0)
+    result["Salomie"] = NSColor(srgbRed: 0.996078, green: 0.858824, blue: 0.552941, alpha: 1.0)
+    result["Mischka"] = NSColor(srgbRed: 0.819608, green: 0.823529, blue: 0.866667, alpha: 1.0)
+    result["Desert Storm"] = NSColor(srgbRed: 0.972549, green: 0.972549, blue: 0.968627, alpha: 1.0)
+    result["Del Rio"] = NSColor(srgbRed: 0.690196, green: 0.603922, blue: 0.584314, alpha: 1.0)
+    result["Blue Chalk"] = NSColor(srgbRed: 0.945098, green: 0.913725, blue: 1.0, alpha: 1.0)
+    result["Bianca"] = NSColor(srgbRed: 0.988235, green: 0.984314, blue: 0.952941, alpha: 1.0)
+    result["Karaka"] = NSColor(srgbRed: 0.117647, green: 0.0862745, blue: 0.0352941, alpha: 1.0)
+    result["Nutmeg Wood Finish"] = NSColor(srgbRed: 0.407843, green: 0.211765, blue: 0.0, alpha: 1.0)
+    result["Sisal"] = NSColor(srgbRed: 0.827451, green: 0.796078, blue: 0.729412, alpha: 1.0)
+    result["Cabaret"] = NSColor(srgbRed: 0.85098, green: 0.286275, blue: 0.447059, alpha: 1.0)
+    result["Olive Green"] = NSColor(srgbRed: 0.709804, green: 0.701961, blue: 0.360784, alpha: 1.0)
+    result["Yellow Green"] = NSColor(srgbRed: 0.772549, green: 0.882353, blue: 0.478431, alpha: 1.0)
+    result["Half and Half"] = NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.882353, alpha: 1.0)
+    result["Scarlett"] = NSColor(srgbRed: 0.584314, green: 0.0, blue: 0.0823529, alpha: 1.0)
+    result["Gull Gray"] = NSColor(srgbRed: 0.615686, green: 0.67451, blue: 0.717647, alpha: 1.0)
+    result["Cactus"] = NSColor(srgbRed: 0.345098, green: 0.443137, blue: 0.337255, alpha: 1.0)
+    result["Deep Forest Green"] = NSColor(srgbRed: 0.0941176, green: 0.176471, blue: 0.0352941, alpha: 1.0)
+    result["Thistle Green"] = NSColor(srgbRed: 0.8, green: 0.792157, blue: 0.658824, alpha: 1.0)
+    result["Gondola"] = NSColor(srgbRed: 0.14902, green: 0.0784314, blue: 0.0784314, alpha: 1.0)
+    result["Kournikova"] = NSColor(srgbRed: 1.0, green: 0.905882, blue: 0.447059, alpha: 1.0)
+    result["Concrete"] = NSColor(srgbRed: 0.94902, green: 0.94902, blue: 0.94902, alpha: 1.0)
+    result["Potters Clay"] = NSColor(srgbRed: 0.54902, green: 0.341176, blue: 0.219608, alpha: 1.0)
+    result["Goblin"] = NSColor(srgbRed: 0.239216, green: 0.490196, blue: 0.321569, alpha: 1.0)
+    result["Shadow"] = NSColor(srgbRed: 0.513726, green: 0.439216, blue: 0.313726, alpha: 1.0)
+    result["Japanese Maple"] = NSColor(srgbRed: 0.470588, green: 0.00392157, blue: 0.0352941, alpha: 1.0)
+    result["Pale Oyster"] = NSColor(srgbRed: 0.596078, green: 0.552941, blue: 0.466667, alpha: 1.0)
+    result["Turquoise Blue"] = NSColor(srgbRed: 0.423529, green: 0.854902, blue: 0.905882, alpha: 1.0)
+    result["Medium Purple"] = NSColor(srgbRed: 0.576471, green: 0.439216, blue: 0.858824, alpha: 1.0)
+    result["Barossa"] = NSColor(srgbRed: 0.266667, green: 0.00392157, blue: 0.176471, alpha: 1.0)
+    result["Opal"] = NSColor(srgbRed: 0.662745, green: 0.776471, blue: 0.760784, alpha: 1.0)
+    result["Lonestar"] = NSColor(srgbRed: 0.427451, green: 0.00392157, blue: 0.00392157, alpha: 1.0)
+    result["Vista White"] = NSColor(srgbRed: 0.988235, green: 0.972549, blue: 0.968627, alpha: 1.0)
+    result["Soft Peach"] = NSColor(srgbRed: 0.960784, green: 0.929412, blue: 0.937255, alpha: 1.0)
+    result["Oslo Gray"] = NSColor(srgbRed: 0.529412, green: 0.552941, blue: 0.568627, alpha: 1.0)
+    result["Gold Sand"] = NSColor(srgbRed: 0.901961, green: 0.745098, blue: 0.541176, alpha: 1.0)
+    result["Fog"] = NSColor(srgbRed: 0.843137, green: 0.815686, blue: 1.0, alpha: 1.0)
+    result["Mikado"] = NSColor(srgbRed: 0.176471, green: 0.145098, blue: 0.0627451, alpha: 1.0)
+    result["Green Yellow"] = NSColor(srgbRed: 0.678431, green: 1.0, blue: 0.184314, alpha: 1.0)
+    result["Frostee"] = NSColor(srgbRed: 0.894118, green: 0.964706, blue: 0.905882, alpha: 1.0)
+    result["Willow Brook"] = NSColor(srgbRed: 0.87451, green: 0.92549, blue: 0.854902, alpha: 1.0)
+    result["Cumin"] = NSColor(srgbRed: 0.572549, green: 0.262745, blue: 0.129412, alpha: 1.0)
+    result["Tacao"] = NSColor(srgbRed: 0.929412, green: 0.701961, blue: 0.505882, alpha: 1.0)
+    result["Amour"] = NSColor(srgbRed: 0.976471, green: 0.917647, blue: 0.952941, alpha: 1.0)
+    result["Honey Flower"] = NSColor(srgbRed: 0.309804, green: 0.109804, blue: 0.439216, alpha: 1.0)
+    result["Loulou"] = NSColor(srgbRed: 0.27451, green: 0.0431373, blue: 0.254902, alpha: 1.0)
+    result["Tuna"] = NSColor(srgbRed: 0.207843, green: 0.207843, blue: 0.258824, alpha: 1.0)
+    result["Pancho"] = NSColor(srgbRed: 0.929412, green: 0.803922, blue: 0.670588, alpha: 1.0)
+    result["Seashell Peach"] = NSColor(srgbRed: 1.0, green: 0.960784, blue: 0.933333, alpha: 1.0)
+    result["Silk"] = NSColor(srgbRed: 0.741176, green: 0.694118, blue: 0.658824, alpha: 1.0)
+    result["Remy"] = NSColor(srgbRed: 0.996078, green: 0.921569, blue: 0.952941, alpha: 1.0)
+    result["Mauve"] = NSColor(srgbRed: 0.878431, green: 0.690196, blue: 1.0, alpha: 1.0)
+    result["Coriander"] = NSColor(srgbRed: 0.768627, green: 0.815686, blue: 0.690196, alpha: 1.0)
+    result["Matisse"] = NSColor(srgbRed: 0.105882, green: 0.396078, blue: 0.615686, alpha: 1.0)
+    result["Minsk"] = NSColor(srgbRed: 0.247059, green: 0.188235, blue: 0.498039, alpha: 1.0)
+    result["Tasman"] = NSColor(srgbRed: 0.811765, green: 0.862745, blue: 0.811765, alpha: 1.0)
+    result["Spring Leaves"] = NSColor(srgbRed: 0.341176, green: 0.513726, blue: 0.388235, alpha: 1.0)
+    result["Gray Nurse"] = NSColor(srgbRed: 0.905882, green: 0.92549, blue: 0.901961, alpha: 1.0)
+    result["Beauty Bush"] = NSColor(srgbRed: 0.933333, green: 0.756863, blue: 0.745098, alpha: 1.0)
+    result["Cornflower Blue"] = NSColor(srgbRed: 0.392157, green: 0.584314, blue: 0.929412, alpha: 1.0)
+    result["Hacienda"] = NSColor(srgbRed: 0.596078, green: 0.505882, blue: 0.105882, alpha: 1.0)
+    result["Rum"] = NSColor(srgbRed: 0.47451, green: 0.411765, blue: 0.537255, alpha: 1.0)
+    result["Paris White"] = NSColor(srgbRed: 0.792157, green: 0.862745, blue: 0.831373, alpha: 1.0)
+    result["Picasso"] = NSColor(srgbRed: 1.0, green: 0.952941, blue: 0.615686, alpha: 1.0)
+    result["Wild Blue Yonder"] = NSColor(srgbRed: 0.478431, green: 0.537255, blue: 0.721569, alpha: 1.0)
+    result["White Linen"] = NSColor(srgbRed: 0.972549, green: 0.941176, blue: 0.909804, alpha: 1.0)
+    result["Double Colonial White"] = NSColor(srgbRed: 0.933333, green: 0.890196, blue: 0.678431, alpha: 1.0)
+    result["Lavender Pink"] = NSColor(srgbRed: 0.984314, green: 0.682353, blue: 0.823529, alpha: 1.0)
+    result["Thatch Green"] = NSColor(srgbRed: 0.25098, green: 0.239216, blue: 0.0980392, alpha: 1.0)
+    result["New Orleans"] = NSColor(srgbRed: 0.952941, green: 0.839216, blue: 0.615686, alpha: 1.0)
+    result["Verdigris"] = NSColor(srgbRed: 0.364706, green: 0.368627, blue: 0.215686, alpha: 1.0)
+    result["Green House"] = NSColor(srgbRed: 0.141176, green: 0.313726, blue: 0.0588235, alpha: 1.0)
+    result["Marzipan"] = NSColor(srgbRed: 0.972549, green: 0.858824, blue: 0.615686, alpha: 1.0)
+    result["Cerulean"] = NSColor(srgbRed: 0.00784314, green: 0.643137, blue: 0.827451, alpha: 1.0)
+    result["Blackcurrant"] = NSColor(srgbRed: 0.196078, green: 0.160784, blue: 0.227451, alpha: 1.0)
+    result["Blush"] = NSColor(srgbRed: 0.705882, green: 0.27451, blue: 0.407843, alpha: 1.0)
+    result["Granny Smith"] = NSColor(srgbRed: 0.517647, green: 0.627451, blue: 0.627451, alpha: 1.0)
+    result["Shocking"] = NSColor(srgbRed: 0.886275, green: 0.572549, blue: 0.752941, alpha: 1.0)
+    result["Hurricane"] = NSColor(srgbRed: 0.529412, green: 0.486275, blue: 0.482353, alpha: 1.0)
+    result["Egg White"] = NSColor(srgbRed: 1.0, green: 0.937255, blue: 0.756863, alpha: 1.0)
+    result["Rainee"] = NSColor(srgbRed: 0.72549, green: 0.784314, blue: 0.67451, alpha: 1.0)
+    result["Tropical Blue"] = NSColor(srgbRed: 0.764706, green: 0.866667, blue: 0.976471, alpha: 1.0)
+    result["Wafer"] = NSColor(srgbRed: 0.870588, green: 0.796078, blue: 0.776471, alpha: 1.0)
+    result["Arapawa"] = NSColor(srgbRed: 0.0666667, green: 0.0470588, blue: 0.423529, alpha: 1.0)
+    result["Cannon Black"] = NSColor(srgbRed: 0.145098, green: 0.0901961, blue: 0.0235294, alpha: 1.0)
+    result["Kashmir Blue"] = NSColor(srgbRed: 0.313726, green: 0.439216, blue: 0.588235, alpha: 1.0)
+    result["Atoll"] = NSColor(srgbRed: 0.0392157, green: 0.435294, blue: 0.458824, alpha: 1.0)
+    result["Sandy brown"] = NSColor(srgbRed: 0.956863, green: 0.643137, blue: 0.376471, alpha: 1.0)
+    result["Green Smoke"] = NSColor(srgbRed: 0.643137, green: 0.686275, blue: 0.431373, alpha: 1.0)
+    result["Salem"] = NSColor(srgbRed: 0.0352941, green: 0.498039, blue: 0.294118, alpha: 1.0)
+    result["Flirt"] = NSColor(srgbRed: 0.635294, green: 0.0, blue: 0.427451, alpha: 1.0)
+    result["Cardinal Pink"] = NSColor(srgbRed: 0.54902, green: 0.0196078, blue: 0.368627, alpha: 1.0)
+    result["Olive Haze"] = NSColor(srgbRed: 0.545098, green: 0.517647, blue: 0.439216, alpha: 1.0)
+    result["Cutty Sark"] = NSColor(srgbRed: 0.313726, green: 0.462745, blue: 0.447059, alpha: 1.0)
+    result["Mahogany"] = NSColor(srgbRed: 0.305882, green: 0.0235294, blue: 0.0235294, alpha: 1.0)
+    result["Winter Hazel"] = NSColor(srgbRed: 0.835294, green: 0.819608, blue: 0.584314, alpha: 1.0)
+    result["Cape Palliser"] = NSColor(srgbRed: 0.635294, green: 0.4, blue: 0.270588, alpha: 1.0)
+    result["Chilean Fire"] = NSColor(srgbRed: 0.968627, green: 0.466667, blue: 0.0117647, alpha: 1.0)
+    result["Bondi Blue"] = NSColor(srgbRed: 0.0, green: 0.584314, blue: 0.713726, alpha: 1.0)
+    result["Bunting"] = NSColor(srgbRed: 0.0823529, green: 0.121569, blue: 0.298039, alpha: 1.0)
+    result["Hairy Heath"] = NSColor(srgbRed: 0.419608, green: 0.164706, blue: 0.0784314, alpha: 1.0)
+    result["Jazzberry Jam"] = NSColor(srgbRed: 0.647059, green: 0.0431373, blue: 0.368627, alpha: 1.0)
+    result["Apache"] = NSColor(srgbRed: 0.87451, green: 0.745098, blue: 0.435294, alpha: 1.0)
+    result["Black Squeeze"] = NSColor(srgbRed: 0.94902, green: 0.980392, blue: 0.980392, alpha: 1.0)
+    result["Indian Tan"] = NSColor(srgbRed: 0.301961, green: 0.117647, blue: 0.00392157, alpha: 1.0)
+    result["Carrot Orange"] = NSColor(srgbRed: 0.929412, green: 0.568627, blue: 0.129412, alpha: 1.0)
+    result["Pink Lady"] = NSColor(srgbRed: 1.0, green: 0.945098, blue: 0.847059, alpha: 1.0)
+    result["Sapling"] = NSColor(srgbRed: 0.870588, green: 0.831373, blue: 0.643137, alpha: 1.0)
+    result["Carousel Pink"] = NSColor(srgbRed: 0.976471, green: 0.878431, blue: 0.929412, alpha: 1.0)
+    result["Apple"] = NSColor(srgbRed: 0.309804, green: 0.658824, blue: 0.239216, alpha: 1.0)
+    result["Napa"] = NSColor(srgbRed: 0.67451, green: 0.643137, blue: 0.580392, alpha: 1.0)
+    result["Black Olive"] = NSColor(srgbRed: 0.141176, green: 0.180392, blue: 0.0862745, alpha: 1.0)
+    result["Wild Sand"] = NSColor(srgbRed: 0.956863, green: 0.956863, blue: 0.956863, alpha: 1.0)
+    result["Cotton Seed"] = NSColor(srgbRed: 0.760784, green: 0.741176, blue: 0.713726, alpha: 1.0)
+    result["El Paso"] = NSColor(srgbRed: 0.117647, green: 0.0901961, blue: 0.0313726, alpha: 1.0)
+    result["Peach Yellow"] = NSColor(srgbRed: 0.980392, green: 0.87451, blue: 0.678431, alpha: 1.0)
+    result["Cavern Pink"] = NSColor(srgbRed: 0.890196, green: 0.745098, blue: 0.745098, alpha: 1.0)
+    result["Bracken"] = NSColor(srgbRed: 0.290196, green: 0.164706, blue: 0.0156863, alpha: 1.0)
+    result["Cold Purple"] = NSColor(srgbRed: 0.670588, green: 0.627451, blue: 0.85098, alpha: 1.0)
+    result["Polo Blue"] = NSColor(srgbRed: 0.552941, green: 0.658824, blue: 0.8, alpha: 1.0)
+    result["Bright Turquoise"] = NSColor(srgbRed: 0.0313726, green: 0.909804, blue: 0.870588, alpha: 1.0)
+    result["Tuatara"] = NSColor(srgbRed: 0.211765, green: 0.207843, blue: 0.203922, alpha: 1.0)
+    result["Classic Rose"] = NSColor(srgbRed: 0.984314, green: 0.8, blue: 0.905882, alpha: 1.0)
+    result["Zorba"] = NSColor(srgbRed: 0.647059, green: 0.607843, blue: 0.568627, alpha: 1.0)
+    result["Bush"] = NSColor(srgbRed: 0.0509804, green: 0.180392, blue: 0.109804, alpha: 1.0)
+    result["Cab Sav"] = NSColor(srgbRed: 0.301961, green: 0.0392157, blue: 0.0941176, alpha: 1.0)
+    result["Crete"] = NSColor(srgbRed: 0.45098, green: 0.470588, blue: 0.160784, alpha: 1.0)
+    result["Empress"] = NSColor(srgbRed: 0.505882, green: 0.45098, blue: 0.466667, alpha: 1.0)
+    result["Fedora"] = NSColor(srgbRed: 0.47451, green: 0.415686, blue: 0.470588, alpha: 1.0)
+    result["Peanut"] = NSColor(srgbRed: 0.470588, green: 0.184314, blue: 0.0862745, alpha: 1.0)
+    result["Starship"] = NSColor(srgbRed: 0.92549, green: 0.94902, blue: 0.270588, alpha: 1.0)
+    result["Cerise Red"] = NSColor(srgbRed: 0.870588, green: 0.192157, blue: 0.388235, alpha: 1.0)
+    result["Malibu"] = NSColor(srgbRed: 0.490196, green: 0.784314, blue: 0.968627, alpha: 1.0)
+    result["Sunset Orange"] = NSColor(srgbRed: 0.996078, green: 0.298039, blue: 0.25098, alpha: 1.0)
+    result["Old Lavender"] = NSColor(srgbRed: 0.47451, green: 0.407843, blue: 0.470588, alpha: 1.0)
+    result["Zumthor"] = NSColor(srgbRed: 0.929412, green: 0.964706, blue: 1.0, alpha: 1.0)
+    result["Pink Lace"] = NSColor(srgbRed: 1.0, green: 0.866667, blue: 0.956863, alpha: 1.0)
+    result["Korma"] = NSColor(srgbRed: 0.560784, green: 0.294118, blue: 0.054902, alpha: 1.0)
+    result["Pearl Bush"] = NSColor(srgbRed: 0.909804, green: 0.878431, blue: 0.835294, alpha: 1.0)
+    result["Seagull"] = NSColor(srgbRed: 0.501961, green: 0.8, blue: 0.917647, alpha: 1.0)
+    result["Concord"] = NSColor(srgbRed: 0.486275, green: 0.482353, blue: 0.478431, alpha: 1.0)
+    result["Shady Lady"] = NSColor(srgbRed: 0.666667, green: 0.647059, blue: 0.662745, alpha: 1.0)
+    result["Tundora"] = NSColor(srgbRed: 0.290196, green: 0.258824, blue: 0.266667, alpha: 1.0)
+    result["Matrix"] = NSColor(srgbRed: 0.690196, green: 0.364706, blue: 0.329412, alpha: 1.0)
+    result["Lavender"] = NSColor(srgbRed: 0.709804, green: 0.494118, blue: 0.862745, alpha: 1.0)
+    result["Blossom"] = NSColor(srgbRed: 0.862745, green: 0.705882, blue: 0.737255, alpha: 1.0)
+    result["Woodsmoke"] = NSColor(srgbRed: 0.0470588, green: 0.0509804, blue: 0.0588235, alpha: 1.0)
+    result["Domino"] = NSColor(srgbRed: 0.556863, green: 0.466667, blue: 0.368627, alpha: 1.0)
+    result["Ironside Gray"] = NSColor(srgbRed: 0.403922, green: 0.4, blue: 0.384314, alpha: 1.0)
+    result["Cafe Royale"] = NSColor(srgbRed: 0.435294, green: 0.266667, blue: 0.0470588, alpha: 1.0)
+    result["Heath"] = NSColor(srgbRed: 0.329412, green: 0.0627451, blue: 0.0705882, alpha: 1.0)
+    result["Te Papa Green"] = NSColor(srgbRed: 0.117647, green: 0.262745, blue: 0.235294, alpha: 1.0)
+    result["Energy Yellow"] = NSColor(srgbRed: 0.972549, green: 0.866667, blue: 0.360784, alpha: 1.0)
+    result["Dark Fern"] = NSColor(srgbRed: 0.0392157, green: 0.282353, blue: 0.0509804, alpha: 1.0)
+    result["Vista Blue"] = NSColor(srgbRed: 0.560784, green: 0.839216, blue: 0.705882, alpha: 1.0)
+    result["Pizazz"] = NSColor(srgbRed: 1.0, green: 0.564706, blue: 0.0, alpha: 1.0)
+    result["Deep Blue"] = NSColor(srgbRed: 0.133333, green: 0.0313726, blue: 0.470588, alpha: 1.0)
+    result["Swamp Green"] = NSColor(srgbRed: 0.67451, green: 0.717647, blue: 0.556863, alpha: 1.0)
+    result["Hot Pink"] = NSColor(srgbRed: 1.0, green: 0.411765, blue: 0.705882, alpha: 1.0)
+    result["Salmon"] = NSColor(srgbRed: 1.0, green: 0.54902, blue: 0.411765, alpha: 1.0)
+    result["Blue Bell"] = NSColor(srgbRed: 0.6, green: 0.6, blue: 0.8, alpha: 1.0)
+    result["Heavy Metal"] = NSColor(srgbRed: 0.168627, green: 0.196078, blue: 0.156863, alpha: 1.0)
+    result["Paris M"] = NSColor(srgbRed: 0.14902, green: 0.0196078, blue: 0.415686, alpha: 1.0)
+    result["Shamrock"] = NSColor(srgbRed: 0.2, green: 0.8, blue: 0.6, alpha: 1.0)
+    result["Cerise"] = NSColor(srgbRed: 0.854902, green: 0.196078, blue: 0.529412, alpha: 1.0)
+    result["Alizarin Crimson"] = NSColor(srgbRed: 0.890196, green: 0.14902, blue: 0.211765, alpha: 1.0)
+    result["Sinbad"] = NSColor(srgbRed: 0.623529, green: 0.843137, blue: 0.827451, alpha: 1.0)
+    result["Eggplant"] = NSColor(srgbRed: 0.380392, green: 0.25098, blue: 0.317647, alpha: 1.0)
+    result["Waikawa Gray"] = NSColor(srgbRed: 0.352941, green: 0.431373, blue: 0.611765, alpha: 1.0)
+    result["Marigold"] = NSColor(srgbRed: 0.72549, green: 0.552941, blue: 0.156863, alpha: 1.0)
+    result["Spring Sun"] = NSColor(srgbRed: 0.964706, green: 1.0, blue: 0.862745, alpha: 1.0)
+    result["Irish Coffee"] = NSColor(srgbRed: 0.372549, green: 0.239216, blue: 0.14902, alpha: 1.0)
+    result["Gray"] = NSColor(srgbRed: 0.501961, green: 0.501961, blue: 0.501961, alpha: 1.0)
+    result["Amazon"] = NSColor(srgbRed: 0.231373, green: 0.478431, blue: 0.341176, alpha: 1.0)
+    result["Yellow Metal"] = NSColor(srgbRed: 0.443137, green: 0.388235, blue: 0.219608, alpha: 1.0)
+    result["Cloud"] = NSColor(srgbRed: 0.780392, green: 0.768627, blue: 0.74902, alpha: 1.0)
+    result["Casper"] = NSColor(srgbRed: 0.678431, green: 0.745098, blue: 0.819608, alpha: 1.0)
+    result["Mallard"] = NSColor(srgbRed: 0.137255, green: 0.203922, blue: 0.0941176, alpha: 1.0)
+    result["Laser"] = NSColor(srgbRed: 0.784314, green: 0.709804, blue: 0.407843, alpha: 1.0)
+    result["Atomic Tangerine"] = NSColor(srgbRed: 1.0, green: 0.6, blue: 0.4, alpha: 1.0)
+    result["Tumbleweed"] = NSColor(srgbRed: 0.870588, green: 0.65098, blue: 0.505882, alpha: 1.0)
+    result["Bison Hide"] = NSColor(srgbRed: 0.756863, green: 0.717647, blue: 0.643137, alpha: 1.0)
+    result["Outer Space"] = NSColor(srgbRed: 0.176471, green: 0.219608, blue: 0.227451, alpha: 1.0)
+    result["Temptress"] = NSColor(srgbRed: 0.231373, green: 0.0, blue: 0.0431373, alpha: 1.0)
+    result["Aqua Island"] = NSColor(srgbRed: 0.631373, green: 0.854902, blue: 0.843137, alpha: 1.0)
+    result["Di Serria"] = NSColor(srgbRed: 0.858824, green: 0.6, blue: 0.368627, alpha: 1.0)
+    result["Redwood"] = NSColor(srgbRed: 0.364706, green: 0.117647, blue: 0.0588235, alpha: 1.0)
+    result["Stonewall"] = NSColor(srgbRed: 0.572549, green: 0.521569, blue: 0.45098, alpha: 1.0)
+    result["Jet Stream"] = NSColor(srgbRed: 0.709804, green: 0.823529, blue: 0.807843, alpha: 1.0)
+    result["Perano"] = NSColor(srgbRed: 0.662745, green: 0.745098, blue: 0.94902, alpha: 1.0)
+    result["Melanzane"] = NSColor(srgbRed: 0.188235, green: 0.0196078, blue: 0.160784, alpha: 1.0)
+    result["Royal Heath"] = NSColor(srgbRed: 0.670588, green: 0.203922, blue: 0.447059, alpha: 1.0)
+    result["Elf Green"] = NSColor(srgbRed: 0.0313726, green: 0.513726, blue: 0.439216, alpha: 1.0)
+    result["Blue Charcoal"] = NSColor(srgbRed: 0.00392157, green: 0.0509804, blue: 0.101961, alpha: 1.0)
+    result["Akaroa"] = NSColor(srgbRed: 0.831373, green: 0.768627, blue: 0.658824, alpha: 1.0)
+    result["La Palma"] = NSColor(srgbRed: 0.211765, green: 0.529412, blue: 0.0862745, alpha: 1.0)
+    result["Indian Khaki"] = NSColor(srgbRed: 0.764706, green: 0.690196, blue: 0.568627, alpha: 1.0)
+    result["Cranberry"] = NSColor(srgbRed: 0.858824, green: 0.313726, blue: 0.47451, alpha: 1.0)
+    result["Night Shadz"] = NSColor(srgbRed: 0.666667, green: 0.215686, blue: 0.352941, alpha: 1.0)
+    result["Kilamanjaro"] = NSColor(srgbRed: 0.141176, green: 0.0470588, blue: 0.00784314, alpha: 1.0)
+    result["Castro"] = NSColor(srgbRed: 0.321569, green: 0.0, blue: 0.121569, alpha: 1.0)
+    result["Solid Pink"] = NSColor(srgbRed: 0.537255, green: 0.219608, blue: 0.262745, alpha: 1.0)
+    result["Raw Sienna"] = NSColor(srgbRed: 0.823529, green: 0.490196, blue: 0.27451, alpha: 1.0)
+    result["Antique Bronze"] = NSColor(srgbRed: 0.439216, green: 0.290196, blue: 0.027451, alpha: 1.0)
+    result["Chinook"] = NSColor(srgbRed: 0.658824, green: 0.890196, blue: 0.741176, alpha: 1.0)
+    result["Fringy Flower"] = NSColor(srgbRed: 0.694118, green: 0.886275, blue: 0.756863, alpha: 1.0)
+    result["Piper"] = NSColor(srgbRed: 0.788235, green: 0.388235, blue: 0.137255, alpha: 1.0)
+    result["Pink Flamingo"] = NSColor(srgbRed: 1.0, green: 0.4, blue: 1.0, alpha: 1.0)
+    result["Hint of Green"] = NSColor(srgbRed: 0.901961, green: 1.0, blue: 0.913725, alpha: 1.0)
+    result["Vivid Violet"] = NSColor(srgbRed: 0.501961, green: 0.215686, blue: 0.564706, alpha: 1.0)
+    result["Blue Diamond"] = NSColor(srgbRed: 0.219608, green: 0.0156863, blue: 0.454902, alpha: 1.0)
+    result["Givry"] = NSColor(srgbRed: 0.972549, green: 0.894118, blue: 0.74902, alpha: 1.0)
+    result["Flush Mahogany"] = NSColor(srgbRed: 0.792157, green: 0.203922, blue: 0.207843, alpha: 1.0)
+    result["Riptide"] = NSColor(srgbRed: 0.545098, green: 0.901961, blue: 0.847059, alpha: 1.0)
+    result["Geraldine"] = NSColor(srgbRed: 0.984314, green: 0.537255, blue: 0.537255, alpha: 1.0)
+    result["Light Wisteria"] = NSColor(srgbRed: 0.788235, green: 0.627451, blue: 0.862745, alpha: 1.0)
+    result["Delta"] = NSColor(srgbRed: 0.643137, green: 0.643137, blue: 0.615686, alpha: 1.0)
+    result["Burnham"] = NSColor(srgbRed: 0.0, green: 0.180392, blue: 0.12549, alpha: 1.0)
+    result["Affair"] = NSColor(srgbRed: 0.443137, green: 0.27451, blue: 0.576471, alpha: 1.0)
+    result["Rouge"] = NSColor(srgbRed: 0.635294, green: 0.231373, blue: 0.423529, alpha: 1.0)
+    result["Sail"] = NSColor(srgbRed: 0.721569, green: 0.878431, blue: 0.976471, alpha: 1.0)
+    result["Prairie Sand"] = NSColor(srgbRed: 0.603922, green: 0.219608, blue: 0.12549, alpha: 1.0)
+    result["Masala"] = NSColor(srgbRed: 0.25098, green: 0.231373, blue: 0.219608, alpha: 1.0)
+    result["Hillary"] = NSColor(srgbRed: 0.67451, green: 0.647059, blue: 0.52549, alpha: 1.0)
+    result["Turmeric"] = NSColor(srgbRed: 0.792157, green: 0.733333, blue: 0.282353, alpha: 1.0)
+    result["White Ice"] = NSColor(srgbRed: 0.866667, green: 0.976471, blue: 0.945098, alpha: 1.0)
+    result["Oriental Pink"] = NSColor(srgbRed: 0.776471, green: 0.568627, blue: 0.568627, alpha: 1.0)
+    result["Dingley"] = NSColor(srgbRed: 0.364706, green: 0.466667, blue: 0.278431, alpha: 1.0)
+    result["Persian Red"] = NSColor(srgbRed: 0.8, green: 0.2, blue: 0.2, alpha: 1.0)
+    result["Light Orchid"] = NSColor(srgbRed: 0.886275, green: 0.611765, blue: 0.823529, alpha: 1.0)
+    result["Como"] = NSColor(srgbRed: 0.317647, green: 0.486275, blue: 0.4, alpha: 1.0)
+    result["Half Colonial White"] = NSColor(srgbRed: 0.992157, green: 0.964706, blue: 0.827451, alpha: 1.0)
+    result["Pistachio"] = NSColor(srgbRed: 0.615686, green: 0.760784, blue: 0.0352941, alpha: 1.0)
+    result["Ivory"] = NSColor(srgbRed: 1.0, green: 1.0, blue: 0.941176, alpha: 1.0)
+    result["Mercury"] = NSColor(srgbRed: 0.898039, green: 0.898039, blue: 0.898039, alpha: 1.0)
+    result["Mexican Red"] = NSColor(srgbRed: 0.654902, green: 0.145098, blue: 0.145098, alpha: 1.0)
+    result["Tickle Me Pink"] = NSColor(srgbRed: 0.988235, green: 0.501961, blue: 0.647059, alpha: 1.0)
+    result["Cascade"] = NSColor(srgbRed: 0.545098, green: 0.662745, blue: 0.647059, alpha: 1.0)
+    result["Oracle"] = NSColor(srgbRed: 0.215686, green: 0.454902, blue: 0.458824, alpha: 1.0)
+    result["Spray"] = NSColor(srgbRed: 0.47451, green: 0.870588, blue: 0.92549, alpha: 1.0)
+    result["Tiara"] = NSColor(srgbRed: 0.764706, green: 0.819608, blue: 0.819608, alpha: 1.0)
+    result["Peppermint"] = NSColor(srgbRed: 0.890196, green: 0.960784, blue: 0.882353, alpha: 1.0)
+    result["Lily White"] = NSColor(srgbRed: 0.905882, green: 0.972549, blue: 1.0, alpha: 1.0)
+    result["Medium Carmine"] = NSColor(srgbRed: 0.686275, green: 0.25098, blue: 0.207843, alpha: 1.0)
+    result["Pohutukawa"] = NSColor(srgbRed: 0.560784, green: 0.00784314, blue: 0.109804, alpha: 1.0)
+    result["Key Lime Pie"] = NSColor(srgbRed: 0.74902, green: 0.788235, blue: 0.129412, alpha: 1.0)
+    result["Tahiti Gold"] = NSColor(srgbRed: 0.913725, green: 0.486275, blue: 0.027451, alpha: 1.0)
+    result["Jelly Bean"] = NSColor(srgbRed: 0.160784, green: 0.482353, blue: 0.603922, alpha: 1.0)
+    result["Firefly"] = NSColor(srgbRed: 0.054902, green: 0.164706, blue: 0.188235, alpha: 1.0)
+    result["Burnt Orange"] = NSColor(srgbRed: 0.8, green: 0.333333, blue: 0.0, alpha: 1.0)
+    result["Nero"] = NSColor(srgbRed: 0.0784314, green: 0.0235294, blue: 0.0, alpha: 1.0)
+    result["Feijoa"] = NSColor(srgbRed: 0.623529, green: 0.866667, blue: 0.54902, alpha: 1.0)
+    result["Sunflower"] = NSColor(srgbRed: 0.894118, green: 0.831373, blue: 0.133333, alpha: 1.0)
+    result["Sunglo"] = NSColor(srgbRed: 0.882353, green: 0.407843, blue: 0.396078, alpha: 1.0)
+    result["Chambray"] = NSColor(srgbRed: 0.207843, green: 0.305882, blue: 0.54902, alpha: 1.0)
+    result["Ottoman"] = NSColor(srgbRed: 0.913725, green: 0.972549, blue: 0.929412, alpha: 1.0)
+    result["Martini"] = NSColor(srgbRed: 0.686275, green: 0.627451, blue: 0.619608, alpha: 1.0)
+    result["Blaze Orange"] = NSColor(srgbRed: 1.0, green: 0.4, blue: 0.0, alpha: 1.0)
+    result["Rustic Red"] = NSColor(srgbRed: 0.282353, green: 0.0156863, blue: 0.0156863, alpha: 1.0)
+    result["Sky Blue"] = NSColor(srgbRed: 0.462745, green: 0.843137, blue: 0.917647, alpha: 1.0)
+    result["Tango"] = NSColor(srgbRed: 0.929412, green: 0.478431, blue: 0.109804, alpha: 1.0)
+    result["Black Marlin"] = NSColor(srgbRed: 0.243137, green: 0.172549, blue: 0.109804, alpha: 1.0)
+    result["Downy"] = NSColor(srgbRed: 0.435294, green: 0.815686, blue: 0.772549, alpha: 1.0)
+    result["Your Pink"] = NSColor(srgbRed: 1.0, green: 0.764706, blue: 0.752941, alpha: 1.0)
+    result["Mantis"] = NSColor(srgbRed: 0.454902, green: 0.764706, blue: 0.396078, alpha: 1.0)
+    result["Monte Carlo"] = NSColor(srgbRed: 0.513726, green: 0.815686, blue: 0.776471, alpha: 1.0)
+    result["Ebony Clay"] = NSColor(srgbRed: 0.14902, green: 0.156863, blue: 0.231373, alpha: 1.0)
+    result["Rock Spray"] = NSColor(srgbRed: 0.729412, green: 0.270588, blue: 0.0470588, alpha: 1.0)
+    result["Crowshead"] = NSColor(srgbRed: 0.109804, green: 0.0705882, blue: 0.0313726, alpha: 1.0)
+    result["Double Spanish White"] = NSColor(srgbRed: 0.901961, green: 0.843137, blue: 0.72549, alpha: 1.0)
+    result["Breaker Bay"] = NSColor(srgbRed: 0.364706, green: 0.631373, blue: 0.623529, alpha: 1.0)
+    result["Black White"] = NSColor(srgbRed: 1.0, green: 0.996078, blue: 0.964706, alpha: 1.0)
+    result["Resolution Blue"] = NSColor(srgbRed: 0.0, green: 0.137255, blue: 0.529412, alpha: 1.0)
+    result["Ecru White"] = NSColor(srgbRed: 0.960784, green: 0.952941, blue: 0.898039, alpha: 1.0)
+    result["Summer Green"] = NSColor(srgbRed: 0.588235, green: 0.733333, blue: 0.670588, alpha: 1.0)
+    result["Cameo"] = NSColor(srgbRed: 0.85098, green: 0.72549, blue: 0.607843, alpha: 1.0)
+    result["Green White"] = NSColor(srgbRed: 0.909804, green: 0.921569, blue: 0.878431, alpha: 1.0)
+    result["Mosque"] = NSColor(srgbRed: 0.0117647, green: 0.415686, blue: 0.431373, alpha: 1.0)
+    result["Sambuca"] = NSColor(srgbRed: 0.227451, green: 0.12549, blue: 0.0627451, alpha: 1.0)
+    result["Pomegranate"] = NSColor(srgbRed: 0.952941, green: 0.278431, blue: 0.137255, alpha: 1.0)
+    result["Fantasy"] = NSColor(srgbRed: 0.980392, green: 0.952941, blue: 0.941176, alpha: 1.0)
+    result["Wood Bark"] = NSColor(srgbRed: 0.14902, green: 0.0666667, blue: 0.0196078, alpha: 1.0)
+    result["Nomad"] = NSColor(srgbRed: 0.729412, green: 0.694118, blue: 0.635294, alpha: 1.0)
+    result["Olive Drab"] = NSColor(srgbRed: 0.419608, green: 0.556863, blue: 0.137255, alpha: 1.0)
+    result["Macaroni and Cheese"] = NSColor(srgbRed: 1.0, green: 0.72549, blue: 0.482353, alpha: 1.0)
+    result["Tarawera"] = NSColor(srgbRed: 0.027451, green: 0.227451, blue: 0.313726, alpha: 1.0)
+    result["Just Right"] = NSColor(srgbRed: 0.92549, green: 0.803922, blue: 0.72549, alpha: 1.0)
+    result["Pacific Blue"] = NSColor(srgbRed: 0.0, green: 0.615686, blue: 0.768627, alpha: 1.0)
+    result["Fuego"] = NSColor(srgbRed: 0.745098, green: 0.870588, blue: 0.0509804, alpha: 1.0)
+    result["Ice Cold"] = NSColor(srgbRed: 0.694118, green: 0.956863, blue: 0.905882, alpha: 1.0)
+    result["Solitaire"] = NSColor(srgbRed: 0.996078, green: 0.972549, blue: 0.886275, alpha: 1.0)
+    result["Chalet Green"] = NSColor(srgbRed: 0.317647, green: 0.431373, blue: 0.239216, alpha: 1.0)
+    result["Cinnamon"] = NSColor(srgbRed: 0.482353, green: 0.247059, blue: 0.0, alpha: 1.0)
+    result["Buttered Rum"] = NSColor(srgbRed: 0.631373, green: 0.458824, blue: 0.0509804, alpha: 1.0)
+    result["Confetti"] = NSColor(srgbRed: 0.913725, green: 0.843137, blue: 0.352941, alpha: 1.0)
+    result["Bottle Green"] = NSColor(srgbRed: 0.0352941, green: 0.211765, blue: 0.141176, alpha: 1.0)
+    result["Cornflower"] = NSColor(srgbRed: 0.576471, green: 0.8, blue: 0.917647, alpha: 1.0)
+    result["Trendy Pink"] = NSColor(srgbRed: 0.54902, green: 0.392157, blue: 0.584314, alpha: 1.0)
+    result["Ebb"] = NSColor(srgbRed: 0.913725, green: 0.890196, blue: 0.890196, alpha: 1.0)
+    result["Siam"] = NSColor(srgbRed: 0.392157, green: 0.415686, blue: 0.329412, alpha: 1.0)
+    result["Spanish Green"] = NSColor(srgbRed: 0.505882, green: 0.596078, blue: 0.521569, alpha: 1.0)
+    result["Chardon"] = NSColor(srgbRed: 1.0, green: 0.952941, blue: 0.945098, alpha: 1.0)
+    result["Rob Roy"] = NSColor(srgbRed: 0.917647, green: 0.776471, blue: 0.454902, alpha: 1.0)
+    result["Chamois"] = NSColor(srgbRed: 0.929412, green: 0.862745, blue: 0.694118, alpha: 1.0)
+    result["Citrine White"] = NSColor(srgbRed: 0.980392, green: 0.968627, blue: 0.839216, alpha: 1.0)
+    result["Timberwolf"] = NSColor(srgbRed: 0.85098, green: 0.839216, blue: 0.811765, alpha: 1.0)
+    result["Iron"] = NSColor(srgbRed: 0.831373, green: 0.843137, blue: 0.85098, alpha: 1.0)
+    result["Voodoo"] = NSColor(srgbRed: 0.32549, green: 0.203922, blue: 0.333333, alpha: 1.0)
+    result["Gin Fizz"] = NSColor(srgbRed: 1.0, green: 0.976471, blue: 0.886275, alpha: 1.0)
+    result["Purple"] = NSColor(srgbRed: 0.4, green: 0.0, blue: 0.6, alpha: 1.0)
+    result["Moody Blue"] = NSColor(srgbRed: 0.498039, green: 0.462745, blue: 0.827451, alpha: 1.0)
+    result["Moon Raker"] = NSColor(srgbRed: 0.839216, green: 0.807843, blue: 0.964706, alpha: 1.0)
+    result["Opium"] = NSColor(srgbRed: 0.556863, green: 0.435294, blue: 0.439216, alpha: 1.0)
+    result["Carnaby Tan"] = NSColor(srgbRed: 0.360784, green: 0.180392, blue: 0.00392157, alpha: 1.0)
+    result["Mako"] = NSColor(srgbRed: 0.266667, green: 0.286275, blue: 0.329412, alpha: 1.0)
+    result["Meteor"] = NSColor(srgbRed: 0.815686, green: 0.490196, blue: 0.0705882, alpha: 1.0)
+    result["Copper"] = NSColor(srgbRed: 0.721569, green: 0.45098, blue: 0.2, alpha: 1.0)
+    result["Coconut Cream"] = NSColor(srgbRed: 0.972549, green: 0.968627, blue: 0.862745, alpha: 1.0)
+    result["Tahuna Sands"] = NSColor(srgbRed: 0.933333, green: 0.941176, blue: 0.784314, alpha: 1.0)
+    result["Bermuda"] = NSColor(srgbRed: 0.490196, green: 0.847059, blue: 0.776471, alpha: 1.0)
+    result["Chatelle"] = NSColor(srgbRed: 0.741176, green: 0.701961, blue: 0.780392, alpha: 1.0)
+    result["Cello"] = NSColor(srgbRed: 0.117647, green: 0.219608, blue: 0.356863, alpha: 1.0)
+    result["Sahara"] = NSColor(srgbRed: 0.717647, green: 0.635294, blue: 0.0784314, alpha: 1.0)
+    result["Rio Grande"] = NSColor(srgbRed: 0.733333, green: 0.815686, blue: 0.0352941, alpha: 1.0)
+    result["Spicy Pink"] = NSColor(srgbRed: 0.505882, green: 0.431373, blue: 0.443137, alpha: 1.0)
+    result["Charlotte"] = NSColor(srgbRed: 0.729412, green: 0.933333, blue: 0.976471, alpha: 1.0)
+    result["Old Lace"] = NSColor(srgbRed: 0.992157, green: 0.960784, blue: 0.901961, alpha: 1.0)
+    result["Driftwood"] = NSColor(srgbRed: 0.686275, green: 0.529412, blue: 0.317647, alpha: 1.0)
+    result["Mine Shaft"] = NSColor(srgbRed: 0.196078, green: 0.196078, blue: 0.196078, alpha: 1.0)
+    result["Rose of Sharon"] = NSColor(srgbRed: 0.74902, green: 0.333333, blue: 0.0, alpha: 1.0)
+    result["Prussian Blue"] = NSColor(srgbRed: 0.0, green: 0.192157, blue: 0.32549, alpha: 1.0)
+    result["Manz"] = NSColor(srgbRed: 0.933333, green: 0.937255, blue: 0.470588, alpha: 1.0)
+    result["Ceramic"] = NSColor(srgbRed: 0.988235, green: 1.0, blue: 0.976471, alpha: 1.0)
+    result["Limed Oak"] = NSColor(srgbRed: 0.67451, green: 0.541176, blue: 0.337255, alpha: 1.0)
+    result["Zanah"] = NSColor(srgbRed: 0.854902, green: 0.92549, blue: 0.839216, alpha: 1.0)
+    result["Ferra"] = NSColor(srgbRed: 0.439216, green: 0.309804, blue: 0.313726, alpha: 1.0)
+    result["Midnight Moss"] = NSColor(srgbRed: 0.0156863, green: 0.0627451, blue: 0.0156863, alpha: 1.0)
+    result["Ronchi"] = NSColor(srgbRed: 0.92549, green: 0.772549, blue: 0.305882, alpha: 1.0)
+    result["White Pointer"] = NSColor(srgbRed: 0.996078, green: 0.972549, blue: 1.0, alpha: 1.0)
+    result["Shakespeare"] = NSColor(srgbRed: 0.305882, green: 0.670588, blue: 0.819608, alpha: 1.0)
+    result["Vanilla Ice"] = NSColor(srgbRed: 0.952941, green: 0.85098, blue: 0.87451, alpha: 1.0)
+    result["Antique Brass"] = NSColor(srgbRed: 0.784314, green: 0.541176, blue: 0.396078, alpha: 1.0)
+    result["Quarter Spanish White"] = NSColor(srgbRed: 0.968627, green: 0.94902, blue: 0.882353, alpha: 1.0)
+    result["Chocolate"] = NSColor(srgbRed: 0.215686, green: 0.00784314, blue: 0.00784314, alpha: 1.0)
+    result["Sandrift"] = NSColor(srgbRed: 0.670588, green: 0.568627, blue: 0.478431, alpha: 1.0)
+    result["Jaffa"] = NSColor(srgbRed: 0.937255, green: 0.52549, blue: 0.247059, alpha: 1.0)
+    result["Canary"] = NSColor(srgbRed: 0.952941, green: 0.984314, blue: 0.384314, alpha: 1.0)
+    result["Violent Violet"] = NSColor(srgbRed: 0.160784, green: 0.0470588, blue: 0.368627, alpha: 1.0)
+    result["Camouflage Green"] = NSColor(srgbRed: 0.470588, green: 0.52549, blue: 0.419608, alpha: 1.0)
+    result["Regent Gray"] = NSColor(srgbRed: 0.52549, green: 0.580392, blue: 0.623529, alpha: 1.0)
+    result["Metallic Copper"] = NSColor(srgbRed: 0.443137, green: 0.160784, blue: 0.113725, alpha: 1.0)
+    result["Cloud Burst"] = NSColor(srgbRed: 0.12549, green: 0.180392, blue: 0.329412, alpha: 1.0)
+    result["Green Kelp"] = NSColor(srgbRed: 0.145098, green: 0.192157, blue: 0.109804, alpha: 1.0)
+    result["Elephant"] = NSColor(srgbRed: 0.0705882, green: 0.203922, blue: 0.278431, alpha: 1.0)
+    result["Kokoda"] = NSColor(srgbRed: 0.431373, green: 0.427451, blue: 0.341176, alpha: 1.0)
+    result["Jaguar"] = NSColor(srgbRed: 0.0313726, green: 0.00392157, blue: 0.0627451, alpha: 1.0)
+    result["Red Robin"] = NSColor(srgbRed: 0.501961, green: 0.203922, blue: 0.121569, alpha: 1.0)
+    result["Celadon"] = NSColor(srgbRed: 0.67451, green: 0.882353, blue: 0.686275, alpha: 1.0)
+    result["Eagle"] = NSColor(srgbRed: 0.713726, green: 0.729412, blue: 0.643137, alpha: 1.0)
+    result["Zircon"] = NSColor(srgbRed: 0.956863, green: 0.972549, blue: 1.0, alpha: 1.0)
+    result["Champagne"] = NSColor(srgbRed: 0.980392, green: 0.92549, blue: 0.8, alpha: 1.0)
+    result["Hot Cinnamon"] = NSColor(srgbRed: 0.823529, green: 0.411765, blue: 0.117647, alpha: 1.0)
+    result["Black"] = NSColor(srgbRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    result["Red Oxide"] = NSColor(srgbRed: 0.431373, green: 0.0352941, blue: 0.00784314, alpha: 1.0)
+    result["Fuchsia Blue"] = NSColor(srgbRed: 0.478431, green: 0.345098, blue: 0.756863, alpha: 1.0)
+    result["Dew"] = NSColor(srgbRed: 0.917647, green: 1.0, blue: 0.996078, alpha: 1.0)
+    result["Violet Red"] = NSColor(srgbRed: 0.968627, green: 0.27451, blue: 0.541176, alpha: 1.0)
+    result["Celeste"] = NSColor(srgbRed: 0.819608, green: 0.823529, blue: 0.792157, alpha: 1.0)
+    result["Hint of Red"] = NSColor(srgbRed: 0.984314, green: 0.976471, blue: 0.976471, alpha: 1.0)
+    result["Chenin"] = NSColor(srgbRed: 0.87451, green: 0.803922, blue: 0.435294, alpha: 1.0)
+    result["Conch"] = NSColor(srgbRed: 0.788235, green: 0.85098, blue: 0.823529, alpha: 1.0)
+    result["Surf Crest"] = NSColor(srgbRed: 0.811765, green: 0.898039, blue: 0.823529, alpha: 1.0)
+    result["Sauvignon"] = NSColor(srgbRed: 1.0, green: 0.960784, blue: 0.952941, alpha: 1.0)
+    result["Wild Strawberry"] = NSColor(srgbRed: 1.0, green: 0.2, blue: 0.6, alpha: 1.0)
+    result["Polar"] = NSColor(srgbRed: 0.898039, green: 0.976471, blue: 0.964706, alpha: 1.0)
+    result["Shark"] = NSColor(srgbRed: 0.145098, green: 0.152941, blue: 0.172549, alpha: 1.0)
+    result["San Juan"] = NSColor(srgbRed: 0.188235, green: 0.294118, blue: 0.415686, alpha: 1.0)
+    result["Pigeon Post"] = NSColor(srgbRed: 0.686275, green: 0.741176, blue: 0.85098, alpha: 1.0)
+    result["Tia Maria"] = NSColor(srgbRed: 0.756863, green: 0.266667, blue: 0.054902, alpha: 1.0)
+    result["Kimberly"] = NSColor(srgbRed: 0.45098, green: 0.423529, blue: 0.623529, alpha: 1.0)
+    result["Bilbao"] = NSColor(srgbRed: 0.196078, green: 0.486275, blue: 0.0784314, alpha: 1.0)
+    result["San Marino"] = NSColor(srgbRed: 0.270588, green: 0.423529, blue: 0.67451, alpha: 1.0)
+    result["Tallow"] = NSColor(srgbRed: 0.658824, green: 0.647059, blue: 0.537255, alpha: 1.0)
+    result["Gum Leaf"] = NSColor(srgbRed: 0.713726, green: 0.827451, blue: 0.74902, alpha: 1.0)
+    result["Jonquil"] = NSColor(srgbRed: 0.933333, green: 1.0, blue: 0.603922, alpha: 1.0)
+    result["Rope"] = NSColor(srgbRed: 0.556863, green: 0.301961, blue: 0.117647, alpha: 1.0)
+    result["Ziggurat"] = NSColor(srgbRed: 0.74902, green: 0.858824, blue: 0.886275, alpha: 1.0)
+    result["English Walnut"] = NSColor(srgbRed: 0.243137, green: 0.168627, blue: 0.137255, alpha: 1.0)
+    result["International Orange"] = NSColor(srgbRed: 1.0, green: 0.309804, blue: 0.0, alpha: 1.0)
+    result["Porcelain"] = NSColor(srgbRed: 0.937255, green: 0.94902, blue: 0.952941, alpha: 1.0)
+    result["Chetwode Blue"] = NSColor(srgbRed: 0.521569, green: 0.505882, blue: 0.85098, alpha: 1.0)
+    result["Wild Willow"] = NSColor(srgbRed: 0.72549, green: 0.768627, blue: 0.415686, alpha: 1.0)
+    result["Cobalt"] = NSColor(srgbRed: 0.0, green: 0.278431, blue: 0.670588, alpha: 1.0)
+    result["Silver"] = NSColor(srgbRed: 0.752941, green: 0.752941, blue: 0.752941, alpha: 1.0)
+    result["Las Palmas"] = NSColor(srgbRed: 0.776471, green: 0.901961, blue: 0.0627451, alpha: 1.0)
+    result["Azalea"] = NSColor(srgbRed: 0.968627, green: 0.784314, blue: 0.854902, alpha: 1.0)
+    result["Contessa"] = NSColor(srgbRed: 0.776471, green: 0.447059, blue: 0.419608, alpha: 1.0)
+    result["Asphalt"] = NSColor(srgbRed: 0.0745098, green: 0.0392157, blue: 0.0235294, alpha: 1.0)
+    result["Kelp"] = NSColor(srgbRed: 0.270588, green: 0.286275, blue: 0.211765, alpha: 1.0)
+    result["Pale Canary"] = NSColor(srgbRed: 1.0, green: 1.0, blue: 0.6, alpha: 1.0)
+    result["Celtic"] = NSColor(srgbRed: 0.0862745, green: 0.196078, blue: 0.133333, alpha: 1.0)
+    result["Amethyst Smoke"] = NSColor(srgbRed: 0.639216, green: 0.592157, blue: 0.705882, alpha: 1.0)
+    result["Melanie"] = NSColor(srgbRed: 0.894118, green: 0.760784, blue: 0.835294, alpha: 1.0)
+    result["Gulf Stream"] = NSColor(srgbRed: 0.501961, green: 0.701961, blue: 0.682353, alpha: 1.0)
+    result["Aqua Squeeze"] = NSColor(srgbRed: 0.909804, green: 0.960784, blue: 0.94902, alpha: 1.0)
+    result["Bazaar"] = NSColor(srgbRed: 0.596078, green: 0.466667, blue: 0.482353, alpha: 1.0)
+    result["Lynch"] = NSColor(srgbRed: 0.411765, green: 0.494118, blue: 0.603922, alpha: 1.0)
+    result["Barley Corn"] = NSColor(srgbRed: 0.65098, green: 0.545098, blue: 0.356863, alpha: 1.0)
+    result["Brilliant Rose"] = NSColor(srgbRed: 0.964706, green: 0.32549, blue: 0.65098, alpha: 1.0)
+    result["Old Rose"] = NSColor(srgbRed: 0.752941, green: 0.501961, blue: 0.505882, alpha: 1.0)
+    result["Astral"] = NSColor(srgbRed: 0.196078, green: 0.490196, blue: 0.627451, alpha: 1.0)
+    result["Apricot Peach"] = NSColor(srgbRed: 0.984314, green: 0.807843, blue: 0.694118, alpha: 1.0)
+    result["Wine Berry"] = NSColor(srgbRed: 0.34902, green: 0.113725, blue: 0.207843, alpha: 1.0)
+    result["Tide"] = NSColor(srgbRed: 0.74902, green: 0.721569, blue: 0.690196, alpha: 1.0)
+    result["Denim"] = NSColor(srgbRed: 0.0823529, green: 0.376471, blue: 0.741176, alpha: 1.0)
+    result["Sunglow"] = NSColor(srgbRed: 1.0, green: 0.8, blue: 0.2, alpha: 1.0)
+    result["Primrose"] = NSColor(srgbRed: 0.929412, green: 0.917647, blue: 0.6, alpha: 1.0)
+    result["Dark Burgundy"] = NSColor(srgbRed: 0.466667, green: 0.0588235, blue: 0.0196078, alpha: 1.0)
+    result["Kidnapper"] = NSColor(srgbRed: 0.882353, green: 0.917647, blue: 0.831373, alpha: 1.0)
+    result["Hit Pink"] = NSColor(srgbRed: 1.0, green: 0.670588, blue: 0.505882, alpha: 1.0)
+    result["Brick Red"] = NSColor(srgbRed: 0.776471, green: 0.176471, blue: 0.258824, alpha: 1.0)
+    result["Twilight Blue"] = NSColor(srgbRed: 0.933333, green: 0.992157, blue: 1.0, alpha: 1.0)
+    result["Cape Honey"] = NSColor(srgbRed: 0.996078, green: 0.898039, blue: 0.67451, alpha: 1.0)
+    result["Cream Brulee"] = NSColor(srgbRed: 1.0, green: 0.898039, blue: 0.627451, alpha: 1.0)
+    result["Heathered Gray"] = NSColor(srgbRed: 0.713726, green: 0.690196, blue: 0.584314, alpha: 1.0)
+    result["My Sin"] = NSColor(srgbRed: 1.0, green: 0.701961, blue: 0.121569, alpha: 1.0)
+    result["Arrowtown"] = NSColor(srgbRed: 0.580392, green: 0.529412, blue: 0.443137, alpha: 1.0)
+    result["Crusoe"] = NSColor(srgbRed: 0.0, green: 0.282353, blue: 0.0862745, alpha: 1.0)
+    result["Malta"] = NSColor(srgbRed: 0.741176, green: 0.698039, blue: 0.631373, alpha: 1.0)
+    result["True V"] = NSColor(srgbRed: 0.541176, green: 0.45098, blue: 0.839216, alpha: 1.0)
+    result["Sugar Cane"] = NSColor(srgbRed: 0.976471, green: 1.0, blue: 0.964706, alpha: 1.0)
+    result["Snow Flurry"] = NSColor(srgbRed: 0.894118, green: 1.0, blue: 0.819608, alpha: 1.0)
+    result["Mango Tango"] = NSColor(srgbRed: 0.905882, green: 0.447059, blue: 0.0, alpha: 1.0)
+    result["Corn Harvest"] = NSColor(srgbRed: 0.545098, green: 0.419608, blue: 0.0431373, alpha: 1.0)
+    result["Rose"] = NSColor(srgbRed: 1.0, green: 0.0, blue: 0.498039, alpha: 1.0)
+    result["Sangria"] = NSColor(srgbRed: 0.572549, green: 0.0, blue: 0.0392157, alpha: 1.0)
+    result["Spun Pearl"] = NSColor(srgbRed: 0.666667, green: 0.670588, blue: 0.717647, alpha: 1.0)
+    result["Golden Glow"] = NSColor(srgbRed: 0.992157, green: 0.886275, blue: 0.584314, alpha: 1.0)
+    result["Periglacial Blue"] = NSColor(srgbRed: 0.882353, green: 0.901961, blue: 0.839216, alpha: 1.0)
+    result["West Side"] = NSColor(srgbRed: 1.0, green: 0.568627, blue: 0.0588235, alpha: 1.0)
+    result["Rum Swizzle"] = NSColor(srgbRed: 0.976471, green: 0.972549, blue: 0.894118, alpha: 1.0)
+    result["Raffia"] = NSColor(srgbRed: 0.917647, green: 0.854902, blue: 0.721569, alpha: 1.0)
+    result["Mist Gray"] = NSColor(srgbRed: 0.768627, green: 0.768627, blue: 0.737255, alpha: 1.0)
+    result["Pigment Indigo"] = NSColor(srgbRed: 0.294118, green: 0.0, blue: 0.509804, alpha: 1.0)
+    result["Bean  "] = NSColor(srgbRed: 0.239216, green: 0.0470588, blue: 0.00784314, alpha: 1.0)
+    result["Lochmara"] = NSColor(srgbRed: 0.0, green: 0.494118, blue: 0.780392, alpha: 1.0)
+    result["Ship Gray"] = NSColor(srgbRed: 0.243137, green: 0.227451, blue: 0.266667, alpha: 1.0)
+    result["Whisper"] = NSColor(srgbRed: 0.968627, green: 0.960784, blue: 0.980392, alpha: 1.0)
+    result["Eminence"] = NSColor(srgbRed: 0.423529, green: 0.188235, blue: 0.509804, alpha: 1.0)
+    result["Sandy Beach"] = NSColor(srgbRed: 1.0, green: 0.917647, blue: 0.784314, alpha: 1.0)
+    result["Mardi Gras"] = NSColor(srgbRed: 0.207843, green: 0.0, blue: 0.211765, alpha: 1.0)
+    result["Scarlet"] = NSColor(srgbRed: 1.0, green: 0.141176, blue: 0.0, alpha: 1.0)
+    result["Catalina Blue"] = NSColor(srgbRed: 0.0235294, green: 0.164706, blue: 0.470588, alpha: 1.0)
+    result["Bay of Many"] = NSColor(srgbRed: 0.152941, green: 0.227451, blue: 0.505882, alpha: 1.0)
+    result["Swirl"] = NSColor(srgbRed: 0.827451, green: 0.803922, blue: 0.772549, alpha: 1.0)
+    result["Jacaranda"] = NSColor(srgbRed: 0.180392, green: 0.0117647, blue: 0.160784, alpha: 1.0)
+    result["Green Leaf"] = NSColor(srgbRed: 0.262745, green: 0.415686, blue: 0.0509804, alpha: 1.0)
+    result["Pine Glade"] = NSColor(srgbRed: 0.780392, green: 0.803922, blue: 0.564706, alpha: 1.0)
+    result["Martinique"] = NSColor(srgbRed: 0.211765, green: 0.188235, blue: 0.313726, alpha: 1.0)
+    result["Rose Bud Cherry"] = NSColor(srgbRed: 0.501961, green: 0.0431373, blue: 0.278431, alpha: 1.0)
+    result["Casal"] = NSColor(srgbRed: 0.184314, green: 0.380392, blue: 0.407843, alpha: 1.0)
+    result["Monarch"] = NSColor(srgbRed: 0.545098, green: 0.027451, blue: 0.137255, alpha: 1.0)
+    result["Portica"] = NSColor(srgbRed: 0.976471, green: 0.901961, blue: 0.388235, alpha: 1.0)
+    result["Wisp Pink"] = NSColor(srgbRed: 0.996078, green: 0.956863, blue: 0.972549, alpha: 1.0)
+    result["Portafino"] = NSColor(srgbRed: 1.0, green: 1.0, blue: 0.705882, alpha: 1.0)
+    result["Spindle"] = NSColor(srgbRed: 0.713726, green: 0.819608, blue: 0.917647, alpha: 1.0)
+    result["Coral Red"] = NSColor(srgbRed: 1.0, green: 0.25098, blue: 0.25098, alpha: 1.0)
+    result["Zinnwaldite"] = NSColor(srgbRed: 0.921569, green: 0.760784, blue: 0.686275, alpha: 1.0)
+    result["School bus Yellow"] = NSColor(srgbRed: 1.0, green: 0.847059, blue: 0.0, alpha: 1.0)
+    result["Silver Tree"] = NSColor(srgbRed: 0.4, green: 0.709804, blue: 0.560784, alpha: 1.0)
+    result["Lavender Magenta"] = NSColor(srgbRed: 0.933333, green: 0.509804, blue: 0.933333, alpha: 1.0)
+    result["Gothic"] = NSColor(srgbRed: 0.427451, green: 0.572549, blue: 0.631373, alpha: 1.0)
+    result["Persian Green"] = NSColor(srgbRed: 0.0, green: 0.65098, blue: 0.576471, alpha: 1.0)
+    result["Log Cabin"] = NSColor(srgbRed: 0.141176, green: 0.164706, blue: 0.113725, alpha: 1.0)
+    result["Rose Bud"] = NSColor(srgbRed: 0.984314, green: 0.698039, blue: 0.639216, alpha: 1.0)
+    result["Surf"] = NSColor(srgbRed: 0.733333, green: 0.843137, blue: 0.756863, alpha: 1.0)
+    result["Merino"] = NSColor(srgbRed: 0.964706, green: 0.941176, blue: 0.901961, alpha: 1.0)
+    result["Blue Lagoon"] = NSColor(srgbRed: 0.00392157, green: 0.47451, blue: 0.529412, alpha: 1.0)
+    result["Scooter"] = NSColor(srgbRed: 0.180392, green: 0.74902, blue: 0.831373, alpha: 1.0)
+    result["Holly"] = NSColor(srgbRed: 0.00392157, green: 0.113725, blue: 0.0745098, alpha: 1.0)
+    result["Cream Can"] = NSColor(srgbRed: 0.960784, green: 0.784314, blue: 0.360784, alpha: 1.0)
+    result["Clay Ash"] = NSColor(srgbRed: 0.741176, green: 0.784314, blue: 0.701961, alpha: 1.0)
+    result["Candy Corn"] = NSColor(srgbRed: 0.984314, green: 0.92549, blue: 0.364706, alpha: 1.0)
+    result["Rolling Stone"] = NSColor(srgbRed: 0.454902, green: 0.490196, blue: 0.513726, alpha: 1.0)
+    result["Locust"] = NSColor(srgbRed: 0.658824, green: 0.686275, blue: 0.556863, alpha: 1.0)
+    result["Moon Mist"] = NSColor(srgbRed: 0.862745, green: 0.866667, blue: 0.8, alpha: 1.0)
+    result["Grandis"] = NSColor(srgbRed: 1.0, green: 0.827451, blue: 0.54902, alpha: 1.0)
+    result["Mocha"] = NSColor(srgbRed: 0.470588, green: 0.176471, blue: 0.0980392, alpha: 1.0)
+    result["Violet"] = NSColor(srgbRed: 0.141176, green: 0.0392157, blue: 0.25098, alpha: 1.0)
+    result["Iceberg"] = NSColor(srgbRed: 0.854902, green: 0.956863, blue: 0.941176, alpha: 1.0)
+    result["French Rose"] = NSColor(srgbRed: 0.964706, green: 0.290196, blue: 0.541176, alpha: 1.0)
+    result["Mabel"] = NSColor(srgbRed: 0.85098, green: 0.968627, blue: 1.0, alpha: 1.0)
+    result["Trendy Green"] = NSColor(srgbRed: 0.486275, green: 0.533333, blue: 0.101961, alpha: 1.0)
+    result["Bandicoot"] = NSColor(srgbRed: 0.521569, green: 0.517647, blue: 0.439216, alpha: 1.0)
+    result["Oxford Blue"] = NSColor(srgbRed: 0.219608, green: 0.270588, blue: 0.333333, alpha: 1.0)
+    result["Vin Rouge"] = NSColor(srgbRed: 0.596078, green: 0.239216, blue: 0.380392, alpha: 1.0)
+    result["Humming Bird"] = NSColor(srgbRed: 0.811765, green: 0.976471, blue: 0.952941, alpha: 1.0)
+    result["Charade"] = NSColor(srgbRed: 0.160784, green: 0.160784, blue: 0.215686, alpha: 1.0)
+    result["County Green"] = NSColor(srgbRed: 0.00392157, green: 0.215686, blue: 0.101961, alpha: 1.0)
+    result["Mountbatten Pink"] = NSColor(srgbRed: 0.6, green: 0.478431, blue: 0.552941, alpha: 1.0)
+    result["Feta"] = NSColor(srgbRed: 0.941176, green: 0.988235, blue: 0.917647, alpha: 1.0)
+    result["Logan"] = NSColor(srgbRed: 0.666667, green: 0.662745, blue: 0.803922, alpha: 1.0)
+    result["Flamingo"] = NSColor(srgbRed: 0.94902, green: 0.333333, blue: 0.164706, alpha: 1.0)
+    result["Mule Fawn"] = NSColor(srgbRed: 0.54902, green: 0.278431, blue: 0.184314, alpha: 1.0)
+    result["Luxor Gold"] = NSColor(srgbRed: 0.654902, green: 0.533333, blue: 0.172549, alpha: 1.0)
+    result["Black Haze"] = NSColor(srgbRed: 0.964706, green: 0.968627, blue: 0.968627, alpha: 1.0)
+    result["Magenta / Fuchsia"] = NSColor(srgbRed: 1.0, green: 0.0, blue: 1.0, alpha: 1.0)
+    result["Muesli"] = NSColor(srgbRed: 0.666667, green: 0.545098, blue: 0.356863, alpha: 1.0)
+    result["Magic Mint"] = NSColor(srgbRed: 0.666667, green: 0.941176, blue: 0.819608, alpha: 1.0)
+    result["Alto"] = NSColor(srgbRed: 0.858824, green: 0.858824, blue: 0.858824, alpha: 1.0)
+    result["Toledo"] = NSColor(srgbRed: 0.227451, green: 0.0, blue: 0.12549, alpha: 1.0)
+    result["Tara"] = NSColor(srgbRed: 0.882353, green: 0.964706, blue: 0.909804, alpha: 1.0)
+    result["Mulberry"] = NSColor(srgbRed: 0.772549, green: 0.294118, blue: 0.54902, alpha: 1.0)
+    result["Persian Rose"] = NSColor(srgbRed: 0.996078, green: 0.156863, blue: 0.635294, alpha: 1.0)
+    result["Sandal"] = NSColor(srgbRed: 0.666667, green: 0.552941, blue: 0.435294, alpha: 1.0)
+    result["Jade"] = NSColor(srgbRed: 0.0, green: 0.658824, blue: 0.419608, alpha: 1.0)
+    result["Bright Gray"] = NSColor(srgbRed: 0.235294, green: 0.254902, blue: 0.317647, alpha: 1.0)
+    result["Camouflage"] = NSColor(srgbRed: 0.235294, green: 0.223529, blue: 0.0627451, alpha: 1.0)
+    result["Loafer"] = NSColor(srgbRed: 0.933333, green: 0.956863, blue: 0.870588, alpha: 1.0)
+    result["Tan"] = NSColor(srgbRed: 0.823529, green: 0.705882, blue: 0.54902, alpha: 1.0)
+    result["Tower Gray"] = NSColor(srgbRed: 0.662745, green: 0.741176, blue: 0.74902, alpha: 1.0)
+    result["Mint Tulip"] = NSColor(srgbRed: 0.768627, green: 0.956863, blue: 0.921569, alpha: 1.0)
+    result["Chalky"] = NSColor(srgbRed: 0.933333, green: 0.843137, blue: 0.580392, alpha: 1.0)
+    result["Tyrian Purple"] = NSColor(srgbRed: 0.4, green: 0.00784314, blue: 0.235294, alpha: 1.0)
+    result["Pearl Lusta"] = NSColor(srgbRed: 0.988235, green: 0.956863, blue: 0.862745, alpha: 1.0)
+    result["Selago"] = NSColor(srgbRed: 0.941176, green: 0.933333, blue: 0.992157, alpha: 1.0)
+    result["Vermilion"] = NSColor(srgbRed: 1.0, green: 0.301961, blue: 0.0, alpha: 1.0)
+    result["Cola"] = NSColor(srgbRed: 0.247059, green: 0.145098, blue: 0.0, alpha: 1.0)
+    result["Heliotrope"] = NSColor(srgbRed: 0.87451, green: 0.45098, blue: 1.0, alpha: 1.0)
+    result["Cyan / Aqua"] = NSColor(srgbRed: 0.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    result["Fuchsia Pink"] = NSColor(srgbRed: 0.756863, green: 0.329412, blue: 0.756863, alpha: 1.0)
+    result["Elm"] = NSColor(srgbRed: 0.109804, green: 0.486275, blue: 0.490196, alpha: 1.0)
+    result["Stark White"] = NSColor(srgbRed: 0.898039, green: 0.843137, blue: 0.741176, alpha: 1.0)
+    result["Sage"] = NSColor(srgbRed: 0.619608, green: 0.647059, blue: 0.529412, alpha: 1.0)
+    result["East Side"] = NSColor(srgbRed: 0.67451, green: 0.568627, blue: 0.807843, alpha: 1.0)
+    result["French Pass"] = NSColor(srgbRed: 0.741176, green: 0.929412, blue: 0.992157, alpha: 1.0)
+    result["Tusk"] = NSColor(srgbRed: 0.933333, green: 0.952941, blue: 0.764706, alpha: 1.0)
+    result["Aztec"] = NSColor(srgbRed: 0.0509804, green: 0.109804, blue: 0.0980392, alpha: 1.0)
+    result["Spice"] = NSColor(srgbRed: 0.415686, green: 0.266667, blue: 0.180392, alpha: 1.0)
+    result["Skeptic"] = NSColor(srgbRed: 0.792157, green: 0.901961, blue: 0.854902, alpha: 1.0)
+    result["Plantation"] = NSColor(srgbRed: 0.152941, green: 0.313726, blue: 0.294118, alpha: 1.0)
+    result["White Lilac"] = NSColor(srgbRed: 0.972549, green: 0.968627, blue: 0.988235, alpha: 1.0)
+    result["Granny Apple"] = NSColor(srgbRed: 0.835294, green: 0.964706, blue: 0.890196, alpha: 1.0)
+    result["Brink Pink"] = NSColor(srgbRed: 0.984314, green: 0.376471, blue: 0.498039, alpha: 1.0)
+    result["Beige"] = NSColor(srgbRed: 0.960784, green: 0.960784, blue: 0.862745, alpha: 1.0)
+    result["Burgundy"] = NSColor(srgbRed: 0.564706, green: 0.0, blue: 0.12549, alpha: 1.0)
+    result["Prelude"] = NSColor(srgbRed: 0.815686, green: 0.752941, blue: 0.898039, alpha: 1.0)
+    result["Calypso"] = NSColor(srgbRed: 0.192157, green: 0.447059, blue: 0.552941, alpha: 1.0)
+    result["Pelorous"] = NSColor(srgbRed: 0.243137, green: 0.670588, blue: 0.74902, alpha: 1.0)
+    result["Hawkes Blue"] = NSColor(srgbRed: 0.831373, green: 0.886275, blue: 0.988235, alpha: 1.0)
+    result["Athens Gray"] = NSColor(srgbRed: 0.933333, green: 0.941176, blue: 0.952941, alpha: 1.0)
+    result["Trout"] = NSColor(srgbRed: 0.290196, green: 0.305882, blue: 0.352941, alpha: 1.0)
+    result["Cloudy"] = NSColor(srgbRed: 0.67451, green: 0.647059, blue: 0.623529, alpha: 1.0)
+    result["Mamba"] = NSColor(srgbRed: 0.556863, green: 0.505882, blue: 0.564706, alpha: 1.0)
+    result["Barberry"] = NSColor(srgbRed: 0.870588, green: 0.843137, blue: 0.0901961, alpha: 1.0)
+    result["Baby Blue"] = NSColor(srgbRed: 0.878431, green: 1.0, blue: 1.0, alpha: 1.0)
+    result["Barley White"] = NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.807843, alpha: 1.0)
+    result["Sea Pink"] = NSColor(srgbRed: 0.929412, green: 0.596078, blue: 0.619608, alpha: 1.0)
+    result["Raw Umber"] = NSColor(srgbRed: 0.45098, green: 0.290196, blue: 0.0705882, alpha: 1.0)
+    result["Scotch Mist"] = NSColor(srgbRed: 1.0, green: 0.984314, blue: 0.862745, alpha: 1.0)
+    result["Nutmeg"] = NSColor(srgbRed: 0.505882, green: 0.258824, blue: 0.172549, alpha: 1.0)
+    result["Danube"] = NSColor(srgbRed: 0.376471, green: 0.576471, blue: 0.819608, alpha: 1.0)
+    result["Buttercup"] = NSColor(srgbRed: 0.952941, green: 0.678431, blue: 0.0862745, alpha: 1.0)
+    result["Bleach White"] = NSColor(srgbRed: 0.996078, green: 0.952941, blue: 0.847059, alpha: 1.0)
+    result["Clementine"] = NSColor(srgbRed: 0.913725, green: 0.431373, blue: 0.0, alpha: 1.0)
+    result["Lavender blush"] = NSColor(srgbRed: 1.0, green: 0.941176, blue: 0.960784, alpha: 1.0)
+    result["Jagger"] = NSColor(srgbRed: 0.207843, green: 0.054902, blue: 0.341176, alpha: 1.0)
+    result["Hopbush"] = NSColor(srgbRed: 0.815686, green: 0.427451, blue: 0.631373, alpha: 1.0)
+    result["Black Pearl"] = NSColor(srgbRed: 0.0156863, green: 0.0745098, blue: 0.133333, alpha: 1.0)
+    result["Golden Fizz"] = NSColor(srgbRed: 0.960784, green: 0.984314, blue: 0.239216, alpha: 1.0)
+    result["Valhalla"] = NSColor(srgbRed: 0.168627, green: 0.0980392, blue: 0.309804, alpha: 1.0)
+    result["Nepal"] = NSColor(srgbRed: 0.556863, green: 0.670588, blue: 0.756863, alpha: 1.0)
+    result["Paris Daisy"] = NSColor(srgbRed: 1.0, green: 0.956863, blue: 0.431373, alpha: 1.0)
+    result["Mandy"] = NSColor(srgbRed: 0.886275, green: 0.329412, blue: 0.396078, alpha: 1.0)
+    result["Lavender Purple"] = NSColor(srgbRed: 0.588235, green: 0.482353, blue: 0.713726, alpha: 1.0)
+    result["Harvest Gold"] = NSColor(srgbRed: 0.878431, green: 0.72549, blue: 0.454902, alpha: 1.0)
+    result["Grain Brown"] = NSColor(srgbRed: 0.894118, green: 0.835294, blue: 0.717647, alpha: 1.0)
+    result["Aluminium"] = NSColor(srgbRed: 0.662745, green: 0.67451, blue: 0.713726, alpha: 1.0)
+    result["Deep Teal"] = NSColor(srgbRed: 0.0, green: 0.207843, blue: 0.196078, alpha: 1.0)
+    result["Tacha"] = NSColor(srgbRed: 0.839216, green: 0.772549, blue: 0.384314, alpha: 1.0)
+    result["Tangaroa"] = NSColor(srgbRed: 0.0117647, green: 0.0862745, blue: 0.235294, alpha: 1.0)
+    result["Caper"] = NSColor(srgbRed: 0.862745, green: 0.929412, blue: 0.705882, alpha: 1.0)
+    result["Onion"] = NSColor(srgbRed: 0.184314, green: 0.152941, blue: 0.054902, alpha: 1.0)
+
+    return result
+}()
 
 extension NSColor {
 

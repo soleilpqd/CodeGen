@@ -57,6 +57,14 @@ extension XCProject {
         return nil
     }
 
+    func findAllAssets() -> [XCAssets] {
+        var result = [XCAssets]()
+        if let main = xcProject.mainGroup {
+            findAssets(in: main, store: &result)
+        }
+        return result
+    }
+
     private func getSwiftFiles(target: XCProjTarget, store: inout [String]) {
         guard let phases = target.buildPhases else { return }
         for phase in phases where phase.type == .compileSources {
