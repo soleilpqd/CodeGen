@@ -264,7 +264,7 @@ class XCTaskColor: XCTask {
         result += indent1 + "static var \(varName): UIColor {\n"
         if env.compareDeployVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
-                result += indent2 + "// swiftlint:disable:next force_cast"
+                result += indent2 + "// swiftlint:disable:next force_cast\n"
             }
             result += indent2 + "return UIColor(named: \"\(name)\")!\n"
         } else {
@@ -292,7 +292,7 @@ class XCTaskColor: XCTask {
         result += indent1 + "static var \(varName): UIColor {\n"
         if env.compareDeployVersion(version: "11.0") && colorNameAvailable {
             if project?.swiftlintEnable ?? false {
-                result += indent2 + "// swiftlint:disable:next force_cast"
+                result += indent2 + "// swiftlint:disable:next force_cast\n"
             }
             result += indent2 + "return UIColor(named: \"\(name)\")!\n"
         } else {
